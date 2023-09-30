@@ -2,9 +2,11 @@ from dataclasses import dataclass
 from enum import Enum, auto
 from typing import Optional
 
+
 @dataclass
 class ActionSpec:
     """A specification for an action that can be taken by a power."""
+
     name: str
     severity: int
     loss_of_life: int
@@ -15,11 +17,13 @@ class ActionSpec:
 @dataclass
 class Action:
     """A message sent from one power to another."""
+
     action_spec: ActionSpec
     sender: str
     recipient: str
     content: str
     turn_index: str
+
 
 @dataclass
 class BackendResponse:

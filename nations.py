@@ -1,21 +1,14 @@
 """
-Represents different agent prompting systems (e.g. GPT, 🤗 Transformers, random).
-
-A given agent should take in information about the game and a power, prompt
-an underlying model for a response, and return back the extracted response. 
+Represents a nation with its own settings and the ablility to query a backend to choose actions.
 """
 
 from abc import ABC, abstractmethod
 import json
 import random
 import time
-import yaml
+import pandas as pd
 
-from diplomacy import Game
 import wandb
-
-from welfare_diplomacy_baselines.environment import mila_actions, diplomacy_state
-from welfare_diplomacy_baselines.baselines import no_press_policies
 
 from backends import (
     ClaudeCompletionBackend,
@@ -29,27 +22,18 @@ class AgentCompletionError(ValueError):
     """Raised when an agent fails to complete a prompt."""
 
 
-class Agent(ABC):
-    """Base agent class."""
-
-    def __init__(self, **_):
-        """Base init to ignore unused kwargs."""
-
-    def __repr__(self) -> str:
-        """Return a string representation of the agent."""
-        raise NotImplementedError
-
-    @abstractmethod
-    def respond(
-        self,
-        params: AgentParams,
-    ) -> AgentResponse:
-        """Prompt the model for a response."""
-
-class LLMAgent(Agent):
+class Nation:
     """Uses OpenAI/Claude Chat/Completion to generate orders and messages."""
 
-    def __init__(self, model_name: str, **kwargs):
+    def __init__(self, nation_config: dict, model_name: str, **kwargs):
+        # Load config
+
+        # Nation static variables
+        name: str =
+
+        # Dynamic variables
+        gdp: int = 1000
+
         # Decide whether it's a chat or completion model
         disable_completion_preface = kwargs.pop("disable_completion_preface", False)
         self.use_completion_preface = not disable_completion_preface
@@ -162,24 +146,13 @@ class LLMAgent(Agent):
             completion_time_sec=response.completion_time_sec,
         )
 
+
 def model_name_to_agent(model_name: str, **kwargs) -> Agent:
     """Given a model name, return an instantiated corresponding agent."""
     model_name = model_name.lower()
     if model_name == "random":
-        return RandomAgent()
+        raise NotImplementedError
     elif model_name == "manual":
-        return ManualAgent(**kwargs)
-    elif model_name == "nopress":
-        return NoPressAgent(**kwargs)
-    elif model_name == "exploiter":
-        return ExploiterAgent(**kwargs)
-    elif (
-        "gpt-" in model_name
-        or "davinci-" in model_name
-        or "text-" in model_name
-        or "claude" in model_name
-        or "llama" in model_name
-    ):
-        return LLMAgent(model_name, **kwargs)
+        raise NotImplementedError
     else:
-        raise ValueError(f"Unknown model name: {model_name}")
+        return Nation(model_name, **kwargs)
