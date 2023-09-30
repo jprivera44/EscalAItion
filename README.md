@@ -9,6 +9,7 @@ Key Components
 Environment Class: Escalation
 The Escalation class inherits from the Environment class and is designed to simulate the escalation scenario. The key methods include:
 
+'''
 __init__(self, max_turn:int): Initializes the environment with a maximum number of turns.
 reset(self): Resets the environment to its initial state.
 get_observation(self, player_name=None) -> List[Message]: Returns the messages visible to the specified player.
@@ -20,7 +21,7 @@ _generate_previous_actions_summary(self): Generates a summary of the actions tak
 _moderator_speak(self, text: str, visible_to: Union[str, List[str]] = "all"): Allows the moderator to communicate with the presidents.
 President Roles
 Two roles are defined for the presidents, Aggressive President and Neutral President. Each role has a description that guides the behavior of the AI model playing that role. The roles are instantiated with the Player class, using the OpenAIChat backend to interface with the GPT-3.5-turbo model from OpenAI.
-
+'''
 Simulation Logic
 The simulation is carried out in a turn-based manner. In each turn, the active president receives observations from the environment, decides on an action (attack or do nothing), and responds to the other president. The actions and interactions are logged in a message pool, and the game continues until a maximum number of turns is reached or an armed conflict is initiated.
 
