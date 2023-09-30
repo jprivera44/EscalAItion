@@ -30,3 +30,18 @@ The responses from the AI models are expected to adhere to a specified JSON sche
 
 Running the Simulation
 Ensure that all the required libraries and dependencies are installed. Run the chatarenatutorial_ai_jams.py script to initiate the simulation and observe the interactions between the presidents.
+
+## Setup
+
+1. Create a python environment
+
+```
+conda create -n escalation python=3.11
+conda activate escalation
+```
+
+2. Install dependencies 
+
+```
+pip install -r requirements.txt
+```
