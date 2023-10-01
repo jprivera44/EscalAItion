@@ -93,7 +93,7 @@ class Nation:
     def __repr__(self) -> str:
         return f"Nation(Config: {self.nation_config}, Backend: {self.backend.model_name}, Temperature: {self.temperature}, Top P: {self.top_p})"
 
-    def choose_actions(self, world: World) -> NationResponse:
+    def respond(self, world: World) -> NationResponse:
         """Prompt the model for a response."""
         system_prompt = prompts.get_nation_system_prompt(world, self)
         user_prompt = prompts.get_nation_user_prompt(world, self)

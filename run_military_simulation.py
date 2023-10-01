@@ -53,11 +53,13 @@ def main():
     world = World(nations, action_config, max_days=args.max_days)
 
     # Main simulation loop
-    while world.current_week < world.max_days:
+    while world.current_day < world.max_days:
         # 2. Query the models
         queued_actions: list[Action] = []
         for nation in nations:
-            queued_actions.append(nation.choose_actions(world))
+            nation_response = nation.respond(world)
+            print(nation_response)
+            queued_actions.extend(nation_response.actions)
 
         # Update state called here
         world.update_state(queued_actions)

@@ -12,13 +12,18 @@ class World:
         # TODO process action config
         self.action_config = action_config
         self.max_days = max_days
-        self.current_week = 0
-        # History of week number to list of actions taken
+        self.current_day = 0
+        # History of day number to list of actions taken
         self.action_history: dict[int, list[Action]] = {}
         # when prmpting the messages, includes received messages from other nations
 
         # clean the self.action_config, so that the column names are valid and no longer have underscoes
         # also make sure that the column names are valid
+
+    # create a method to handle the differences of arithmetic, either multiplication or addition
+    def handle_arithmetic(self, action_type, recipient_type, action, action_design):
+        #fill in with logic
+        
 
     def update_nation_variable(self, nation_index, variable_name, value):
         # Find the nation corresponding to nation_index or name
@@ -26,9 +31,13 @@ class World:
         nation = self.nations[nation_index]
 
         # Get existing value
-        nations.get_static()
+        static_key = self.nations.get_static(variable_name)
+
+        #call the handle arithmetic method
+        value = handle_arithmetic()
 
         # Do math
+        self.nations.set_dynamic(static_key + value)
 
         # Set new value
 
@@ -39,7 +48,7 @@ class World:
             print(f"Invalid variable name: {variable_name} for nation {nation_index}")
 
     # add in the actions
-    # map of week number to actions
+    # map of day number to actions
     def update_state(self, actions: list[Action]):
         """Advance the state of the world, executing actions upon the nations."""
 
@@ -70,10 +79,13 @@ class World:
                     print(f"Invalid column name: {column_name}")
                     continue  # skip to the next column
 
-                action_type, recipient_type = components
+                action_type, recipient_type,  = components
 
                 if recipient_type == "self":
                     # Assume action.self is the index or name of the nation in self.nations
+                    #check if the action_type is arithmetic
+
+
                     # and action_design[column_name] is the value to update
                     self.update_nation_variable(action.self, action_design[column_name])
 
@@ -87,4 +99,4 @@ class World:
             # Add action to history
             self.action_history.append(action)
 
-        self.current_week += 1
+        self.current_day += 1
