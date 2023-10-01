@@ -116,6 +116,22 @@ def main():
         "total_tokens",
     ]
     model_response_costs_whole_run = []
+    actions_column_names = [
+        "day",
+        "self",
+        "other",
+        "action",
+        "content",
+    ]
+    actions_whole_run = []
+
+    # Log initial nation states (pre-update)
+    dynamic_vars_today = [
+        [0, nation.get_static("name")]
+        + [nation.get_dynamic(column_name) for column_name in dynamic_column_names]
+        for nation in nations
+    ]
+    dynamic_vars_whole_run.extend(dynamic_vars_today)
 
     # Main simulation loop
     logger.info(
@@ -143,22 +159,6 @@ def main():
                 )
                 queued_actions.extend(response.actions)
                 model_responses.append(response)
-
-            # Log current nation states (pre-update)
-            dynamic_vars_today = [
-                [world.current_day, nation.get_static("name")]
-                + [
-                    nation.get_dynamic(column_name)
-                    for column_name in dynamic_column_names
-                ]
-                for nation in nations
-            ]
-            dynamic_vars_whole_run.extend(dynamic_vars_today)
-
-            log_object["daily/dynamic_vars"] = wandb.Table(
-                columns=["day", "nation_name"] + dynamic_column_names,
-                data=dynamic_vars_today,
-            )
 
             # Log formatted model responses
             response: NationResponse
@@ -189,17 +189,49 @@ def main():
                 ]
                 for nation, response in zip(nations, model_responses)
             ]
-
+            model_response_costs_whole_run.extend(model_response_costs_today)
             log_object["daily/model_response_costs"] = wandb.Table(
                 columns=model_response_costs_column_names,
                 data=model_response_costs_today,
+            )
+
+            # Log actions
+            actions_today = [
+                [
+                    world.current_day,
+                    action.self,
+                    action.other,
+                    action.name,
+                    action.content,
+                ]
+                for action in queued_actions
+            ]
+            actions_whole_run.extend(actions_today)
+            log_object["daily/actions"] = wandb.Table(
+                columns=actions_column_names,
+                data=actions_today,
             )
 
             # Update world state, advancing the day
             world.update_state(queued_actions)
             pbar.update(1)
 
-            # Log the dynamic nation stats
+            # Log current nation states (post-update)
+            dynamic_vars_today = [
+                [world.current_day, nation.get_static("name")]
+                + [
+                    nation.get_dynamic(column_name)
+                    for column_name in dynamic_column_names
+                ]
+                for nation in nations
+            ]
+            dynamic_vars_whole_run.extend(dynamic_vars_today)
+            log_object["daily/dynamic_vars"] = wandb.Table(
+                columns=["day", "nation_name"] + dynamic_column_names,
+                data=dynamic_vars_today,
+            )
+
+            # Log the dynamic nation stats to console
             logger.info(
                 f"📊 Day {world.current_day - 1} concluded. Current nation stats:\n{format_nation_states_dynamic(world)}"
             )
@@ -218,6 +250,10 @@ def main():
     log_object["whole_run/dynamic_vars"] = wandb.Table(
         columns=["day", "nation_name"] + dynamic_column_names,
         data=dynamic_vars_whole_run,
+    )
+    log_object["whole_run/actions"] = wandb.Table(
+        columns=actions_column_names,
+        data=actions_whole_run,
     )
     log_object["whole_run/model_responses"] = wandb.Table(
         columns=model_response_text_column_names,
