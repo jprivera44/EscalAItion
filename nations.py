@@ -2,8 +2,8 @@
 Represents a nation with its own settings and the ablility to query a backend to choose actions.
 """
 
-import json
 from abc import ABC
+import json
 
 import pandas as pd
 
@@ -94,7 +94,7 @@ class MockNation(Nation):
                     f"Private message from {nation_name} to Red",
                 ),
                 Action("Wait", nation_name, self.get_static("name"), ""),
-                Action("Targeted Attack", nation_name, "Purple", ""),
+                Action("Execute Targeted Attack", nation_name, "Purple", ""),
             ],
             system_prompt=system_prompt,
             user_prompt=user_prompt,

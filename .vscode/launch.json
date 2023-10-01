@@ -43,7 +43,6 @@
             "program": "${workspaceFolder}/run_military_simulation.py",
             "console": "integratedTerminal",
             "args": [
-                "--disable_wandb",
                 "--nation_model",
                 "mock",
             ],

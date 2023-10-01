@@ -1,12 +1,12 @@
 """Utility functions."""
 
-from logging import Logger
 import random
+import time
 from typing import Any
 
 import numpy as np
 
-# import wandb
+import wandb
 
 
 def set_seed(seed: int) -> None:
@@ -30,3 +30,12 @@ def format_actions(response):
 def remove_duplicates_keep_order(lst: list[Any]) -> list[Any]:
     """Remove duplicates from a list while preserving order (keep last occurance)."""
     return list(dict.fromkeys(reversed(lst)))[::-1]
+
+
+def sleep_if_mock_wandb():
+    """Sleep to avoid wandb losing data."""
+    if (
+        not isinstance(wandb.run.mode, wandb.sdk.lib.disabled.RunDisabled)
+        and wandb.config.nation_model == "mock"
+    ):
+        time.sleep(5)

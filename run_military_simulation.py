@@ -6,6 +6,8 @@ import argparse
 import logging
 from logging import Logger
 import sys
+import time
+
 
 import pandas as pd
 from tqdm import tqdm
@@ -27,7 +29,7 @@ def main():
     parser.add_argument(
         "--max_days",
         type=int,
-        default=10,
+        default=2,
         help="Number of turns (representing days) to simulate",
     )
     parser.add_argument(
@@ -99,6 +101,8 @@ def main():
     model_response_text_column_names = [
         "day",
         "nation_name",
+        "system_prompt",
+        "user_prompt",
         "reasoning",
         "actions",
     ]
@@ -162,6 +166,8 @@ def main():
                 [
                     world.current_day,
                     nation.get_static("name"),
+                    response.system_prompt,
+                    response.user_prompt,
                     response.reasoning,
                     utils.format_actions(response),
                 ]
@@ -200,10 +206,14 @@ def main():
 
             wandb.log(log_object)
 
+            utils.sleep_if_mock_wandb()
+
     # When done, log the full tables all together
+    time.sleep(10)
+    logging.info("📝 Logging full tables to wandb")
     log_object = {
         "_progress/day": world.current_day,
-        "_progress/percent_done": world.current_day / world.max_days,
+        # "_progress/percent_done": 1.0,
     }
     log_object["whole_run/dynamic_vars"] = wandb.Table(
         columns=["day", "nation_name"] + dynamic_column_names,
@@ -218,6 +228,7 @@ def main():
         data=model_response_costs_whole_run,
     )
     wandb.log(log_object)
+    time.sleep(10)
 
     logger.info("🏁 Simulation complete!")
 
