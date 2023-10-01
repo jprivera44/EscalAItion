@@ -13,7 +13,7 @@ class World:
         # TODO process action config
         self.action_config = action_config
         self.max_days = max_days
-        self.current_day = 0
+        self.current_day = 1
         # History of day number to list of actions taken
         self.action_history: dict[int, list[Action]] = {}
         # when prmpting the messages, includes received messages from other nations

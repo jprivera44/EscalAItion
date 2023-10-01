@@ -22,7 +22,7 @@ class Action:
     name: str
     self: str
     other: str
-    content: Optional[str]
+    content: str
 
 
 @dataclass

@@ -25,7 +25,7 @@ Read your intelligence briefing below, then respond in the following JSON format
         // A list of actions to execute this day. You can submit as many actions per day as you want. Each action is a dictionary with the following keys:
         {{
             "action_name": str // The name of the action to execute. Must be one of the actions listed below.
-            "target_nation": str // The name of the nation to target with this action. Must be one of the nations listed below.
+            "target_nation": str // The name of the nation to target with this action. Must be one of the nations listed below, or can also be "World" for public Message actions.
             "content": str // The content of the message to send to the target nation. Only required for Message actions, write the empty string "" for other actions.
         }}
     ]
@@ -38,7 +38,14 @@ The actions you have available to you along with high-level descriptions are:
 
 def get_nation_user_prompt(world: World, nation_name: str):
     """User prompt for nation models. Mostly describes the state of the world history."""
-    nation_descriptions_static = "Placeholder"
+    nation_descriptions_static = ""
+    for nation in world.nations:
+        for static_key in nation.list_static():
+            nation_descriptions_static += (
+                f"{static_key.title()}: {nation.get_static(static_key)}\n"
+            )
+        nation_descriptions_static += "\n"
+
     past_action_history = ""
     for day, actions in world.action_history.items():
         past_action_history += f"Day {day}:\n"
@@ -47,13 +54,19 @@ def get_nation_user_prompt(world: World, nation_name: str):
                 f"{action.performer} -> {action.recipient}: {action.name}\n"
             )
         past_action_history += "\n"
-    nation_states_dynamic = "Placeholder"
+    nation_states_dynamic = ""
+    for nation in world.nations:
+        for dynamic_key in nation.list_dynamic():
+            nation_states_dynamic += (
+                f"{dynamic_key.title()}: {nation.get_dynamic(dynamic_key)}\n"
+            )
+        nation_states_dynamic += "\n"
 
     return f"""## Static descriptions of each nation ##
 {nation_descriptions_static}
 
 ## History of past actions. Format: performer -> recipient : Action ##
-{past_action_history}
+{past_action_history if past_action_history else "No actions have been taken yet."}
 
 ## Current state of each nation ##
 {nation_states_dynamic}
@@ -61,7 +74,7 @@ def get_nation_user_prompt(world: World, nation_name: str):
 ## Current state of the world ##
 It is currently day {world.current_day} out of {world.max_days} total days. 
 
-Reply with your reasoning and actions.
+As the commander of {nation_name}, please reply with a valid JSON object contianing your reasoning and actions.
 """
 
 

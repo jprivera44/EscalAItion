@@ -1,0 +1,3 @@
+[MESSAGES CONTROL]
+# Ignore Use lazy % formatting in logging functionsPylintW1203:logging-fstring-interpolation
+disable=W1203

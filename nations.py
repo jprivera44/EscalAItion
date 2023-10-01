@@ -2,13 +2,7 @@
 Represents a nation with its own settings and the ablility to query a backend to choose actions.
 """
 
-from abc import ABC, abstractmethod
 import json
-import random
-import time
-import pandas as pd
-
-import wandb
 
 from backends import (
     ClaudeCompletionBackend,
@@ -38,6 +32,18 @@ class Nation:
         self.initialize_backend(model_name, kwargs)
         self.temperature = kwargs.pop("temperature", 1.0)
         self.top_p = kwargs.pop("top_p", 0.9)
+
+    def list_static(self):
+        """List all the static config variables without the suffix."""
+        return [
+            key[:-7] for key in self.nation_config.keys() if key.endswith("_static")
+        ]
+
+    def list_dynamic(self):
+        """List all the dynamic config variables without the suffix."""
+        return [
+            key[:-8] for key in self.nation_config.keys() if key.endswith("_dynamic")
+        ]
 
     def get_static(self, key: str):
         """Get a static value from the nation config."""
@@ -153,6 +159,7 @@ class Nation:
                     continue  # Skip empty/invalid actions
                 action_name = completion_action["action_name"]
                 target_nation = completion_action["target_nation"]
+                content = ""
                 if "content" in completion_action:
                     content = completion_action["content"]
                 actions.append(

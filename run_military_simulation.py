@@ -68,15 +68,17 @@ def main():
     # Main simulation loop
     logger.info("Starting simulation")
 
-    with tqdm(total=world.max_days, desc=f"Day", file=sys.stdout) as pbar:
-        while world.current_day < world.max_days:
+    with tqdm(total=world.max_days, desc="Day", file=sys.stdout) as pbar:
+        while world.current_day <= world.max_days:
             logger.info(f"Beginning day {world.current_day} of {world.max_days}")
             # Query the models
             queued_actions: list[Action] = []
             for nation_index, nation in enumerate(nations):
-                nation_response = nation.respond(world)
-                logger.info(f"Response from {nation_index}:\n{nation_response}")
-                queued_actions.extend(nation_response.actions)
+                response = nation.respond(world)
+                logger.info(
+                    f"⚙️ Response from {nation_index} took {response.completion_time_sec}s, {response.prompt_tokens} prompt tokens, {response.completion_tokens} completion tokens:\nReasoning: {response.reasoning}\nActions: {response.actions}"
+                )
+                queued_actions.extend(response.actions)
 
             # Update world state, advancing the day
             world.update_state(queued_actions)
