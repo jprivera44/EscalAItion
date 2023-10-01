@@ -75,8 +75,14 @@ def main():
             queued_actions: list[Action] = []
             for nation_index, nation in enumerate(nations):
                 response = nation.respond(world)
+                action_print = "\n\t".join(
+                    [
+                        f"{action.self} -> {action.other} : {action.name} {action.content}"
+                        for action in response.actions
+                    ]
+                )
                 logger.info(
-                    f"⚙️ Response from {nation_index} took {response.completion_time_sec}s, {response.prompt_tokens} prompt tokens, {response.completion_tokens} completion tokens:\nReasoning: {response.reasoning}\nActions: {response.actions}"
+                    f"⚙️ Response from {nation_index} took {response.completion_time_sec}s, {response.prompt_tokens} prompt tokens, {response.completion_tokens} completion tokens:\nReasoning: {response.reasoning}\nActions: {action_print}"
                 )
                 queued_actions.extend(response.actions)
 

@@ -50,9 +50,10 @@ def get_nation_user_prompt(world: World, nation_name: str):
     for day, actions in world.action_history.items():
         past_action_history += f"Day {day}:\n"
         for action in actions:
-            past_action_history += (
-                f"{action.performer} -> {action.recipient}: {action.name}\n"
-            )
+            past_action_history += f"{action.self} -> {action.other} : {action.name}"
+            if action.content:
+                past_action_history += f" {action.content}"
+            past_action_history += "\n"
         past_action_history += "\n"
     nation_states_dynamic = ""
     for nation in world.nations:
