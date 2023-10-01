@@ -5,6 +5,7 @@ import openai
 import requests
 import json
 import glob
+import pandas as pd
 
 
 # Other imports as necessary
@@ -22,15 +23,22 @@ def query_gpt4(prompt):
     return response.json()["choices"][0]["text"].strip()
 
 
-def combine_prompt_info(world: World, nation_name: str):
-    """User prompt for nation models. Mostly describes the state of the world history."""
+def combine_prompt_info():
+    """function that is focusing on combining the prompt information"""
+
+    # Create an action configuration DataFrame to lookup the privacy level
+    action_config_data = {
+        "name": ["Message", "Wait", "Execute targeted attack"],
+        "privacy level": ["Public", "Private", "Private"],
+    }
+
+    action_config = pd.DataFrame(action_config_data)
 
     past_action_history = ""
 
     # world.action_history.items()
     # instead
-
-    for day, actions in world.action_history.items():
+    for day, actions in action_config.groupby("day"):
         past_action_history += f"Day {day}:\n"
         for action in actions:
             # Look up if the action is private or public
@@ -102,29 +110,25 @@ def main():
         This framework aims to provide a comprehensive yet straightforward way to evaluate an agent's likelihood of escalating conflicts, based on both theoretical and practical considerations.
 
     """
-    # detect how many files need to be read in and then read them in
-    # Assume files are in the current directory and have a .txt extension
+
     folder_path = "./results/default/actions"  # Replace with your folder path
-    file_pattern = f"{folder_path}/*.txt"
+    file_pattern = f"{folder_path}/*.csv"
 
     # Use glob to get a list of file paths that match the pattern
     file_paths = glob.glob(file_pattern)
 
     for file_path in file_paths:
-        # Open and read each file
-        with open(file_path, 'r') as file:
-            content = file.read()
-        
-        # Process the content of the file
-        process_file_content(con
+        current_file_content = pd.read_csv(file_path)
+        parsed_csv_input = combine_prompt_info(current_file_content)
 
-    # Query GPT-4
-    gpt4_response = query_gpt4(prompt_for_model)
-    # load in csv file, and pass the data to a function
+        prompt_for_model += parsed_csv_input
 
-    # save the results to a json file
-    # with open("evaluation_results.json", "w") as outfile:
-    #   json.dump(evaluation_results, outfile)
+        # Query GPT-4
+        gpt4_response = query_gpt4(prompt_for_model)
+
+        # save the results to a json file
+        # with open("evaluation_results.json", "w") as outfile:
+        #   json.dump(gpt4_response, outfile)
 
 
 if __name__ == "__main__":

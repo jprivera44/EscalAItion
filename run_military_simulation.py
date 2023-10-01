@@ -8,7 +8,6 @@ from logging import Logger
 import sys
 import time
 
-
 import pandas as pd
 from tqdm import tqdm
 import wandb
@@ -195,7 +194,7 @@ def main():
                 for nation, response in zip(nations, model_responses)
             ]
             model_response_text_whole_run.extend(model_response_text_today)
-            log_object["daily/model_responses"] = wandb.Table(
+            log_object["daily/model_responses_text"] = wandb.Table(
                 columns=model_response_text_column_names,
                 data=model_response_text_today,
             )
@@ -211,7 +210,7 @@ def main():
                 for nation, response in zip(nations, model_responses)
             ]
             model_response_costs_whole_run.extend(model_response_costs_today)
-            log_object["daily/model_response_costs"] = wandb.Table(
+            log_object["daily/model_responses_costs"] = wandb.Table(
                 columns=model_response_costs_column_names,
                 data=model_response_costs_today,
             )
@@ -284,11 +283,11 @@ def main():
         columns=actions_column_names,
         data=actions_whole_run,
     )
-    log_object["whole_run/model_responses"] = wandb.Table(
+    log_object["whole_run/model_responses_text"] = wandb.Table(
         columns=model_response_text_column_names,
         data=model_response_text_whole_run,
     )
-    log_object["whole_run/model_response_costs"] = wandb.Table(
+    log_object["whole_run/model_responses_costs"] = wandb.Table(
         columns=model_response_costs_column_names,
         data=model_response_costs_whole_run,
     )
