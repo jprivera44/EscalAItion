@@ -1,6 +1,4 @@
 """The global game state with settings and the ability to resolve actions."""
-
-from nations import Nation
 from data_types import Action
 
 
@@ -8,6 +6,9 @@ class World:
     """The global environment state."""
 
     def __init__(self, nations, action_config, max_days):
+        # Imported here to avoid circular imports
+        from nations import Nation
+
         self.nations: list[Nation] = nations
         # TODO process action config
         self.action_config = action_config

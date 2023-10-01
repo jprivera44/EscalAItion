@@ -3,7 +3,12 @@ Main simulation loop to run the military simulation.
 """
 
 import argparse
+import logging
+from logging import Logger
+
 import pandas as pd
+from tqdm import tqdm
+
 from nations import Nation
 from data_types import Action
 from world import World
@@ -47,22 +52,35 @@ def main():
         action_config = pd.read_csv(file)
 
     # Initialize things
+    logger: Logger = logging.getLogger(__name__)
+    logging.basicConfig()
+    logger.setLevel(logging.INFO)
+
+    logger.info("Initializing Nations")
     nations = [
         Nation(nation_config, args.nation_model) for nation_config in nations_config
     ]
+    logger.info("Initializing World")
     world = World(nations, action_config, max_days=args.max_days)
 
     # Main simulation loop
-    while world.current_day < world.max_days:
-        # 2. Query the models
-        queued_actions: list[Action] = []
-        for nation in nations:
-            nation_response = nation.respond(world)
-            print(nation_response)
-            queued_actions.extend(nation_response.actions)
+    logger.info("Starting simulation")
 
-        # Update state called here
-        world.update_state(queued_actions)
+    with tqdm(total=world.max_days, desc=f"Day {world.current_day}") as pbar:
+        while world.current_day < world.max_days:
+            logger.info(f"Beginning day {world.current_day} of {world.max_days}")
+            # Query the models
+            queued_actions: list[Action] = []
+            for nation_index, nation in enumerate(nations):
+                nation_response = nation.respond(world)
+                logger.info(f"Response from {nation_index}:\n{nation_response}")
+                queued_actions.extend(nation_response.actions)
+
+            # Update world state, advancing the day
+            world.update_state(queued_actions)
+            pbar.update(1)
+
+    logger.info("Simulation complete!")
 
 
 if __name__ == "__main__":
