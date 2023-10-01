@@ -5,10 +5,11 @@ from data_types import Action
 class World:
     """The global environment state."""
 
-    def __init__(self, nations, action_config, max_days):
+    def __init__(self, logger, nations, action_config, max_days):
         # Imported here to avoid circular imports
         from nations import LLMNation
 
+        self.logger = logger
         self.nations: list[LLMNation] = nations
         self.action_config = action_config
         self.max_days = max_days
@@ -37,6 +38,7 @@ class World:
         return value
 
     def update_nation_variable(self, nation_name, variable_name, delta, operator):
+        """Update the dynamic variable of a nation."""
         # Find the nation corresponding to nation_name
         nation = [
             nation
@@ -79,8 +81,20 @@ class World:
         for action in actions:
             # Match action.name to one of the action_design in the action_config
             if action.name not in set(self.action_config["name"]):
-                print(f"Action {action.name} not found in action config")
+                self.logger.warning(f"Action {action.name} not found in action config")
                 continue
+
+            # Check for invalid other nation
+            if action.other not in [
+                nation.get_static("name") for nation in self.nations
+            ]:
+                if (
+                    action.name == "Message" and action.other != "World"
+                ) or action.name != "Message":
+                    self.logger.warning(
+                        f"Action {action.name} has invalid other nation {action.other}"
+                    )
+                    continue
 
             # Access the row for the series
             action_design = self.action_config.loc[

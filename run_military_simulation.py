@@ -99,7 +99,7 @@ def main():
         for _, nation_config in nations_config.iterrows()
     ]
     logger.info("Initializing World")
-    world = World(nations, action_config, max_days=args.max_days)
+    world = World(logger, nations, action_config, max_days=args.max_days)
 
     # Initialize some run-wide trackers
     dynamic_column_names = nations[0].list_dynamic()
