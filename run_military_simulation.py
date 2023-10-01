@@ -50,7 +50,7 @@ def main():
     parser.add_argument(
         "--project",
         dest="project",
-        default="escalaition",
+        default="escalaition-v1",
         help="🏗️ Weights & Biases project name.",
     )
     parser.add_argument(
