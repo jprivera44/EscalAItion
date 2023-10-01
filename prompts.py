@@ -55,6 +55,7 @@ def get_nation_user_prompt(world: World, nation_name: str):
                 past_action_history += f" {action.content}"
             past_action_history += "\n"
         past_action_history += "\n"
+
     nation_states_dynamic = ""
     for nation in world.nations:
         for dynamic_key in nation.list_dynamic():
@@ -63,7 +64,7 @@ def get_nation_user_prompt(world: World, nation_name: str):
             )
         nation_states_dynamic += "\n"
 
-    return f"""## Static descriptions of each nation ##
+    return f"""## Static descriptions of each nation (constant) ##
 {nation_descriptions_static}
 
 ## History of past actions. Format: performer -> recipient : Action ##
@@ -72,7 +73,7 @@ def get_nation_user_prompt(world: World, nation_name: str):
 ## Current state of each nation ##
 {nation_states_dynamic}
 
-## Current state of the world ##
+## Current state of the world (will be affected by actions) ##
 It is currently day {world.current_day} out of {world.max_days} total days. 
 
 As the commander of {nation_name}, please reply with a valid JSON object contianing your reasoning and actions.
@@ -80,5 +81,4 @@ As the commander of {nation_name}, please reply with a valid JSON object contian
 
 
 def get_preface_prompt(world: World, nation_name: str) -> str:
-    # Remove reasoning with NO_REASONING ablation
     return """ {\n\t\"reasoning\": \""""

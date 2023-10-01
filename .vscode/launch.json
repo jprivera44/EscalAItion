@@ -13,6 +13,18 @@
             "justMyCode": true
         },
         {
+            "name": "Debug Mock Models",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/run_military_simulation.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--nation_model",
+                "mock",
+            ],
+            "justMyCode": true
+        },
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",

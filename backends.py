@@ -5,14 +5,13 @@ Mostly copied from https://github.com/mukobi/welfare-diplomacy
 """
 
 from abc import ABC, abstractmethod
-from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
-from anthropic._exceptions import APIError
 import time
 
+from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
+from anthropic._exceptions import APIError
 import backoff
 import openai
 from openai.error import OpenAIError
-
 from transformers import AutoTokenizer, LlamaForCausalLM, BitsAndBytesConfig
 import torch
 

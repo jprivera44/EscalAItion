@@ -10,7 +10,7 @@ import sys
 import pandas as pd
 from tqdm import tqdm
 
-from nations import Nation
+from nations import model_name_to_nation
 from data_types import Action
 from world import World
 
@@ -59,7 +59,7 @@ def main():
 
     logger.info("Initializing Nations")
     nations = [
-        Nation(nation_config, args.nation_model)
+        model_name_to_nation(nation_config, model_name=args.nation_model)
         for _, nation_config in nations_config.iterrows()
     ]
     logger.info("Initializing World")
@@ -81,8 +81,9 @@ def main():
                         for action in response.actions
                     ]
                 )
+                nation_name = nation.get_static("name")
                 logger.info(
-                    f"⚙️ Response from {nation_index} took {response.completion_time_sec}s, {response.prompt_tokens} prompt tokens, {response.completion_tokens} completion tokens:\nReasoning: {response.reasoning}\nActions: {action_print}"
+                    f"⚙️ Response from {nation_name} took {response.completion_time_sec}s, {response.prompt_tokens} prompt tokens, {response.completion_tokens} completion tokens:\nReasoning: {response.reasoning}\nActions: {action_print}"
                 )
                 queued_actions.extend(response.actions)
 

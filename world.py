@@ -7,10 +7,9 @@ class World:
 
     def __init__(self, nations, action_config, max_days):
         # Imported here to avoid circular imports
-        from nations import Nation
+        from nations import LLMNation
 
-        self.nations: list[Nation] = nations
-        # TODO process action config
+        self.nations: list[LLMNation] = nations
         self.action_config = action_config
         self.max_days = max_days
         self.current_day = 1

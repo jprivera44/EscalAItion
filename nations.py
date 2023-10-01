@@ -3,6 +3,9 @@ Represents a nation with its own settings and the ablility to query a backend to
 """
 
 import json
+from abc import ABC
+
+import pandas as pd
 
 from backends import (
     ClaudeCompletionBackend,
@@ -23,15 +26,9 @@ class NationCompletionError(ValueError):
     """Raised when a Nation agent fails to complete a prompt."""
 
 
-class Nation:
-    """Uses OpenAI/Claude Chat/Completion to generate orders and messages."""
-
-    def __init__(self, nation_config: dict, model_name: str, **kwargs):
+class Nation(ABC):
+    def __init__(self, nation_config: dict, **kwargs):
         self.nation_config = nation_config
-
-        self.initialize_backend(model_name, kwargs)
-        self.temperature = kwargs.pop("temperature", 1.0)
-        self.top_p = kwargs.pop("top_p", 0.9)
 
     def list_static(self):
         """List all the static config variables without the suffix."""
@@ -68,6 +65,17 @@ class Nation:
             key in self.nation_config
         ), f"Key {key} not found in nation config {self.nation_config}"
         self.nation_config[key] = value
+
+
+class LLMNation(Nation):
+    """Uses OpenAI/Claude Chat/Completion to generate orders and messages."""
+
+    def __init__(self, nation_config: dict, **kwargs):
+        super().__init__(nation_config, **kwargs)
+        model_name = kwargs.pop("model_name", "UNKNOWN")
+        self.temperature = kwargs.pop("temperature", 1.0)
+        self.top_p = kwargs.pop("top_p", 0.9)
+        self.initialize_backend(model_name, kwargs)
 
     def initialize_backend(self, model_name, kwargs):
         """Decide which LLM backend to use."""
@@ -167,7 +175,9 @@ class Nation:
                 )
 
         except Exception as exc:
-            raise NationCompletionError(f"Exception: {exc}\n\Response: {response}")
+            raise NationCompletionError(
+                f"Exception: {exc}\n\Response: {response}"
+            ) from exc
         return NationResponse(
             reasoning=reasoning,
             actions=actions,
@@ -180,12 +190,12 @@ class Nation:
         )
 
 
-# def model_name_to_agent(model_name: str, **kwargs) -> Nation:
-#     """Given a model name, return an instantiated corresponding agent."""
-#     model_name = model_name.lower()
-#     if model_name == "random":
-#         raise NotImplementedError
-#     elif model_name == "manual":
-#         raise NotImplementedError
-#     else:
-#         return Nation(model_name, **kwargs)
+def model_name_to_nation(
+    nation_config: pd.Series, model_name: str, **kwargs
+) -> LLMNation:
+    """Given a model name, return an instantiated corresponding agent."""
+    model_name = model_name.lower()
+    if model_name == "mock":
+        raise NotImplementedError
+    else:
+        return LLMNation(nation_config, model_name=model_name, **kwargs)
