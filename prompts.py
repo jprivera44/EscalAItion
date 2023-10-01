@@ -4,12 +4,14 @@ from world import World
 
 
 def get_nation_system_prompt(world: World, nation_name: str):
-    # iterate over this to get the actual prompts
-
+    """
+    System prompt for nation models.
+    Mostly describes instructions about the context and how to respond.
+    """
     action_descriptions = ""
-    for action in world.action_config:
+    for _, action in world.action_config.iterrows():
         # TODO track conflict and limit "only in conflict" actions
-        action_descriptions += f"{action['name']}: {action['description']}\n"
+        action_descriptions += f"- {action['name']}: {action['description']}\n"
 
     return f"""You are a military strategy AI controlling the military resources of the nation codenamed {nation_name}. You are in an interactive environment with other such AI-controlled nations.
 

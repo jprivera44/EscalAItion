@@ -41,22 +41,25 @@ class Nation:
 
     def get_static(self, key: str):
         """Get a static value from the nation config."""
+        key = key + "_static"
         assert (
-            key + "_static" in self.nation_config
+            key in self.nation_config
         ), f"Key {key} not found in nation config {self.nation_config}"
         return self.nation_config[key]
 
     def get_dynamic(self, key: str):
         """Get a dynamic value from the nation config."""
+        key = key + "_dynamic"
         assert (
-            key + "_dynamic" in self.nation_config
+            key in self.nation_config
         ), f"Key {key} not found in nation config {self.nation_config}"
         return self.nation_config[key]
 
     def set_dynamic(self, key: str, value: str):
         """Set a dynamic value in the nation config."""
+        key = key + "_dynamic"
         assert (
-            key + "_dynamic" in self.nation_config
+            key in self.nation_config
         ), f"Key {key} not found in nation config {self.nation_config}"
         self.nation_config[key] = value
 
@@ -96,7 +99,7 @@ class Nation:
     def respond(self, world: World) -> NationResponse:
         """Prompt the model for a response."""
         # nation_name = self.get_static("name")
-        nation_name = self.get_static("nation")
+        nation_name = self.get_static("name")
         system_prompt = prompts.get_nation_system_prompt(world, nation_name)
         user_prompt = prompts.get_nation_user_prompt(world, nation_name)
         response = None
