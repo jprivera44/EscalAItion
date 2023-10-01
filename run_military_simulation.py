@@ -29,7 +29,7 @@ def main():
     parser.add_argument(
         "--max_days",
         type=int,
-        default=2,
+        default=14,
         help="Number of turns (representing days) to simulate",
     )
     parser.add_argument(
@@ -144,7 +144,7 @@ def main():
             # Store things for logging to wandb
             log_object = {
                 "_progress/day": world.current_day,
-                "_progress/percent_done": world.current_day / world.max_days,
+                "_progress/percent_done": world.current_day / world.max_days * 100.0,
             }
             model_responses = []
 
@@ -244,7 +244,7 @@ def main():
     time.sleep(10)
     logging.info("📝 Logging full tables to wandb")
     log_object = {
-        "_progress/day": world.current_day,
+        # "_progress/day": world.current_day,
         # "_progress/percent_done": 1.0,
     }
     log_object["whole_run/dynamic_vars"] = wandb.Table(

@@ -36,8 +36,8 @@ Ensure that all the required libraries and dependencies are installed. Run the c
 1. Create a python environment
 
 ```
-conda create -n escalation python=3.11
-conda activate escalation
+conda create -n escalaition python=3.11
+conda activate escalaition
 ```
 
 2. Install dependencies 

@@ -33,6 +33,8 @@
                 "--disable_wandb",
                 "--nation_model",
                 "mock",
+                "--max_days",
+                "2",
             ],
             "justMyCode": true
         },
