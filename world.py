@@ -20,53 +20,71 @@ class World:
         # clean the self.action_config, so that the column names are valid and no longer have underscoes
         # also make sure that the column names are valid
 
-    def update_variable(self, variable_name: str, value: str):
-        if hasattr(self, variable_name):
-            current_value = getattr(self, variable_name)
-            new_value = self.convert_value(value, type(current_value))
-            setattr(self, variable_name, new_value)
-        else:
-            raise ValueError(f"Invalid variable name: {variable_name}")
+    def update_nation_variable(self, nation_index, variable_name, value):
+        # Find the nation corresponding to nation_index or name
+        # This assumes nation_index is an index, adjust if it's a name or other identifier
+        nation = self.nations[nation_index]
 
-    @staticmethod
-    def convert_value(value: str, data_type: type) -> any:
-        if data_type == int:
-            return int(value)
-        elif data_type == float:
-            return float(value.strip("%")) / 100 if "%" in value else float(value)
+        # Get existing value
+        nations.get_static()
 
+        # Do math
+
+        # Set new value
+
+        if hasattr(nation, variable_name):
+            # Assume the variable on the nation should be incremented by value
+            setattr(nation, variable_name, getattr(nation, variable_name) + value)
         else:
-            return value  # Return value as-is if data type is not recognized
+            print(f"Invalid variable name: {variable_name} for nation {nation_index}")
 
     # add in the actions
     # map of week number to actions
     def update_state(self, actions: list[Action]):
         """Advance the state of the world, executing actions upon the nations."""
 
+        # Psuedocode
+        # for action in actions:
+        # Match action.name to one of the action_design in the action_config
+        # If the name doesn't match, log a warning and skip this action
+        # For the columns in that action_design
+        # If the column ends in _self or _other (meaning it affects stats)
+        # Update the relevant nation variables for action.self
+        # Find the nation corresponding to action.other
+        # Update the relevant nation variables for action.other
+        # Add the self, other, and action name to the action_history
+
         for action in actions:
-            column_name = action.column_name
-            components = column_name.split("_")
-            assert len(components) == 2  # Column name and type (self/other)
-            action_type = components[0]
-            assert action_type in self.action_config
-            recepient_type = components[1]
+            # Match action.name to one of the action_design in the action_config
+            if action.name not in self.action_config:
+                print(f"Action {action.name} not found in action config")
+                continue
 
-            if recepient_type == "self":
-                # Update the relevant nation variables
+            action_design = self.action_config[action.name]
 
-                # create a for loop that goes through the nations and updates the variables
-                for nation in self.nations:
-                    if nation.name == action_type:
-                nation.update_variable(action.column_name, action.value)
-                        
+            # For the columns in that action_design
+            for column_name in action_design.columns:
+                components = column_name.split("_")
+                # change this to an assertion after you think the continue
+                if len(components) != 2:
+                    print(f"Invalid column name: {column_name}")
+                    continue  # skip to the next column
 
-                pass
+                action_type, recipient_type = components
 
-            elif recepient_type == "other":
-                # Update the relevant other nation variables
-                self.nations
-                pass
+                if recipient_type == "self":
+                    # Assume action.self is the index or name of the nation in self.nations
+                    # and action_design[column_name] is the value to update
+                    self.update_nation_variable(action.self, action_design[column_name])
 
-            pass
+                elif recipient_type == "other":
+                    # Assume action.other is the index or name of the nation in self.nations
+                    # and action_design[column_name] is the value to update
+                    self.update_nation_variable(
+                        action.other, action_design[column_name]
+                    )
+
+            # Add action to history
+            self.action_history.append(action)
 
         self.current_week += 1
