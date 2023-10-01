@@ -50,6 +50,13 @@ class World:
         # call the handle arithmetic method
         dynamic_value = self.perform_operation(nation_value, value, operator)
 
+        # clamp the dynmaic value between 0 and 10
+        if variable_name == "population":
+            # clamp to 0 and have no max value
+            dynamic_value = max(0, dynamic_value)
+        elif variable_name != "GDP":
+            dynamic_value = max(0, min(10, dynamic_value))
+
         nation.set_dynamic(variable_name, dynamic_value)
 
     # add in the actions
@@ -88,6 +95,9 @@ class World:
             # If message action, don't update any variables
             if action.name == "Message":
                 continue
+
+            # inplement nuclear locking
+            # clamping dyanmic variables between 0 and 10, unless its GDP clamp to 0
 
             # For the columns in that action_design
             for column_name in action_design.keys():
