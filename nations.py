@@ -26,10 +26,9 @@ class Nation:
     """Uses OpenAI/Claude Chat/Completion to generate orders and messages."""
 
     def __init__(self, nation_config: dict, model_name: str, **kwargs):
-        # Load config
-
         # Nation static variables
-        name: str =
+        name: str = nation_config["name"]
+        description: str = nation_config["description"]
 
         # Dynamic variables
         gdp: int = 1000
@@ -68,7 +67,7 @@ class Nation:
     def __repr__(self) -> str:
         return f"LLMAgent(Backend: {self.backend.model_name}, Temperature: {self.temperature}, Top P: {self.top_p})"
 
-    def respond(self, params: AgentParams) -> AgentResponse:
+    def choose_actions(self, params: AgentParams) -> AgentResponse:
         """Prompt the model for a response."""
         system_prompt = prompts.get_system_prompt(params)
         user_prompt = prompts.get_user_prompt(params)

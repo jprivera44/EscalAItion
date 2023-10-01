@@ -26,32 +26,41 @@ from prompts import (
 
 
 def main():
+    """Simulate a military escalation."""
+
     # Parse command line arguments
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--max_weeks", type=int, default=10, help="Number of turns (weeks) to simulate"
+        "--max_weeks",
+        type=int,
+        default=10,
+        help="Number of turns (representing weeks) to simulate",
     )
     parser.add_argument(
-        "--agent_model",
+        "--nation_model",
         type=str,
         default="gpt-3.5-turbo-0613",
         help="Agent model to use",
     )
     parser.add_argument(
-        "--world_model",
+        "--nations_config_filepath",
         type=str,
-        default="gpt-3.5-turbo-0613",
+        default="data/nations_configs/nations_v1.csv",
     )
     parser.add_argument(
-        "--agent_config_filepath",
+        "--action_config_filepath",
         type=str,
-        default="data/agent_configs/debug.csv",
+        default="data/action_configs/actions_v1.csv",
     )
     args = parser.parse_args()
 
     # Load nation configs
-    with open(args.nation_spec_filepath, "r") as file:
-        all_nation_configs = pd.read_csv(file)
+    with open(args.nations_config_filepath, "r", encoding="utf-8") as file:
+        nations_config = pd.read_csv(file)
+
+    # Load in the action config
+    with open(args.action_config_filepath, "r", encoding="utf-8") as file:
+        action_config = pd.read_csv(file)
 
     # commenting this out for now
     # actions_spec = pd.read_csv('data/actions_spec.csv')
@@ -108,7 +117,7 @@ def main():
     ]
 
     # Convert the list of dictionaries to a DataFrame
-    action_configs = pd.DataFrame(data)
+    action_config = pd.DataFrame(data)
 
     # TODO Load action spec
     # with
@@ -116,20 +125,19 @@ def main():
     # Assume actions_spec is derived from your CSV data
 
     # Initialize things
-    nations = [Nation(nation_config) for nation_config in all_nation_configs]
-    world = World(nations, action_configs, max_weeks=args.max_weeks)
+    nations = [
+        Nation(nation_config, args.nation_model) for nation_config in nations_config
+    ]
+    world = World(nations, action_config, max_weeks=args.max_weeks)
 
     # Main simulation loop
     while world.current_week < world.max_weeks:
-        # 0. Increment the turn index
-        world.current_week += 1
-
-        # 1. Roll some random events
+        # 1. TODO Roll some random events
         # select random events fromt the random events yaml file
-        event_index = np.random.choice(
-            len(events_data["events"])
-        )  # Assuming equal probabilities for simplicity
-        random_event = events_data["events"][event_index]
+        # event_index = np.random.choice(
+        #   len(events_data["events"])
+        # )  # Assuming equal probabilities for simplicity
+        # random_event = events_data["events"][event_index]
 
         # #once the random event is selected, it is added to the message history, with moves from both sides
         # queued_actions.append(Action(
@@ -140,22 +148,12 @@ def main():
         # ))
 
         # 2. Query the models
-        queued_actions: Action = []
-        for model in models:
-            response = model.query()
+        queued_actions: list[Action] = []
+        for nation in nations:
+            queued_actions.append(nation.choose_actions(world))
 
-            queued_actions.append(
-                Action(
-                    sender=model.name,
-                    recipient=model.recipient,
-                    content=response.message,
-                    timestamp=datetime.now(),
-                )
-            )
-
-        # 3. Execute the queued actions by asking the moderator
-        moderator_prompt = prompts.get_moderator_prompt(queued_actions, agents)
-        moderator_response = moderator.query(moderator_prompt)
+        # Update state called here
+        world.update_state(queued_actions)
 
 
 if __name__ == "__main__":
