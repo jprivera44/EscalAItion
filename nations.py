@@ -67,6 +67,38 @@ class Nation(ABC):
         self.nation_config[key] = value
 
 
+class MockNation(Nation):
+    """Just always sends some simple actions for testing."""
+
+    def __repr__(self) -> str:
+        return f"MockNation(Name: {self.get_static('name')})"
+
+    def respond(self, world: World) -> NationResponse:
+        """Return some simple actions"""
+        nation_name = self.get_static("name")
+        system_prompt = prompts.get_nation_system_prompt(world, nation_name)
+        user_prompt = prompts.get_nation_user_prompt(world, nation_name)
+        return NationResponse(
+            reasoning="I'm a mock nation, I don't have any reasoning.",
+            actions=[
+                Action(
+                    "Message",
+                    nation_name,
+                    "World",
+                    f"Hello World on day {world.current_day} from ",
+                ),
+                Action("Wait", nation_name, self.get_static("name"), ""),
+                Action("Targeted Attack", nation_name, "Purple", ""),
+            ],
+            system_prompt=system_prompt,
+            user_prompt=user_prompt,
+            prompt_tokens=0,
+            completion_tokens=0,
+            total_tokens=0,
+            completion_time_sec=0.0,
+        )
+
+
 class LLMNation(Nation):
     """Uses OpenAI/Claude Chat/Completion to generate orders and messages."""
 
@@ -108,7 +140,7 @@ class LLMNation(Nation):
             self.backend = OpenAIChatBackend(model_name)
 
     def __repr__(self) -> str:
-        return f"Nation(Config: {self.nation_config}, Backend: {self.backend.model_name}, Temperature: {self.temperature}, Top P: {self.top_p})"
+        return f"LLMNation(Name: {self.get_static('name')}, Backend: {self.backend.model_name}, Temperature: {self.temperature}, Top P: {self.top_p})"
 
     def respond(self, world: World) -> NationResponse:
         """Prompt the model for a response."""
@@ -196,6 +228,6 @@ def model_name_to_nation(
     """Given a model name, return an instantiated corresponding agent."""
     model_name = model_name.lower()
     if model_name == "mock":
-        raise NotImplementedError
+        return MockNation(nation_config, model_name=model_name, **kwargs)
     else:
         return LLMNation(nation_config, model_name=model_name, **kwargs)
