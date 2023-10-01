@@ -266,6 +266,7 @@ def main():
     wandb.log(log_object)
     time.sleep(10)
 
+    wandb.finish()
     logger.info("🏁 Simulation complete!")
 
 

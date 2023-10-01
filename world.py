@@ -36,7 +36,7 @@ class World:
 
         return value
 
-    def update_nation_variable(self, nation_name, variable_name, value, operator):
+    def update_nation_variable(self, nation_name, variable_name, delta, operator):
         # Find the nation corresponding to nation_name
         nation = [
             nation
@@ -45,19 +45,20 @@ class World:
         ][0]
 
         # Dynamic value
-        nation_value = nation.get_dynamic(variable_name)
+        old_value = nation.get_dynamic(variable_name)
 
         # call the handle arithmetic method
-        dynamic_value = self.perform_operation(nation_value, value, operator)
+        new_value = self.perform_operation(old_value, delta, operator)
 
         # clamp the dynmaic value between 0 and 10
         if variable_name == "population":
             # clamp to 0 and have no max value
-            dynamic_value = max(0, dynamic_value)
-        elif variable_name != "GDP":
-            dynamic_value = max(0, min(10, dynamic_value))
+            new_value = max(0, new_value)
+        elif variable_name != "gdp":
+            # GDP is unclamped
+            new_value = max(0, min(10, new_value))
 
-        nation.set_dynamic(variable_name, dynamic_value)
+        nation.set_dynamic(variable_name, new_value)
 
     # add in the actions
     # map of day number to actions

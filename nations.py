@@ -94,7 +94,7 @@ class MockNation(Nation):
                     f"Private message from {nation_name} to Red",
                 ),
                 Action("Wait", nation_name, self.get_static("name"), ""),
-                Action("Execute Targeted Attack", nation_name, "Purple", ""),
+                Action("Execute targeted attack", nation_name, "Purple", ""),
             ],
             system_prompt=system_prompt,
             user_prompt=user_prompt,
