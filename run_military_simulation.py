@@ -60,6 +60,13 @@ def main():
         action="store_true",
         help="🚫Disable Weights & Biases logging.",
     )
+    parser.add_argument(
+        "--max_model_retries",
+        dest="max_model_retries",
+        type=int,
+        default=5,
+        help="⚠️ Max retries for querying a model.",
+    )
     args = parser.parse_args()
 
     # Initialize weights and biases
@@ -151,7 +158,21 @@ def main():
             # Query the models
             queued_actions: list[Action] = []
             for nation_index, nation in enumerate(world.nations):
-                response = nation.respond(world)
+                response = None
+                for _ in range(wandb.config.max_model_retries):
+                    try:
+                        response = nation.respond(world)
+                        break
+                    except Exception as exc:
+                        logger.warning(
+                            f"⚠️  Exception when querying {nation.get_static('name')}: {exc}"
+                        )
+                        time.sleep(1)
+                if response is None:
+                    logger.error(
+                        f"🚨  Max retries exceeded for {nation.get_static('name')}, skipping"
+                    )
+                    continue
                 action_print = utils.format_actions(response)
                 nation_name = nation.get_static("name")
                 logger.info(
