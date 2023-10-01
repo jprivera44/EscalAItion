@@ -34,7 +34,7 @@ def main():
     parser.add_argument(
         "--nation_model",
         type=str,
-        default="gpt-3.5-turbo-0613",
+        default="gpt-3.5-turbo-16k-0613",
         help="Agent model to use",
     )
     parser.add_argument(
@@ -213,6 +213,22 @@ def main():
             log_object["daily/model_responses_costs"] = wandb.Table(
                 columns=model_response_costs_column_names,
                 data=model_response_costs_today,
+            )
+
+            # Log token costs of responses this turn as a histogram
+            log_object["costs/model_response_total_tokens_hist"] = wandb.Histogram(
+                [response.total_tokens for response in model_responses]
+            )
+            log_object["costs/model_response_prompt_tokens_hist"] = wandb.Histogram(
+                [response.prompt_tokens for response in model_responses]
+            )
+            log_object["costs/model_response_completion_tokens_hist"] = wandb.Histogram(
+                [response.completion_tokens for response in model_responses]
+            )
+            log_object[
+                "costs/model_response_completion_time_sec_hist"
+            ] = wandb.Histogram(
+                [response.completion_time_sec for response in model_responses]
             )
 
             # Log actions

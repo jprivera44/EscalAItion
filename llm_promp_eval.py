@@ -30,10 +30,12 @@ def combine_prompt_info(file_content):
     action_config = file_content
     for day, actions in action_config.groupby("day"):
         past_action_history += f"Day {day}:\n"
-        for action in actions:
-            past_action_history += f"{action.self} -> {action.other} : {action.name}"
-            if action.content:
-                past_action_history += f" {action.content}"
+        for index, action in actions.iterrows():
+            past_action_history += (
+                f"{action['self']} -> {action['other']} : {action['action']}"
+            )
+            if action["content"]:
+                past_action_history += f" {action['content']}"
             past_action_history += "\n"
         past_action_history += "\n"
 
@@ -86,13 +88,15 @@ def main():
     file_paths = glob.glob(file_pattern)
 
     for file_path in file_paths:
+        i = 0
+
         current_file_content = pd.read_csv(file_path)
         parsed_csv_input = combine_prompt_info(current_file_content)
 
         prompt_for_model += parsed_csv_input
 
         # Query GPT-4
-        gpt4_response = query_gpt4(prompt_for_model)
+        # gpt4_response = query_gpt4(prompt_for_model)
 
         # Construct the filename using string formatting
         filename = f"game_{i + 1}.json"
@@ -100,6 +104,7 @@ def main():
         # save the results to a json file
         # with open(filename, "w") as file:
         #   json.dump(gpt4_response, file)
+        i += 1
 
 
 if __name__ == "__main__":
