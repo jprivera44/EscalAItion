@@ -17,6 +17,16 @@ def set_seed(seed: int) -> None:
     # torch.cuda.manual_seed_all(seed)
 
 
+def format_actions(response):
+    """Pretty print a list of actions."""
+    return "\n\t".join(
+        [
+            f"- {action.self} -> {action.other} : {action.name} {action.content}"
+            for action in response.actions
+        ]
+    )
+
+
 def remove_duplicates_keep_order(lst: list[Any]) -> list[Any]:
     """Remove duplicates from a list while preserving order (keep last occurance)."""
     return list(dict.fromkeys(reversed(lst)))[::-1]

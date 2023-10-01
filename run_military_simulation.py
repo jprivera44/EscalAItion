@@ -12,7 +12,8 @@ from tqdm import tqdm
 import wandb
 
 from nations import model_name_to_nation
-from data_types import Action
+from data_types import Action, NationResponse
+from prompts import format_nation_descriptions_static, format_nation_states_dynamic
 import utils
 from world import World
 
@@ -92,31 +93,131 @@ def main():
     logger.info("Initializing World")
     world = World(nations, action_config, max_days=args.max_days)
 
-    # Main simulation loop
-    logger.info("Starting simulation")
+    # Initialize some run-wide trackers
+    dynamic_column_names = nations[0].list_dynamic()
+    dynamic_vars_whole_run = []
+    model_response_text_column_names = [
+        "day",
+        "nation_name",
+        "reasoning",
+        "actions",
+    ]
+    model_response_text_whole_run = []
+    model_response_costs_column_names = [
+        "day",
+        "nation_name",
+        "completion_time_sec",
+        "prompt_tokens",
+        "completion_tokens",
+        "total_tokens",
+    ]
+    model_response_costs_whole_run = []
 
+    # Main simulation loop
+    logger.info(
+        f"## 🎌 Starting simulation with the following nations: ##\n{format_nation_descriptions_static(world)}\n{format_nation_states_dynamic(world)}"
+    )
     with tqdm(total=world.max_days, desc="Day", file=sys.stdout) as pbar:
         while world.current_day <= world.max_days:
             logger.info(f"📆 Beginning day {world.current_day} of {world.max_days}")
+
+            # Store things for logging to wandb
+            log_object = {
+                "_progress/day": world.current_day,
+                "_progress/percent_done": world.current_day / world.max_days,
+            }
+            model_responses = []
+
             # Query the models
             queued_actions: list[Action] = []
             for nation_index, nation in enumerate(world.nations):
                 response = nation.respond(world)
-                action_print = "\n\t".join(
-                    [
-                        f"{action.self} -> {action.other} : {action.name} {action.content}"
-                        for action in response.actions
-                    ]
-                )
+                action_print = utils.format_actions(response)
                 nation_name = nation.get_static("name")
                 logger.info(
                     f"⚙️  Response from {nation_name} ({nation_index + 1}/{len(nations)}) took {response.completion_time_sec}s, {response.prompt_tokens} prompt tokens, {response.completion_tokens} completion tokens:\nReasoning: {response.reasoning}\nActions: {action_print}"
                 )
                 queued_actions.extend(response.actions)
+                model_responses.append(response)
+
+            # Log current nation states (pre-update)
+            dynamic_vars_today = [
+                [world.current_day, nation.get_static("name")]
+                + [
+                    nation.get_dynamic(column_name)
+                    for column_name in dynamic_column_names
+                ]
+                for nation in nations
+            ]
+            dynamic_vars_whole_run.extend(dynamic_vars_today)
+
+            log_object["daily/dynamic_vars"] = wandb.Table(
+                columns=["day", "nation_name"] + dynamic_column_names,
+                data=dynamic_vars_today,
+            )
+
+            # Log formatted model responses
+            response: NationResponse
+            model_response_text_today = [
+                [
+                    world.current_day,
+                    nation.get_static("name"),
+                    response.reasoning,
+                    utils.format_actions(response),
+                ]
+                for nation, response in zip(nations, model_responses)
+            ]
+            model_response_text_whole_run.extend(model_response_text_today)
+            log_object["daily/model_responses"] = wandb.Table(
+                columns=model_response_text_column_names,
+                data=model_response_text_today,
+            )
+            model_response_costs_today = [
+                [
+                    world.current_day,
+                    nation.get_static("name"),
+                    response.completion_time_sec,
+                    response.prompt_tokens,
+                    response.completion_tokens,
+                    response.total_tokens,
+                ]
+                for nation, response in zip(nations, model_responses)
+            ]
+
+            log_object["daily/model_response_costs"] = wandb.Table(
+                columns=model_response_costs_column_names,
+                data=model_response_costs_today,
+            )
 
             # Update world state, advancing the day
             world.update_state(queued_actions)
             pbar.update(1)
+
+            # Log the dynamic nation stats
+            logger.info(
+                f"📊 Day {world.current_day - 1} concluded. Current nation stats:\n{format_nation_states_dynamic(world)}"
+            )
+
+            wandb.log(log_object)
+
+    # When done, log the full tables all together
+    log_object = {
+        "_progress/day": world.current_day,
+        "_progress/percent_done": world.current_day / world.max_days,
+    }
+    log_object["whole_run/dynamic_vars"] = wandb.Table(
+        columns=["day", "nation_name"] + dynamic_column_names,
+        data=dynamic_vars_whole_run,
+    )
+    log_object["whole_run/model_responses"] = wandb.Table(
+        columns=model_response_text_column_names,
+        data=model_response_text_whole_run,
+    )
+    log_object["whole_run/model_response_costs"] = wandb.Table(
+        columns=model_response_costs_column_names,
+        data=model_response_costs_whole_run,
+    )
+    wandb.log(log_object)
 
     logger.info("🏁 Simulation complete!")
 
