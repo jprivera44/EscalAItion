@@ -231,6 +231,14 @@ def main():
                 data=dynamic_vars_today,
             )
 
+            # Create a metric for each dynamic variable for each nation
+            for column_name in dynamic_column_names:
+                for nation in nations:
+                    nation_name = nation.get_static("name")
+                    log_object[
+                        f"dynamic_vars_split/{column_name}/{nation_name}"
+                    ] = nation.get_dynamic(column_name)
+
             # Log the dynamic nation stats to console
             logger.info(
                 f"📊 Day {world.current_day - 1} concluded. Current nation stats:\n{format_nation_states_dynamic(world)}"
@@ -241,7 +249,7 @@ def main():
             utils.sleep_if_mock_wandb()
 
     # When done, log the full tables all together
-    time.sleep(10)
+    time.sleep(10)  # wait for wandb to catch up
     logging.info("📝 Logging full tables to wandb")
     log_object = {
         # "_progress/day": world.current_day,
@@ -264,10 +272,11 @@ def main():
         data=model_response_costs_whole_run,
     )
     wandb.log(log_object)
-    time.sleep(10)
+    time.sleep(5)
 
     wandb.finish()
     logger.info("🏁 Simulation complete!")
+    time.sleep(5)
 
 
 if __name__ == "__main__":
