@@ -17,6 +17,7 @@ from backends import (
     HuggingFaceCausalLMBackend,
 )
 from data_types import (
+    Action,
     BackendResponse,
     NationResponse,
 )
@@ -90,7 +91,7 @@ class Nation:
             self.backend = OpenAIChatBackend(model_name)
 
     def __repr__(self) -> str:
-        return f"LLMAgent(Backend: {self.backend.model_name}, Temperature: {self.temperature}, Top P: {self.top_p})"
+        return f"Nation(Config: {self.nation_config}, Backend: {self.backend.model_name}, Temperature: {self.temperature}, Top P: {self.top_p})"
 
     def choose_actions(self, world: World) -> NationResponse:
         """Prompt the model for a response."""
@@ -99,7 +100,7 @@ class Nation:
         response = None
         try:
             if self.use_completion_preface:
-                preface_prompt = prompts.get_preface_prompt(params)
+                preface_prompt = prompts.get_preface_prompt(world, self)
                 response: BackendResponse = self.backend.complete(
                     system_prompt,
                     user_prompt,
@@ -133,35 +134,30 @@ class Nation:
                 if "reasoning" in completion
                 else "*model outputted no reasoning*"
             )
-            orders = completion["orders"]
+            completion_actions = completion["actions"]
             # Clean orders
-            for order in orders:
-                if not isinstance(order, str):
-                    raise NationCompletionError(
-                        f"Order is not a str\n\Response: {response}"
-                    )
-            # Enforce no messages in no_press
-            if params.game.no_press:
-                completion["messages"] = {}
-            # Turn recipients in messages into ALLCAPS for the engine
-            messages = {}
-            for recipient, message in completion["messages"].items():
-                if isinstance(message, list):
-                    # Handle weird model outputs
-                    message = " ".join(message)
-                if not isinstance(message, str):
-                    # Force each message into a string
-                    message = str(message)
-                if not message:
-                    # Skip empty messages
-                    continue
-                messages[recipient.upper()] = message
+            actions: list[Action] = []
+            for completion_action in completion_actions:
+                if not isinstance(completion_action, dict):
+                    continue  # Skip empty/invalid actions
+                if (
+                    "action_name" not in completion_action
+                    or "target_nation" not in completion_action
+                ):
+                    continue  # Skip empty/invalid actions
+                action_name = completion_action["action_name"]
+                target_nation = completion_action["target_nation"]
+                if "content" in completion_action:
+                    content = completion_action["content"]
+                actions.append(
+                    Action(action_name, self.get_static("name"), target_nation, content)
+                )
+
         except Exception as exc:
             raise NationCompletionError(f"Exception: {exc}\n\Response: {response}")
-        return AgentResponse(
+        return NationResponse(
             reasoning=reasoning,
-            orders=orders,
-            messages=messages,
+            actions=actions,
             system_prompt=system_prompt,
             user_prompt=user_prompt,
             prompt_tokens=response.prompt_tokens,
@@ -171,12 +167,12 @@ class Nation:
         )
 
 
-def model_name_to_agent(model_name: str, **kwargs) -> Agent:
-    """Given a model name, return an instantiated corresponding agent."""
-    model_name = model_name.lower()
-    if model_name == "random":
-        raise NotImplementedError
-    elif model_name == "manual":
-        raise NotImplementedError
-    else:
-        return Nation(model_name, **kwargs)
+# def model_name_to_agent(model_name: str, **kwargs) -> Nation:
+#     """Given a model name, return an instantiated corresponding agent."""
+#     model_name = model_name.lower()
+#     if model_name == "random":
+#         raise NotImplementedError
+#     elif model_name == "manual":
+#         raise NotImplementedError
+#     else:
+#         return Nation(model_name, **kwargs)
