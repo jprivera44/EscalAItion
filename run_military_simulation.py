@@ -18,8 +18,8 @@ from nations import Nation
 from data_types import Action
 from world import World
 from prompts import (
-    get_agent_system_prompt,
-    get_agent_user_prompt,
+    get_nation_system_prompt,
+    get_nation_user_prompt,
     get_moderator_system_prompt,
     get_model_user_prompt,
 )
@@ -61,63 +61,6 @@ def main():
     # Load in the action config
     with open(args.action_config_filepath, "r", encoding="utf-8") as file:
         action_config = pd.read_csv(file)
-
-    # commenting this out for now
-    # actions_spec = pd.read_csv('data/actions_spec.csv')
-
-    # hard code in a pandas datafrae for the actions spec
-    # Define the lists
-    event_names = [
-        "nuclear_launch_detected",
-        "random_drone_strike",
-        "power_outage",
-        "cyber_attack",
-        "negotiation",
-    ]
-    actions = ["Action1", "Action2", "Action3", "Action4", "Action5"]
-    severities = ["Low", "Medium", "High"]
-
-    # Define some hardcoded economic impact values
-    economic_impact_values = np.random.uniform(
-        -1.0, 1.0, 15
-    )  # Generating 15 random values as an example
-
-    # Mock action config for testing
-    data = [
-        {
-            "event_name": "nuclear_launch_detected",
-            "economic_impact": economic_impact_values[0],
-            "action": "Action1",
-            "severity": "High",
-        },
-        {
-            "event_name": "random_drone_strike",
-            "economic_impact": economic_impact_values[1],
-            "action": "Action2",
-            "severity": "Medium",
-        },
-        {
-            "event_name": "power_outage",
-            "economic_impact": economic_impact_values[2],
-            "action": "Action3",
-            "severity": "Low",
-        },
-        {
-            "event_name": "cyber_attack",
-            "economic_impact": economic_impact_values[3],
-            "action": "Action4",
-            "severity": "High",
-        },
-        {
-            "event_name": "negotiation",
-            "economic_impact": economic_impact_values[4],
-            "action": "Action5",
-            "severity": "Medium",
-        },
-    ]
-
-    # Convert the list of dictionaries to a DataFrame
-    action_config = pd.DataFrame(data)
 
     # TODO Load action spec
     # with
