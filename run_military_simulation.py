@@ -2,27 +2,11 @@
 Main simulation loop to run the military simulation.
 """
 
-from dataclasses import dataclass
-import os
-import sys
-import time
 import argparse
-import yaml
-import numpy as np
-import random
 import pandas as pd
-from datetime import datetime
-from collections import defaultdict
-
 from nations import Nation
 from data_types import Action
 from world import World
-from prompts import (
-    get_nation_system_prompt,
-    get_nation_user_prompt,
-    get_moderator_system_prompt,
-    get_model_user_prompt,
-)
 
 
 def main():
@@ -61,11 +45,6 @@ def main():
     # Load in the action config
     with open(args.action_config_filepath, "r", encoding="utf-8") as file:
         action_config = pd.read_csv(file)
-
-    # TODO Load action spec
-    # with
-
-    # Assume actions_spec is derived from your CSV data
 
     # Initialize things
     nations = [

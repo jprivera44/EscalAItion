@@ -4,7 +4,7 @@ from nations import Nation
 from world import World
 
 
-def get_agent_system_prompt(nation: Nation, world: World):
+def get_nation_system_prompt(nation: Nation, world: World):
     # iterate over this to get the actual prompts
 
     action_descriptions = ""
@@ -36,13 +36,16 @@ The actions you have available to you along with description of what they do are
 """
 
 
-def get_agent_user_prompt(nation: Nation, world: World):
+def get_nation_user_prompt(nation: Nation, world: World):
+    """User prompt for nation models. Mostly describes the state of the world history."""
     return f"""Descriptions of each Nation.
 
-            History of past events.
+TODO History of past actions. Each line is the action performer -> the action recipient: The action E.g.
+Week 1:
+Red -> Blu
 
-            It is currently week {world.current_week} out of {world.max_weeks} total weeks. Reply with your reasoning and actions.
-            """
+It is currently week {world.current_week} out of {world.max_weeks} total weeks. Reply with your reasoning and actions.
+"""
 
 
 def get_preface_prompt(

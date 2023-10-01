@@ -1,5 +1,8 @@
+"""Data classes."""
+
 from dataclasses import dataclass
-from enum import Enum, auto
+
+# from enum import Enum, auto
 from typing import Optional
 
 
@@ -37,12 +40,11 @@ class BackendResponse:
 
 
 @dataclass
-class AgentResponse:
-    """A response from an agent for a single turn of actions."""
+class NationResponse:
+    """A response from a Nation agent for a single turn."""
 
     reasoning: str  # Private reasoning to generate the response.
-    orders: list[str]  # Orders to execute.
-    messages: dict[str, str]  # Messages to send to other powers.
+    actions: list[Action]  # Orders to execute.
     system_prompt: str  # System prompt
     user_prompt: Optional[str]  # User prompt if available
     prompt_tokens: int  # Number of tokens in prompt

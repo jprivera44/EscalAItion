@@ -16,22 +16,23 @@ from backends import (
     OpenAICompletionBackend,
     HuggingFaceCausalLMBackend,
 )
+from data_types import (
+    BackendResponse,
+    NationResponse,
+)
 
 
-class AgentCompletionError(ValueError):
-    """Raised when an agent fails to complete a prompt."""
+class NationCompletionError(ValueError):
+    """Raised when a Nation agent fails to complete a prompt."""
 
 
 class Nation:
     """Uses OpenAI/Claude Chat/Completion to generate orders and messages."""
 
-    def __init__(self, nation_config: dict, model_name: str, **kwargs):
-        # Nation static variables
-        name: str = nation_config["name"]
-        description: str = nation_config["description"]
-
-        # Dynamic variables
-        gdp: int = 1000
+    def __init__(self, nation_config_unprocessed: dict, model_name: str, **kwargs):
+        # TODO load static and dynamic variables
+        self.name: str = nation_config_unprocessed["name"]
+        self.description: str = nation_config_unprocessed["description"]
 
         # Decide whether it's a chat or completion model
         disable_completion_preface = kwargs.pop("disable_completion_preface", False)
@@ -61,8 +62,8 @@ class Nation:
             # Chat models can't specify the start of the completion
             self.use_completion_preface = False
             self.backend = OpenAIChatBackend(model_name)
-        self.temperature = kwargs.pop("temperature", 0.7)
-        self.top_p = kwargs.pop("top_p", 1.0)
+        self.temperature = kwargs.pop("temperature", 1.0)
+        self.top_p = kwargs.pop("top_p", 0.9)
 
     def __repr__(self) -> str:
         return f"LLMAgent(Backend: {self.backend.model_name}, Temperature: {self.temperature}, Top P: {self.top_p})"
@@ -112,7 +113,7 @@ class Nation:
             # Clean orders
             for order in orders:
                 if not isinstance(order, str):
-                    raise AgentCompletionError(
+                    raise NationCompletionError(
                         f"Order is not a str\n\Response: {response}"
                     )
             # Enforce no messages in no_press
@@ -132,7 +133,7 @@ class Nation:
                     continue
                 messages[recipient.upper()] = message
         except Exception as exc:
-            raise AgentCompletionError(f"Exception: {exc}\n\Response: {response}")
+            raise NationCompletionError(f"Exception: {exc}\n\Response: {response}")
         return AgentResponse(
             reasoning=reasoning,
             orders=orders,

@@ -1,7 +1,7 @@
 """
 Language model backends.
 
-Copied from https://github.com/mukobi/welfare-diplomacy
+Mostly copied from https://github.com/mukobi/welfare-diplomacy
 """
 
 from abc import ABC, abstractmethod
@@ -18,8 +18,6 @@ import torch
 
 import constants
 from data_types import BackendResponse
-
-
 
 
 class LanguageModelBackend(ABC):
