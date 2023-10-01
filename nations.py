@@ -95,12 +95,14 @@ class Nation:
 
     def respond(self, world: World) -> NationResponse:
         """Prompt the model for a response."""
-        system_prompt = prompts.get_nation_system_prompt(world, self)
-        user_prompt = prompts.get_nation_user_prompt(world, self)
+        # nation_name = self.get_static("name")
+        nation_name = self.get_static("nation")
+        system_prompt = prompts.get_nation_system_prompt(world, nation_name)
+        user_prompt = prompts.get_nation_user_prompt(world, nation_name)
         response = None
         try:
             if self.use_completion_preface:
-                preface_prompt = prompts.get_preface_prompt(world, self)
+                preface_prompt = prompts.get_preface_prompt(world, nation_name)
                 response: BackendResponse = self.backend.complete(
                     system_prompt,
                     user_prompt,
@@ -134,8 +136,9 @@ class Nation:
                 if "reasoning" in completion
                 else "*model outputted no reasoning*"
             )
+
+            # Extract and clean actions up
             completion_actions = completion["actions"]
-            # Clean orders
             actions: list[Action] = []
             for completion_action in completion_actions:
                 if not isinstance(completion_action, dict):

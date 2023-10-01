@@ -5,6 +5,7 @@ Main simulation loop to run the military simulation.
 import argparse
 import logging
 from logging import Logger
+import sys
 
 import pandas as pd
 from tqdm import tqdm
@@ -34,12 +35,12 @@ def main():
     parser.add_argument(
         "--nations_config_filepath",
         type=str,
-        default="data/nations_configs/nations_v1.csv",
+        default="nations_configs/nations_v1.csv",
     )
     parser.add_argument(
         "--action_config_filepath",
         type=str,
-        default="data/action_configs/actions_v1.csv",
+        default="action_configs/actions_v1.csv",
     )
     args = parser.parse_args()
 
@@ -58,7 +59,8 @@ def main():
 
     logger.info("Initializing Nations")
     nations = [
-        Nation(nation_config, args.nation_model) for nation_config in nations_config
+        Nation(nation_config, args.nation_model)
+        for _, nation_config in nations_config.iterrows()
     ]
     logger.info("Initializing World")
     world = World(nations, action_config, max_days=args.max_days)
@@ -66,7 +68,7 @@ def main():
     # Main simulation loop
     logger.info("Starting simulation")
 
-    with tqdm(total=world.max_days, desc=f"Day {world.current_day}") as pbar:
+    with tqdm(total=world.max_days, desc=f"Day", file=sys.stdout) as pbar:
         while world.current_day < world.max_days:
             logger.info(f"Beginning day {world.current_day} of {world.max_days}")
             # Query the models
