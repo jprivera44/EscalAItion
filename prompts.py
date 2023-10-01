@@ -40,13 +40,7 @@ The actions you have available to you along with high-level descriptions are:
 
 def get_nation_user_prompt(world: World, nation_name: str):
     """User prompt for nation models. Mostly describes the state of the world history."""
-    nation_descriptions_static = ""
-    for nation in world.nations:
-        for static_key in nation.list_static():
-            nation_descriptions_static += (
-                f"{static_key.title()}: {nation.get_static(static_key)}\n"
-            )
-        nation_descriptions_static += "\n"
+    nation_descriptions_static = format_nation_descriptions_static(world)
 
     past_action_history = ""
     for day, actions in world.action_history.items():
@@ -58,13 +52,7 @@ def get_nation_user_prompt(world: World, nation_name: str):
             past_action_history += "\n"
         past_action_history += "\n"
 
-    nation_states_dynamic = ""
-    for nation in world.nations:
-        for dynamic_key in nation.list_dynamic():
-            nation_states_dynamic += (
-                f"{dynamic_key.title()}: {nation.get_dynamic(dynamic_key)}\n"
-            )
-        nation_states_dynamic += "\n"
+    nation_states_dynamic = format_nation_states_dynamic(world)
 
     return f"""## Static descriptions of each nation (constant) ##
 {nation_descriptions_static}
@@ -80,6 +68,30 @@ It is currently day {world.current_day} out of {world.max_days} total days.
 
 As the commander of {nation_name}, please reply with a valid JSON object containing your reasoning and actions.
 """
+
+
+def format_nation_descriptions_static(world):
+    """Format the static descriptions of each nation for the user prompt."""
+    nation_descriptions_static = ""
+    for nation in world.nations:
+        for static_key in nation.list_static():
+            nation_descriptions_static += (
+                f"{static_key.title()}: {nation.get_static(static_key)}\n"
+            )
+        nation_descriptions_static += "\n"
+    return nation_descriptions_static
+
+
+def format_nation_states_dynamic(world):
+    """Format the dynamic states of each nation for the user prompt."""
+    nation_states_dynamic = ""
+    for nation in world.nations:
+        for dynamic_key in nation.list_dynamic():
+            nation_states_dynamic += (
+                f"{dynamic_key.title()}: {nation.get_dynamic(dynamic_key)}\n"
+            )
+        nation_states_dynamic += "\n"
+    return nation_states_dynamic
 
 
 def get_preface_prompt(world: World, nation_name: str) -> str:

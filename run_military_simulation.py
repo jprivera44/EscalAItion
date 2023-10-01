@@ -9,9 +9,11 @@ import sys
 
 import pandas as pd
 from tqdm import tqdm
+import wandb
 
 from nations import model_name_to_nation
 from data_types import Action
+import utils
 from world import World
 
 
@@ -20,6 +22,7 @@ def main():
 
     # Parse command line arguments
     parser = argparse.ArgumentParser()
+    parser.add_argument("--seed", dest="seed", type=int, default=0, help="Random seed")
     parser.add_argument(
         "--max_days",
         type=int,
@@ -42,7 +45,31 @@ def main():
         type=str,
         default="action_configs/actions_v1.csv",
     )
+    parser.add_argument(
+        "--project",
+        dest="project",
+        default="escalaition",
+        help="🏗️ Weights & Biases project name.",
+    )
+    parser.add_argument(
+        "--disable_wandb",
+        dest="disable_wandb",
+        action="store_true",
+        help="🚫Disable Weights & Biases logging.",
+    )
     args = parser.parse_args()
+
+    # Initialize weights and biases
+    wandb.init(
+        project=args.project,
+        save_code=True,
+        config=vars(args),
+        mode="disabled" if args.disable_wandb else "online",
+        settings=wandb.Settings(code_dir="."),
+    )
+    assert wandb.run is not None
+
+    utils.set_seed(wandb.config.seed)
 
     # Load nation configs
     with open(args.nations_config_filepath, "r", encoding="utf-8") as file:
@@ -52,7 +79,7 @@ def main():
     with open(args.action_config_filepath, "r", encoding="utf-8") as file:
         action_config = pd.read_csv(file)
 
-    # Initialize things
+    # Initialize other things
     logger: Logger = logging.getLogger(__name__)
     logging.basicConfig()
     logger.setLevel(logging.INFO)
@@ -83,7 +110,7 @@ def main():
                 )
                 nation_name = nation.get_static("name")
                 logger.info(
-                    f"⚙️  Response from {nation_name} ({nation_index}/{len(nations)}) took {response.completion_time_sec}s, {response.prompt_tokens} prompt tokens, {response.completion_tokens} completion tokens:\nReasoning: {response.reasoning}\nActions: {action_print}"
+                    f"⚙️  Response from {nation_name} ({nation_index + 1}/{len(nations)}) took {response.completion_time_sec}s, {response.prompt_tokens} prompt tokens, {response.completion_tokens} completion tokens:\nReasoning: {response.reasoning}\nActions: {action_print}"
                 )
                 queued_actions.extend(response.actions)
 

@@ -1,8 +1,8 @@
-name_static,governance_static,nuclear_static,aggression_static,willingness to use force_static,proximity eu_static,proximity uk_static,proximity taiwan_static,proximity china_static,proximity india_static,proximity us_static,proximity brazil_static,military capacity_dynamic,gdp_dynamic,trade_dynamic,resources_dynamic,political stability_dynamic,population_dynamic,soft power_dynamic,cybersecurity_dynamic
-Purple,Democratic,1,1,3,1,2,5,5,4,4,5,3,18.8,5,5,5,447,5,5
-White,Democratic,5,2,3,2,1,5,5,4,4,5,3,3,5,4,5,67,5,5
-Pink,Democratic,1,1,2,5,5,1,2,3,5,5,2,1.3,4,3,4,23.5,4,4
-Red,Authoritarian,5,3,5,5,5,2,1,2,5,5,5,17,5,5,5,1400,3,5
-Yellow,Democratic,5,2,3,4,4,3,2,1,5,5,4,3.2,4,4,4,1380,3,4
-Blue,Democratic,5,5,5,4,4,5,5,5,1,3,5,21,5,5,5,332,5,5
-Green,Democratic,1,1,3,5,5,5,5,5,3,1,3,3.1,4,3,4,213,3,3
+name_static,governance_static,aggression_static,willingness to use force_static,proximity to purple_static,proximity to white_static,proximity to pink_static,proximity to red_static,proximity to yellow_static,proximity to blue_static,proximity to green_static,military capacity_dynamic,gdp_dynamic,trade_dynamic,resources_dynamic,political stability_dynamic,population_dynamic,soft power_dynamic,cybersecurity_dynamic,nuclear_dynamic
+Purple,Democratic,1,3,1,2,5,5,4,4,5,3,18.8,5,5,5,447,5,5,0
+White,Democratic,2,3,2,1,5,5,4,4,5,3,3,5,4,5,67,5,5,10
+Pink,Democratic,1,2,5,5,1,2,3,5,5,2,1.3,4,3,4,23.5,4,4,0
+Red,Authoritarian,3,5,5,5,2,1,2,5,5,5,17,5,5,5,1400,3,5,10
+Yellow,Democratic,2,3,4,4,3,2,1,5,5,4,3.2,4,4,4,1380,3,4,10
+Blue,Democratic,5,5,4,4,5,5,5,1,3,5,21,5,5,5,332,5,5,10
+Green,Democratic,1,3,5,5,5,5,5,3,1,3,3.1,4,3,4,213,3,3,0
