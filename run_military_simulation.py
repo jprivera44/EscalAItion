@@ -175,7 +175,7 @@ def main():
                 action_print = utils.format_actions(response)
                 nation_name = nation.get_static("name")
                 logger.info(
-                    f"⚙️  Response from {nation_name} ({nation_index + 1}/{len(nations)}) took {response.completion_time_sec}s, {response.prompt_tokens} prompt tokens, {response.completion_tokens} completion tokens:\nReasoning: {response.reasoning}\nActions: {action_print}"
+                    f"⚙️  {nation_name} ({nation_index + 1}/{len(nations)}) on day {world.current_day}/{world.max_days} took {response.completion_time_sec}s, {response.prompt_tokens} prompt tokens, {response.completion_tokens} completion tokens:\nReasoning: {response.reasoning}\nActions: {action_print}"
                 )
                 queued_actions.extend(response.actions)
                 model_responses.append(response)

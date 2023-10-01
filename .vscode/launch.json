@@ -51,6 +51,14 @@
             "justMyCode": true
         },
         {
+            "name": "LLM Prompt Eval",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llm_prompt_eval.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
