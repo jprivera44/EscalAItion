@@ -70,10 +70,10 @@ def main():
 
     with tqdm(total=world.max_days, desc="Day", file=sys.stdout) as pbar:
         while world.current_day <= world.max_days:
-            logger.info(f"Beginning day {world.current_day} of {world.max_days}")
+            logger.info(f"📆 Beginning day {world.current_day} of {world.max_days}")
             # Query the models
             queued_actions: list[Action] = []
-            for nation_index, nation in enumerate(nations):
+            for nation_index, nation in enumerate(world.nations):
                 response = nation.respond(world)
                 action_print = "\n\t".join(
                     [
@@ -83,7 +83,7 @@ def main():
                 )
                 nation_name = nation.get_static("name")
                 logger.info(
-                    f"⚙️ Response from {nation_name} took {response.completion_time_sec}s, {response.prompt_tokens} prompt tokens, {response.completion_tokens} completion tokens:\nReasoning: {response.reasoning}\nActions: {action_print}"
+                    f"⚙️  Response from {nation_name} ({nation_index}/{len(nations)}) took {response.completion_time_sec}s, {response.prompt_tokens} prompt tokens, {response.completion_tokens} completion tokens:\nReasoning: {response.reasoning}\nActions: {action_print}"
                 )
                 queued_actions.extend(response.actions)
 
@@ -91,7 +91,7 @@ def main():
             world.update_state(queued_actions)
             pbar.update(1)
 
-    logger.info("Simulation complete!")
+    logger.info("🏁 Simulation complete!")
 
 
 if __name__ == "__main__":
