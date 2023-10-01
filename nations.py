@@ -20,6 +20,8 @@ from data_types import (
     BackendResponse,
     NationResponse,
 )
+from world import World
+import prompts
 
 
 class NationCompletionError(ValueError):
@@ -29,12 +31,36 @@ class NationCompletionError(ValueError):
 class Nation:
     """Uses OpenAI/Claude Chat/Completion to generate orders and messages."""
 
-    def __init__(self, nation_config_unprocessed: dict, model_name: str, **kwargs):
-        # TODO load static and dynamic variables
-        self.name: str = nation_config_unprocessed["name"]
-        self.description: str = nation_config_unprocessed["description"]
+    def __init__(self, nation_config: dict, model_name: str, **kwargs):
+        self.nation_config = nation_config
 
-        # Decide whether it's a chat or completion model
+        self.initialize_backend(model_name, kwargs)
+        self.temperature = kwargs.pop("temperature", 1.0)
+        self.top_p = kwargs.pop("top_p", 0.9)
+
+    def get_static(self, key: str):
+        """Get a static value from the nation config."""
+        assert (
+            key + "_static" in self.nation_config
+        ), f"Key {key} not found in nation config {self.nation_config}"
+        return self.nation_config[key]
+
+    def get_dynamic(self, key: str):
+        """Get a dynamic value from the nation config."""
+        assert (
+            key + "_dynamic" in self.nation_config
+        ), f"Key {key} not found in nation config {self.nation_config}"
+        return self.nation_config[key]
+
+    def set_dynamic(self, key: str, value: str):
+        """Set a dynamic value in the nation config."""
+        assert (
+            key + "_dynamic" in self.nation_config
+        ), f"Key {key} not found in nation config {self.nation_config}"
+        self.nation_config[key] = value
+
+    def initialize_backend(self, model_name, kwargs):
+        """Decide which LLM backend to use."""
         disable_completion_preface = kwargs.pop("disable_completion_preface", False)
         self.use_completion_preface = not disable_completion_preface
         if (
@@ -62,16 +88,14 @@ class Nation:
             # Chat models can't specify the start of the completion
             self.use_completion_preface = False
             self.backend = OpenAIChatBackend(model_name)
-        self.temperature = kwargs.pop("temperature", 1.0)
-        self.top_p = kwargs.pop("top_p", 0.9)
 
     def __repr__(self) -> str:
         return f"LLMAgent(Backend: {self.backend.model_name}, Temperature: {self.temperature}, Top P: {self.top_p})"
 
-    def choose_actions(self, params: AgentParams) -> AgentResponse:
+    def choose_actions(self, world: World) -> NationResponse:
         """Prompt the model for a response."""
-        system_prompt = prompts.get_system_prompt(params)
-        user_prompt = prompts.get_user_prompt(params)
+        system_prompt = prompts.get_nation_system_prompt(world, self)
+        user_prompt = prompts.get_nation_user_prompt(world, self)
         response = None
         try:
             if self.use_completion_preface:

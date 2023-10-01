@@ -15,10 +15,10 @@ def main():
     # Parse command line arguments
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--max_weeks",
+        "--max_days",
         type=int,
         default=10,
-        help="Number of turns (representing weeks) to simulate",
+        help="Number of turns (representing days) to simulate",
     )
     parser.add_argument(
         "--nation_model",
@@ -50,25 +50,10 @@ def main():
     nations = [
         Nation(nation_config, args.nation_model) for nation_config in nations_config
     ]
-    world = World(nations, action_config, max_weeks=args.max_weeks)
+    world = World(nations, action_config, max_days=args.max_days)
 
     # Main simulation loop
-    while world.current_week < world.max_weeks:
-        # 1. TODO Roll some random events
-        # select random events fromt the random events yaml file
-        # event_index = np.random.choice(
-        #   len(events_data["events"])
-        # )  # Assuming equal probabilities for simplicity
-        # random_event = events_data["events"][event_index]
-
-        # #once the random event is selected, it is added to the message history, with moves from both sides
-        # queued_actions.append(Action(
-        #     sender='moderator',
-        #     recipient='all',
-        #     content=random_event['prompt'],
-        #     turn_index=turn_index,
-        # ))
-
+    while world.current_week < world.max_days:
         # 2. Query the models
         queued_actions: list[Action] = []
         for nation in nations:

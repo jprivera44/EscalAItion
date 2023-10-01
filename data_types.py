@@ -1,8 +1,6 @@
 """Data classes."""
 
 from dataclasses import dataclass
-
-# from enum import Enum, auto
 from typing import Optional
 
 
@@ -21,11 +19,10 @@ class ActionSpec:
 class Action:
     """A message sent from one power to another."""
 
-    action_spec: ActionSpec
-    sender: str
-    recipient: str
-    content: str
-    turn_index: str
+    name: str
+    self: str
+    other: str
+    content: Optional[str]
 
 
 @dataclass
