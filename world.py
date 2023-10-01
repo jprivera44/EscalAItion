@@ -1,6 +1,8 @@
 """The global game state with settings and the ability to resolve actions."""
 from data_types import Action
 
+import wandb
+
 
 class World:
     """The global environment state."""
@@ -58,7 +60,8 @@ class World:
             new_value = max(0, new_value)
         elif variable_name != "gdp":
             # GDP is unclamped
-            new_value = max(0, min(10, new_value))
+            if wandb.config.clamp_dynamic_variables:
+                new_value = max(0, min(10, new_value))
 
         nation.set_dynamic(variable_name, new_value)
 

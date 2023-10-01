@@ -60,6 +60,13 @@ def main():
         help="🚫Disable Weights & Biases logging.",
     )
     parser.add_argument(
+        "--clamp_dynamic_variables",
+        dest="clamp_dynamic_variables",
+        action="store_true",
+        default=False,
+        help="🔒 Clamp dynamic variables to their min/max values.",
+    )
+    parser.add_argument(
         "--max_model_retries",
         dest="max_model_retries",
         type=int,
