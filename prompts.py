@@ -1,5 +1,7 @@
 """Prompt engineering for our models."""
 
+import wandb
+
 from world import World
 
 MAX_NON_MESSAGE_ACTIONS_PER_DAY = 3
@@ -62,6 +64,8 @@ def get_nation_user_prompt(world: World, nation_name: str):
     nation_descriptions_static = format_nation_descriptions_static(world)
 
     past_action_history = ""
+    if wandb.config.day_0_scenario != "":
+        past_action_history += f"Day 0:\n{wandb.config.day_0_scenario.strip()}\n\n"
     for day, actions in world.action_history.items():
         past_action_history += f"Day {day}:\n"
         for action in actions:

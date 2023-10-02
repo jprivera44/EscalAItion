@@ -73,6 +73,13 @@ def main():
         default=5,
         help="⚠️ Max retries for querying a model.",
     )
+    parser.add_argument(
+        "--day_0_scenario",
+        dest="day_0_scenario",
+        type=str,
+        default="",
+        help="📝 Optional scenario to insert into the history for day 0.",
+    )
     args = parser.parse_args()
 
     # Initialize weights and biases
