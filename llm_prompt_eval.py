@@ -5,6 +5,7 @@ import openai
 import requests
 import json
 import glob
+import os
 import pandas as pd
 
 
@@ -89,19 +90,12 @@ def main():
         i = 0
 
         current_file_content = pd.read_csv(file_path)
-        parsed_csv_input = combine_prompt_info(current_file_content)
-
-        prompt_for_model += parsed_csv_input
-
-        ###
-
         input_file_name = os.path.basename(file_path)
-
         # Optionally, remove the file extension to get just the name (e.g., "input")
         input_name = os.path.splitext(input_file_name)[0]
 
-        # Now you can use input_name or input_file_name to make decisions or take actions
-        # ...
+        parsed_csv_input = combine_prompt_info(current_file_content)
+        prompt_for_model += parsed_csv_input
 
         i = 0
         current_file_content = pd.read_csv(file_path)
@@ -114,7 +108,7 @@ def main():
         # gpt4_response = query_gpt4(prompt_for_model)
 
         # Construct the filename using string formatting
-        filename = f"{model_used}_game_{i + 1}.json"
+        filename = f"{model_used}_eval.json"
 
         # save the results to a json file
         # with open(filename, "w") as file:
