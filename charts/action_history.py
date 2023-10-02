@@ -97,11 +97,11 @@ def main() -> None:
         # Loop over the counts to make a new thing
         graphing_data = []
         for series in groups_sizes:
-            for (day, model_name, situation, action), count in series.items():
+            for (day, series_model_name, situation, action), count in series.items():
                 graphing_data.append(
                     {
                         "day": day,
-                        "model_name": model_name,
+                        "model_name": series_model_name,
                         "situation": situation,
                         "action": action,
                         "count": count,
@@ -149,7 +149,7 @@ def main() -> None:
             # plt.xticks(rotation=30)
             plt.ylabel(y_label)
             plt.yscale("log")
-            title = f"Action Counts Over Time in {situation} Situation ({model_name})"
+            title = f"Action Counts Over Time in {situation} Situation ({series_model_name})"
             plt.title(title)
 
             # Save the plot
@@ -171,13 +171,13 @@ def main() -> None:
             groups_sizes = [
                 df.groupby(["model_name", "situation", "action"]).size()
                 for df in dfs_list
-                if df["model_name"].unique()[0] == model_name
+                if df["model_name"].unique()[0] == series_model_name
             ]
             for series in groups_sizes:
-                for (model_name, situation, action), count in series.items():
+                for (series_model_name, situation, action), count in series.items():
                     graphing_data.append(
                         {
-                            "model_name": model_name,
+                            "model_name": series_model_name,
                             "situation": situation,
                             "action": action,
                             "count": count,
@@ -208,7 +208,7 @@ def main() -> None:
                 hue_order=grouping_order,
             )
             plt.xlabel(x_label)
-            plt.xticks(rotation=30)
+            plt.xticks(rotation=90)
             plt.ylabel(y_label)
             plt.yscale("log")
             title = f"{action_label} Action Counts By Situation {model_name}"
