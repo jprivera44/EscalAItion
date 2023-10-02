@@ -202,6 +202,7 @@ def main() -> None:
                 data=df_grouped,
                 x=x_variable,
                 y=y_variable,
+                order=action_set,
                 hue=grouping,
                 # order=df_grouped.index.get_level_values(x_variable).unique(),
                 hue_order=grouping_order,
