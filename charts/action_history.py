@@ -9,7 +9,6 @@ import pandas as pd
 import seaborn as sns
 
 from chart_utils import (
-    ALL_MODEL_NAMES,
     initialize_plot_default,
     initialize_plot_bar,
     save_plot,
@@ -19,6 +18,12 @@ from chart_utils import (
 INPUT_DIR = "../results/actions"
 OUTPUT_DIR = "./actions"
 
+ALL_MODEL_NAMES = [
+    "Claude-2.0",
+    "GPT-3.5",
+    "GPT-4",
+]
+LABEL_MAX_LENGTH = 15
 
 ACTION_ORDER = [
     "Wait",
@@ -66,11 +71,14 @@ def main() -> None:
     dfs_list = [
         df.assign(
             model_name=filename.split(" ")[0],
-            situation=filename.split(" ")[1],
+            situation=filename.split(" ")[1].replace("MoreDrones", "3 Drones"),
         )
         for filename, df in filenames_and_data
     ]
-    df_all = pd.concat(dfs_list)
+    # df_all = pd.concat(dfs_list)
+
+    # Filter out rows from dfs_list if their action isn't in ACTION_ORDER
+    dfs_list = [df[df["action"].isin(ACTION_ORDER)].copy() for df in dfs_list]
 
     # # Print how many runs there are for each model_name, situation combo
     # print("Runs per model_name, year_integer combo:")
@@ -112,15 +120,15 @@ def main() -> None:
             continue
 
         # 0. Multi-line plot of actions over time
-        for situation in ["Neutral", "Drone"]:
+        for situation in ["Neutral", "Drone", "3 Drones"]:
             df_plot_situation = df_grouped[df_grouped["situation"] == situation].copy()
             if len(df_plot_situation) == 0:
                 continue
 
             initialize_plot_default()
-            palette = sns.color_palette(palette="Spectral_r", n_colors=24)
+            palette = sns.color_palette(palette="Spectral_r", n_colors=25)
             sns.set_palette(palette)
-            plt.rcParams["figure.figsize"] = (16, 10)
+            plt.rcParams["figure.figsize"] = (12, 8)
             x_variable = "day"
             y_variable = "count"
             x_label = "Day"
@@ -149,7 +157,10 @@ def main() -> None:
             # plt.xticks(rotation=30)
             plt.ylabel(y_label)
             plt.yscale("log")
-            title = f"Action Counts Over Time in {situation} Situation ({series_model_name})"
+            situation_label = situation
+            title = (
+                f"Action Counts Over Time in {situation_label} Situation ({model_name})"
+            )
             plt.title(title)
 
             # Save the plot
@@ -171,7 +182,7 @@ def main() -> None:
             groups_sizes = [
                 df.groupby(["model_name", "situation", "action"]).size()
                 for df in dfs_list
-                if df["model_name"].unique()[0] == series_model_name
+                if df["model_name"].unique()[0] == model_name
             ]
             for series in groups_sizes:
                 for (series_model_name, situation, action), count in series.items():
@@ -190,13 +201,13 @@ def main() -> None:
                 continue
 
             initialize_plot_bar()
-            plt.rcParams["figure.figsize"] = (16, 5)
+            plt.rcParams["figure.figsize"] = (12, 4)
             grouping = "situation"
             x_variable = "action"
             x_label = "Action"
             y_variable = "count"
             y_label = "Count"
-            grouping_order = ["Neutral", "Drone"]
+            grouping_order = ["Neutral", "Drone", "3 Drones"]
             # Plot df_grouped
             sns.barplot(
                 data=df_grouped,
@@ -208,7 +219,26 @@ def main() -> None:
                 hue_order=grouping_order,
             )
             plt.xlabel(x_label)
-            plt.xticks(rotation=90)
+            plt.xticks(rotation=45)
+            # Change x labels by automatically breaking long ones to 2 lines
+            # https://stackoverflow.com/a/67789107/13782651
+            ax = plt.gca()
+            labels = [item.get_text() for item in ax.get_xticklabels()]
+            for label in labels:
+                new_label = label
+                if len(label) > LABEL_MAX_LENGTH:
+                    # Break once after max length
+                    remainder = label[LABEL_MAX_LENGTH:]
+                    segments = remainder.split(" ", 1)
+                    assert len(segments) == 2 or len(segments) == 1
+                    new_label = label[:LABEL_MAX_LENGTH] + segments[0]
+                    if len(segments) == 2:
+                        new_label += "\n" + segments[1]
+                # Replace the label
+                labels[labels.index(label)] = new_label
+
+            ax.set_xticklabels(labels, ha="right")
+
             plt.ylabel(y_label)
             plt.yscale("log")
             title = f"{action_label} Action Counts By Situation {model_name}"
