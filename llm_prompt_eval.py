@@ -136,9 +136,10 @@ def main():
         # If you want to save the raw response as a text file:
         raw_filename = f"{file_name_without_extension}_raw.txt"
         raw_output_path = os.path.join(raw_output_folder, raw_filename)
+        raw_output_path = raw_output_path.replace("\\", "/")
 
         with open(raw_output_path, "w") as file:
-            file.write(gpt4_response_raw)  #
+            file.write(str(gpt4_response_raw))  #
 
         i = 0
 
