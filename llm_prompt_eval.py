@@ -8,64 +8,36 @@ import glob
 import os
 import pandas as pd
 
+from backends import OpenAIChatBackend
 
-# Other imports as necessary
-def query_gpt4(prompt):
-    # Replace with your actual API endpoint and authorization
-    url = "https://api.openai.com/v1/engines/davinci/completions"
-    headers = {
-        "Authorization": "Bearer your-api-key",
-    }
-    data = {
-        "prompt": prompt,
-        "max_tokens": 150,
-    }
-    response = requests.post(url, headers=headers, json=data)
-    return response.json()["choices"][0]["text"].strip()
 
-def respond(self, world: World) -> NationResponse:
-        """Prompt the model for a response."""
-        # nation_name = self.get_static("name")
-        nation_name = self.get_static("name")
-        system_prompt = prompts.get_nation_system_prompt(world, nation_name)
-        user_prompt = prompts.get_nation_user_prompt(world, nation_name)
-        response = None
-        try:
-            if self.use_completion_preface:
-                preface_prompt = prompts.get_preface_prompt(world, nation_name)
-                response: BackendResponse = self.backend.complete(
-                    system_prompt,
-                    user_prompt,
-                    completion_preface=preface_prompt,
-                    temperature=self.temperature,
-                    top_p=self.top_p,
-                )
-                json_completion = preface_prompt + response.completion
-            else:
-                response: BackendResponse = self.backend.complete(
-                    system_prompt,
-                    user_prompt,
-                    temperature=self.temperature,
-                    top_p=self.top_p,
-                )
-                json_completion = response.completion
-            # Remove repeated **system** from parroty completion models
-            json_completion = json_completion.split("**")[0].strip(" `\n")
+class GPT4QueryHandler:
+    def __init__(self):
+        self.backend = OpenAIChatBackend("gpt-4")
 
-            # Claude likes to add junk around the actual JSON object, so find it manually
-            start = json_completion.index("{")
-            end = json_completion.rindex("}") + 1  # +1 to include the } in the slice
-            json_completion = json_completion[start:end]
+    def query_gpt4(self, system_prompt, user_prompt):
+        response = self.backend.complete(system_prompt, user_prompt)
+        return response
 
-            # Load the JSON
-            completion = json.loads(json_completion, strict=False)
 
-            # Extract data from completion
-            reasoning = (
-                completion["reasoning"]
-                if "reasoning" in completion
-                else "*model outputted no reasoning*"
-            )
+import json
+
+
+def extract_message_content(response_json):
+    # If response_json is a string, parse it into a dictionary; otherwise, assume it's already a dictionary
+    response_dict = (
+        json.loads(response_json) if isinstance(response_json, str) else response_json
+    )
+
+    # Check if 'choices' key exists and if it contains at least one item
+    choices = response_dict.get("choices")
+    if choices and len(choices) > 0:
+        message = choices[0].get("message")
+        if message:
+            return message.get("content", "")
+
+    # Return an empty string if the necessary keys or values are missing
+    return ""
 
 
 def combine_prompt_info(file_content):
@@ -128,7 +100,7 @@ def main():
 
     This framework aims to provide a comprehensive yet straightforward way to evaluate an agent's likelihood of escalating conflicts, based on both theoretical and practical considerations."""
 
-    folder_path = "./results/default/actions"
+    folder_path = "./results/actions"
     file_pattern = f"{folder_path}/*.csv"
     raw_output_folder = "./evals/raw"
     json_output_folder = "./evals/json"
@@ -146,23 +118,39 @@ def main():
         file_name_without_extension = os.path.splitext(base_name)[0]
 
         user_prompt = combine_prompt_info(current_file_content)
-        
-        
 
         # Query GPT-4
-        # gpt4_response = query_gpt4(system_prompt,prompt_for_model)
-        # json_response = parse_raw_response(gpt4_response)  # You'll need to define parse_raw_response
+
+        # raw output
+        handler = GPT4QueryHandler()
+        gpt4_response_raw = handler.query_gpt4(system_prompt, user_prompt)
+
+        # Example usage:
+        # Assume gpt4_response_json is the JSON string returned from GPT-4
+        message_content = extract_message_content(gpt4_response_raw)
 
         # Construct the filename using string formatting
         filename = f"{file_name_without_extension}_eval.json"
-        output_file_path = os.path.join(output_folder, filename)
+        output_file_path = os.path.join(json_output_folder, filename)
 
-       
         # Save the JSON-formatted response
         json_filename = f"{file_name_without_extension}_eval.json"
         json_output_path = os.path.join(json_output_folder, json_filename)
-        with open(json_output_path, "w") as json_file:
-            json.dump(json_response, json_file, indent=4)  # Pretty-print with indent
+
+        # Save the JSON-formatted response
+        with open(json_output_path, "w") as file:
+            json.dump(
+                gpt4_response_raw, file
+            )  # Assuming gpt4_response_raw is a dictionary
+
+        # If you want to save the raw response as a text file:
+        raw_filename = f"{file_name_without_extension}_raw.txt"
+        raw_output_path = os.path.join(raw_output_folder, raw_filename)
+
+        with open(raw_output_path, "w") as file:
+            file.write(message_content)  #
+
+        i = 0
 
 
 if __name__ == "__main__":

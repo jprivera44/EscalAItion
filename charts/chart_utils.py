@@ -82,3 +82,9 @@ DEFAULT_COLOR_PALETTE = "colorblind"
 
 COLOR_ALT_1 = "tab:purple"
 COLOR_ALT_2 = "tab:red"
+
+ALL_MODEL_NAMES = [
+    "Claude-2.0",
+    "GPT-3.5",
+    "GPT-4",
+]
