@@ -44,7 +44,7 @@ def initialize_plot_default() -> None:
     # Make title larger
     plt.rcParams["axes.titlesize"] = 16
     # Higher DPI
-    plt.rcParams["figure.dpi"] = 300
+    plt.rcParams["figure.dpi"] = 450
     # Default marker
     plt.rcParams["lines.marker"] = "o"
     # Default marker size

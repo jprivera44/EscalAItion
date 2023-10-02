@@ -120,35 +120,35 @@ def main():
         user_prompt = combine_prompt_info(current_file_content)
 
         # Query GPT-4
-
         # raw output
         handler = GPT4QueryHandler()
         gpt4_response_raw = handler.query_gpt4(system_prompt, user_prompt)
 
         # Example usage:
         # Assume gpt4_response_json is the JSON string returned from GPT-4
-        message_content = extract_message_content(gpt4_response_raw)
+        # message_content = extract_message_content(gpt4_response_raw)
 
         # Construct the filename using string formatting
         filename = f"{file_name_without_extension}_eval.json"
-        output_file_path = os.path.join(json_output_folder, filename)
+        # output_file_path = os.path.join(json_output_folder, filename)
 
         # Save the JSON-formatted response
         json_filename = f"{file_name_without_extension}_eval.json"
         json_output_path = os.path.join(json_output_folder, json_filename)
 
         # Save the JSON-formatted response
-        with open(json_output_path, "w") as file:
-            json.dump(
-                gpt4_response_raw, file
-            )  # Assuming gpt4_response_raw is a dictionary
+
+        # with open(json_output_path, "w") as file:
+        #    json.dump(
+        #        gpt4_response_raw, file
+        #   )  # Assuming gpt4_response_raw is a dictionary
 
         # If you want to save the raw response as a text file:
         raw_filename = f"{file_name_without_extension}_raw.txt"
         raw_output_path = os.path.join(raw_output_folder, raw_filename)
 
         with open(raw_output_path, "w") as file:
-            file.write(message_content)  #
+            file.write(gpt4_response_raw)  #
 
         i = 0
 
