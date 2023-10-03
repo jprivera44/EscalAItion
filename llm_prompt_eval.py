@@ -1,5 +1,8 @@
 # code to prompt a LLM with evaluation data, passing in
 # the evaluation data as a context
+import sys
+print(sys.path)
+
 
 import openai
 import requests
@@ -11,16 +14,14 @@ import pandas as pd
 from backends import OpenAIChatBackend
 
 
-class GPT4QueryHandler:
+class LLMQueryHandler:
     def __init__(self):
-        self.backend = OpenAIChatBackend("gpt-4")
+        self.backend = OpenAIChatBackend("gpt-3.5-turbo-16k")
 
-    def query_gpt4(self, system_prompt, user_prompt):
+    def query_LLM(self, system_prompt, user_prompt):
         response = self.backend.complete(system_prompt, user_prompt)
         return response
 
-
-import json
 
 
 def extract_message_content(response_json):
@@ -120,28 +121,24 @@ def main():
 
         user_prompt = combine_prompt_info(current_file_content)
 
-        # Query GPT-4
-        # raw output
-        handler = GPT4QueryHandler()
-        gpt4_response_raw = handler.query_gpt4(system_prompt, user_prompt)
-
-        # Example usage:
-        # Assume gpt4_response_json is the JSON string returned from GPT-4
-        # message_content = extract_message_content(gpt4_response_raw)
+        #Query LLM
+        handler = LLMQueryHandler()
+        llm_response_raw = handler.query_LLM(system_prompt, user_prompt)
 
         # Construct the filename using string formatting
         filename = f"{file_name_without_extension}_eval.json"
-        # output_file_path = os.path.join(json_output_folder, filename)
 
         # If you want to save the raw response as a text file:
         raw_filename = f"{file_name_without_extension}_raw.txt"
         raw_output_path = os.path.join(raw_output_folder, raw_filename)
         raw_output_path = raw_output_path.replace("\\", "/")
 
-        with open(raw_output_path, "w") as file:
-            file.write(str(gpt4_response_raw))  #
+        #with open(raw_output_path, "w") as file:
+            #file.write(str(llm_response_raw))  #
+         #   file.dump(llm_response_raw)
 
-        i = 0
+        with open(raw_output_path, "w") as outfile:
+            json.dump(llm_response_raw, outfile)
 
 
 if __name__ == "__main__":
