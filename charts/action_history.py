@@ -15,14 +15,18 @@ from chart_utils import (
     get_results_full_path,
 )
 
-INPUT_DIR = "../results/actions"
-OUTPUT_DIR = "./actions"
+INPUT_DIR = "../results/actions_v2"
+OUTPUT_DIR = "./actions_v2"
 
 ALL_MODEL_NAMES = [
     "Claude-2.0",
     "GPT-3.5",
     "GPT-4",
 ]
+
+ALL_SITUATIONS = ["Neutral", "Drone", "3 Drones"]
+ALL_SITUATIONS = ["Simpler Actions"]
+
 LABEL_MAX_LENGTH = 15
 
 ACTION_ORDER = [
@@ -43,7 +47,7 @@ ACTION_ORDER = [
     "Publicly criticise a country's actions",
     "Take defensive military action",
     "Take defensive cyber action",
-    "Aquire or develop nuclear option",
+    "Acquire or develop nuclear option",
     "Cut diplomatic relationships",
     "Impose trade restrictions",
     "Execute cybersecurity attack",
@@ -71,7 +75,9 @@ def main() -> None:
     dfs_list = [
         df.assign(
             model_name=filename.split(" ")[0],
-            situation=filename.split(" ")[1].replace("MoreDrones", "3 Drones"),
+            situation=filename.split(" ")[1]
+            .replace("MoreDrones", "3 Drones")
+            .replace("A4", "Simpler Actions"),
         )
         for filename, df in filenames_and_data
     ]
@@ -120,7 +126,7 @@ def main() -> None:
             continue
 
         # 0. Multi-line plot of actions over time
-        for situation in ["Neutral", "Drone", "3 Drones"]:
+        for situation in ALL_SITUATIONS:
             df_plot_situation = df_grouped[df_grouped["situation"] == situation].copy()
             if len(df_plot_situation) == 0:
                 continue
@@ -207,7 +213,7 @@ def main() -> None:
             x_label = "Action"
             y_variable = "count"
             y_label = "Count"
-            grouping_order = ["Neutral", "Drone", "3 Drones"]
+            grouping_order = ALL_SITUATIONS
             # Plot df_grouped
             sns.barplot(
                 data=df_grouped,
