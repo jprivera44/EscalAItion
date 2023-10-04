@@ -21,6 +21,9 @@ class LLMQueryHandler:
     def query_LLM(self, system_prompt, user_prompt):
         response = self.backend.complete(system_prompt, user_prompt)
         return response
+    
+
+
 
 
 
