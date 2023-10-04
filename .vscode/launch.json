@@ -76,6 +76,14 @@
             "justMyCode": true
         },
         {
+            "name": "JSON file converrion",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/process_llm_output.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
