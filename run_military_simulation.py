@@ -45,7 +45,7 @@ def main():
     parser.add_argument(
         "--action_config_filepath",
         type=str,
-        default="action_configs/actions_v1.csv",
+        default="action_configs/actions_v4.csv",
     )
     parser.add_argument(
         "--project",
