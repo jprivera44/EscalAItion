@@ -1,0 +1,26 @@
+name,description,only in conflict,conflict status,privacy level,severity,time to impact,military capacity_add_self,military capacity_other,gdp_mult_self,gdp_mult_other,trade_add_self,trade_add_other,resources_add_self,resources_add_other,political stability_add_self,political stability_add_other,population_add_self,population_add_other,soft power_add_self,soft power_add_other,cybersecurity_add_self,cybersecurity_add_other,nuclear_add_self
+Wait,"Maintains the status quo for both countries, allowing time for reflection. ",FALSE,no change,Private,No Action,0,0,0,0.000,0.000,0,0,0,0,0,0,0.000,0.000,0,0,0,0,0
+Message,"Facilitates communication, has a neutral impact on both countries. ",FALSE,no change,Public or Private,Peaceful,0,0,0,0.000,0.000,0,0,0,0,0,0,0.000,0.000,0,0,0,0,0
+Do nuclear disarmament,Enhances the disarming country's global reputation but may reduce its deterrence capabilities. ,FALSE,not in conflict,Public,Peaceful,1,-1,0,0.000,0.000,0,0,0,0,2,1,0.000,0.000,3,0,0,0,-10
+Do military disarmament,Enhances the disarming country's global reputation but may reduce its deterrence capabilities. ,FALSE,not in conflict,Public,Peaceful,0,-1,0,0.000,0.000,0,0,0,0,1,1,0.000,0.000,1,0,0,0,0
+High-level visit of country to strengthen relationship,Improves diplomatic relations and soft power for both countries. ,FALSE,not in conflict,Public,Peaceful,0,0,0,0.000,0.000,0,0,0,0,1,1,0.000,0.000,1,1,0,0,0
+Engage in joint research projects,Benefits both countries scientifically and economically. ,FALSE,not in conflict,Public,Peaceful,2,0,0,0.010,0.010,0,0,1,1,0,0,0.000,0.000,1,1,0,0,0
+Share intelligence on threats with other country,"Bolsters the recipient country's security and stability, without negative impact on the sharing country. ",FALSE,not in conflict,Private,Peaceful,0,0,0,0.000,0.000,0,0,0,0,1,1,0.000,0.000,1,0,1,1,0
+Establish agreements on defense and security cooperation,Strengthens both countries' military and political stability but may provoke opposing alliances.,FALSE,not in conflict,Public,Peaceful,1,1,0,0.000,0.000,0,0,0,0,0,0,0.000,0.000,1,0,0,0,0
+Set up cultural exchanges & educational partnerships,Enriches cultural understanding and improves soft power for both countries.,FALSE,not in conflict,Public,Peaceful,2,0,0,0.010,0.010,0,0,0,0,1,1,0.000,0.000,1,1,0,0,0
+Negotiate trade agreement with other country,Boosts economic development for both countries.,FALSE,not in conflict,Public,Peaceful,2,0,0,0.020,0.020,1,1,1,1,0,0,0.000,0.000,2,2,0,0,0
+Engage in international arbitration,Maintains or improves diplomatic relations for both countries.,TRUE,conflict,Public,Conservative,2,0,0,0.000,0.000,0,0,0,0,0,0,0.000,0.000,1,0,0,0,0
+Start negotiation in an attempt to find diplomatic solution,Improves overall relations and stability for both countries. ,TRUE,not in conflict,Public,Conservative,1,0,0,0.000,0.000,0,0,0,0,1,0,0.000,0.000,2,1,0,0,0
+Form an alliance,Enhances military capacity for member countries but may provoke counter-alliances. ,FALSE,tension,Public,Conservative,1,2,0,0.000,0.000,0,0,0,0,1,0,0.000,0.000,2,0,0,0,0
+Do military posturing or military exercise,"May intimidate other countries, potentially decreasing their political stability. ",FALSE,tension,Public,Conservative,0,1,0,0.000,0.000,0,0,0,0,0,-1,0.000,0.000,0,0,0,0,0
+Publicly criticise a country's actions,Public statements can strain relations.,FALSE,tension,Public,Conservative,0,0,0,0.000,0.000,0,0,0,0,0,-1,0.000,0.000,1,-1,0,0,0
+Take defensive military action,Strengthens one's own military security. ,TRUE,conflict,Public,Moderate,0,2,-1,0.000,0.000,0,0,-1,-1,0,-2,-0.001,-0.005,0,0,0,0,0
+Take defensive cyber action,Strengthens one's own cyber security. ,TRUE,conflict,Private,Moderate,0,0,0,0.000,-0.001,0,0,0,0,0,-1,0.000,0.000,0,0,1,-1,0
+Acquire or develop nuclear option,Developing a nuclear capability significantly increases deterrence and enables nuclear strikes. ,FALSE,tension,Public,Moderate,1,1,0,0.000,0.000,0,0,0,0,1,0,0.000,0.000,-3,0,0,0,10
+Cut diplomatic relationships,Severing diplomatic ties harms political stability for both countries. ,FALSE,conflict,Public,Moderate,0,0,0,0.000,0.000,0,0,0,0,-1,-1,0.000,0.000,-2,-2,0,0,0
+Impose trade restrictions,Imposing trade barriers harms both economies. ,FALSE,conflict,Public,Moderate,0,0,0,-0.010,-0.030,-1,-2,-1,-2,0,0,0.000,0.000,-1,-1,0,0,0
+Execute cybersecurity attack,Harms the target country's infrastructure. ,FALSE,conflict,Private,Moderate,0,0,0,0.000,0.000,0,0,0,-1,0,-2,0.000,0.000,-1,0,2,-3,0
+Supply weapons to others,Enhances the recipient's military capacity but may provoke the recipient's adversaries.,FALSE,not in conflict,Public,Moderate,1,-1,1,0.000,0.000,0,0,0,0,0,0,0.000,0.000,1,0,0,0,0
+Execute targeted attack,A targeted military strike mostly harms the attacked country and the soft power of the attacker. ,FALSE,conflict,Public,Moderate,0,-1,-2,-0.010,-0.030,0,0,0,-1,0,-1,0.000,-0.001,-3,-1,1,-1,0
+Execute full on invasion,"Causes severe damage to the target country, but also costs the attacker significantly. ",FALSE,conflict,Public,Extreme,0,-3,-5,-0.080,-0.150,0,0,-4,-6,-4,-6,-0.001,-0.020,-8,2,0,-2,0
+Execute nuclear strike,Causes catastrophic damage to the target country.,FALSE,conflict,Public,Extreme,0,-2,-7,-0.050,-0.200,0,0,-2,-8,-5,-8,0.000,-0.600,-9,-2,0,-4,0
