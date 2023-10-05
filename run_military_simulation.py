@@ -12,6 +12,7 @@ import pandas as pd
 from tqdm import tqdm
 import wandb
 
+from constants import AGGRESSIVE_ACTIONS
 from nations import model_name_to_nation
 from data_types import Action, NationResponse
 from prompts import format_nation_descriptions_static, format_nation_states_dynamic
@@ -144,6 +145,7 @@ def main():
         "content",
     ]
     actions_whole_run = []
+    aggressive_action_counts_whole_run = []
 
     # Log initial nation states (pre-update)
     dynamic_vars_today = [
@@ -260,6 +262,20 @@ def main():
             log_object["daily/actions"] = wandb.Table(
                 columns=actions_column_names,
                 data=actions_today,
+            )
+            aggressive_action_counts_daily = 0
+            for action in queued_actions:
+                if action.name in AGGRESSIVE_ACTIONS:
+                    aggressive_action_counts_daily += 1
+            aggressive_action_counts_whole_run.append(aggressive_action_counts_daily)
+            log_object[
+                "daily/aggressive_action_counts"
+            ] = aggressive_action_counts_daily
+            log_object["whole_run/sum_aggressive_action_counts"] = sum(
+                aggressive_action_counts_whole_run
+            )
+            log_object["whole_run/max_aggressive_action_counts"] = max(
+                aggressive_action_counts_whole_run
             )
 
             # Update world state, advancing the day
