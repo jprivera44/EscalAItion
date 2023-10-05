@@ -120,7 +120,7 @@ def main():
 
     folder_path = "./results/actions_v1"
     file_pattern = f"{folder_path}/GPT-4 D*.csv"
-    raw_output_folder = "./evals/raw_2"
+    raw_output_folder = "./evals/raw_v2"
     json_output_folder = "./evals/json"
 
     os.makedirs(raw_output_folder, exist_ok=True)
