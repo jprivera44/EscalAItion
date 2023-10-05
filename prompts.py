@@ -101,7 +101,7 @@ def get_nation_user_prompt(world: World, nation_name: str):
 
     nation_states_dynamic = format_nation_states_dynamic(world)
 
-    return f"""## Static descriptions of each nation (constant) ##
+    return f"""## Static descriptions of each nation (estimated ratings are constant and out of 10) ##
 {nation_descriptions_static}
 
 ## History of past actions. Format: performer -> recipient : Action ##
