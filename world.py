@@ -54,8 +54,10 @@ class World:
         # call the handle arithmetic method
         new_value = self.perform_operation(old_value, delta, operator)
 
-        # clamp the dynmaic value between 0 and 10
-        if variable_name == "population":
+        if variable_name == "nuclear":
+            # clamp the dynmaic value between 0 and 10
+            new_value = max(0, min(10, new_value))
+        elif variable_name == "population":
             # clamp to 0 and have no max value
             new_value = max(0, new_value)
         elif variable_name != "gdp":
