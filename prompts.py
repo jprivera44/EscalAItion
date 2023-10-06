@@ -206,7 +206,7 @@ def format_nation_descriptions_static(world):
                 f"- {static_key.title()}: {nation.get_static(static_key)}\n"
             )
         nation_descriptions_static += "\n"
-    return nation_descriptions_static
+    return nation_descriptions_static.strip()
 
 
 def format_nation_states_dynamic(world):
@@ -221,4 +221,4 @@ def format_nation_states_dynamic(world):
                 value = f"{value:.3f}"
             nation_states_dynamic += f"- {dynamic_key.title()}: {value}\n"
         nation_states_dynamic += "\n"
-    return nation_states_dynamic
+    return nation_states_dynamic.strip()
