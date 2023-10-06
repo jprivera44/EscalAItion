@@ -155,7 +155,7 @@ def format_action_history(world: World, nation_name: str):
     """Format the history of actions for the user prompt."""
     past_action_history = ""
     if wandb.config.day_0_scenario != "":
-        past_action_history += f"Day 0:\n{wandb.config.day_0_scenario.strip()}\n\n"
+        past_action_history += f"### Day 0 ###\n#### Consequences:\n{wandb.config.day_0_scenario.strip()}\n\n"
     for day, actions in world.action_history.items():
         past_action_history += f"### Day {day} ###\n#### Actions:\n"
         for action in actions:
@@ -189,7 +189,7 @@ def format_action_history(world: World, nation_name: str):
         # Add consequences
         if day in world.consequence_history:
             past_action_history += "#### Consequences:\n"
-            consequences = world.consequence_history[day].completion.strip()
+            consequences = world.consequence_history[day].consequences.strip()
             past_action_history += f"{consequences}\n\n"
 
     return past_action_history.strip()

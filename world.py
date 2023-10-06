@@ -2,7 +2,7 @@
 
 import wandb
 
-from data_types import Action, BackendResponse
+from data_types import Action, WorldModelResponse
 
 
 class World:
@@ -20,7 +20,7 @@ class World:
         # History of day number to list of actions taken
         self.action_history: dict[int, list[Action]] = {}
         # History of the World Model's summaries of the consequences of what happened on each day
-        self.consequence_history: dict[int, BackendResponse] = {}
+        self.consequence_history: dict[int, WorldModelResponse] = {}
 
     @property
     def previous_day(self):
