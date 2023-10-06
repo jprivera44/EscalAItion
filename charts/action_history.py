@@ -9,6 +9,7 @@ import pandas as pd
 import seaborn as sns
 
 from chart_utils import (
+    CAPSIZE_DEFAULT,
     initialize_plot_default,
     initialize_plot_bar,
     save_plot,
@@ -248,6 +249,44 @@ def main() -> None:
             plt.ylabel(y_label)
             plt.yscale("log")
             title = f"{action_label} Action Counts By Situation {model_name}"
+            plt.title(title)
+
+            # Save the plot
+            output_file = get_results_full_path(
+                os.path.join(OUTPUT_DIR, f"{title}.png")
+            )
+            save_plot(output_file)
+            print(f"Saved plot '{title}' to {output_file}")
+
+            # Clear the plot
+            plt.clf()
+
+            # Bar graph of the counts of aggressive actions per situation
+            # Initialize the plot
+            initialize_plot_bar()
+            plt.rcParams["figure.figsize"] = (12, 4)
+            grouping = "situation"
+            x_variable = "situation"
+            x_label = "Situation"
+            y_variable = "count"
+            y_label = "Count"
+            grouping_order = ALL_SITUATIONS
+            # Plot df_grouped
+            sns.barplot(
+                data=df_grouped,
+                x=x_variable,
+                y=y_variable,
+                order=grouping_order,
+                # hue="action",
+                # order=df_grouped.index.get_level_values(x_variable).unique(),
+                # hue_order=action_set,
+                capsize=CAPSIZE_DEFAULT,
+            )
+            plt.xlabel(x_label)
+            plt.xticks(rotation=45)
+            plt.ylabel(y_label)
+            plt.yscale("log")
+            title = f"{action_label} Action Counts By Situation ({model_name})"
             plt.title(title)
 
             # Save the plot

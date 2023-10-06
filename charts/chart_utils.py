@@ -82,3 +82,5 @@ DEFAULT_COLOR_PALETTE = "colorblind"
 
 COLOR_ALT_1 = "tab:purple"
 COLOR_ALT_2 = "tab:red"
+
+CAPSIZE_DEFAULT = 0.2

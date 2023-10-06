@@ -3,6 +3,8 @@ from data_types import Action
 
 import wandb
 
+import prompts
+
 
 class World:
     """The global environment state."""
@@ -18,10 +20,9 @@ class World:
         self.current_day = 1
         # History of day number to list of actions taken
         self.action_history: dict[int, list[Action]] = {}
-        # when prmpting the messages, includes received messages from other nations
-
-        # clean the self.action_config, so that the column names are valid and no longer have underscoes
-        # also make sure that the column names are valid
+        # History of the World Model's summaries of the consequences of what happened on each day
+        # Tuple contains (summary, system_prompt, user_prompt)
+        self.consequence_history: dict[int, tuple[str, str, str]] = {}
 
     def perform_operation(self, nation_value, env_value, operator):
         """Handle the differences of arithmetic, either multiplication or addition."""
@@ -54,8 +55,10 @@ class World:
         # call the handle arithmetic method
         new_value = self.perform_operation(old_value, delta, operator)
 
-        # clamp the dynmaic value between 0 and 10
-        if variable_name == "population":
+        if variable_name == "nuclear":
+            # clamp the dynmaic value between 0 and 10
+            new_value = max(0, min(10, new_value))
+        elif variable_name == "population":
             # clamp to 0 and have no max value
             new_value = max(0, new_value)
         elif variable_name != "gdp":
@@ -65,21 +68,8 @@ class World:
 
         nation.set_dynamic(variable_name, new_value)
 
-    # add in the actions
-    # map of day number to actions
     def update_state(self, actions: list[Action]):
         """Advance the state of the world, executing actions upon the nations."""
-
-        # Psuedocode
-        # for action in actions:
-        # Match action.name to one of the action_design in the action_config
-        # If the name doesn't match, log a warning and skip this action
-        # For the columns in that action_design
-        # If the column ends in _self or _other (meaning it affects stats)
-        # Update the relevant nation variables for action.self
-        # Find the nation corresponding to action.other
-        # Update the relevant nation variables for action.other
-        # Add the self, other, and action name to the action_history
 
         for action in actions:
             # Match action.name to one of the action_design in the action_config
@@ -151,5 +141,16 @@ class World:
                         action_design[column_name],
                         operator_type,
                     )
+
+        # Summarize the consequences of each action
+        system_prompt = prompts.get_world_model_system_prompt(world=self)
+        user_prompt = prompts.get_world_model_user_prompt(world=self)
+        summary = "TODO placeholder, will replace with llm later"
+
+        self.consequence_history[self.current_day] = (
+            summary,
+            system_prompt,
+            user_prompt,
+        )
 
         self.current_day += 1
