@@ -74,6 +74,10 @@ class World:
     def update_state(self, actions: list[Action]):
         """Advance the state of the world, executing actions upon the nations."""
 
+        # Snapshot previous nation states for the World Model
+        for nation in self.nations:
+            nation.prev_nation_config = nation.nation_config.copy()
+
         for action in actions:
             # Match action.name to one of the action_design in the action_config
             if action.name not in set(self.action_config["name"]):
@@ -106,9 +110,6 @@ class World:
             # If message action, don't update any variables
             if action.name == "Message":
                 continue
-
-            # inplement nuclear locking
-            # clamping dyanmic variables between 0 and 10, unless its GDP clamp to 0
 
             # For the columns in that action_design
             for column_name in action_design.keys():

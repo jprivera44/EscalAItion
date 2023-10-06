@@ -27,8 +27,11 @@ class NationCompletionError(ValueError):
 
 
 class Nation(ABC):
+    """Represents a nation with its own settings and the ablility to query a backend to choose actions."""
+
     def __init__(self, nation_config: dict, **kwargs):
         self.nation_config = nation_config
+        self.prev_nation_config = None
 
     def list_static(self):
         """List all the static config variables without the suffix."""
@@ -36,7 +39,7 @@ class Nation(ABC):
             key[:-7] for key in self.nation_config.keys() if key.endswith("_static")
         ]
 
-    def list_dynamic(self):
+    def list_dynamic(self) -> list[str]:
         """List all the dynamic config variables without the suffix."""
         return [
             key[:-8] for key in self.nation_config.keys() if key.endswith("_dynamic")
@@ -50,13 +53,12 @@ class Nation(ABC):
         ), f"Key {key} not found in nation config {self.nation_config}"
         return self.nation_config[key]
 
-    def get_dynamic(self, key: str):
+    def get_dynamic(self, key: str, from_previous: bool = False):
         """Get a dynamic value from the nation config."""
         key = key + "_dynamic"
-        assert (
-            key in self.nation_config
-        ), f"Key {key} not found in nation config {self.nation_config}"
-        return self.nation_config[key]
+        config = self.prev_nation_config if from_previous else self.nation_config
+        assert key in config, f"Key {key} not found in nation config {config}"
+        return config[key]
 
     def set_dynamic(self, key: str, value: str):
         """Set a dynamic value in the nation config."""

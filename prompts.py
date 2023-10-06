@@ -91,7 +91,7 @@ def get_world_model_user_prompt(world: World) -> str:
 {format_action_history(world, "World")}
 
 ## Changes in nation states over the last day ##
-TODO JP
+{format_nation_vars_diff(world)}
 
 ## Current state of the world (will be affected by actions) ##
 Day {world.previous_day} has just concluded out of {world.max_days} total days.
@@ -102,6 +102,20 @@ As the World Model, please reply with your summary of the consequences of the ac
 def get_preface_prompt() -> str:
     """Get preface for completion models."""
     return """ {\n\t\"reasoning\": \""""
+
+
+def format_nation_vars_diff(world: World) -> str:
+    """Format the diffs between the dynamic vars for all nations."""
+    diffs = ""
+    for nation in world.nations:
+        diffs += f"{nation.get_static('name')}:\n"
+        for dynamic_key in nation.list_dynamic():
+            old_value = nation.get_dynamic(dynamic_key, from_previous=True)
+            new_value = nation.get_dynamic(dynamic_key)
+            if old_value != new_value:
+                diffs += f"- {dynamic_key.title()}: {old_value} -> {new_value}\n"
+        diffs += "\n"
+    return diffs.strip()
 
 
 def format_action_descriptions(world: World, nation_name: str):
