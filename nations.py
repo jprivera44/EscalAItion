@@ -157,7 +157,7 @@ class LLMNation(Nation):
         response = None
         try:
             if self.use_completion_preface:
-                preface_prompt = prompts.get_preface_prompt(world, nation_name)
+                preface_prompt = prompts.get_preface_prompt()
                 response: BackendResponse = self.backend.complete(
                     system_prompt,
                     user_prompt,

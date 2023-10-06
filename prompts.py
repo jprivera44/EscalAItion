@@ -95,7 +95,8 @@ It is currently day {world.current_day} out of {world.max_days} total days.
 As the World Model, please reply with a valid JSON object containing your summary of the consequences of the actions."""
 
 
-def get_preface_prompt(world: World, nation_name: str) -> str:
+def get_preface_prompt() -> str:
+    """Get preface for completion models."""
     return """ {\n\t\"reasoning\": \""""
 
 
