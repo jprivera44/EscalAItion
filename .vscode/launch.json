@@ -24,7 +24,7 @@
             "justMyCode": true,
         },
         {
-            "name": "Debug Mock Offline",
+            "name": "Mock Offline",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/run_military_simulation.py",
@@ -33,6 +33,19 @@
                 "--disable_wandb",
                 "--nation_model",
                 "mock",
+                "--max_days",
+                "2",
+            ],
+            "justMyCode": true
+        },
+        {
+            "name": "LLM Offline",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/run_military_simulation.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--disable_wandb",
                 "--max_days",
                 "2",
             ],
@@ -56,7 +69,7 @@
             "justMyCode": true
         },
         {
-            "name": "Debug Mock",
+            "name": "Mock",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/run_military_simulation.py",
