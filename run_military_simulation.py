@@ -18,6 +18,7 @@ from data_types import Action, NationResponse
 from prompts import format_nation_descriptions_static, format_nation_states_dynamic
 import utils
 from world import World
+from world_model import WorldModel
 
 
 def main():
@@ -37,6 +38,12 @@ def main():
         type=str,
         default="gpt-3.5-turbo-16k-0613",
         help="Agent model to use",
+    )
+    parser.add_argument(
+        "--world_model",
+        type=str,
+        default="gpt-3.5-turbo-16k-0613",
+        help="World model to use",
     )
     parser.add_argument(
         "--nations_config_filepath",
@@ -115,6 +122,7 @@ def main():
     ]
     logger.info("Initializing World")
     world = World(logger, nations, action_config, max_days=args.max_days)
+    world_model = WorldModel(wandb.config.world_model)
 
     # Initialize some run-wide trackers
     dynamic_column_names = nations[0].list_dynamic()
@@ -282,6 +290,14 @@ def main():
             world.update_state(queued_actions)
             pbar.update(1)
 
+            # Summarize the consequences of the actions
+            consequences_and_prompts = world_model.summarize_consequences(world)
+            world.consequence_history[world.current_day] = consequences_and_prompts
+            log_object["daily/consequences"] = wandb.Table(
+                columns=["day", "summary", "system_prompt", "user_prompt"],
+                data=[(world.current_day, *consequences_and_prompts)],
+            )
+
             # Log current nation states (post-update)
             dynamic_vars_today = [
                 [world.current_day, nation.get_static("name")]
@@ -309,6 +325,9 @@ def main():
             logger.info(
                 f"📊 Day {world.current_day - 1} concluded. Current nation stats:\n{format_nation_states_dynamic(world)}"
             )
+            logger.info(
+                f"⚖️  Consequences of actions on day {world.current_day - 1}:\n{consequences_and_prompts[0]}\n"
+            )
 
             wandb.log(log_object)
 
@@ -328,6 +347,30 @@ def main():
     log_object["whole_run/actions"] = wandb.Table(
         columns=actions_column_names,
         data=actions_whole_run,
+    )
+    log_object["whole_run/consequences"] = wandb.Table(
+        columns=["day", "summary", "system_prompt", "user_prompt"],
+        data=[
+            (day, *world.consequence_history[day])
+            for day in sorted(world.consequence_history.keys())
+        ],
+    )
+    log_object["whole_run/consequences_string"] = wandb.Table(
+        columns=["all_summaries"],
+        data=[
+            [
+                (
+                    "\n\n".join(
+                        [
+                            f"## Day {day} ##\n{summary}"
+                            for day, summary in sorted(
+                                world.consequence_history.items()
+                            )
+                        ]
+                    )
+                )
+            ]
+        ],
     )
     log_object["whole_run/model_responses_text"] = wandb.Table(
         columns=model_response_text_column_names,

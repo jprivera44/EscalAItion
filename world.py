@@ -3,8 +3,6 @@ from data_types import Action
 
 import wandb
 
-import prompts
-
 
 class World:
     """The global environment state."""
@@ -141,16 +139,5 @@ class World:
                         action_design[column_name],
                         operator_type,
                     )
-
-        # Summarize the consequences of each action
-        system_prompt = prompts.get_world_model_system_prompt(world=self)
-        user_prompt = prompts.get_world_model_user_prompt(world=self)
-        summary = "TODO placeholder, will replace with llm later"
-
-        self.consequence_history[self.current_day] = (
-            summary,
-            system_prompt,
-            user_prompt,
-        )
 
         self.current_day += 1

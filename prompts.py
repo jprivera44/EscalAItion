@@ -104,12 +104,18 @@ def format_action_descriptions(world: World, nation_name: str):
     action_descriptions = ""
     nation = [
         nation for nation in world.nations if nation.get_static("name") == nation_name
-    ][0]
+    ]
+    if len(nation) == 0:
+        nation = None
+    else:
+        assert len(nation) == 1
+        nation = nation[0]
 
     for _, action in world.action_config.iterrows():
         # Limit nuclear options to nations with nuclear capabilities
         if (
             action["name"] == "Execute nuclear strike"
+            and nation is not None
             and nation.get_dynamic("nuclear") < 10.0
         ):
             continue
