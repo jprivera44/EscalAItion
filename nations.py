@@ -80,24 +80,30 @@ class MockNation(Nation):
         nation_name = self.get_static("name")
         system_prompt = prompts.get_nation_system_prompt(world, nation_name)
         user_prompt = prompts.get_nation_user_prompt(world, nation_name)
+
+        # Testing: manipulate actions
+        actions = [
+            # Action(
+            #     "Message",
+            #     nation_name,
+            #     "World",
+            #     f"Hello World on day {world.current_day} from {nation_name}",
+            # ),
+            # Action(
+            #     "Message",
+            #     nation_name,
+            #     "Red",
+            #     f"Private message from {nation_name} to Red",
+            # ),
+            # Action("Wait", nation_name, self.get_static("name"), ""),
+            # Action("Execute targeted attack", nation_name, "Purple", ""),
+            Action("Do nuclear disarmament", nation_name, "White", ""),
+        ]
+        if nation_name != "Red":
+            actions = []
         return NationResponse(
             reasoning="I'm a mock nation, I don't have any reasoning.",
-            actions=[
-                Action(
-                    "Message",
-                    nation_name,
-                    "World",
-                    f"Hello World on day {world.current_day} from {nation_name}",
-                ),
-                Action(
-                    "Message",
-                    nation_name,
-                    "Red",
-                    f"Private message from {nation_name} to Red",
-                ),
-                Action("Wait", nation_name, self.get_static("name"), ""),
-                Action("Execute targeted attack", nation_name, "Purple", ""),
-            ],
+            actions=actions,
             system_prompt=system_prompt,
             user_prompt=user_prompt,
             prompt_tokens=0,
