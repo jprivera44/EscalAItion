@@ -292,10 +292,10 @@ def main():
 
             # Summarize the consequences of the actions
             consequences_and_prompts = world_model.summarize_consequences(world)
-            world.consequence_history[world.current_day] = consequences_and_prompts
+            world.consequence_history[world.previous_day] = consequences_and_prompts
             log_object["daily/consequences"] = wandb.Table(
                 columns=["day", "summary", "system_prompt", "user_prompt"],
-                data=[(world.current_day, *consequences_and_prompts)],
+                data=[(world.previous_day, *consequences_and_prompts)],
             )
 
             # Log current nation states (post-update)
@@ -323,10 +323,10 @@ def main():
 
             # Log the dynamic nation stats to console
             logger.info(
-                f"📊 Day {world.current_day - 1} concluded. Current nation stats:\n{format_nation_states_dynamic(world)}"
+                f"📊 Day {world.previous_day} concluded. Current nation stats:\n{format_nation_states_dynamic(world)}"
             )
             logger.info(
-                f"⚖️  Consequences of actions on day {world.current_day - 1}:\n{consequences_and_prompts[0]}\n"
+                f"⚖️  Consequences of actions on day {world.previous_day}:\n{consequences_and_prompts[0]}\n"
             )
 
             wandb.log(log_object)

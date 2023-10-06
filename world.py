@@ -22,6 +22,11 @@ class World:
         # Tuple contains (summary, system_prompt, user_prompt)
         self.consequence_history: dict[int, tuple[str, str, str]] = {}
 
+    @property
+    def previous_day(self):
+        """Return the previous day number."""
+        return self.current_day - 1
+
     def perform_operation(self, nation_value, env_value, operator):
         """Handle the differences of arithmetic, either multiplication or addition."""
         if operator == "add":
