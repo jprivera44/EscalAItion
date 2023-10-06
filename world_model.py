@@ -6,6 +6,7 @@ from backends import (
     ClaudeCompletionBackend,
     HuggingFaceCausalLMBackend,
 )
+from data_types import BackendResponse
 import prompts
 from world import World
 
@@ -15,6 +16,7 @@ class WorldModel:
 
     def __init__(self, model_name: str, **kwargs) -> None:
         """Load a backend for the model."""
+        self.model_name = model_name
         disable_completion_preface = kwargs.pop("disable_completion_preface", False)
         self.use_completion_preface = not disable_completion_preface
         if (
@@ -43,14 +45,22 @@ class WorldModel:
             self.use_completion_preface = False
             self.backend = OpenAIChatBackend(model_name)
 
-    def summarize_consequences(self, world: World) -> tuple[str, str, str]:
+    def summarize_consequences(self, world: World) -> BackendResponse:
         """Summarize the consequences of each action."""
         system_prompt = prompts.get_world_model_system_prompt(world)
         user_prompt = prompts.get_world_model_user_prompt(world)
-        summary = "TODO placeholder, will replace with llm later"
-
-        return (
-            summary,
-            system_prompt,
-            user_prompt,
-        )
+        if self.model_name == "mock":
+            return BackendResponse(
+                completion="TODO placeholder, will replace with llm later",
+                completion_time_sec=0.0,
+                prompt_tokens=0,
+                completion_tokens=0,
+                total_tokens=0,
+            )
+        else:
+            return self.backend.complete(
+                system_prompt,
+                user_prompt,
+                temperature=0.0,
+                top_p=1.0,
+            ).completion

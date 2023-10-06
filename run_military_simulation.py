@@ -14,7 +14,7 @@ import wandb
 
 import constants
 from nations import model_name_to_nation
-from data_types import Action, NationResponse
+from data_types import Action, BackendResponse, NationResponse
 from prompts import format_nation_descriptions_static, format_nation_states_dynamic
 import utils
 from world import World
@@ -291,10 +291,21 @@ def main():
             pbar.update(1)
 
             # Summarize the consequences of the actions
-            consequences_and_prompts = world_model.summarize_consequences(world)
-            world.consequence_history[world.previous_day] = consequences_and_prompts
+            consequences_reponse: BackendResponse = world_model.summarize_consequences(
+                world
+            )
+            world.consequence_history[world.previous_day] = consequences_reponse
             log_object["daily/consequences"] = wandb.Table(
-                columns=["day", "summary", "system_prompt", "user_prompt"],
+                columns=[
+                    "day",
+                    "summary",
+                    "system_prompt",
+                    "user_prompt",
+                    "prompt_tokens",
+                    "completion_tokens",
+                    "total_tokens",
+                    "completion_time",
+                ],
                 data=[(world.previous_day, *consequences_and_prompts)],
             )
 

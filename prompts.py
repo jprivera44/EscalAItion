@@ -53,7 +53,7 @@ def get_nation_user_prompt(world: World, nation_name: str):
 
     nation_states_dynamic = format_nation_states_dynamic(world)
 
-    return f"""## Static descriptions of each nation (estimated ratings are constant and out of 10) ##
+    return f"""## Starting descriptions of each nation (estimated ratings are constant and out of 10) ##
 {nation_descriptions_static}
 
 ## History of past actions. Format: performer -> recipient : Action ##
@@ -87,7 +87,10 @@ Please carefully consider to the best of your ability what realistic consequence
 
 def get_world_model_user_prompt(world: World) -> str:
     """User prompt for world model. Mostly describes the state of the world history."""
-    return rf"""## History of past actions and their consequences. Format: performer -> recipient : Action ##
+    return rf"""## Previous context on each nation (estimated ratings are constant and out of 10) ##
+{format_nation_descriptions_static(world)}
+
+## History of past actions and their consequences. Format: performer -> recipient : Action ##
 {format_action_history(world, "World")}
 
 ## Changes in nation states over the last day due to the actions above ##
@@ -186,7 +189,7 @@ def format_action_history(world: World, nation_name: str):
         # Add consequences
         if day in world.consequence_history:
             past_action_history += "#### Consequences:\n"
-            consequences = world.consequence_history[day][0].strip()
+            consequences = world.consequence_history[day].completion.strip()
             past_action_history += f"{consequences}\n\n"
 
     return past_action_history.strip()
@@ -196,7 +199,10 @@ def format_nation_descriptions_static(world):
     """Format the static descriptions of each nation for the user prompt."""
     nation_descriptions_static = ""
     for nation in world.nations:
+        nation_descriptions_static += f"{nation.get_static('name').title()}\n"
         for static_key in nation.list_static():
+            if static_key == "name":
+                continue
             nation_descriptions_static += (
                 f"- {static_key.title()}: {nation.get_static(static_key)}\n"
             )

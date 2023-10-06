@@ -1,7 +1,8 @@
 """The global game state with settings and the ability to resolve actions."""
-from data_types import Action
 
 import wandb
+
+from data_types import Action, BackendResponse
 
 
 class World:
@@ -19,8 +20,7 @@ class World:
         # History of day number to list of actions taken
         self.action_history: dict[int, list[Action]] = {}
         # History of the World Model's summaries of the consequences of what happened on each day
-        # Tuple contains (summary, system_prompt, user_prompt)
-        self.consequence_history: dict[int, tuple[str, str, str]] = {}
+        self.consequence_history: dict[int, BackendResponse] = {}
 
     @property
     def previous_day(self):
