@@ -135,32 +135,6 @@ def main():
         handler = LLMQueryHandler()
         llm_response_raw = handler.query_LLM(system_prompt, user_prompt)
         llm_response_completion = llm_response_raw.completion
-
-        '''
-        # Handling the response
-        if '\n' in llm_response_completion:
-            # Convert the string to a JSON object
-            json_objects = [json.loads(line) for line in llm_response_completion.split('\n') if line.strip()]
-
-        else:
-            # Split by "}{" and add back the curly braces to ensure valid JSON objects
-            json_strings = llm_response_completion.split('}{')
-            json_objects = []
-            for idx, obj in enumerate(json_strings):
-                # Add curly braces to the beginning and end of the string, except for the first and last pieces.
-                json_str = obj
-                if idx != 0:
-                    json_str = "{" + json_str
-                if idx != len(json_strings) - 1:
-                    json_str = json_str + "}"
-
-                try:
-                    json_obj = json.loads(json_str)
-                    json_objects.append(json_obj)
-                except json.JSONDecodeError as e:
-                    print(f"Error decoding JSON for string: {json_str}")
-                    print(f"Error message: {e}")
-        '''
    
 
 
