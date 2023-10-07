@@ -189,6 +189,12 @@ class OpenAICompletionBackend(LanguageModelBackend):
         self.model_name = model_name
         self.max_tokens = 1000
         self.frequency_penalty = 0.5 if "text-" not in self.model_name else 0.0
+        self.stop_sequences = [
+            "##",
+            "###",
+            "\n\n",
+            "```",
+        ]
 
     def complete(
         self,
@@ -210,6 +216,7 @@ class OpenAICompletionBackend(LanguageModelBackend):
                 top_p=top_p,
                 max_tokens=self.max_tokens,
                 frequency_penalty=self.frequency_penalty,
+                stop=self.stop_sequences,
             )
             completion = response.choices[0].text
             assert "usage" in response, "OpenAI response does not contain usage"
