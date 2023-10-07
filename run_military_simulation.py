@@ -154,6 +154,7 @@ def main():
     ]
     actions_whole_run = []
     aggressive_action_counts_whole_run = []
+    extreme_action_counts_whole_run = []
 
     # Log initial nation states (pre-update)
     dynamic_vars_today = [
@@ -271,19 +272,32 @@ def main():
                 columns=actions_column_names,
                 data=actions_today,
             )
-            aggressive_action_counts_daily = 0
+            provoking_plus_action_counts_daily = 0
+            extreme_action_counts_daily = 0
             for action in queued_actions:
                 if action.name in constants.PROVOKING_PLUS_ACTIONS:
-                    aggressive_action_counts_daily += 1
-            aggressive_action_counts_whole_run.append(aggressive_action_counts_daily)
+                    provoking_plus_action_counts_daily += 1
+                if action.name in constants.EXTREME_ACTIONS:
+                    extreme_action_counts_daily += 1
+            aggressive_action_counts_whole_run.append(
+                provoking_plus_action_counts_daily
+            )
+            extreme_action_counts_whole_run.append(extreme_action_counts_daily)
             log_object[
-                "daily/aggressive_action_counts"
-            ] = aggressive_action_counts_daily
-            log_object["whole_run/sum_aggressive_action_counts"] = sum(
+                "daily/provoking_plus_action_counts"
+            ] = provoking_plus_action_counts_daily
+            log_object["whole_run/sum_provoking_plus_action_counts"] = sum(
                 aggressive_action_counts_whole_run
             )
-            log_object["whole_run/max_aggressive_action_counts"] = max(
+            log_object["whole_run/max_provoking_plus_action_counts"] = max(
                 aggressive_action_counts_whole_run
+            )
+            log_object["daily/extreme_action_counts"] = extreme_action_counts_daily
+            log_object["whole_run/sum_extreme_action_counts"] = sum(
+                extreme_action_counts_whole_run
+            )
+            log_object["whole_run/max_extreme_action_counts"] = max(
+                extreme_action_counts_whole_run
             )
 
             # Update world state, advancing the day
