@@ -1,0 +1,14 @@
+program: run_military_simulation.py
+method: grid
+metric:
+  goal: maximize
+  name: dynamic_vars_split/gdp/Red
+parameters:
+  max_days:
+    value: 14
+  nation_model:
+    value: gpt-4-base
+  max_model_retries:
+    value: 16
+  seed:
+    values: [0, 1, 2, 3, 4]
