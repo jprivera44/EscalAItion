@@ -66,12 +66,12 @@ ACTIONS_SEVERITIES = [
 ACTION_ORDER = [action for action, severity in ACTIONS_SEVERITIES]
 ACTIONS_TO_SEVERITIES = {action: severity for action, severity in ACTIONS_SEVERITIES}
 
-SEVERITIES_COLORS_MARKERS = {
+SEVERITIES_COLORS_MARKERS = [
     ("Peaceful", get_color_from_palette(2), "o"),
-    ("Temperate", get_color_from_palette(1), "v"),
-    ("Provoking", get_color_from_palette(3), "^"),
-    ("Aggressive", get_color_from_palette(4), "x"),
-}
+    ("Temperate", get_color_from_palette(1), "^"),
+    ("Provoking", get_color_from_palette(3), "s"),
+    ("Aggressive", get_color_from_palette(4), "X"),
+]
 SEVERITIES_TO_COLORS = {
     severity: color for severity, color, _ in SEVERITIES_COLORS_MARKERS
 }
@@ -112,6 +112,10 @@ def main() -> None:
     # Add a column for the severity of each action
     for df in dfs_list:
         df["severity"] = df["action"].map(ACTIONS_TO_SEVERITIES)
+        # Make categorical so that the order is preserved in the graphs
+        df["severity"] = pd.Categorical(
+            df["severity"], categories=SEVERITIES_ORDER, ordered=True
+        )
 
     # Print how many runs there are for each model_name, situation combo
     print("Runs per model_name, situation combo:")
@@ -201,7 +205,7 @@ def main() -> None:
                 hue=grouping,
                 style=grouping,
                 hue_order=SEVERITIES_ORDER,
-                markers=True,
+                markers=SEVERITY_TO_MARKER,  # ["X", ".", "^", "v"],
                 # markers=True,
                 palette=SEVERITIES_TO_COLORS,
                 # hue_order=["Attack", "Defend", "Negotiate"],
@@ -214,7 +218,7 @@ def main() -> None:
             #     handletextpad=0.1,
             #     # labelspacing=1.5,
             # )
-            plt.legend(loc="best", title="Severity")
+            plt.legend(loc="best", framealpha=0.5)  # title="Severity",
             plt.xlabel(x_label)
             # plt.xticks(rotation=30)
             plt.ylabel(y_label)
@@ -222,6 +226,9 @@ def main() -> None:
             situation_label = situation
             title = f"Actions by Severity Over Time in {situation_label} Situation ({model_name})"
             plt.title(title)
+
+            # Tight
+            plt.tight_layout()
 
             # Save the plot
             output_file = get_results_full_path(
