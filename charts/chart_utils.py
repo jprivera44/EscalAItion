@@ -60,7 +60,7 @@ def initialize_plot_bar() -> None:
     plt.rcParams["lines.marker"] = ""
 
 
-def _get_color_from_palette(index: int) -> Any:
+def get_color_from_palette(index: int) -> Any:
     """Get a color from the default palette."""
     palette = sns.color_palette(DEFAULT_COLOR_PALETTE)
     color = palette[index]
@@ -78,7 +78,7 @@ def get_results_full_path(relative_path: str) -> str:
     return os.path.join(os.path.dirname(__file__), relative_path)
 
 
-DEFAULT_COLOR_PALETTE = "colorblind"
+DEFAULT_COLOR_PALETTE = "bright"
 
 COLOR_ALT_1 = "tab:purple"
 COLOR_ALT_2 = "tab:red"
