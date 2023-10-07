@@ -21,18 +21,25 @@ INPUT_DIR = "../results/actions_v3"
 OUTPUT_DIR = "./actions_v4"
 
 ALL_MODEL_NAMES = [
+    "GPT-3.5",
     "Claude-1.2",
     "Claude-2.0",
-    "GPT-3.5",
     "GPT-4-Base",
     "GPT-4",
 ]
 
 ALL_SITUATIONS = ["Neutral", "Drone", "3 Drones"]
 ALL_SITUATIONS = ["Drone", "NoDescriptions", "Invasion", "WorldLLM Invasion A"]
-ALL_SITUATIONS = ["Neutral", "Cyberattack", "Invasion"]
+SITUATIONS_COLORS = [
+    ("Neutral", get_color_from_palette(0)),
+    ("Cyberattack", get_color_from_palette(1)),
+    ("Invasion", get_color_from_palette(2)),
+]
+ALL_SITUATIONS = [situation for situation, _ in SITUATIONS_COLORS]
+SITUATION_COLORS = [color for _, color in SITUATIONS_COLORS]
+SITUATIONS_TO_COLORS = {situation: color for situation, color in SITUATIONS_COLORS}
 
-LABEL_MAX_LENGTH = 15
+LABEL_MAX_LENGTH = 26
 
 ACTIONS_SEVERITIES = [
     ("Wait", "Peaceful"),
@@ -136,19 +143,26 @@ def main() -> None:
     for model_name in ALL_MODEL_NAMES:
         # Create a DF of the counts of each model/situation/action combo in each file
         groups_by_action = [
-            df.groupby(["day", "model_name", "situation", "action"]).size()
+            df.groupby(["day", "model_name", "situation", "action", "severity"]).size()
             for df in dfs_list
             if df["model_name"].unique()[0] == model_name
         ]
         graphing_data_actions = []
         for series in groups_by_action:
-            for (day, series_model_name, situation, action), count in series.items():
+            for (
+                day,
+                series_model_name,
+                situation,
+                action,
+                severity,
+            ), count in series.items():
                 graphing_data_actions.append(
                     {
                         "day": day,
                         "model_name": series_model_name,
                         "situation": situation,
                         "action": action,
+                        "severity": severity,
                         "count": count,
                     }
                 )
@@ -255,18 +269,26 @@ def main() -> None:
         y_label = "Count"
         grouping = "situation"
         grouping_order = ALL_SITUATIONS
+        # palette = [
+        #     SEVERITIES_TO_COLORS[severity] for severity in df_actions["severity"]
+        # ]
         # Plot df_grouped
         sns.barplot(
             data=df_actions,
             x=x_variable,
             y=y_variable,
             order=ACTION_ORDER,
-            hue="severity",
+            hue=grouping,
+            # grouping_order=grouping_order,
+            palette=SITUATIONS_TO_COLORS,
             # order=df_grouped.index.get_level_values(x_variable).unique(),
-            # hue_order=grouping_order,
+            hue_order=grouping_order,
+            capsize=CAPSIZE_DEFAULT,
         )
         plt.xlabel(x_label)
-        plt.xticks(rotation=60)
+        # Ticks on the x axis
+        plt.xticks(rotation=90)
+
         # Change x labels by automatically breaking long ones to 2 lines
         ax = plt.gca()
         labels = [item.get_text() for item in ax.get_xticklabels()]
