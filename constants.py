@@ -2,7 +2,7 @@
 
 MAX_BACKOFF_TIME_DEFAULT = 300  # seconds
 
-WANDB_PROJECT = "escalaition-v1"
+WANDB_PROJECT = "escalaition-v2"
 
 AGGRESSIVE_ACTIONS = [
     "Do military posturing or military exercise",
