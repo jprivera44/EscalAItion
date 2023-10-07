@@ -131,7 +131,7 @@ def format_nation_vars_diff(world: World) -> str:
                 if isinstance(old_value, float):
                     old_value = f"{old_value:.3f}"
                 if isinstance(new_value, float):
-                    old_value = f"{new_value:.3f}"
+                    new_value = f"{new_value:.3f}"
                 diffs += f"- {dynamic_key.title()}: {old_value} -> {new_value}\n"
         diffs += "\n"
     return diffs.strip()
