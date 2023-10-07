@@ -101,6 +101,14 @@
             "justMyCode": true
         },
         {
+            "name": "JSON plotting",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/charts/llm_eval_charts.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
