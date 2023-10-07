@@ -260,27 +260,131 @@ def main() -> None:
         #     plt.clf()
         #     del df_plot
 
-        # 2. Bar plot showing names grouped by situation and for each model
+        # # 2. Bar plot showing names grouped by situation and for each model
+        # initialize_plot_bar()
+        # plt.rcParams["figure.figsize"] = (16, 4)
+        # x_variable = "action"
+        # x_label = "Action"
+        # y_variable = "count"
+        # y_label = "Total Action Count per Simulation"
+        # grouping = "situation"
+        # grouping_order = ALL_SITUATIONS
+        # # palette = [
+        # #     SEVERITIES_TO_COLORS[severity] for severity in df_actions["severity"]
+        # # ]
+        # # Plot df_grouped
+        # sns.barplot(
+        #     data=df_actions,
+        #     x=x_variable,
+        #     y=y_variable,
+        #     order=ACTION_ORDER,
+        #     hue=grouping,
+        #     # grouping_order=grouping_order,
+        #     palette=SITUATIONS_TO_COLORS,
+        #     # order=df_grouped.index.get_level_values(x_variable).unique(),
+        #     hue_order=grouping_order,
+        #     capsize=CAPSIZE_DEFAULT,
+        #     errorbar="ci",
+        # )
+        # plt.xlabel(x_label)
+        # # Ticks on the x axis
+        # plt.xticks(rotation=90)
+
+        # # Change x labels by automatically breaking long ones to 2 lines
+        # ax = plt.gca()
+        # labels = [item.get_text() for item in ax.get_xticklabels()]
+        # for label in labels:
+        #     new_label = label
+        #     if len(label) > LABEL_MAX_LENGTH:
+        #         # Break once after max length
+        #         remainder = label[LABEL_MAX_LENGTH:]
+        #         segments = remainder.split(" ", 1)
+        #         assert len(segments) == 2 or len(segments) == 1
+        #         new_label = label[:LABEL_MAX_LENGTH] + segments[0]
+        #         if len(segments) == 2:
+        #             new_label += "\n" + segments[1]
+        #     # Replace the label
+        #     labels[labels.index(label)] = new_label
+
+        # ax.set_xticklabels(labels, ha="right")
+
+        # plt.ylabel(y_label)
+        # plt.yscale("log")
+        # # Y axis labels in non-scientific notation
+        # plt.yticks(
+        #     [0.1, 0.3, 1, 3, 10, 30],
+        #     ["0.1", "0.3", "1", "3", "10", "30"],
+        # )
+
+        # title = f"{y_label} By Situation ({model_name})"
+        # plt.title(title)
+        # plt.legend(title="Situation", loc="best", framealpha=0.5)
+
+        # # Save the plot
+        # output_file = get_results_full_path(os.path.join(OUTPUT_DIR, f"{title}.png"))
+        # save_plot(output_file)
+        # print(f"Saved plot '{title}' to {output_file}")
+
+        # # Clear the plot
+        # plt.clf()
+        # del df_actions
+
+    # 3. Severities of Actions by Model (Different graph per situation)
+    # Regroup for df_actions, not filtering by model
+    # Create a DF of the counts of each model/situation/action combo in each file
+    groups_by_action_all_models = [
+        df.groupby(["model_name", "situation", "action", "severity"]).size()
+        for df in dfs_list
+    ]
+    graphing_data_actions_all_models = []
+    for series in groups_by_action_all_models:
+        for (
+            # day,
+            series_model_name,
+            situation,
+            action,
+            severity,
+        ), count in series.items():
+            graphing_data_actions_all_models.append(
+                {
+                    # "day": day,
+                    "model_name": series_model_name,
+                    "situation": situation,
+                    "action": action,
+                    "severity": severity,
+                    "count": count,
+                }
+            )
+    df_actions_all_models = pd.DataFrame(graphing_data_actions_all_models)
+    for situation in ALL_SITUATIONS:
+        # Filter down to the rows of df_actions with this situation
+        df_plot = df_actions_all_models[
+            df_actions_all_models["situation"] == situation
+        ].copy()
+        if len(df_plot) == 0:
+            print(f"❗ WARNING: Skipping {situation} because it has no data")
+            continue
+
         initialize_plot_bar()
-        plt.rcParams["figure.figsize"] = (16, 4)
-        x_variable = "action"
-        x_label = "Action"
+        # plt.rcParams["figure.figsize"] = (16, 4)
+        x_variable = "severity"
+        x_label = "Severity of Action"
         y_variable = "count"
         y_label = "Total Action Count per Simulation"
-        grouping = "situation"
-        grouping_order = ALL_SITUATIONS
+        grouping = "model_name"
+        grouping_order = ALL_MODEL_NAMES
         # palette = [
         #     SEVERITIES_TO_COLORS[severity] for severity in df_actions["severity"]
         # ]
         # Plot df_grouped
         sns.barplot(
-            data=df_actions,
+            data=df_plot,
             x=x_variable,
             y=y_variable,
-            order=ACTION_ORDER,
+            order=SEVERITIES_ORDER,
             hue=grouping,
             # grouping_order=grouping_order,
-            palette=SITUATIONS_TO_COLORS,
+            palette="bright",
             # order=df_grouped.index.get_level_values(x_variable).unique(),
             hue_order=grouping_order,
             capsize=CAPSIZE_DEFAULT,
@@ -288,26 +392,7 @@ def main() -> None:
         )
         plt.xlabel(x_label)
         # Ticks on the x axis
-        plt.xticks(rotation=90)
-
-        # Change x labels by automatically breaking long ones to 2 lines
-        ax = plt.gca()
-        labels = [item.get_text() for item in ax.get_xticklabels()]
-        for label in labels:
-            new_label = label
-            if len(label) > LABEL_MAX_LENGTH:
-                # Break once after max length
-                remainder = label[LABEL_MAX_LENGTH:]
-                segments = remainder.split(" ", 1)
-                assert len(segments) == 2 or len(segments) == 1
-                new_label = label[:LABEL_MAX_LENGTH] + segments[0]
-                if len(segments) == 2:
-                    new_label += "\n" + segments[1]
-            # Replace the label
-            labels[labels.index(label)] = new_label
-
-        ax.set_xticklabels(labels, ha="right")
-
+        # plt.xticks(rotation=90)
         plt.ylabel(y_label)
         plt.yscale("log")
         # Y axis labels in non-scientific notation
@@ -316,9 +401,18 @@ def main() -> None:
             ["0.1", "0.3", "1", "3", "10", "30"],
         )
 
-        title = f"{y_label} By Situation ({model_name})"
+        title = f"Severity of Actions By Model ({situation} Situation)"
         plt.title(title)
-        plt.legend(title="Situation", loc="best", framealpha=0.5)
+        plt.legend(
+            title="Model",
+            loc="best",
+            framealpha=0.5,
+            borderaxespad=0.0,
+            # bbox_to_anchor=(1.01, 1),
+            # loc="upper left",
+            handletextpad=0.1,
+            labelspacing=0.25,
+        )
 
         # Save the plot
         output_file = get_results_full_path(os.path.join(OUTPUT_DIR, f"{title}.png"))
@@ -327,7 +421,7 @@ def main() -> None:
 
         # Clear the plot
         plt.clf()
-        del df_actions
+        del df_plot
 
 
 if __name__ == "__main__":
