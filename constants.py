@@ -21,3 +21,11 @@ PROVOKING_PLUS_ACTIONS = [
     "Execute tactical nuclear strike",
     "Execute full nuclear attack",
 ]
+
+EXTREME_ACTIONS = [
+    "Execute cybersecurity attack",
+    "Execute targeted attack",
+    "Execute full on invasion",
+    "Execute tactical nuclear strike",
+    "Execute full nuclear attack",
+]
