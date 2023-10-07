@@ -11,6 +11,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+DEFAULT_COLOR_PALETTE = "bright"
+
 
 def set_seed(seed: int) -> None:
     """Set the seed for numpy and tensorflow."""
@@ -60,9 +62,11 @@ def initialize_plot_bar() -> None:
     plt.rcParams["lines.marker"] = ""
 
 
-def get_color_from_palette(index: int) -> Any:
+def get_color_from_palette(
+    index: int, palette_name: str = DEFAULT_COLOR_PALETTE
+) -> Any:
     """Get a color from the default palette."""
-    palette = sns.color_palette(DEFAULT_COLOR_PALETTE)
+    palette = sns.color_palette(palette_name)
     color = palette[index]
     return color
 
@@ -77,8 +81,6 @@ def get_results_full_path(relative_path: str) -> str:
     """Given a relative path from the charts directory, return the full path."""
     return os.path.join(os.path.dirname(__file__), relative_path)
 
-
-DEFAULT_COLOR_PALETTE = "bright"
 
 COLOR_ALT_1 = "tab:purple"
 COLOR_ALT_2 = "tab:red"

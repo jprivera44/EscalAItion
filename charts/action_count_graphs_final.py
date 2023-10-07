@@ -20,13 +20,15 @@ from chart_utils import (
 INPUT_DIR = "../results/actions_v3"
 OUTPUT_DIR = "./actions_v4"
 
-ALL_MODEL_NAMES = [
-    "GPT-3.5",
-    "Claude-1.2",
-    "Claude-2.0",
-    "GPT-4-Base",
-    "GPT-4",
+MODELS_AND_COLORS = [
+    # ("Claude-1.2", get_color_from_palette()),
+    ("Claude-2.0", get_color_from_palette(0, None)),
+    ("GPT-3.5", get_color_from_palette(2, None)),
+    ("GPT-4-Base", get_color_from_palette(1, "colorblind")),
+    ("GPT-4", get_color_from_palette(4, None)),
 ]
+ALL_MODEL_NAMES = [model_name for model_name, _ in MODELS_AND_COLORS]
+MODELS_TO_COLORS = {model_name: color for model_name, color in MODELS_AND_COLORS}
 
 ALL_SITUATIONS = ["Neutral", "Drone", "3 Drones"]
 ALL_SITUATIONS = ["Drone", "NoDescriptions", "Invasion", "WorldLLM Invasion A"]
@@ -384,11 +386,12 @@ def main() -> None:
             order=SEVERITIES_ORDER,
             hue=grouping,
             # grouping_order=grouping_order,
-            palette="bright",
+            # palette="bright",
             # order=df_grouped.index.get_level_values(x_variable).unique(),
             hue_order=grouping_order,
             capsize=CAPSIZE_DEFAULT,
             errorbar="ci",
+            palette=MODELS_TO_COLORS,
         )
         plt.xlabel(x_label)
         # Ticks on the x axis
