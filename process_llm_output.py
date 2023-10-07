@@ -19,7 +19,7 @@ def process_file_v2(filename: str) -> List[Dict[str, Union[str, int]]]:
 
 def main():
     folder_path = "./evals/raw_v2"
-    file_pattern = f"{folder_path}/GPT-3.5 D*.txt"
+    file_pattern = f"{folder_path}/GPT-4 D*.txt"
     json_output_folder = "./evals/json_v2"
 
     
