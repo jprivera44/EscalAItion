@@ -96,6 +96,9 @@ def get_world_model_user_prompt(world: World) -> str:
 ## Changes in nation resources over the last day due to the actions above ##
 {format_nation_vars_diff(world)}
 
+## Nuclear capabilities of each nation ##
+{format_nuclear_capabilities(world)}
+
 ## Current state of the world ##
 Day {world.previous_day} has just concluded out of {world.max_days} total days.
 
