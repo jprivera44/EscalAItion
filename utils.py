@@ -19,12 +19,13 @@ def set_seed(seed: int) -> None:
 
 def format_actions(response):
     """Pretty print a list of actions."""
-    return "\n\t".join(
-        [
-            f"- {action.self} -> {action.other} : {action.name} {action.content}"
-            for action in response.actions
-        ]
-    )
+    output = ""
+    for action in response.actions:
+        output += f"- {action.self} -> {action.other} : {action.name}"
+        if action.content:
+            output += f' "{action.content}"'
+        output += "\n"
+    return output
 
 
 def remove_duplicates_keep_order(lst: list[Any]) -> list[Any]:
