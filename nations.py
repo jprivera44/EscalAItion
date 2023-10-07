@@ -195,7 +195,7 @@ class LLMNation(Nation):
 
             # Extract data from completion
             reasoning = (
-                completion["reasoning"]
+                str(completion["reasoning"])
                 if "reasoning" in completion
                 else "*model outputted no reasoning*"
             )
@@ -211,18 +211,18 @@ class LLMNation(Nation):
                     or "target_nation" not in completion_action
                 ):
                     continue  # Skip empty/invalid actions
-                action_name = completion_action["action_name"]
-                target_nation = completion_action["target_nation"]
+                action_name = str(completion_action["action_name"])
+                target_nation = str(completion_action["target_nation"])
                 content = ""
                 if "content" in completion_action:
-                    content = completion_action["content"]
+                    content = str(completion_action["content"])
                 actions.append(
                     Action(action_name, self.get_static("name"), target_nation, content)
                 )
 
         except Exception as exc:
             raise NationCompletionError(
-                f"Exception: {exc}\n\Response: {response}"
+                rf"Exception: {exc}\n\Response: {response}"
             ) from exc
         return NationResponse(
             reasoning=reasoning,
