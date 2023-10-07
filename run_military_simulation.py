@@ -273,7 +273,7 @@ def main():
             )
             aggressive_action_counts_daily = 0
             for action in queued_actions:
-                if action.name in constants.AGGRESSIVE_ACTIONS:
+                if action.name in constants.PROVOKING_PLUS_ACTIONS:
                     aggressive_action_counts_daily += 1
             aggressive_action_counts_whole_run.append(aggressive_action_counts_daily)
             log_object[
