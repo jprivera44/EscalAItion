@@ -114,7 +114,8 @@ def main() -> None:
             situation=filename.split(" ")[1]
             .replace("MoreDrones", "3 Drones")
             .replace("A4", "Drone")
-            .replace("_", " "),
+            .replace("_", " ")
+            .replace("CyberAttack", "Cyberattack"),
         )
         for filename, df in filenames_and_data
     ]
