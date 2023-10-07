@@ -197,139 +197,139 @@ def main() -> None:
             print(f"❗ WARNING: Skipping {model_name} because it has no data")
             continue
 
-        # # 1. Multi-line plot of severities over time
-        # for situation in ALL_SITUATIONS:
-        #     if situation == "All Situations":
-        #         df_plot = df_severities.copy()
-        #     else:
-        #         df_plot = df_severities[df_severities["situation"] == situation].copy()
-        #     if len(df_plot) == 0:
-        #         print(
-        #             f"❗ WARNING: Skipping {model_name} - {situation} because it has no data"
-        #         )
-        #         continue
+        # 1. Multi-line plot of severities over time
+        for situation in ALL_SITUATIONS:
+            if situation == "All Situations":
+                df_plot = df_severities.copy()
+            else:
+                df_plot = df_severities[df_severities["situation"] == situation].copy()
+            if len(df_plot) == 0:
+                print(
+                    f"❗ WARNING: Skipping {model_name} - {situation} because it has no data"
+                )
+                continue
 
-        #     initialize_plot_default()
-        #     # palette = sns.color_palette(palette="Spectral_r", n_colors=27)
-        #     # sns.set_palette(palette)
-        #     # plt.rcParams["figure.figsize"] = (12, 8)
-        #     x_variable = "day"
-        #     y_variable = "count"
-        #     x_label = "Day"
-        #     y_label = "Action Count"
-        #     grouping = "severity"
-        #     # Plot df_grouped
-        #     sns.lineplot(
-        #         data=df_plot,
-        #         x=x_variable,
-        #         y=y_variable,
-        #         hue=grouping,
-        #         style=grouping,
-        #         hue_order=SEVERITIES_ORDER,
-        #         markers=SEVERITY_TO_MARKER,  # ["X", ".", "^", "v"],
-        #         # markers=True,
-        #         palette=SEVERITIES_TO_COLORS,
-        #         # hue_order=["Attack", "Defend", "Negotiate"],
-        #     )
-        #     # # Legend to the right of the plot
-        #     # plt.legend(
-        #     #     borderaxespad=0.0,
-        #     #     bbox_to_anchor=(1.01, 1),
-        #     #     loc="upper left",
-        #     #     handletextpad=0.1,
-        #     #     # labelspacing=1.5,
-        #     # )
-        #     plt.legend(loc="best", framealpha=0.5)  # title="Severity",
-        #     plt.xlabel(x_label)
-        #     # plt.xticks(rotation=30)
-        #     plt.ylabel(y_label)
-        #     plt.yscale("log")
-        #     situation_label = situation
-        #     title = f"Actions by Severity Over Time in {situation_label} Situation ({model_name})"
-        #     plt.title(title)
+            initialize_plot_default()
+            # palette = sns.color_palette(palette="Spectral_r", n_colors=27)
+            # sns.set_palette(palette)
+            # plt.rcParams["figure.figsize"] = (12, 8)
+            x_variable = "day"
+            y_variable = "count"
+            x_label = "Day"
+            y_label = "Action Count"
+            grouping = "severity"
+            # Plot df_grouped
+            sns.lineplot(
+                data=df_plot,
+                x=x_variable,
+                y=y_variable,
+                hue=grouping,
+                style=grouping,
+                hue_order=SEVERITIES_ORDER,
+                markers=SEVERITY_TO_MARKER,  # ["X", ".", "^", "v"],
+                # markers=True,
+                palette=SEVERITIES_TO_COLORS,
+                # hue_order=["Attack", "Defend", "Negotiate"],
+            )
+            # # Legend to the right of the plot
+            # plt.legend(
+            #     borderaxespad=0.0,
+            #     bbox_to_anchor=(1.01, 1),
+            #     loc="upper left",
+            #     handletextpad=0.1,
+            #     # labelspacing=1.5,
+            # )
+            plt.legend(loc="best", framealpha=0.5)  # title="Severity",
+            plt.xlabel(x_label)
+            # plt.xticks(rotation=30)
+            plt.ylabel(y_label)
+            plt.yscale("log")
+            situation_label = situation
+            title = f"Actions by Severity Over Time in {situation_label} Situation ({model_name})"
+            plt.title(title)
 
-        #     # Tight
-        #     plt.tight_layout()
+            # Tight
+            plt.tight_layout()
 
-        #     # Save the plot
-        #     output_file = get_results_full_path(
-        #         os.path.join(OUTPUT_DIR, f"{title}.png")
-        #     )
-        #     save_plot(output_file)
-        #     print(f"Saved plot '{title}' to {output_file}")
+            # Save the plot
+            output_file = get_results_full_path(
+                os.path.join(OUTPUT_DIR, f"{title}.png")
+            )
+            save_plot(output_file)
+            print(f"Saved plot '{title}' to {output_file}")
 
-        #     # Clear the plot
-        #     plt.clf()
-        #     del df_plot
+            # Clear the plot
+            plt.clf()
+            del df_plot
 
-        # # 2. Bar plot showing names grouped by situation and for each model
-        # initialize_plot_bar()
-        # plt.rcParams["figure.figsize"] = (16, 4)
-        # x_variable = "action"
-        # x_label = "Action"
-        # y_variable = "count"
-        # y_label = "Total Action Count per Simulation"
-        # grouping = "situation"
-        # grouping_order = ALL_SITUATIONS
-        # # palette = [
-        # #     SEVERITIES_TO_COLORS[severity] for severity in df_actions["severity"]
-        # # ]
-        # # Plot df_grouped
-        # sns.barplot(
-        #     data=df_actions,
-        #     x=x_variable,
-        #     y=y_variable,
-        #     order=ACTION_ORDER,
-        #     hue=grouping,
-        #     # grouping_order=grouping_order,
-        #     palette=SITUATIONS_TO_COLORS,
-        #     # order=df_grouped.index.get_level_values(x_variable).unique(),
-        #     hue_order=grouping_order,
-        #     capsize=CAPSIZE_DEFAULT,
-        #     errorbar="ci",
-        # )
-        # plt.xlabel(x_label)
-        # # Ticks on the x axis
-        # plt.xticks(rotation=90)
+        # 2. Bar plot showing names grouped by situation and for each model
+        initialize_plot_bar()
+        plt.rcParams["figure.figsize"] = (16, 4)
+        x_variable = "action"
+        x_label = "Action"
+        y_variable = "count"
+        y_label = "Total Action Count per Simulation"
+        grouping = "situation"
+        grouping_order = ALL_SITUATIONS
+        # palette = [
+        #     SEVERITIES_TO_COLORS[severity] for severity in df_actions["severity"]
+        # ]
+        # Plot df_grouped
+        sns.barplot(
+            data=df_actions,
+            x=x_variable,
+            y=y_variable,
+            order=ACTION_ORDER,
+            hue=grouping,
+            # grouping_order=grouping_order,
+            palette=SITUATIONS_TO_COLORS,
+            # order=df_grouped.index.get_level_values(x_variable).unique(),
+            hue_order=grouping_order,
+            capsize=CAPSIZE_DEFAULT,
+            errorbar="ci",
+        )
+        plt.xlabel(x_label)
+        # Ticks on the x axis
+        plt.xticks(rotation=90)
 
-        # # Change x labels by automatically breaking long ones to 2 lines
-        # ax = plt.gca()
-        # labels = [item.get_text() for item in ax.get_xticklabels()]
-        # for label in labels:
-        #     new_label = label
-        #     if len(label) > LABEL_MAX_LENGTH:
-        #         # Break once after max length
-        #         remainder = label[LABEL_MAX_LENGTH:]
-        #         segments = remainder.split(" ", 1)
-        #         assert len(segments) == 2 or len(segments) == 1
-        #         new_label = label[:LABEL_MAX_LENGTH] + segments[0]
-        #         if len(segments) == 2:
-        #             new_label += "\n" + segments[1]
-        #     # Replace the label
-        #     labels[labels.index(label)] = new_label
+        # Change x labels by automatically breaking long ones to 2 lines
+        ax = plt.gca()
+        labels = [item.get_text() for item in ax.get_xticklabels()]
+        for label in labels:
+            new_label = label
+            if len(label) > LABEL_MAX_LENGTH:
+                # Break once after max length
+                remainder = label[LABEL_MAX_LENGTH:]
+                segments = remainder.split(" ", 1)
+                assert len(segments) == 2 or len(segments) == 1
+                new_label = label[:LABEL_MAX_LENGTH] + segments[0]
+                if len(segments) == 2:
+                    new_label += "\n" + segments[1]
+            # Replace the label
+            labels[labels.index(label)] = new_label
 
-        # ax.set_xticklabels(labels, ha="right")
+        ax.set_xticklabels(labels, ha="right")
 
-        # plt.ylabel(y_label)
-        # plt.yscale("log")
-        # # Y axis labels in non-scientific notation
-        # plt.yticks(
-        #     [0.1, 0.3, 1, 3, 10, 30],
-        #     ["0.1", "0.3", "1", "3", "10", "30"],
-        # )
+        plt.ylabel(y_label)
+        plt.yscale("log")
+        # Y axis labels in non-scientific notation
+        plt.yticks(
+            [0.1, 0.3, 1, 3, 10, 30],
+            ["0.1", "0.3", "1", "3", "10", "30"],
+        )
 
-        # title = f"{y_label} By Situation ({model_name})"
-        # plt.title(title)
-        # plt.legend(title="Situation", loc="best", framealpha=0.5)
+        title = f"{y_label} By Situation ({model_name})"
+        plt.title(title)
+        plt.legend(title="Situation", loc="best", framealpha=0.5)
 
-        # # Save the plot
-        # output_file = get_results_full_path(os.path.join(OUTPUT_DIR, f"{title}.png"))
-        # save_plot(output_file)
-        # print(f"Saved plot '{title}' to {output_file}")
+        # Save the plot
+        output_file = get_results_full_path(os.path.join(OUTPUT_DIR, f"{title}.png"))
+        save_plot(output_file)
+        print(f"Saved plot '{title}' to {output_file}")
 
-        # # Clear the plot
-        # plt.clf()
-        # del df_actions
+        # Clear the plot
+        plt.clf()
+        del df_actions
 
     # 3. Severities of Actions by Model (Different graph per situation)
     # Regroup for df_actions, not filtering by model
