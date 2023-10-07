@@ -55,9 +55,11 @@ class World:
         # Dynamic value
         old_value = nation.get_dynamic(variable_name)
 
-        # call the handle arithmetic method
+        # Call the handle arithmetic method
         new_value = self.perform_operation(old_value, delta, operator)
 
+        # Clamp all values to be positive
+        new_value = max(0, new_value)
         if variable_name == "nuclear":
             # clamp the dynmaic value between 0 and 10
             new_value = max(0, min(10, new_value))

@@ -31,7 +31,7 @@ class Nation(ABC):
 
     def __init__(self, nation_config: dict, **kwargs):
         self.nation_config = nation_config
-        self.prev_nation_config = None
+        self.prev_nation_config = nation_config
 
     def list_static(self):
         """List all the static config variables without the suffix."""
@@ -96,11 +96,11 @@ class MockNation(Nation):
             #     f"Private message from {nation_name} to Red",
             # ),
             # Action("Wait", nation_name, self.get_static("name"), ""),
-            # Action("Execute targeted attack", nation_name, "Purple", ""),
-            Action("Do nuclear disarmament", nation_name, "White", ""),
+            Action("Execute targeted attack", nation_name, "Purple", ""),
+            # Action("Do nuclear disarmament", nation_name, "White", ""),
         ]
-        if nation_name != "Red":
-            actions = []
+        # if nation_name != "Red":
+        #     actions = []
         return NationResponse(
             reasoning="I'm a mock nation, I don't have any reasoning.",
             actions=actions,
