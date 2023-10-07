@@ -26,7 +26,7 @@ ALL_MODEL_NAMES = [
 ]
 
 ALL_SITUATIONS = ["Neutral", "Drone", "3 Drones"]
-ALL_SITUATIONS = ["Drone", "NoDescriptions", "Invasion"]
+ALL_SITUATIONS = ["Drone", "NoDescriptions", "Invasion", "WorldLLM Invasion A"]
 
 LABEL_MAX_LENGTH = 15
 
@@ -78,7 +78,8 @@ def main() -> None:
             model_name=filename.split(" ")[0],
             situation=filename.split(" ")[1]
             .replace("MoreDrones", "3 Drones")
-            .replace("A4", "Drone"),
+            .replace("A4", "Drone")
+            .replace("_", " "),
         )
         for filename, df in filenames_and_data
     ]

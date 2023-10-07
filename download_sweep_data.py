@@ -34,6 +34,9 @@ def main():
 
     # Download the artifacts from each run
     for run in tqdm(runs):
+        if not run.state == "finished":
+            print(f"Skipping run {run.id} because it is not finished")
+            continue
         # Download the actions artifact
         artifact_actions = api.artifact(
             f"{constants.WANDB_PROJECT}/run-{run.id}-whole_runactions:latest"
