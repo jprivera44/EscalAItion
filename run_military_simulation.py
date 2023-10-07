@@ -48,7 +48,7 @@ def main():
     parser.add_argument(
         "--nations_config_filepath",
         type=str,
-        default="nations_configs/nations_v4.csv",
+        default="nations_configs/nations_v5.csv",
     )
     parser.add_argument(
         "--action_config_filepath",
