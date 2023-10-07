@@ -143,14 +143,14 @@ def main() -> None:
     for model_name in ALL_MODEL_NAMES:
         # Create a DF of the counts of each model/situation/action combo in each file
         groups_by_action = [
-            df.groupby(["day", "model_name", "situation", "action", "severity"]).size()
+            df.groupby(["model_name", "situation", "action", "severity"]).size()
             for df in dfs_list
             if df["model_name"].unique()[0] == model_name
         ]
         graphing_data_actions = []
         for series in groups_by_action:
             for (
-                day,
+                # day,
                 series_model_name,
                 situation,
                 action,
@@ -158,7 +158,7 @@ def main() -> None:
             ), count in series.items():
                 graphing_data_actions.append(
                     {
-                        "day": day,
+                        # "day": day,
                         "model_name": series_model_name,
                         "situation": situation,
                         "action": action,
@@ -266,7 +266,7 @@ def main() -> None:
         x_variable = "action"
         x_label = "Action"
         y_variable = "count"
-        y_label = "Count"
+        y_label = "Total Action Count per Simulation"
         grouping = "situation"
         grouping_order = ALL_SITUATIONS
         # palette = [
@@ -284,6 +284,7 @@ def main() -> None:
             # order=df_grouped.index.get_level_values(x_variable).unique(),
             hue_order=grouping_order,
             capsize=CAPSIZE_DEFAULT,
+            errorbar="ci",
         )
         plt.xlabel(x_label)
         # Ticks on the x axis
@@ -309,8 +310,15 @@ def main() -> None:
 
         plt.ylabel(y_label)
         plt.yscale("log")
-        title = f"Action Counts By Situation {model_name}"
+        # Y axis labels in non-scientific notation
+        plt.yticks(
+            [0.1, 0.3, 1, 3, 10, 30],
+            ["0.1", "0.3", "1", "3", "10", "30"],
+        )
+
+        title = f"{y_label} By Situation ({model_name})"
         plt.title(title)
+        plt.legend(title="Situation", loc="best", framealpha=0.5)
 
         # Save the plot
         output_file = get_results_full_path(os.path.join(OUTPUT_DIR, f"{title}.png"))
