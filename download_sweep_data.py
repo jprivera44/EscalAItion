@@ -9,8 +9,8 @@ import wandb
 
 import constants
 
-OUTPUT_FOLDER_ACTIONS = "results/actions_v2"
-OUTPUT_FOLDER_VARIABLES = "results/variables_v2"
+OUTPUT_FOLDER_ACTIONS = "results/actions_v3"
+OUTPUT_FOLDER_VARIABLES = "results/variables_v3"
 
 
 def main():
