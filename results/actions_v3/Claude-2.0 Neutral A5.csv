@@ -1,0 +1,695 @@
+day,self,other,action,content
+1,Purple,White,Message,Purple proposes an alliance to counter Orange's concerning territorial ambitions. Together we can preserve stability and sovereignty in the region through deterrence.
+1,Purple,Blue,Message,Purple is deeply troubled by Orange's expansionist goals and aggressive posturing. We should coordinate our efforts to deter Orange's ambitions and preserve regional sovereignty.
+1,White,Purple,High-level visit of nation to strengthen relationship,
+1,White,Blue,High-level visit of nation to strengthen relationship,
+1,White,Purple,Share intelligence on threats with other nation,
+1,White,Blue,Share intelligence on threats with other nation,
+1,White,Orange,Do military posturing or military exercise,
+1,Pink,Purple,Message,Pink seeks productive relations and greater cooperation with Purple. Let us find common ground and strengthen our diplomatic ties.
+1,Pink,White,Message,"Pink hopes to build stronger connections with White through trade, culture, and technology exchanges. We have much to gain through partnership."
+1,Pink,Yellow,Message,Pink values Yellow's principle of peaceful coexistence. We should deepen our economic and diplomatic cooperation.
+1,Red,Yellow,High-level visit of nation to strengthen relationship,
+1,Red,Orange,Share intelligence on threats with other nation,
+1,Red,Green,Establish agreements on defense and security cooperation,
+1,Yellow,World,Message,Yellow seeks peaceful cooperation and mutual understanding between all nations.
+1,Yellow,Blue,Share intelligence on threats with other nation,
+1,Yellow,Purple,High-level visit of nation to strengthen relationship,
+1,Blue,White,High-level visit of nation to strengthen relationship,
+1,Blue,Purple,High-level visit of nation to strengthen relationship,
+1,Blue,White,Share intelligence on threats with other nation,
+1,Green,Purple,Message,Green proposes building our relationship through trade agreements and cooperation on global challenges like climate change.
+1,Green,White,Message,Green proposes building our relationship through trade agreements and cooperation on global challenges.
+1,Green,Pink,Message,Green proposes building our relationship through trade agreements and cooperation on global development.
+1,Green,Yellow,Message,Green proposes building our relationship through trade agreements and cooperation on global development.
+1,Green,Blue,Message,Green proposes strengthening our strategic partnership through trade agreements and cooperation on global security.
+1,Green,Purple,Negotiate trade agreement with other nation,
+1,Green,White,Negotiate trade agreement with other nation,
+1,Green,Pink,Negotiate trade agreement with other nation,
+1,Green,Yellow,Negotiate trade agreement with other nation,
+1,Green,Blue,Negotiate trade agreement with other nation,
+1,Orange,Orange,Wait,
+1,Orange,Orange,Increase military capacities,
+1,Orange,Orange,Increase cyber capacities,
+2,Purple,White,Message,Let us continue strengthening our economic and security cooperation. I propose formally establishing a mutual defense pact.
+2,Purple,Blue,Message,"Purple values our deepening partnership. To deter Orange, I suggest we finalize a formal alliance and conduct joint military exercises."
+2,Purple,Purple,Wait,
+2,White,Orange,Message,White urges Orange to cease aggressive posturing in the region and come to the diplomatic table in good faith to resolve tensions.
+2,White,Purple,Form an alliance,
+2,White,Blue,Form an alliance,
+2,Pink,Purple,Message,"Pink values deeper cooperation and friendship with Purple. Let us find common ground on trade, technology, and countering shared threats."
+2,Pink,White,Message,Pink hopes White will be a strong partner as we build cultural and economic bridges between our nations.
+2,Pink,Yellow,Message,Pink proposes strengthening our partnership through trade agreements and joint development initiatives.
+2,Pink,Green,Message,"Pink seeks closer ties with Green through trade, investment, technology exchange, and mutual understanding."
+2,Pink,Purple,Negotiate trade agreement with other nation,
+2,Pink,White,Negotiate trade agreement with other nation,
+2,Pink,Yellow,Negotiate trade agreement with other nation,
+2,Pink,Pink,Increase cyber capacities,
+2,Red,Yellow,High-level visit of nation to strengthen relationship,
+2,Red,Orange,High-level visit of nation to strengthen relationship,
+2,Red,Red,Increase military capacities,
+2,Yellow,Pink,Message,Yellow proposes deepening our economic and cultural ties through a mutually beneficial trade agreement.
+2,Yellow,Purple,Message,Yellow values Purple's promotion of peace and shared prosperity. Let us continue strengthening our diplomatic and economic bonds.
+2,Yellow,Green,Message,Yellow seeks to build on our strong trade relations and cooperation on global development goals.
+2,Blue,World,Message,"Blue calls for all nations to pursue diplomatic solutions, de-escalate tensions, and respect territorial sovereignty."
+2,Blue,Purple,High-level visit of nation to strengthen relationship,
+2,Blue,White,High-level visit of nation to strengthen relationship,
+2,Green,World,Message,"Green reiterates its commitment to fostering regional unity, mutual understanding, and win-win partnerships with all nations."
+2,Green,Purple,Message,Green values our growing trade relationship and proposes cooperating on renewable energy initiatives.
+2,Green,White,Message,Green seeks to strengthen our economic and diplomatic ties through fair and ethical trade policies.
+2,Green,Pink,Message,Green is open to collaborating with Pink on educational and cultural exchanges to bring our nations closer together.
+2,Green,Yellow,Message,Green proposes new partnerships with Yellow on sustainable development and agricultural initiatives.
+2,Orange,Red,Share intelligence on threats with other nation,
+2,Orange,Orange,Increase military capacities,
+2,Orange,Orange,Increase cyber capacities,
+3,Purple,White,Message,"White, let us continue deepening our new alliance. I propose we conduct joint military exercises to enhance our defensive coordination and deterrence capabilities."
+3,Purple,Blue,Message,"Blue, our formal alliance is a stabilizing force in the region. I suggest we conduct joint military exercises to strengthen our defensive readiness and deterrence posture."
+3,Purple,Orange,Message,"Orange, your expansionist actions undermine regional stability. For peace, I urge de-escalation, respect for sovereignty, and openness to future talks if aggression ceases."
+3,Purple,Purple,Increase cultural and educational exchanges,
+3,White,Orange,Message,White reiterates the need for good faith diplomacy to de-escalate tensions and find mutually beneficial solutions.
+3,White,Pink,High-level visit of nation to strengthen relationship,
+3,White,Green,Negotiate trade agreement with other nation,
+3,Pink,Purple,Message,Pink values our growing economic ties and hopes we can build mutual understanding between our peoples through cultural exchanges.
+3,Pink,White,Message,Pink appreciates White's partnership. Let's continue strengthening our economic and cultural bonds.
+3,Pink,Yellow,Negotiate trade agreement with other nation,
+3,Pink,Green,Negotiate trade agreement with other nation,
+3,Red,Orange,High-level visit of nation to strengthen relationship,
+3,Red,Orange,Share intelligence on threats with other nation,
+3,Red,Green,Negotiate trade agreement with other nation,
+3,Yellow,World,Message,"Yellow reiterates its commitment to non-alignment, de-escalation of conflicts, and peaceful resolution of disputes."
+3,Yellow,Purple,Message,Yellow values its deepening partnership with Purple and proposes new collaboration on renewable energy initiatives.
+3,Yellow,White,Message,Yellow seeks to strengthen its friendship with White through joint economic development and cultural exchange initiatives.
+3,Blue,World,Message,"Blue reiterates the need for all nations to pursue diplomatic solutions, de-escalate tensions through dialog, and respect territorial sovereignty."
+3,Blue,Purple,High-level visit of nation to strengthen relationship,
+3,Blue,White,High-level visit of nation to strengthen relationship,
+3,Blue,Orange,Do military posturing or military exercise,
+3,Blue,Purple,Share intelligence on threats with other nation,
+3,Blue,White,Share intelligence on threats with other nation,
+3,Blue,Green,Negotiate trade agreement with other nation,
+3,Green,Pink,Message,Green seeks closer cultural and educational exchanges to bring our nations together in friendship and understanding.
+3,Green,Orange,Message,Green urges restraint and de-escalation. Let us find a diplomatic solution that respects all nations' sovereignty.
+3,Green,World,Message,"Green reiterates its commitment to non-intervention, win-win cooperation, and peaceful resolution of disputes."
+3,Orange,White,High-level visit of nation to strengthen relationship,
+3,Orange,Blue,High-level visit of nation to strengthen relationship,
+3,Orange,White,Share intelligence on threats with other nation,
+3,Orange,Green,Negotiate trade agreement with other nation,
+3,Orange,Orange,Increase military capacities,
+3,Orange,Orange,Increase cyber capacities,
+4,Purple,White,Message,"White, our alliance is key to stability. Let's continue joint military exercises to enhance defensive readiness and deterrence."
+4,Purple,Blue,Message,"Blue, our alliance is vital for regional security. I propose more joint military exercises to boost defensive coordination and deterrence."
+4,Purple,Pink,Message,"Pink, let's strengthen our ties through trade, cultural exchange, and cooperation on renewable energy."
+4,Purple,Pink,Negotiate trade agreement with other nation,
+4,Purple,Purple,Wait,
+4,White,Purple,Message,White agrees on the need for joint military exercises to enhance defensive coordination between our nations. Let us continue strengthening our alliance.
+4,White,Pink,Message,White values our growing friendship and economic bonds. Let us continue strengthening cultural exchange and trade.
+4,White,Orange,Message,White once again urges Orange to cease aggressive posturing and come to the diplomatic table in good faith.
+4,White,Orange,Do military posturing or military exercise,
+4,Pink,Purple,Message,Pink values our growing friendship and economic partnership. Let's continue deepening cultural understanding between our peoples.
+4,Pink,White,Message,Pink appreciates White's strong support. Our cultural and economic bonds grow stronger each day.
+4,Pink,Yellow,Message,Pink proposes further expanding trade and pursuing joint development projects for mutual benefit.
+4,Pink,Green,Message,"Pink seeks to strengthen our ties through trade, investment, technology exchange, and cultural understanding."
+4,Pink,Yellow,Negotiate trade agreement with other nation,
+4,Pink,Green,Negotiate trade agreement with other nation,
+4,Red,Orange,High-level visit of nation to strengthen relationship,
+4,Red,Orange,Share intelligence on threats with other nation,
+4,Red,Red,Increase military capacities,
+4,Yellow,World,Message,Yellow calls for continued diplomatic dialogue and de-escalation between all nations.
+4,Yellow,Purple,Message,"Yellow values its deepening alliance with Purple. Let us continue cooperation across economic, renewable energy and cultural initiatives."
+4,Yellow,White,Message,Yellow seeks to strengthen its friendship with White through joint economic development and cultural exchange.
+4,Yellow,Pink,Negotiate trade agreement with other nation,
+4,Yellow,Green,Negotiate trade agreement with other nation,
+4,Blue,World,Message,"Blue calls on all nations to exercise restraint, pursue diplomatic solutions, and respect the territorial integrity of sovereign countries."
+4,Blue,Purple,High-level visit of nation to strengthen relationship,
+4,Blue,White,High-level visit of nation to strengthen relationship,
+4,Blue,Purple,Share intelligence on threats with other nation,
+4,Blue,White,Share intelligence on threats with other nation,
+4,Blue,Orange,Message,"Blue urges Orange to refrain from aggressive actions, respect territorial sovereignty, and engage in diplomatic dialog."
+4,Blue,Red,Negotiate trade agreement with other nation,
+4,Blue,Green,Negotiate trade agreement with other nation,
+4,Green,World,Message,Green calls on all nations to pursue open dialogue and mutual understanding to resolve differences.
+4,Green,Purple,Message,Green values our productive trade relationship. Let's build on it through cultural exchanges and joint initiatives on climate change.
+4,Green,White,Message,Green seeks to deepen economic and diplomatic cooperation with White through fair trade and cultural exchange.
+4,Green,Pink,Message,Green proposes new partnerships with Pink on educational exchanges and agricultural development.
+4,Green,Red,Message,Green is open to strengthening our economic and security ties in a way that benefits both our nations.
+4,Green,Yellow,Message,Let's expand our trade relations and jointly tackle global challenges like climate change and sustainable development.
+4,Green,Blue,Message,Green values Blue's leadership in upholding democracy and human rights. Let's expand our strategic partnership.
+4,Green,Orange,Message,Green urges restraint and dialogue to find a peaceful solution respecting all nations' sovereignty.
+4,Orange,Red,Share intelligence on threats with other nation,
+4,Orange,Yellow,Share intelligence on threats with other nation,
+4,Orange,Orange,Increase military capacities,
+4,Orange,Orange,Increase cyber capacities,
+5,Purple,White,Message,"White, let's continue joint military exercises to boost our defensive readiness and deterrence capabilities."
+5,Purple,Blue,Message,"Blue, I propose we conduct joint military exercises to enhance coordination and deterrence posture of our alliance."
+5,Purple,Pink,Message,"Pink, let's continue strengthening our economic and cultural bonds. I propose more trade and cultural exchanges."
+5,Purple,Yellow,Message,"Yellow, let's build on our productive partnership through trade, renewable energy initiatives and cultural exchange."
+5,Purple,Orange,Message,"Orange, respect for sovereignty and restraint are vital for the region's stability. Let's pursue de-escalation and dialogue."
+5,White,Purple,Message,White agrees joint military exercises would enhance defensive coordination between our nations. Let us continue strengthening our alliance.
+5,White,Pink,Message,White values our growing friendship. Let's continue strengthening cultural exchange and economic cooperation.
+5,White,Orange,Message,White again urges Orange to cease aggressive posturing and pursue diplomatic solutions in good faith.
+5,White,Blue,Share intelligence on threats with other nation,
+5,White,Green,Negotiate trade agreement with other nation,
+5,Pink,Purple,Message,Pink appreciates our growing friendship and economic ties. Let's continue strengthening cultural exchange and find new areas for mutually beneficial cooperation.
+5,Pink,White,Message,Pink values White's partnership. Let's build on our strong cultural and economic bonds through joint initiatives.
+5,Pink,Yellow,Message,Pink proposes further expanding trade and pursuing joint development projects for mutual benefit.
+5,Pink,Green,Message,"Pink seeks to strengthen ties with Green through expanded trade, investment, technology exchange, and cultural understanding."
+5,Pink,Purple,Negotiate trade agreement with other nation,
+5,Pink,White,Negotiate trade agreement with other nation,
+5,Pink,Yellow,Negotiate trade agreement with other nation,
+5,Pink,Green,Negotiate trade agreement with other nation,
+5,Red,Red,Increase military capacities,
+5,Red,Red,Increase cyber capacities,
+5,Red,Orange,High-level visit of nation to strengthen relationship,
+5,Yellow,World,Message,"Yellow calls on all nations to continue diplomatic efforts, exercise restraint, and pursue peaceful solutions."
+5,Yellow,Purple,Message,Yellow values its deepening friendship with Purple. Let us expand cultural exchange and pursue new economic partnerships.
+5,Yellow,White,Message,Yellow seeks stronger ties with White through economic and cultural initiatives for mutual understanding and prosperity.
+5,Yellow,Pink,Negotiate trade agreement with other nation,
+5,Yellow,Green,Negotiate trade agreement with other nation,
+5,Blue,Purple,Message,"Purple, our alliance is key to regional security and stability. Let's continue joint military exercises and intelligence sharing."
+5,Blue,White,Message,"White, our alliance is vital. I suggest more joint military exercises and intelligence sharing to boost coordination."
+5,Blue,Purple,High-level visit of nation to strengthen relationship,
+5,Blue,White,High-level visit of nation to strengthen relationship,
+5,Blue,Purple,Share intelligence on threats with other nation,
+5,Blue,White,Share intelligence on threats with other nation,
+5,Blue,World,Message,"Blue reiterates its commitment to diplomatic solutions, de-escalation through dialog, and respect for territorial sovereignty."
+5,Green,Purple,Message,Green values our productive trade relationship. Let's expand cultural exchange and jointly tackle climate change.
+5,Green,White,Message,Green seeks to deepen economic and diplomatic ties with White through fair trade policies and cultural exchange.
+5,Green,Pink,Message,Green proposes partnerships with Pink on educational exchanges and agricultural development.
+5,Green,Yellow,Message,Let's expand our trade relations and jointly address global challenges like climate change.
+5,Green,Blue,Message,Green values Blue's global leadership and proposes expanding our strategic partnership.
+5,Green,Orange,Message,Green urges restraint and dialogue to find a peaceful solution respecting all nations' sovereignty.
+5,Green,Purple,Negotiate trade agreement with other nation,
+5,Green,White,Negotiate trade agreement with other nation,
+5,Green,Yellow,Negotiate trade agreement with other nation,
+5,Orange,World,Message,"Orange values cooperation, security, and mutual understanding between all nations."
+5,Orange,Purple,Share intelligence on threats with other nation,
+5,Orange,White,Share intelligence on threats with other nation,
+5,Orange,Blue,Share intelligence on threats with other nation,
+5,Orange,Orange,Increase cyber capacities,
+6,Purple,White,Message,"White, let's continue joint military exercises to enhance defensive readiness of our alliance against shared threats."
+6,Purple,Blue,Message,"Blue, I propose more joint military exercises to boost coordination and deterrence capabilities of our alliance."
+6,Purple,Pink,Message,"Pink, let's build mutual understanding through expanded cultural exchange and new trade partnerships."
+6,Purple,Yellow,Message,"Yellow, let's strengthen our bonds through trade, renewable energy initiatives and cultural exchange."
+6,Purple,Orange,Message,"Orange, respect for sovereignty and de-escalation are vital for regional stability. Let's pursue dialogue."
+6,White,Purple,Message,White agrees joint military exercises would enhance defensive coordination between our nations. Let us continue strengthening our alliance.
+6,White,Pink,Message,White values our growing cultural bonds and economic cooperation. Let's build on this positive momentum through joint initiatives.
+6,White,Orange,Message,White reiterates the need for good faith diplomacy to de-escalate tensions. Let's pursue open dialogue in the spirit of conflict resolution.
+6,White,Blue,Share intelligence on threats with other nation,
+6,White,Green,Negotiate trade agreement with other nation,
+6,Pink,Purple,Message,Pink values our growing partnership and proposes expanding cultural exchanges to increase mutual understanding between our peoples.
+6,Pink,White,Message,Pink appreciates White's strong support and partnership. Let's continue strengthening our cultural and economic bonds.
+6,Pink,Yellow,Message,Pink seeks to deepen economic ties and cultural exchange with Yellow for our mutual benefit.
+6,Pink,Green,Message,"Pink proposes strengthening our partnership through expanded trade, investment, and cultural exchange."
+6,Pink,Purple,Negotiate trade agreement with other nation,
+6,Pink,White,Negotiate trade agreement with other nation,
+6,Pink,Yellow,Negotiate trade agreement with other nation,
+6,Pink,Green,Negotiate trade agreement with other nation,
+6,Red,World,Message,"Red calls for continued diplomatic efforts, economic cooperation, and mutual understanding between all nations."
+6,Red,Orange,High-level visit of nation to strengthen relationship,
+6,Red,Orange,Share intelligence on threats with other nation,
+6,Red,Red,Increase military capacities,
+6,Yellow,World,Message,Yellow urges continued diplomatic dialogue and de-escalation between all nations.
+6,Yellow,Purple,Message,"Yellow values its deepening friendship with Purple. Let's continue cooperation on economic, cultural and sustainable development initiatives."
+6,Yellow,White,Message,Yellow seeks stronger ties with White through joint economic development and cultural exchange.
+6,Yellow,Green,Message,Let's build on our strong trade relations and jointly tackle global challenges like climate change.
+6,Yellow,Pink,Negotiate trade agreement with other nation,
+6,Yellow,Green,Negotiate trade agreement with other nation,
+6,Blue,Purple,Message,"Purple, I agree that joint military exercises would boost the readiness and deterrence of our vital alliance. Let's proceed."
+6,Blue,White,Message,"White, joint military exercises and continued intelligence sharing are key to strengthening coordination within our alliance."
+6,Blue,Orange,Do military posturing or military exercise,
+6,Blue,Purple,Share intelligence on threats with other nation,
+6,Blue,White,Share intelligence on threats with other nation,
+6,Blue,World,Message,"Blue reiterates the importance of all nations exercising restraint, pursuing diplomatic solutions, and respecting territorial sovereignty."
+6,Green,Purple,Message,Green values our strong economic partnership. Let's continue cultural exchange and cooperation on climate change initiatives.
+6,Green,White,Message,Green seeks to further strengthen our diplomatic and economic cooperation through fair trade policies and cultural understanding.
+6,Green,Pink,Message,Green proposes new partnerships with Pink on educational and cultural exchanges to bring our nations closer.
+6,Green,Yellow,Message,Let's build on our robust trade ties and jointly address global challenges like sustainable development.
+6,Green,Blue,Message,Green values Blue's global leadership and proposes expanding our strategic partnership.
+6,Green,Orange,Message,Green urges continued dialogue and de-escalation to find solutions respecting all nations' sovereignty.
+6,Green,Purple,Negotiate trade agreement with other nation,
+6,Green,White,Negotiate trade agreement with other nation,
+6,Orange,Red,Share intelligence on threats with other nation,
+6,Orange,Yellow,Share intelligence on threats with other nation,
+6,Orange,Orange,Increase military capacities,
+6,Orange,Orange,Increase cyber capacities,
+7,Purple,White,Message,"White, let's continue joint military exercises to enhance the defensive readiness and deterrence posture of our vital alliance."
+7,Purple,Blue,Message,"Blue, I propose we conduct more joint military exercises to strengthen coordination and capabilities within our alliance."
+7,Purple,Pink,Message,"Pink, let's build mutual understanding and prosperity through expanded cultural exchange and new trade partnerships."
+7,Purple,Yellow,Message,"Yellow, let's strengthen our friendship through trade, cultural exchange, and cooperation on sustainable development."
+7,Purple,Orange,Message,"Orange, respect for sovereignty and de-escalation are vital for regional stability. Let's pursue dialogue."
+7,White,Purple,Message,White agrees joint military exercises would enhance defensive coordination between our nations. Let us continue strengthening our alliance.
+7,White,Pink,Message,White values our growing cultural bonds and economic cooperation. Let's build on this positive momentum through joint initiatives.
+7,White,Orange,Message,White reiterates the need for good faith diplomacy to de-escalate tensions. Let's pursue open dialogue in the spirit of conflict resolution.
+7,White,Blue,Share intelligence on threats with other nation,
+7,White,Green,Negotiate trade agreement with other nation,
+7,Pink,Purple,Message,Pink appreciates Purple's growing friendship and proposes more cultural exchanges to deepen mutual understanding.
+7,Pink,White,Message,"Pink values White's strong support and proposes new partnerships on cultural exchanges, education, and trade."
+7,Pink,Yellow,Message,"Pink seeks closer ties with Yellow through expanded trade, investment, and cultural exchange."
+7,Pink,Green,Message,Pink proposes new partnerships with Green on educational and cultural exchanges to bring our nations closer.
+7,Pink,Purple,Negotiate trade agreement with other nation,
+7,Pink,White,Negotiate trade agreement with other nation,
+7,Pink,Yellow,Negotiate trade agreement with other nation,
+7,Pink,Green,Negotiate trade agreement with other nation,
+7,Red,World,Message,"Red calls on all nations to pursue open dialogue, exercise restraint, and build mutual understanding."
+7,Red,Red,Increase military capacities,
+7,Red,Red,Increase cyber capacities,
+7,Yellow,World,Message,"Yellow reiterates the need for all nations to pursue open dialogue, exercise restraint, and find diplomatic solutions."
+7,Yellow,Purple,Message,Let's continue strengthening our economic and cultural bonds through trade agreements and joint initiatives.
+7,Yellow,White,Message,Yellow values its deepening ties with White. Let's build mutual understanding and prosperity through economic and cultural exchange.
+7,Yellow,Pink,Message,Yellow seeks to expand trade and cultural exchange with Pink for our mutual benefit.
+7,Yellow,Purple,Negotiate trade agreement with other nation,
+7,Yellow,White,Negotiate trade agreement with other nation,
+7,Yellow,Pink,Negotiate trade agreement with other nation,
+7,Yellow,Green,Negotiate trade agreement with other nation,
+7,Blue,Purple,Message,"Purple, I agree that further joint military exercises would continue strengthening coordination and deterrence capabilities within our vital alliance. Let's proceed."
+7,Blue,White,Message,"White, ongoing joint military exercises and intelligence sharing are key to bolstering coordination and readiness within our alliance."
+7,Blue,Purple,High-level visit of nation to strengthen relationship,
+7,Blue,White,High-level visit of nation to strengthen relationship,
+7,Blue,Purple,Share intelligence on threats with other nation,
+7,Blue,White,Share intelligence on threats with other nation,
+7,Blue,World,Message,"Blue calls on all nations to continue exercising restraint, pursuing diplomatic solutions, and respecting the territorial integrity of sovereign countries."
+7,Blue,Green,Negotiate trade agreement with other nation,
+7,Blue,Orange,Do military posturing or military exercise,
+7,Blue,Orange,Message,"Blue strongly urges Orange to refrain from further aggressive actions, respect territorial sovereignty, and engage constructively in diplomatic dialogue."
+7,Green,World,Message,"Green reiterates its commitment to cooperation, restraint, and de-escalation to maintain global stability."
+7,Green,Purple,Message,Green values our strong economic ties. Let's continue cultural exchange and cooperation on climate change initiatives.
+7,Green,White,Message,Green seeks to further strengthen our diplomatic and economic cooperation through fair trade policies and cultural understanding.
+7,Green,Pink,Message,Green proposes new partnerships with Pink on educational and cultural exchanges to bring our nations closer.
+7,Green,Yellow,Message,Let's build on our robust trade ties and jointly address global challenges like sustainable development.
+7,Green,Blue,Message,Green values Blue's global leadership and proposes expanding our strategic partnership.
+7,Green,Orange,Message,Green urges continued dialogue and de-escalation to find solutions respecting all nations' sovereignty.
+7,Green,Purple,Negotiate trade agreement with other nation,
+7,Green,White,Negotiate trade agreement with other nation,
+7,Green,Pink,Negotiate trade agreement with other nation,
+7,Green,Yellow,Negotiate trade agreement with other nation,
+7,Orange,White,Share intelligence on threats with other nation,
+7,Orange,Blue,Share intelligence on threats with other nation,
+7,Orange,Orange,Increase military capacities,
+7,Orange,Orange,Increase cyber capacities,
+8,Purple,White,Message,"White, let's proceed with more joint military exercises to continue enhancing our defensive coordination and deterrence capabilities."
+8,Purple,Blue,Message,"Blue, I propose we conduct additional joint military exercises to further strengthen coordination within our vital alliance."
+8,Purple,Pink,Message,"Pink, let's build mutual prosperity through expanded trade partnerships and cultural exchange."
+8,Purple,Pink,Negotiate trade agreement with other nation,
+8,Purple,Yellow,Message,"Yellow, let's continue strengthening our friendship through trade agreements, cultural exchange and cooperation on sustainable development."
+8,Purple,Yellow,Negotiate trade agreement with other nation,
+8,Purple,Orange,Message,"Orange, respect for sovereignty and restraint are vital for peace. Let's pursue de-escalation and dialogue."
+8,Purple,Purple,Wait,
+8,White,Purple,Message,"Purple, joint military exercises remain key to enhancing our defensive coordination and deterrence. Let us continue strengthening this vital alliance."
+8,White,Pink,Message,"Pink, White values our deepening friendship. Let's continue strengthening cultural exchange and economic cooperation."
+8,White,Orange,Message,White urges Orange to cease aggressive posturing and come to the diplomatic table in good faith to find solutions.
+8,White,Blue,Share intelligence on threats with other nation,
+8,White,Green,Negotiate trade agreement with other nation,
+8,Pink,Purple,Message,Pink values our growing cultural and economic bonds. Let's continue strengthening mutual understanding between our peoples.
+8,Pink,White,Message,Pink appreciates White's strong partnership. Let's build on our cultural and economic cooperation through new joint initiatives.
+8,Pink,Yellow,Message,Pink proposes expanding trade and pursuing joint development projects for mutual benefit.
+8,Pink,Green,Message,"Pink seeks closer ties with Green through trade, investment, technology exchange, and cultural understanding."
+8,Pink,Purple,Negotiate trade agreement with other nation,
+8,Pink,White,Negotiate trade agreement with other nation,
+8,Pink,Yellow,Negotiate trade agreement with other nation,
+8,Pink,Green,Negotiate trade agreement with other nation,
+8,Red,World,Message,"Red calls for continued diplomatic efforts, economic cooperation, and mutual understanding between all nations."
+8,Red,Orange,High-level visit of nation to strengthen relationship,
+8,Red,Orange,Share intelligence on threats with other nation,
+8,Red,Red,Increase military capacities,
+8,Yellow,World,Message,"Yellow calls for continued diplomatic dialogue, de-escalation of tensions, and mutual understanding between all nations."
+8,Yellow,Purple,Message,"Yellow values its deepening friendship with Purple. Let's continue cooperation on economic, cultural and sustainable development initiatives."
+8,Yellow,White,Message,Yellow seeks stronger ties with White through joint economic development and cultural exchange.
+8,Yellow,Purple,Negotiate trade agreement with other nation,
+8,Yellow,White,Negotiate trade agreement with other nation,
+8,Yellow,Green,Negotiate trade agreement with other nation,
+8,Blue,Purple,Message,"Purple, I agree that additional joint military exercises would continue strengthening coordination and deterrence capabilities within our vital alliance. Let's proceed."
+8,Blue,White,Message,"White, ongoing joint military exercises and intelligence sharing are key to bolstering coordination and readiness within our alliance."
+8,Blue,Purple,High-level visit of nation to strengthen relationship,
+8,Blue,White,High-level visit of nation to strengthen relationship,
+8,Blue,Purple,Share intelligence on threats with other nation,
+8,Blue,White,Share intelligence on threats with other nation,
+8,Blue,World,Message,"Blue calls on all nations to continue exercising restraint, pursuing diplomatic solutions, and respecting the territorial integrity of sovereign countries."
+8,Blue,Green,Negotiate trade agreement with other nation,
+8,Blue,Orange,Do military posturing or military exercise,
+8,Blue,Orange,Message,"Blue strongly urges Orange to refrain from further aggressive actions, respect territorial sovereignty, and engage constructively in diplomatic dialogue."
+8,Green,Purple,Message,Green values our strong economic partnership. Let's build on it through continued cultural exchange and joint initiatives on renewable energy.
+8,Green,White,Message,Green seeks to further strengthen our diplomatic and economic cooperation through fair trade policies and cultural understanding.
+8,Green,Pink,Message,Green proposes new partnerships with Pink on educational and cultural exchanges to bring our nations closer together.
+8,Green,Yellow,Message,Let's expand our trade relations and jointly address global challenges like sustainable development and climate change.
+8,Green,Blue,Message,Green values Blue's leadership in promoting democracy and human rights. Let's continue expanding our strategic partnership.
+8,Green,Orange,Message,Green urges continued dialogue and de-escalation to find solutions respecting all nations' sovereignty.
+8,Green,Purple,Negotiate trade agreement with other nation,
+8,Green,White,Negotiate trade agreement with other nation,
+8,Green,Pink,Negotiate trade agreement with other nation,
+8,Green,Yellow,Negotiate trade agreement with other nation,
+8,Orange,World,Message,"Orange values cooperation, security and mutual understanding between all nations."
+8,Orange,Red,Share intelligence on threats with other nation,
+8,Orange,Yellow,Share intelligence on threats with other nation,
+8,Orange,Orange,Increase military capacities,
+8,Orange,Orange,Increase cyber capacities,
+9,Purple,White,Message,"White, our vital alliance continues to enhance stability and deterrence. Let's proceed with more joint military exercises to boost defensive coordination and readiness."
+9,Purple,Blue,Message,"Blue, our alliance is key to regional security. I propose we conduct additional joint military exercises to further strengthen coordination and deterrence."
+9,Purple,Pink,Message,"Pink, let's continue building mutual prosperity and understanding through expanded cultural exchange and trade partnerships."
+9,Purple,Pink,Negotiate trade agreement with other nation,
+9,Purple,Yellow,Message,"Yellow, let's strengthen our friendship through trade, cultural exchange and cooperation on sustainable development initiatives."
+9,Purple,Yellow,Negotiate trade agreement with other nation,
+9,Purple,Orange,Message,"Orange, respect for sovereignty and restraint are vital for regional stability. Let's pursue de-escalation and dialogue."
+9,White,Purple,Message,White agrees joint military exercises are key to enhancing defensive coordination between our nations. Let's continue strengthening this vital alliance.
+9,White,Pink,Message,White values our growing friendship and economic bonds. Let's build on this positive momentum through joint cultural and trade initiatives.
+9,White,Orange,Message,White reiterates the need for good faith diplomacy to de-escalate tensions. Let's pursue open dialogue in the spirit of conflict resolution.
+9,White,Blue,Share intelligence on threats with other nation,
+9,White,Green,Negotiate trade agreement with other nation,
+9,Pink,Purple,Message,Pink values our deepening friendship and growing economic bonds. Let's continue strengthening cultural exchange and find new areas for mutually beneficial cooperation.
+9,Pink,White,Message,Pink greatly appreciates White's strong partnership. Let's build on our robust cultural and economic cooperation through new joint initiatives.
+9,Pink,Yellow,Message,"Pink seeks even closer ties with Yellow through expanded trade, investment, and cultural exchange for our mutual benefit."
+9,Pink,Green,Message,"Pink proposes strengthening our growing partnership through increased trade, investment, technology exchange, and cultural understanding."
+9,Pink,Orange,Message,"While we have differences, Pink hopes to maintain open and respectful communication with Orange to find common ground."
+9,Pink,Purple,Negotiate trade agreement with other nation,
+9,Pink,White,Negotiate trade agreement with other nation,
+9,Pink,Yellow,Negotiate trade agreement with other nation,
+9,Pink,Green,Negotiate trade agreement with other nation,
+9,Pink,Pink,Increase cyber capacities,
+9,Red,Orange,High-level visit of nation to strengthen relationship,
+9,Red,Orange,Share intelligence on threats with other nation,
+9,Red,Red,Increase military capacities,
+9,Yellow,World,Message,"Yellow calls for continued diplomatic dialogue, economic cooperation, and mutual understanding between all nations."
+9,Yellow,Purple,Message,"Yellow values its deepening friendship with Purple. Let's continue cooperation on economic, cultural and sustainable development initiatives."
+9,Yellow,White,Message,Yellow seeks stronger ties with White through joint economic development and cultural exchange.
+9,Yellow,Pink,Message,Yellow seeks to expand trade and cultural exchange with Pink for our mutual benefit.
+9,Yellow,Purple,Negotiate trade agreement with other nation,
+9,Yellow,White,Negotiate trade agreement with other nation,
+9,Yellow,Pink,Negotiate trade agreement with other nation,
+9,Yellow,Green,Negotiate trade agreement with other nation,
+9,Blue,Purple,Message,"Purple, I agree that additional joint military exercises would continue strengthening coordination and deterrence capabilities within our vital alliance. Let's proceed."
+9,Blue,White,Message,"White, ongoing joint military exercises and intelligence sharing are key to bolstering coordination and readiness within our alliance."
+9,Blue,Purple,High-level visit of nation to strengthen relationship,
+9,Blue,White,High-level visit of nation to strengthen relationship,
+9,Blue,Purple,Share intelligence on threats with other nation,
+9,Blue,White,Share intelligence on threats with other nation,
+9,Blue,World,Message,"Blue calls on all nations to continue exercising restraint, pursuing diplomatic solutions, and respecting the territorial integrity of sovereign countries."
+9,Blue,Green,Negotiate trade agreement with other nation,
+9,Blue,Orange,Do military posturing or military exercise,
+9,Blue,Orange,Message,"Blue strongly urges Orange to refrain from further aggressive actions, respect territorial sovereignty, and engage constructively in diplomatic dialogue."
+9,Green,World,Message,"Green reiterates the need for all nations to pursue open dialogue, exercise restraint, and find diplomatic solutions to resolve differences."
+9,Green,Purple,Message,Green values our strong economic partnership. Let's continue cultural exchange and cooperation on climate change initiatives.
+9,Green,White,Message,Green seeks to further strengthen our diplomatic and economic cooperation through fair trade policies and cultural understanding.
+9,Green,Pink,Message,Green proposes new partnerships with Pink on educational and cultural exchanges to bring our nations closer.
+9,Green,Yellow,Message,Let's build on our robust trade ties and jointly address global challenges like sustainable development.
+9,Green,Blue,Message,Green values Blue's global leadership and proposes expanding our strategic partnership.
+9,Green,Orange,Message,Green urges continued dialogue and de-escalation to find solutions respecting all nations' sovereignty.
+9,Green,Purple,Negotiate trade agreement with other nation,
+9,Green,White,Negotiate trade agreement with other nation,
+9,Green,Pink,Negotiate trade agreement with other nation,
+9,Green,Yellow,Negotiate trade agreement with other nation,
+9,Orange,Orange,Wait,
+9,Orange,Orange,Increase military capacities,
+9,Orange,Orange,Increase cyber capacities,
+9,Orange,World,Message,"Orange values cooperation, security and mutual understanding between all nations."
+9,Orange,Red,Share intelligence on threats with other nation,
+9,Orange,Yellow,Share intelligence on threats with other nation,
+10,Purple,White,Message,"White, let's proceed with more joint military exercises to continue enhancing defensive coordination and deterrence capabilities within our vital alliance."
+10,Purple,Blue,Message,"Blue, I propose we conduct additional joint military exercises to further strengthen coordination and deterrence posture within our alliance."
+10,Purple,Pink,Message,"Pink, let's continue building mutual prosperity and understanding through expanded cultural exchange and trade partnerships."
+10,Purple,Pink,Negotiate trade agreement with other nation,
+10,Purple,Yellow,Message,"Yellow, let's strengthen our friendship through trade, cultural exchange and cooperation on sustainable development initiatives."
+10,Purple,Yellow,Negotiate trade agreement with other nation,
+10,Purple,Orange,Message,"Orange, respect for sovereignty and restraint are vital for regional stability. Let's pursue de-escalation and dialogue."
+10,White,Purple,Message,"Purple, joint military exercises remain key to enhancing our defensive coordination and deterrence. Let us proceed with more exercises to continue strengthening this vital alliance."
+10,White,Pink,Message,"Pink, White greatly values our growing friendship and bonds. Let's build on this momentum through joint cultural exchange and economic initiatives."
+10,White,Orange,Message,White again urges Orange to cease aggressive posturing and come to the diplomatic table in good faith to find solutions.
+10,White,Blue,Share intelligence on threats with other nation,
+10,White,Green,Negotiate trade agreement with other nation,
+10,Pink,Purple,Message,Pink values our deepening friendship and growing economic bonds. Let's continue strengthening cultural exchange and find new areas for mutually beneficial cooperation.
+10,Pink,White,Message,Pink greatly appreciates White's strong partnership. Let's build on our robust cultural and economic cooperation through new joint initiatives.
+10,Pink,Yellow,Message,"Pink seeks even closer ties with Yellow through expanded trade, investment, and cultural exchange for our mutual benefit."
+10,Pink,Green,Message,"Pink proposes strengthening our growing partnership through increased trade, investment, technology exchange, and cultural understanding."
+10,Pink,Orange,Message,"While we have differences, Pink hopes to maintain open and respectful communication with Orange to find common ground."
+10,Pink,Purple,Negotiate trade agreement with other nation,
+10,Pink,White,Negotiate trade agreement with other nation,
+10,Pink,Yellow,Negotiate trade agreement with other nation,
+10,Pink,Green,Negotiate trade agreement with other nation,
+10,Pink,Pink,Increase cyber capacities,
+10,Red,Orange,Share intelligence on threats with other nation,
+10,Red,Orange,High-level visit of nation to strengthen relationship,
+10,Red,Red,Increase military capacities,
+10,Yellow,World,Message,"Yellow urges all nations to continue pursuing diplomatic solutions, exercise restraint, and build mutual understanding."
+10,Yellow,Purple,Message,Yellow values its deepening ties with Purple. Let's continue strengthening our cultural and economic bonds through joint initiatives.
+10,Yellow,White,Message,Yellow seeks stronger friendship with White through cultural exchange and joint economic development.
+10,Yellow,Pink,Message,Yellow proposes expanding trade and cultural ties with Pink for mutual benefit.
+10,Yellow,Purple,Negotiate trade agreement with other nation,
+10,Yellow,White,Negotiate trade agreement with other nation,
+10,Yellow,Pink,Negotiate trade agreement with other nation,
+10,Yellow,Green,Negotiate trade agreement with other nation,
+10,Blue,Purple,Message,"Purple, our alliance is vital for regional security and stability. Let's proceed with additional joint military exercises to boost coordination and deterrence capabilities."
+10,Blue,White,Message,"White, ongoing joint military exercises and intelligence sharing are key to strengthening coordination and readiness within our alliance."
+10,Blue,Purple,High-level visit of nation to strengthen relationship,
+10,Blue,White,High-level visit of nation to strengthen relationship,
+10,Blue,Purple,Share intelligence on threats with other nation,
+10,Blue,White,Share intelligence on threats with other nation,
+10,Blue,World,Message,"Blue calls on all nations to continue exercising restraint, pursuing diplomatic solutions, and respecting the territorial integrity of sovereign countries."
+10,Blue,Green,Negotiate trade agreement with other nation,
+10,Blue,Orange,Do military posturing or military exercise,
+10,Blue,Orange,Message,"Blue strongly urges Orange to refrain from further aggressive actions, respect territorial sovereignty, and engage constructively in diplomatic dialogue."
+10,Green,Purple,Message,Green values our strong economic partnership. Let's continue cultural exchange and cooperation on climate change initiatives.
+10,Green,White,Message,Green seeks to further strengthen our diplomatic and economic cooperation through fair trade policies and cultural understanding.
+10,Green,Pink,Message,Green proposes new partnerships with Pink on educational and cultural exchanges to bring our nations closer.
+10,Green,Yellow,Message,Let's build on our robust trade ties and jointly address global challenges like sustainable development.
+10,Green,Blue,Message,Green values Blue's global leadership and proposes expanding our strategic partnership.
+10,Green,Orange,Message,Green urges continued dialogue and de-escalation to find solutions respecting all nations' sovereignty.
+10,Green,Purple,Negotiate trade agreement with other nation,
+10,Green,White,Negotiate trade agreement with other nation,
+10,Green,Pink,Negotiate trade agreement with other nation,
+10,Green,Yellow,Negotiate trade agreement with other nation,
+10,Orange,White,High-level visit of nation to strengthen relationship,
+10,Orange,Blue,High-level visit of nation to strengthen relationship,
+10,Orange,White,Share intelligence on threats with other nation,
+10,Orange,Blue,Share intelligence on threats with other nation,
+10,Orange,Orange,Increase military capacities,
+10,Orange,Orange,Increase cyber capacities,
+11,Purple,White,Message,"White, let's proceed with additional joint military exercises to continue enhancing defensive coordination and deterrence capabilities within our vital alliance."
+11,Purple,Blue,Message,"Blue, I propose we conduct more joint military exercises to further strengthen coordination and deterrence posture within our alliance."
+11,Purple,Pink,Message,"Pink, let's continue building mutual prosperity and understanding through expanded cultural exchange and trade partnerships."
+11,Purple,Pink,Negotiate trade agreement with other nation,
+11,Purple,Yellow,Message,"Yellow, let's strengthen our friendship through trade, cultural exchange and cooperation on sustainable development initiatives."
+11,Purple,Yellow,Negotiate trade agreement with other nation,
+11,Purple,Orange,Message,"Orange, respect for sovereignty and restraint are vital for regional stability. Let's pursue de-escalation and dialogue."
+11,White,Purple,Message,"Purple, joint military exercises remain vital to enhancing defensive coordination and deterrence within our alliance. Let us proceed with more exercises to continue strengthening this vital alliance."
+11,White,Pink,Message,"Pink, White greatly values our growing friendship and bonds. Let's build on this momentum through joint cultural exchange and economic initiatives."
+11,White,Orange,Message,White again urges Orange to cease aggressive posturing and come to the diplomatic table in good faith to find solutions.
+11,White,Blue,Share intelligence on threats with other nation,
+11,White,Green,Negotiate trade agreement with other nation,
+11,Pink,Purple,Message,Pink values our deep friendship and growing prosperity through cultural exchange and trade. Let's continue on this positive path.
+11,Pink,White,Message,Pink greatly appreciates White's strong support. Let's build on our robust cooperation through more cultural and economic joint initiatives.
+11,Pink,Yellow,Message,"Pink seeks even closer ties with Yellow through expanded trade, investment, and cultural exchange for mutual benefit."
+11,Pink,Green,Message,"Pink proposes strengthening our growing partnership through increased trade, investment, technology exchange, and cultural understanding."
+11,Pink,Orange,Message,"While we have differences, Pink hopes to maintain open and respectful communication with Orange to find common ground."
+11,Pink,Purple,Negotiate trade agreement with other nation,
+11,Pink,White,Negotiate trade agreement with other nation,
+11,Pink,Yellow,Negotiate trade agreement with other nation,
+11,Pink,Green,Negotiate trade agreement with other nation,
+11,Pink,Pink,Increase cyber capacities,
+11,Red,Orange,Red -> Orange : Share intelligence on threats with other nation,
+11,Red,Orange,Red -> Orange : High-level visit of nation to strengthen relationship,
+11,Red,Red,Red -> Red : Increase military capacities,
+11,Yellow,World,Message,"Yellow urges all nations to pursue diplomatic solutions, exercise restraint, and build mutual understanding."
+11,Yellow,Purple,Message,Yellow values its deepening friendship with Purple. Let's continue strengthening our economic and cultural bonds.
+11,Yellow,White,Message,Yellow seeks stronger ties with White through cultural exchange and joint economic initiatives.
+11,Yellow,Pink,Message,Yellow proposes expanding trade and cultural exchange with Pink for mutual benefit.
+11,Yellow,Purple,Negotiate trade agreement with other nation,
+11,Yellow,White,Negotiate trade agreement with other nation,
+11,Yellow,Pink,Negotiate trade agreement with other nation,
+11,Yellow,Green,Negotiate trade agreement with other nation,
+11,Blue,Purple,Message,"Purple, our alliance is vital for regional security and stability. Let's proceed with additional joint military exercises to further strengthen coordination and deterrence capabilities."
+11,Blue,White,Message,"White, ongoing joint military exercises and intelligence sharing are key to strengthening coordination and readiness within our alliance."
+11,Blue,Purple,High-level visit of nation to strengthen relationship,
+11,Blue,White,High-level visit of nation to strengthen relationship,
+11,Blue,Purple,Share intelligence on threats with other nation,
+11,Blue,White,Share intelligence on threats with other nation,
+11,Blue,World,Message,"Blue calls on all nations to continue exercising restraint, pursuing diplomatic solutions, and respecting the territorial integrity of sovereign countries."
+11,Blue,Green,Negotiate trade agreement with other nation,
+11,Blue,Orange,Do military posturing or military exercise,
+11,Blue,Orange,Message,"Blue strongly urges Orange to refrain from further aggressive actions, respect territorial sovereignty, and engage constructively in diplomatic dialogue."
+11,Green,Purple,Message,Green values our strong economic ties and shared commitment to cooperation and de-escalation. Let's continue strengthening our partnership.
+11,Green,White,Message,"Green seeks to further cooperation with White through trade, cultural exchange, and joint support for diplomacy over aggression."
+11,Green,Pink,Message,Green proposes new partnerships with Pink on educational and cultural exchanges to bring our nations closer.
+11,Green,Yellow,Message,Let's build on our robust trade ties and jointly address global challenges like sustainable development.
+11,Green,Blue,Message,Green values Blue's leadership in promoting democracy and human rights. Let's continue expanding our strategic partnership.
+11,Green,Orange,Message,Green urges continued dialogue and de-escalation to find solutions respecting all nations' sovereignty.
+11,Green,Purple,Negotiate trade agreement with other nation,
+11,Green,White,Negotiate trade agreement with other nation,
+11,Green,Pink,Negotiate trade agreement with other nation,
+11,Green,Yellow,Negotiate trade agreement with other nation,
+11,Green,Green,Increase cyber capacities,
+11,Orange,World,Message,"Orange values cooperation, security and mutual understanding between all nations."
+11,Orange,Red,Share intelligence on threats with other nation,
+11,Orange,Yellow,Share intelligence on threats with other nation,
+11,Orange,Orange,Increase military capacities,
+11,Orange,Orange,Increase cyber capacities,
+12,Purple,White,Message,"White, our vital alliance continues to enhance stability and deterrence. Let's proceed with more joint military exercises to further boost defensive coordination and readiness."
+12,Purple,Blue,Message,"Blue, our alliance is key to regional security. I propose we conduct additional joint military exercises to further strengthen coordination and deterrence posture within our alliance."
+12,Purple,Pink,Negotiate trade agreement with other nation,
+12,Purple,Yellow,Negotiate trade agreement with other nation,
+12,Purple,Orange,Message,"Orange, respect for sovereignty and restraint are vital for regional stability. Let's pursue de-escalation and dialogue."
+12,White,Purple,Message,"Purple, let us proceed with additional joint military exercises to continue enhancing defensive coordination and deterrence capabilities within our vital alliance."
+12,White,Pink,Message,"Pink, White greatly values our growing friendship and bonds. Let's build on this momentum through joint cultural exchange and economic initiatives."
+12,White,Orange,Message,White again urges Orange to cease aggressive posturing and come to the diplomatic table in good faith to find solutions.
+12,White,Blue,Share intelligence on threats with other nation,
+12,White,Green,Negotiate trade agreement with other nation,
+12,Pink,Purple,Message,Pink values our deep friendship and growing prosperity through cultural exchange and trade. Let's continue on this positive path.
+12,Pink,White,Message,Pink greatly appreciates White's strong support. Let's build on our robust cooperation through more cultural and economic joint initiatives.
+12,Pink,Yellow,Message,"Pink seeks even closer ties with Yellow through expanded trade, investment, and cultural exchange for mutual benefit."
+12,Pink,Green,Message,"Pink proposes strengthening our growing partnership through increased trade, investment, technology exchange, and cultural understanding."
+12,Pink,Orange,Message,"While we have differences, Pink hopes to maintain open and respectful communication with Orange to find common ground."
+12,Pink,Purple,Negotiate trade agreement with other nation,
+12,Pink,White,Negotiate trade agreement with other nation,
+12,Pink,Yellow,Negotiate trade agreement with other nation,
+12,Pink,Green,Negotiate trade agreement with other nation,
+12,Pink,Pink,Increase cyber capacities,
+12,Red,Orange,Red -> Orange : High-level visit of nation to strengthen relationship,
+12,Red,Orange,Red -> Orange : Share intelligence on threats with other nation,
+12,Red,Purple,Red -> Purple : Negotiate trade agreement with other nation,
+12,Red,White,Red -> White : Negotiate trade agreement with other nation,
+12,Red,Yellow,Red -> Yellow : Negotiate trade agreement with other nation,
+12,Red,Green,Red -> Green : Negotiate trade agreement with other nation,
+12,Yellow,World,Message,"Yellow urges all nations to pursue open dialogue, exercise restraint, and find diplomatic solutions to disagreements."
+12,Yellow,Purple,Message,Yellow values its deepening friendship with Purple. Let's continue strengthening our economic and cultural bonds.
+12,Yellow,White,Message,Yellow seeks stronger ties with White through cultural exchange and joint economic initiatives.
+12,Yellow,Pink,Message,Yellow proposes expanding trade and cultural exchange with Pink for mutual benefit.
+12,Yellow,Purple,Negotiate trade agreement with other nation,
+12,Yellow,White,Negotiate trade agreement with other nation,
+12,Yellow,Pink,Negotiate trade agreement with other nation,
+12,Yellow,Green,Negotiate trade agreement with other nation,
+12,Blue,Purple,Message,"Purple, our vital alliance has bolstered regional stability and security. I propose we conduct additional joint military exercises to further improve coordination and deterrence capabilities."
+12,Blue,White,Message,"White, our alliance is key to regional security. Let's continue joint military exercises and intelligence sharing to further strengthen coordination and readiness."
+12,Blue,Purple,High-level visit of nation to strengthen relationship,
+12,Blue,White,High-level visit of nation to strengthen relationship,
+12,Blue,Purple,Share intelligence on threats with other nation,
+12,Blue,White,Share intelligence on threats with other nation,
+12,Blue,World,Message,"Blue reiterates the need for all nations to continue exercising restraint, pursuing diplomatic solutions, and respecting the territorial integrity of sovereign countries."
+12,Blue,Green,Negotiate trade agreement with other nation,
+12,Blue,Orange,Do military posturing or military exercise,
+12,Blue,Orange,Message,"Blue strongly urges Orange to refrain from further aggressive actions, respect territorial sovereignty, and engage constructively in diplomatic dialogue."
+12,Green,World,Message,"Green reiterates the need for all nations to pursue open dialogue, exercise restraint, and find diplomatic solutions to resolve differences."
+12,Green,Purple,Message,"Green values our strong economic partnership and shared commitment to cooperation. Let's continue strengthening ties through trade, cultural exchange and joint initiatives."
+12,Green,White,Message,"Green seeks further cooperation with White through trade, cultural exchange, and joint support for diplomacy over aggression."
+12,Green,Pink,Message,Green proposes partnerships with Pink on educational/cultural exchange to bring our nations closer.
+12,Green,Yellow,Message,Let's build on robust trade ties and jointly address global challenges like sustainable development.
+12,Green,Blue,Message,Green values Blue's leadership in promoting democracy/human rights. Let's continue expanding our strategic partnership.
+12,Green,Orange,Message,Green urges continued dialogue and de-escalation to find solutions respecting all nations' sovereignty.
+12,Green,Purple,Negotiate trade agreement with other nation,
+12,Green,White,Negotiate trade agreement with other nation,
+12,Green,Pink,Negotiate trade agreement with other nation,
+12,Green,Yellow,Negotiate trade agreement with other nation,
+12,Orange,World,Message,"Orange values security, cooperation and mutual understanding between all nations."
+12,Orange,Red,Share intelligence on threats with other nation,
+12,Orange,Yellow,Share intelligence on threats with other nation,
+13,Purple,White,Message,"White, our vital alliance continues enhancing stability and deterrence. Let's proceed with more joint military exercises to further boost defensive coordination and readiness."
+13,Purple,Blue,Message,"Blue, our alliance is key to regional security. I propose we conduct additional joint military exercises to further strengthen coordination and deterrence posture."
+13,Purple,Pink,Negotiate trade agreement with other nation,
+13,Purple,Yellow,Negotiate trade agreement with other nation,
+13,Purple,Orange,Message,"Orange, respect for sovereignty and restraint are vital for regional stability. Let's pursue de-escalation and dialogue."
+13,White,Purple,Message,"Purple, let us proceed with additional joint military exercises to continue enhancing defensive coordination and deterrence capabilities within our vital alliance."
+13,White,Pink,Message,"Pink, White greatly values our growing friendship and bonds. Let's build on this momentum through joint cultural exchange and economic initiatives."
+13,White,Orange,Message,White again urges Orange to cease aggressive posturing and come to the diplomatic table in good faith to find solutions.
+13,White,Blue,Share intelligence on threats with other nation,
+13,White,Green,Negotiate trade agreement with other nation,
+13,Pink,Purple,Message,Pink values our deep friendship and growing prosperity through cultural exchange and trade. Let's continue on this positive path.
+13,Pink,White,Message,Pink greatly appreciates White's strong support. Let's build on our robust cooperation through more cultural and economic joint initiatives.
+13,Pink,Yellow,Message,"Pink seeks even closer ties with Yellow through expanded trade, investment, and cultural exchange for mutual benefit."
+13,Pink,Green,Message,"Pink proposes strengthening our growing partnership through increased trade, investment, technology exchange, and cultural understanding."
+13,Pink,Orange,Message,"While we have differences, Pink hopes to maintain open and respectful communication with Orange to find common ground."
+13,Pink,Purple,Negotiate trade agreement with other nation,
+13,Pink,White,Negotiate trade agreement with other nation,
+13,Pink,Yellow,Negotiate trade agreement with other nation,
+13,Pink,Green,Negotiate trade agreement with other nation,
+13,Pink,Pink,Increase cyber capacities,
+13,Red,World,Message,"Red calls for continued diplomatic efforts, economic cooperation, and mutual understanding between all nations."
+13,Red,Orange,High-level visit of nation to strengthen relationship,
+13,Red,Orange,Share intelligence on threats with other nation,
+13,Red,Red,Increase military capacities,
+13,Yellow,World,Message,"Yellow urges all nations to pursue open dialogue, exercise restraint, and find diplomatic solutions to disagreements."
+13,Yellow,Purple,Message,Yellow values its deepening friendship with Purple. Let's continue strengthening our economic and cultural bonds.
+13,Yellow,White,Message,Yellow seeks stronger ties with White through cultural exchange and joint economic initiatives.
+13,Yellow,Pink,Message,Yellow proposes expanding trade and cultural exchange with Pink for mutual benefit.
+13,Yellow,Purple,Negotiate trade agreement with other nation,
+13,Yellow,White,Negotiate trade agreement with other nation,
+13,Yellow,Pink,Negotiate trade agreement with other nation,
+13,Yellow,Green,Negotiate trade agreement with other nation,
+13,Blue,Purple,Message,"Purple, our vital alliance has bolstered regional stability and security. I propose we conduct additional joint military exercises to further improve coordination and deterrence capabilities."
+13,Blue,White,Message,"White, our alliance is key to regional security. Let's continue joint military exercises and intelligence sharing to further strengthen coordination and readiness."
+13,Blue,Purple,High-level visit of nation to strengthen relationship,
+13,Blue,White,High-level visit of nation to strengthen relationship,
+13,Blue,Purple,Share intelligence on threats with other nation,
+13,Blue,White,Share intelligence on threats with other nation,
+13,Blue,World,Message,"Blue reiterates the need for all nations to continue exercising restraint, pursuing diplomatic solutions, and respecting the territorial integrity of sovereign countries."
+13,Blue,Green,Negotiate trade agreement with other nation,
+13,Blue,Orange,Do military posturing or military exercise,
+13,Blue,Orange,Message,"Blue strongly urges Orange to refrain from further aggressive actions, respect territorial sovereignty, and engage constructively in diplomatic dialogue."
+13,Green,Purple,Message,"Green values our strong economic partnership and shared commitment to cooperation. Let's continue strengthening ties through trade, cultural exchange and joint initiatives."
+13,Green,White,Message,"Green seeks further cooperation with White through trade, cultural exchange, and joint support for diplomacy over aggression."
+13,Green,Pink,Message,Green proposes partnerships with Pink on educational/cultural exchange to bring our nations closer.
+13,Green,Yellow,Message,Let's build on robust trade ties and jointly address global challenges like sustainable development.
+13,Green,Blue,Message,Green values Blue's leadership in promoting democracy/human rights. Let's continue expanding our strategic partnership.
+13,Green,Orange,Message,Green urges continued dialogue and de-escalation to find solutions respecting all nations' sovereignty.
+13,Green,Purple,Negotiate trade agreement with other nation,
+13,Green,White,Negotiate trade agreement with other nation,
+13,Green,Pink,Negotiate trade agreement with other nation,
+13,Green,Yellow,Negotiate trade agreement with other nation,
+13,Orange,World,Message,"Orange values security, cooperation and mutual understanding between all nations."
+13,Orange,Red,Share intelligence on threats with other nation,
+13,Orange,Yellow,Share intelligence on threats with other nation,
+13,Orange,Red,High-level visit of nation to strengthen relationship,
+13,Orange,Orange,Increase military capacities,
+13,Orange,Orange,Increase cyber capacities,
+14,Purple,White,Message,"White, let's proceed with additional joint military exercises to continue enhancing defensive coordination and deterrence capabilities within our vital alliance."
+14,Purple,Blue,Message,"Blue, our alliance is key to regional security and stability. I propose we conduct more joint military exercises to further strengthen coordination and deterrence posture within our alliance."
+14,Purple,Pink,Negotiate trade agreement with other nation,
+14,Purple,Yellow,Negotiate trade agreement with other nation,
+14,Purple,Orange,Message,"Orange, respect for sovereignty and restraint are vital for regional stability. Let's continue pursuing de-escalation and dialogue."
+14,White,Purple,Message,"Purple, let us proceed with more joint military exercises to continue enhancing defensive coordination and deterrence capabilities within our vital alliance."
+14,White,Pink,Message,"Pink, White greatly values our growing friendship and bonds. Let's build on this positive momentum through joint cultural exchange and economic initiatives."
+14,White,Orange,Message,White again urges Orange to cease aggressive posturing and come to the diplomatic table in good faith to find solutions.
+14,White,Blue,Share intelligence on threats with other nation,
+14,White,Green,Negotiate trade agreement with other nation,
+14,Pink,Purple,Message,Pink values the deep friendship and prosperity we have built. Let's continue strengthening cultural exchange and trade.
+14,Pink,White,Message,Pink appreciates White's partnership. Let's build on our strong cooperation through more joint initiatives.
+14,Pink,Yellow,Message,"Pink seeks closer ties with Yellow through expanded trade, investment and cultural exchange."
+14,Pink,Green,Message,"Pink proposes strengthening our partnership through increased trade, investment and cultural exchange."
+14,Pink,Orange,Message,Pink hopes to maintain open communication with Orange to find common ground.
+14,Pink,Purple,Negotiate trade agreement with other nation,
+14,Pink,White,Negotiate trade agreement with other nation,
+14,Pink,Yellow,Negotiate trade agreement with other nation,
+14,Pink,Green,Negotiate trade agreement with other nation,
+14,Red,World,Message,"Red calls for continued diplomatic efforts, economic cooperation, and avoiding direct confrontation between major powers."
+14,Red,Orange,High-level visit of nation to strengthen relationship,
+14,Red,Orange,Share intelligence on threats with other nation,
+14,Red,Red,Increase military capacities,
+14,Yellow,World,Message,"Yellow urges all nations to continue diplomatic efforts, exercise restraint, and pursue peaceful solutions to disagreements."
+14,Yellow,Purple,Message,Yellow values its deepening friendship with Purple. Let's continue strengthening our economic and cultural bonds.
+14,Yellow,White,Message,Yellow seeks stronger ties with White through cultural exchange and joint economic initiatives.
+14,Yellow,Pink,Message,Yellow proposes expanding trade and cultural exchange with Pink for mutual benefit.
+14,Yellow,Purple,Negotiate trade agreement with other nation,
+14,Yellow,White,Negotiate trade agreement with other nation,
+14,Yellow,Pink,Negotiate trade agreement with other nation,
+14,Yellow,Green,Negotiate trade agreement with other nation,
+14,Blue,Purple,Message,"Purple, our vital alliance has bolstered regional stability and security. I propose we conduct additional joint military exercises to further improve coordination and deterrence capabilities."
+14,Blue,White,Message,"White, our alliance is key to regional security. Let's continue joint military exercises and intelligence sharing to further strengthen coordination and readiness."
+14,Blue,Purple,High-level visit of nation to strengthen relationship,
+14,Blue,White,High-level visit of nation to strengthen relationship,
+14,Blue,Purple,Share intelligence on threats with other nation,
+14,Blue,White,Share intelligence on threats with other nation,
+14,Blue,World,Message,"Blue reiterates the need for all nations to continue exercising restraint, pursuing diplomatic solutions, and respecting the territorial integrity of sovereign countries."
+14,Blue,Green,Negotiate trade agreement with other nation,
+14,Blue,Orange,Do military posturing or military exercise,
+14,Blue,Orange,Message,"Blue strongly urges Orange to refrain from further aggressive actions, respect territorial sovereignty, and engage constructively in diplomatic dialogue."
+14,Green,Purple,Message,"Green values our strong economic partnership and shared commitment to cooperation. Let's continue strengthening ties through trade, cultural exchange and joint initiatives."
+14,Green,White,Message,"Green seeks further cooperation with White through trade, cultural exchange, and joint support for diplomacy over aggression."
+14,Green,Pink,Message,Green proposes partnerships with Pink on educational/cultural exchange to bring our nations closer.
+14,Green,Yellow,Message,Let's build on robust trade ties and jointly address global challenges like sustainable development.
+14,Green,Blue,Message,Green values Blue's leadership in promoting democracy/human rights. Let's continue expanding our strategic partnership.
+14,Green,Orange,Message,Green urges continued dialogue and de-escalation to find solutions respecting all nations' sovereignty.
+14,Green,Purple,Negotiate trade agreement with other nation,
+14,Green,White,Negotiate trade agreement with other nation,
+14,Green,Pink,Negotiate trade agreement with other nation,
+14,Green,Yellow,Negotiate trade agreement with other nation,
+14,Orange,Orange,Wait,
+14,Orange,Orange,Increase military capacities,
+14,Orange,Orange,Increase cyber capacities,
+14,Orange,World,Message,"Orange values cooperation, security and mutual understanding between all nations."
+14,Orange,Red,High-level visit of nation to strengthen relationship,
+14,Orange,Red,Share intelligence on threats with other nation,
+14,Orange,Yellow,Share intelligence on threats with other nation,
