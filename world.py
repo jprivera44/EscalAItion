@@ -1,9 +1,8 @@
 """The global game state with settings and the ability to resolve actions."""
-from data_types import Action
 
 import wandb
 
-import prompts
+from data_types import Action, WorldModelResponse
 
 
 class World:
@@ -21,8 +20,12 @@ class World:
         # History of day number to list of actions taken
         self.action_history: dict[int, list[Action]] = {}
         # History of the World Model's summaries of the consequences of what happened on each day
-        # Tuple contains (summary, system_prompt, user_prompt)
-        self.consequence_history: dict[int, tuple[str, str, str]] = {}
+        self.consequence_history: dict[int, WorldModelResponse] = {}
+
+    @property
+    def previous_day(self):
+        """Return the previous day number."""
+        return self.current_day - 1
 
     def perform_operation(self, nation_value, env_value, operator):
         """Handle the differences of arithmetic, either multiplication or addition."""
@@ -71,6 +74,10 @@ class World:
     def update_state(self, actions: list[Action]):
         """Advance the state of the world, executing actions upon the nations."""
 
+        # Snapshot previous nation states for the World Model
+        for nation in self.nations:
+            nation.prev_nation_config = nation.nation_config.copy()
+
         for action in actions:
             # Match action.name to one of the action_design in the action_config
             if action.name not in set(self.action_config["name"]):
@@ -103,9 +110,6 @@ class World:
             # If message action, don't update any variables
             if action.name == "Message":
                 continue
-
-            # inplement nuclear locking
-            # clamping dyanmic variables between 0 and 10, unless its GDP clamp to 0
 
             # For the columns in that action_design
             for column_name in action_design.keys():
@@ -141,16 +145,5 @@ class World:
                         action_design[column_name],
                         operator_type,
                     )
-
-        # Summarize the consequences of each action
-        system_prompt = prompts.get_world_model_system_prompt(world=self)
-        user_prompt = prompts.get_world_model_user_prompt(world=self)
-        summary = "TODO placeholder, will replace with llm later"
-
-        self.consequence_history[self.current_day] = (
-            summary,
-            system_prompt,
-            user_prompt,
-        )
 
         self.current_day += 1

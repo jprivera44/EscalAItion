@@ -1,6 +1,6 @@
 """Constant values."""
 
-MAX_BACKOFF_TIME_DEFAULT = 32  # seconds
+MAX_BACKOFF_TIME_DEFAULT = 300  # seconds
 
 WANDB_PROJECT = "escalaition-v1"
 

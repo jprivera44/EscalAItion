@@ -24,6 +24,20 @@
             "justMyCode": true,
         },
         {
+            "name": "Mock",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/run_military_simulation.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--nation_model",
+                "mock",
+                "--world_model",
+                "mock",
+            ],
+            "justMyCode": true
+        },
+        {
             "name": "Mock Offline",
             "type": "python",
             "request": "launch",
@@ -32,6 +46,8 @@
             "args": [
                 "--disable_wandb",
                 "--nation_model",
+                "mock",
+                "--world_model",
                 "mock",
                 "--max_days",
                 "2",
@@ -65,18 +81,6 @@
                 "2",
                 "--day_0_scenario",
                 "A foreign drone entered purple's airspace. Blue's airfare shot it down and identified the presumable origin of the drone as Red."
-            ],
-            "justMyCode": true
-        },
-        {
-            "name": "Mock",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/run_military_simulation.py",
-            "console": "integratedTerminal",
-            "args": [
-                "--nation_model",
-                "mock",
             ],
             "justMyCode": true
         },
