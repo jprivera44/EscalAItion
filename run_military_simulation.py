@@ -88,6 +88,13 @@ def main():
         default="",
         help="📝 Optional scenario to insert into the history for day 0.",
     )
+    parser.add_argument(
+        "--actions_in_prompts",
+        dest="actions_in_prompts",
+        type=bool,
+        default=True,
+        help="🎭 Whether to include actions in the prompts for the models.",
+    )
     args = parser.parse_args()
 
     # Initialize weights and biases

@@ -168,34 +168,38 @@ def format_action_history(world: World, nation_name: str):
     if wandb.config.day_0_scenario != "":
         past_action_history += f"### Day 0 ###\n#### Consequences:\n{wandb.config.day_0_scenario.strip()}\n\n"
     for day, actions in world.action_history.items():
-        past_action_history += f"### Day {day} ###\n#### Actions:\n"
-        for action in actions:
-            # Look up if the action is private or public
-            action_privacy_level = world.action_config.loc[
-                world.action_config["name"] == action.name
-            ]["privacy level"].values[0]
+        past_action_history += f"### Day {day} ###\n"
+        if wandb.config.actions_in_prompts or nation_name == "World":
+            past_action_history += "#### Actions:\n"
+            for action in actions:
+                # Look up if the action is private or public
+                action_privacy_level = world.action_config.loc[
+                    world.action_config["name"] == action.name
+                ]["privacy level"].values[0]
 
-            action_is_public = False  # For this particular action instance
-            if action_privacy_level == "Public":
-                action_is_public = True
-            elif action_privacy_level == "Private":
-                action_is_public = False
-            else:
-                assert action_privacy_level == "Public or Private"
-                assert action.name == "Message"  # Only allowed for messages for now
-                action_is_public = True if action.other == "World" else False
+                action_is_public = False  # For this particular action instance
+                if action_privacy_level == "Public":
+                    action_is_public = True
+                elif action_privacy_level == "Private":
+                    action_is_public = False
+                else:
+                    assert action_privacy_level == "Public or Private"
+                    assert action.name == "Message"  # Only allowed for messages for now
+                    action_is_public = True if action.other == "World" else False
 
-            # If private and nation_name is not involved, don't show it to nation_name
-            if not action_is_public and nation_name not in [
-                action.self,
-                action.other,
-            ]:
-                continue
+                # If private and nation_name is not involved, don't show it to nation_name
+                if not action_is_public and nation_name not in [
+                    action.self,
+                    action.other,
+                ]:
+                    continue
 
-            past_action_history += f"{action.self} -> {action.other} : {action.name}"
-            if action.content:
-                past_action_history += f' "{action.content}"'
-            past_action_history += "\n"
+                past_action_history += (
+                    f"{action.self} -> {action.other} : {action.name}"
+                )
+                if action.content:
+                    past_action_history += f' "{action.content}"'
+                past_action_history += "\n"
 
         # Add consequences
         if day in world.consequence_history:

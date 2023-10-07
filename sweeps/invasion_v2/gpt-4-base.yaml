@@ -10,6 +10,8 @@ parameters:
     value: gpt-4-base
   max_model_retries:
     value: 16
+  actions_in_prompts:
+    value: False
   seed:
     values: [0, 1, 2, 3, 4]
   day_0_scenario:
