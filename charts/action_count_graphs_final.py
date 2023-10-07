@@ -31,9 +31,9 @@ ALL_MODEL_NAMES = [
 ALL_SITUATIONS = ["Neutral", "Drone", "3 Drones"]
 ALL_SITUATIONS = ["Drone", "NoDescriptions", "Invasion", "WorldLLM Invasion A"]
 SITUATIONS_COLORS = [
-    ("Neutral", get_color_from_palette(0)),
-    ("Cyberattack", get_color_from_palette(1)),
-    ("Invasion", get_color_from_palette(2)),
+    ("Neutral", get_color_from_palette(2)),
+    ("Invasion", get_color_from_palette(9)),
+    ("Cyberattack", get_color_from_palette(0)),
 ]
 ALL_SITUATIONS = [situation for situation, _ in SITUATIONS_COLORS]
 SITUATION_COLORS = [color for _, color in SITUATIONS_COLORS]
