@@ -10,7 +10,6 @@ import pandas as pd
 import seaborn as sns
 
 from chart_utils import (
-    ALL_MODEL_NAMES,
     ALL_SCENARIOS,
     # SCENARIOS_TO_COLORS,
     MODELS_TO_MARKERS,
@@ -57,6 +56,16 @@ def main() -> None:
     print("Runs per model_name, scenario combo:")
     print(pd.concat(dfs_list).groupby(["model_name", "scenario"]).size())
 
+    # Print average escalation score for each model_name, scenario combo
+    print("Average escalation score per model_name, scenario combo:")
+    print(
+        pd.concat(dfs_list)
+        .groupby(["model_name", "scenario"])["total"]
+        .mean()
+        # Format to 2 decimal places
+        .apply(lambda x: round(x, 2))
+    )
+
     # Graph median escalation score simulations for each model together on a lineplot over time
     for scenario in ALL_SCENARIOS:
         df_scenario = pd.concat(dfs_list).query(f"scenario == '{scenario}'")
@@ -75,7 +84,7 @@ def main() -> None:
                 # Harder: find the run with the closest total_sum to the median
                 unique_total_sums = df_model["total_sum"].unique()
                 closest_total_sum = min(
-                    unique_total_sums, key=lambda x: abs(x - median_total_sum)
+                    unique_total_sums, key=lambda x: abs(x - median_total_sum)  # type: ignore
                 )
                 matched_run = df_model.query(f"total_sum == {closest_total_sum}")
             dfs_to_keep.append(matched_run)
@@ -120,7 +129,7 @@ def load_json_data(filepath: str) -> pd.DataFrame:
     data_rows = []
     for input_row in json_data:
         day = input_row["Day"]
-        total = input_row["Total"]
+        total = int(input_row["Total"])
         data_rows.append({"day": day, "total": total})
     df = pd.DataFrame(data_rows)
     return df
