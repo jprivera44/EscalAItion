@@ -31,19 +31,19 @@ def main() -> None:
         )
         for filename in os.listdir(get_results_full_path(INPUT_DIR))
     ]
-    # Create a concatted dataframe using filenames to add columns. Split filenames on spaces, then first element is model_name and second is situation
+    # Create a concatted dataframe using filenames to add columns. Split filenames on spaces, then first element is model_name and second is scenario
     dfs_list = [
         df.assign(
             model_name=filename.split(" ")[0],
-            situation=filename.split(" ")[1],
+            scenario=filename.split(" ")[1],
         )
         for filename, df in filenames_and_data
     ]
     df_all = pd.concat(dfs_list)
 
-    # # Print how many runs there are for each model_name, situation combo
+    # # Print how many runs there are for each model_name, scenario combo
     # print("Runs per model_name, year_integer combo:")
-    # print(df_all.groupby(["model_name", "situation"]).size())
+    # print(df_all.groupby(["model_name", "scenario"]).size())
 
     # # Print how many rows for each model_name, action combo
     # print("Rows per model_name, action combo:")
@@ -60,7 +60,7 @@ def main() -> None:
         # 1. Multi-line plot of all variables over time
         columns_of_interest = [
             "day",
-            "situation",
+            "scenario",
             "military capacity",
             "gdp",
             "trade",
@@ -72,15 +72,15 @@ def main() -> None:
             "nuclear",
         ]
         df_plot = df_model[columns_of_interest].copy()
-        # Create a new DF where the non-[day or situation] columns are the "variable" column
+        # Create a new DF where the non-[day or scenario] columns are the "variable" column
         df_plot = df_plot.melt(
-            id_vars=["day", "situation"],
+            id_vars=["day", "scenario"],
             var_name="variable",
             value_name="value",
         )
-        # Filter by situation
-        for situation in ["Neutral", "Drone"]:
-            df_filtered = df_plot[df_plot["situation"] == situation].copy()
+        # Filter by scenario
+        for scenario in ["Neutral", "Drone"]:
+            df_filtered = df_plot[df_plot["scenario"] == scenario].copy()
             if len(df_filtered) == 0:
                 continue
 
@@ -104,7 +104,7 @@ def main() -> None:
             plt.xticks(rotation=25)
             plt.ylabel(y_label)
             plt.yscale("log")
-            title = f"Nation Variables for {situation} Situation ({model_name})"
+            title = f"Nation Variables for {scenario} Scenario ({model_name})"
             plt.title(title)
 
             # Save the plot
@@ -117,15 +117,15 @@ def main() -> None:
             # Clear the plot
             plt.clf()
 
-        # Next: Bar plot of the value of each variable for each situation
+        # Next: Bar plot of the value of each variable for each scenario
         # First, filter to day=15 to get the end
         df_plot_2 = df_plot[df_plot["day"] == 15].copy()
         # Drop day column
         df_plot_2 = df_plot_2.drop(columns=["day"])
-        # Plot, using variable as x axis and situation as grouping
+        # Plot, using variable as x axis and scenario as grouping
         initialize_plot_bar()
         plt.rcParams["figure.figsize"] = (16, 6)
-        grouping = "situation"
+        grouping = "scenario"
         x_variable = "variable"
         x_label = "Variable"
         y_label = "Value"
@@ -143,7 +143,7 @@ def main() -> None:
         plt.xticks(rotation=30)
         plt.ylabel(y_label)
         plt.yscale("log")
-        title = f"Final Nation Variables by Situation ({model_name})"
+        title = f"Final Nation Variables by Scenario ({model_name})"
         plt.title(title)
 
         # Save the plot

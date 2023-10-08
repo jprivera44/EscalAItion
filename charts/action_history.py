@@ -27,9 +27,9 @@ ALL_MODEL_NAMES = [
     "GPT-4",
 ]
 
-ALL_SITUATIONS = ["Neutral", "Drone", "3 Drones"]
-ALL_SITUATIONS = ["Drone", "NoDescriptions", "Invasion", "WorldLLM Invasion A"]
-ALL_SITUATIONS = ["Neutral", "Cyberattack", "Invasion"]
+ALL_SCENARIOS = ["Neutral", "Drone", "3 Drones"]
+ALL_SCENARIOS = ["Drone", "NoDescriptions", "Invasion", "WorldLLM Invasion A"]
+ALL_SCENARIOS = ["Neutral", "Cyberattack", "Invasion"]
 
 LABEL_MAX_LENGTH = 15
 
@@ -78,11 +78,11 @@ def main() -> None:
         )
         for filename in os.listdir(get_results_full_path(INPUT_DIR))
     ]
-    # Create a concatted dataframe using filenames to add columns. Split filenames on spaces, then first element is model_name and second is situation
+    # Create a concatted dataframe using filenames to add columns. Split filenames on spaces, then first element is model_name and second is scenario
     dfs_list = [
         df.assign(
             model_name=filename.split(" ")[0],
-            situation=filename.split(" ")[1]
+            scenario=filename.split(" ")[1]
             .replace("MoreDrones", "3 Drones")
             .replace("A4", "Drone")
             .replace("_", " "),
@@ -94,9 +94,9 @@ def main() -> None:
     # Filter out rows from dfs_list if their action isn't in ACTION_ORDER
     dfs_list = [df[df["action"].isin(ACTION_ORDER)].copy() for df in dfs_list]
 
-    # # Print how many runs there are for each model_name, situation combo
+    # # Print how many runs there are for each model_name, scenario combo
     # print("Runs per model_name, year_integer combo:")
-    # print(df_all.groupby(["model_name", "situation"]).size())
+    # print(df_all.groupby(["model_name", "scenario"]).size())
 
     # # Print how many rows for each model_name, action combo
     # print("Rows per model_name, action combo:")
@@ -110,21 +110,21 @@ def main() -> None:
         # else:
         #     df_plot = df_all[df_all["model_name"] == model_name].copy()
 
-        # Create a DF of the counts of each model/situation/action combo in each file
+        # Create a DF of the counts of each model/scenario/action combo in each file
         groups_sizes = [
-            df.groupby(["day", "model_name", "situation", "action"]).size()
+            df.groupby(["day", "model_name", "scenario", "action"]).size()
             for df in dfs_list
             if df["model_name"].unique()[0] == model_name
         ]
         # Loop over the counts to make a new thing
         graphing_data = []
         for series in groups_sizes:
-            for (day, series_model_name, situation, action), count in series.items():
+            for (day, series_model_name, scenario, action), count in series.items():
                 graphing_data.append(
                     {
                         "day": day,
                         "model_name": series_model_name,
-                        "situation": situation,
+                        "scenario": scenario,
                         "action": action,
                         "count": count,
                     }
@@ -134,14 +134,12 @@ def main() -> None:
             continue
 
         # 0. Multi-line plot of actions over time
-        for situation in ALL_SITUATIONS + ["All Situations"]:
-            if situation == "All Situations":
-                df_plot_situation = df_grouped.copy()
+        for scenario in ALL_SCENARIOS + ["All Scenarios"]:
+            if scenario == "All Scenarios":
+                df_plot_scenario = df_grouped.copy()
             else:
-                df_plot_situation = df_grouped[
-                    df_grouped["situation"] == situation
-                ].copy()
-            if len(df_plot_situation) == 0:
+                df_plot_scenario = df_grouped[df_grouped["scenario"] == scenario].copy()
+            if len(df_plot_scenario) == 0:
                 continue
 
             initialize_plot_default()
@@ -154,7 +152,7 @@ def main() -> None:
             y_label = "Action Count"
             # Plot df_grouped
             sns.lineplot(
-                data=df_plot_situation,
+                data=df_plot_scenario,
                 x=x_variable,
                 y=y_variable,
                 hue="action",
@@ -176,9 +174,9 @@ def main() -> None:
             # plt.xticks(rotation=30)
             plt.ylabel(y_label)
             plt.yscale("log")
-            situation_label = situation
+            scenario_label = scenario
             title = (
-                f"Action Counts Over Time in {situation_label} Situation ({model_name})"
+                f"Action Counts Over Time in {scenario_label} Scenario ({model_name})"
             )
             plt.title(title)
 
@@ -192,23 +190,23 @@ def main() -> None:
             # Clear the plot
             plt.clf()
 
-        # 1. Countplot of action names grouped by situation
+        # 1. Countplot of action names grouped by scenario
         for action_label, action_set in [
             ("Peaceful", PEACEFUL_ACTIONS),
             ("Aggressive", AGGRESSIVE_ACTIONS),
         ]:
             graphing_data = []
             groups_sizes = [
-                df.groupby(["model_name", "situation", "action"]).size()
+                df.groupby(["model_name", "scenario", "action"]).size()
                 for df in dfs_list
                 if df["model_name"].unique()[0] == model_name
             ]
             for series in groups_sizes:
-                for (series_model_name, situation, action), count in series.items():
+                for (series_model_name, scenario, action), count in series.items():
                     graphing_data.append(
                         {
                             "model_name": series_model_name,
-                            "situation": situation,
+                            "scenario": scenario,
                             "action": action,
                             "count": count,
                         }
@@ -221,12 +219,12 @@ def main() -> None:
 
             initialize_plot_bar()
             plt.rcParams["figure.figsize"] = (12, 4)
-            grouping = "situation"
+            grouping = "scenario"
             x_variable = "action"
             x_label = "Action"
             y_variable = "count"
             y_label = "Count"
-            grouping_order = ALL_SITUATIONS
+            grouping_order = ALL_SCENARIOS
             # Plot df_grouped
             sns.barplot(
                 data=df_grouped,
@@ -273,16 +271,16 @@ def main() -> None:
             # Clear the plot
             plt.clf()
 
-            # Bar graph of the counts of aggressive actions per situation
+            # Bar graph of the counts of aggressive actions per scenario
             # Initialize the plot
             initialize_plot_bar()
             plt.rcParams["figure.figsize"] = (12, 4)
-            grouping = "situation"
-            x_variable = "situation"
-            x_label = "Situation"
+            grouping = "scenario"
+            x_variable = "scenario"
+            x_label = "Scenario"
             y_variable = "count"
             y_label = "Count"
-            grouping_order = ALL_SITUATIONS
+            grouping_order = ALL_SCENARIOS
             # Plot df_grouped
             sns.barplot(
                 data=df_grouped,
@@ -298,7 +296,7 @@ def main() -> None:
             plt.xticks(rotation=45)
             plt.ylabel(y_label)
             plt.yscale("log")
-            title = f"{action_label} Action Counts By Situation ({model_name})"
+            title = f"{action_label} Action Counts By Scenario ({model_name})"
             plt.title(title)
 
             # Save the plot

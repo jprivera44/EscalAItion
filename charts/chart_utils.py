@@ -100,18 +100,18 @@ MODELS_TO_MARKERS = {
     model_name: marker for model_name, _, marker in MODELS_COLORS_MARKERS
 }
 
-ALL_SITUATIONS = ["Neutral", "Drone", "3 Drones"]
-ALL_SITUATIONS = ["Drone", "NoDescriptions", "Invasion", "WorldLLM Invasion A"]
-SITUATIONS_COLORS = [
+ALL_SCENARIOS = ["Neutral", "Drone", "3 Drones"]
+ALL_SCENARIOS = ["Drone", "NoDescriptions", "Invasion", "WorldLLM Invasion A"]
+SCENARIOS_COLORS = [
     ("Neutral", get_color_from_palette(2)),
     ("Invasion", get_color_from_palette(9)),
     ("Cyberattack", get_color_from_palette(0)),
 ]
-ALL_SITUATIONS = [situation for situation, _ in SITUATIONS_COLORS]
-SITUATION_COLORS = [color for _, color in SITUATIONS_COLORS]
-SITUATIONS_TO_COLORS = {situation: color for situation, color in SITUATIONS_COLORS}
+ALL_SCENARIOS = [scenario for scenario, _ in SCENARIOS_COLORS]
+SCENARIO_COLORS = [color for _, color in SCENARIOS_COLORS]
+SCENARIOS_TO_COLORS = {scenario: color for scenario, color in SCENARIOS_COLORS}
 
-SITUATION_TO_HATCH = {
+SCENARIO_TO_HATCH = {
     "Neutral": "",
     "Invasion": "/",
     "Cyberattack": "x",

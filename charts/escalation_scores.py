@@ -11,8 +11,8 @@ import seaborn as sns
 
 from chart_utils import (
     ALL_MODEL_NAMES,
-    ALL_SITUATIONS,
-    # SITUATIONS_TO_COLORS,
+    ALL_SCENARIOS,
+    # SCENARIOS_TO_COLORS,
     MODELS_TO_MARKERS,
     MODELS_TO_COLORS,
     # CAPSIZE_DEFAULT,
@@ -39,12 +39,12 @@ def main() -> None:
         )
         for filename in os.listdir(get_results_full_path(INPUT_DIR))
     ]
-    # Create a concatted dataframe using filenames to add columns. Split filenames on spaces, then first element is model_name and second is situation
+    # Create a concatted dataframe using filenames to add columns. Split filenames on spaces, then first element is model_name and second is scenario
     dfs_list = [
         df.assign(
             model_name=filename.split(" ")[0],
             run_index=filename.replace(".json", "").replace("_raw", "")[-1],
-            situation=filename.split(" ")[1]
+            scenario=filename.split(" ")[1]
             .replace("_", " ")
             .replace("CyberAttack", "Cyberattack"),
         )
@@ -53,17 +53,17 @@ def main() -> None:
         if filename.split(" ")[0] in ALL_MODEL_NAMES
     ]
 
-    # Print how many runs there are for each model_name, situation combo
-    print("Runs per model_name, situation combo:")
-    print(pd.concat(dfs_list).groupby(["model_name", "situation"]).size())
+    # Print how many runs there are for each model_name, scenario combo
+    print("Runs per model_name, scenario combo:")
+    print(pd.concat(dfs_list).groupby(["model_name", "scenario"]).size())
 
     # Graph median escalation score simulations for each model together on a lineplot over time
-    for situation in ALL_SITUATIONS:
-        df_situation = pd.concat(dfs_list).query(f"situation == '{situation}'")
+    for scenario in ALL_SCENARIOS:
+        df_scenario = pd.concat(dfs_list).query(f"scenario == '{scenario}'")
         # To filter by median, we need to look at all ~5 runs per model, then calculate the sum of the "total" column for each run, then take only the run with the median of that sum
         dfs_to_keep = []
         for model_name in ALL_MODEL_NAMES:
-            df_model = df_situation.query(f"model_name == '{model_name}'")
+            df_model = df_scenario.query(f"model_name == '{model_name}'")
             # Calculate the sum of the "total" column for each run
             df_model["total_sum"] = df_model.groupby("run_index")["total"].transform(
                 "sum"
@@ -98,7 +98,7 @@ def main() -> None:
         plt.xlabel("Day")
         plt.ylabel("Escalation Score ←")
         title = (
-            f"Escalation Score Over Time for Median Simulation ({situation} Scenario)"
+            f"Escalation Score Over Time for Median Simulation ({scenario} Scenario)"
         )
         plt.title(title)
         plt.legend(
@@ -110,7 +110,7 @@ def main() -> None:
         )
         save_plot(get_results_full_path(os.path.join(OUTPUT_DIR, f"{title}.png")))
         plt.close()
-        del df_plot, df_situation, dfs_to_keep, title
+        del df_plot, df_scenario, dfs_to_keep, title
 
 
 def load_json_data(filepath: str) -> pd.DataFrame:
