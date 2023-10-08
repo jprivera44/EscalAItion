@@ -86,3 +86,33 @@ COLOR_ALT_1 = "tab:purple"
 COLOR_ALT_2 = "tab:red"
 
 CAPSIZE_DEFAULT = 0.2
+
+MODELS_COLORS_MARKERS = [
+    # ("Claude-1.2", get_color_from_palette()),
+    ("Claude-2.0", get_color_from_palette(0, None), "o"),
+    ("GPT-3.5", get_color_from_palette(2, None), "s"),
+    ("GPT-4-Base", get_color_from_palette(1, "colorblind"), "v"),
+    ("GPT-4", get_color_from_palette(4, None), "^"),
+]
+ALL_MODEL_NAMES = [model_name for model_name, _, _ in MODELS_COLORS_MARKERS]
+MODELS_TO_COLORS = {model_name: color for model_name, color, _ in MODELS_COLORS_MARKERS}
+MODELS_TO_MARKERS = {
+    model_name: marker for model_name, _, marker in MODELS_COLORS_MARKERS
+}
+
+ALL_SITUATIONS = ["Neutral", "Drone", "3 Drones"]
+ALL_SITUATIONS = ["Drone", "NoDescriptions", "Invasion", "WorldLLM Invasion A"]
+SITUATIONS_COLORS = [
+    ("Neutral", get_color_from_palette(2)),
+    ("Invasion", get_color_from_palette(9)),
+    ("Cyberattack", get_color_from_palette(0)),
+]
+ALL_SITUATIONS = [situation for situation, _ in SITUATIONS_COLORS]
+SITUATION_COLORS = [color for _, color in SITUATIONS_COLORS]
+SITUATIONS_TO_COLORS = {situation: color for situation, color in SITUATIONS_COLORS}
+
+SITUATION_TO_HATCH = {
+    "Neutral": "",
+    "Invasion": "/",
+    "Cyberattack": "x",
+}

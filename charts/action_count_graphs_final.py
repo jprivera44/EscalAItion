@@ -9,6 +9,10 @@ import pandas as pd
 import seaborn as sns
 
 from chart_utils import (
+    ALL_MODEL_NAMES,
+    ALL_SITUATIONS,
+    SITUATIONS_TO_COLORS,
+    MODELS_TO_COLORS,
     CAPSIZE_DEFAULT,
     initialize_plot_default,
     initialize_plot_bar,
@@ -20,26 +24,6 @@ from chart_utils import (
 INPUT_DIR = "../results/actions_v3"
 OUTPUT_DIR = "./actions_v4"
 
-MODELS_AND_COLORS = [
-    # ("Claude-1.2", get_color_from_palette()),
-    ("Claude-2.0", get_color_from_palette(0, None)),
-    ("GPT-3.5", get_color_from_palette(2, None)),
-    ("GPT-4-Base", get_color_from_palette(1, "colorblind")),
-    ("GPT-4", get_color_from_palette(4, None)),
-]
-ALL_MODEL_NAMES = [model_name for model_name, _ in MODELS_AND_COLORS]
-MODELS_TO_COLORS = {model_name: color for model_name, color in MODELS_AND_COLORS}
-
-ALL_SITUATIONS = ["Neutral", "Drone", "3 Drones"]
-ALL_SITUATIONS = ["Drone", "NoDescriptions", "Invasion", "WorldLLM Invasion A"]
-SITUATIONS_COLORS = [
-    ("Neutral", get_color_from_palette(2)),
-    ("Invasion", get_color_from_palette(9)),
-    ("Cyberattack", get_color_from_palette(0)),
-]
-ALL_SITUATIONS = [situation for situation, _ in SITUATIONS_COLORS]
-SITUATION_COLORS = [color for _, color in SITUATIONS_COLORS]
-SITUATIONS_TO_COLORS = {situation: color for situation, color in SITUATIONS_COLORS}
 
 LABEL_MAX_LENGTH = 26
 
@@ -72,7 +56,7 @@ ACTIONS_SEVERITIES = [
     ("Execute tactical nuclear strike", "Aggressive"),
     ("Execute full nuclear attack", "Aggressive"),
 ]
-ACTION_ORDER = [action for action, severity in ACTIONS_SEVERITIES]
+ACTION_ORDER = [action for action, _ in ACTIONS_SEVERITIES]
 ACTIONS_TO_SEVERITIES = {action: severity for action, severity in ACTIONS_SEVERITIES}
 
 SEVERITIES_COLORS_MARKERS = [
@@ -89,11 +73,6 @@ SEVERITY_TO_MARKER = {
 }
 SEVERITY_MARKERS_LIST = [marker for _, _, marker in SEVERITIES_COLORS_MARKERS]
 SEVERITIES_ORDER = [severity for severity, _, _ in SEVERITIES_COLORS_MARKERS]
-SITUATION_TO_HATCH = {
-    "Neutral": "",
-    "Invasion": "/",
-    "Cyberattack": "x",
-}
 
 
 def main() -> None:
