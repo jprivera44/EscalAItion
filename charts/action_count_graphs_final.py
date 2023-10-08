@@ -194,7 +194,7 @@ def main() -> None:
             x_variable = "day"
             y_variable = "count"
             x_label = "Day"
-            y_label = "Action Count"
+            y_label = "Daily Action Count"
             grouping = "severity"
             # Plot df_grouped
             sns.lineplot(
@@ -222,6 +222,11 @@ def main() -> None:
             # plt.xticks(rotation=30)
             plt.ylabel(y_label)
             plt.yscale("log")
+            # Y axis ticks in non-scientific notation
+            plt.yticks(
+                [0.1, 0.3, 1, 3, 10, 30],
+                ["0.1", "0.3", "1", "3", "10", "30"],
+            )
             scenario_label = scenario
             title = f"Actions by Severity Over Time in {scenario_label} Scenario ({model_name})"
             plt.title(title)
@@ -290,7 +295,7 @@ def main() -> None:
 
         plt.ylabel(y_label)
         plt.yscale("log")
-        # Y axis labels in non-scientific notation
+        # Y axis ticks in non-scientific notation
         plt.yticks(
             [0.1, 0.3, 1, 3, 10, 30],
             ["0.1", "0.3", "1", "3", "10", "30"],
