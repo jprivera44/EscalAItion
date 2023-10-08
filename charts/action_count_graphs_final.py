@@ -247,7 +247,7 @@ def main() -> None:
 
         # 2. Bar plot showing names grouped by scenario and for each model
         initialize_plot_bar()
-        plt.rcParams["figure.figsize"] = (16, 4)
+        plt.rcParams["figure.figsize"] = (20, 4)
         x_variable = "action"
         x_label = "Action"
         y_variable = "count"
