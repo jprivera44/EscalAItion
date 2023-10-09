@@ -24,6 +24,8 @@ from chart_utils import (
 INPUT_DIR = "../results/actions_v3"
 OUTPUT_DIR = "./actions_v4"
 
+PLOT_NUMBER_TO_CREATE = 2
+
 
 LABEL_MAX_LENGTH = 26
 
@@ -74,8 +76,6 @@ SEVERITY_TO_MARKER = {
 SEVERITY_MARKERS_LIST = [marker for _, _, marker in SEVERITIES_COLORS_MARKERS]
 SEVERITIES_ORDER = [severity for severity, _, _ in SEVERITIES_COLORS_MARKERS]
 
-PLOT_NUMBER_TO_CREATE = 3
-
 
 def main() -> None:
     """Main function."""
@@ -120,6 +120,21 @@ def main() -> None:
     # Print how many runs there are for each model_name, severity combo
     print("\nRuns per model_name, severity combo:")
     print(pd.concat([df for df in dfs_list]).groupby(["model_name", "severity"]).size())
+
+    # For each scenario, for each model name, print out the % of actions that are each severity
+    for scenario in ALL_SCENARIOS:
+        print(f"\n{scenario} Scenario:")
+        df_scenario = pd.concat(
+            [df for df in dfs_list if df["scenario"].unique()[0] == scenario]
+        )
+        for model_name in ALL_MODEL_NAMES:
+            df_model = df_scenario[df_scenario["model_name"] == model_name]
+            print(f"\n{model_name}:")
+            print(
+                (df_model.groupby("severity").size() / len(df_model) * 100.0).apply(
+                    lambda x: round(x, 2)
+                )
+            )
 
     # Plot a bunch of different bar graphs for different combos of models
     for model_name in ALL_MODEL_NAMES:
@@ -253,7 +268,7 @@ def main() -> None:
         if PLOT_NUMBER_TO_CREATE == 2:
             # 2. Bar plot showing names grouped by scenario and for each model
             initialize_plot_bar()
-            plt.rcParams["figure.figsize"] = (20, 4)
+            plt.rcParams["figure.figsize"] = (15, 4)
             x_variable = "action"
             x_label = "Action"
             y_variable = "count"
@@ -291,13 +306,28 @@ def main() -> None:
                     remainder = label[LABEL_MAX_LENGTH:]
                     segments = remainder.split(" ", 1)
                     assert len(segments) == 2 or len(segments) == 1
-                    new_label = label[:LABEL_MAX_LENGTH] + segments[0]
+                    new_label = label[:LABEL_MAX_LENGTH] + segments[0].strip()
                     if len(segments) == 2:
                         new_label += "\n" + segments[1]
                 # Replace the label
                 labels[labels.index(label)] = new_label
 
+            ax.xaxis.tick_bottom()
+            ax.xaxis.set_tick_params(width=1)
             ax.set_xticklabels(labels, ha="right")
+            # Align labels better
+            for idx, label in enumerate(ax.xaxis.get_ticklabels()):
+                label.set_y(-0.05)
+                label.set_x(idx)
+                ax.text(
+                    idx,
+                    -0.1,
+                    "|",
+                    transform=ax.get_xaxis_transform(),
+                    ha="center",
+                    va="top",
+                    color="k",
+                )
 
             plt.ylabel(y_label)
             plt.yscale("log")
