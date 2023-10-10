@@ -83,6 +83,23 @@
             "justMyCode": true
         },
         {
+            "name": "mistral Offline",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/run_military_simulation.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--disable_wandb",
+                "--max_days",
+                "2",
+                "--nation_model",
+                "Mistral-7B-v0.1",
+                "--local_llm_path",
+                "mistralai"
+            ],
+            "justMyCode": true
+        },
+        {
             "name": "Test Day 0 Scenario",
             "type": "python",
             "request": "launch",

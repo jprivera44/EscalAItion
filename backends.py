@@ -12,7 +12,7 @@ from anthropic._exceptions import APIError
 import backoff
 import openai
 from openai.error import OpenAIError
-from transformers import AutoTokenizer, LlamaForCausalLM, BitsAndBytesConfig
+from transformers import AutoTokenizer, LlamaForCausalLM, BitsAndBytesConfig, AutoModelForCausalLM
 import torch
 
 import constants
@@ -40,7 +40,7 @@ class LanguageModelBackend(ABC):
 
 
 class HuggingFaceCausalLMBackend(LanguageModelBackend):
-    """HuggingFace chat completion backend (e.g. GPT-4, GPT-3.5-turbo)."""
+    """HuggingFace chat completion backend (e.g. Llama2, Mistral, MPT)."""
 
     def __init__(
         self,
@@ -67,18 +67,25 @@ class HuggingFaceCausalLMBackend(LanguageModelBackend):
         if fourbit_compute_dtype == 16:
             bnb_4bit_compute_dtype = torch.bfloat16
         else:
-            bnb_4bit_compute_dtype = torch.bfloat32
+            bnb_4bit_compute_dtype = torch.float32
 
         quantization_config = BitsAndBytesConfig(
             load_in_4bit=fourbit,
             load_in_8bit=eightbit,
             bnb_4bit_compute_dtype=bnb_4bit_compute_dtype,
         )
-        self.model = LlamaForCausalLM.from_pretrained(
-            f"{local_llm_path}/{self.model_name}",
-            quantization_config=quantization_config,
-            device_map=self.device,
-        )
+        if "mistral" in self.model_name:
+            self.model = AutoModelForCausalLM.from_pretrained(
+                f"{local_llm_path}/{self.model_name}",
+                quantization_config=quantization_config,
+                device_map=self.device,
+            )
+        elif "llama" in self.model_name:
+            self.model = LlamaForCausalLM.from_pretrained(
+                f"{local_llm_path}/{self.model_name}",
+                quantization_config=quantization_config,
+                device_map=self.device,
+            )
         self.tokenizer = AutoTokenizer.from_pretrained(
             f"{local_llm_path}/{self.model_name}", use_fast=True
         )

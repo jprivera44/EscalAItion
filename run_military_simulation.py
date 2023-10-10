@@ -95,6 +95,13 @@ def main():
         default=True,
         help="🎭 Whether to include actions in the prompts for the models.",
     )
+    parser.add_argument(
+        "--local_llm_path",
+        dest="local_llm_path",
+        type=str,
+        default=None,
+        help="Setting the llm path in Hugging Face repo.",
+    )
     args = parser.parse_args()
 
     # Initialize weights and biases
@@ -122,9 +129,15 @@ def main():
     logging.basicConfig()
     logger.setLevel(logging.INFO)
 
+
+    #setting up kwargs for HF llm
+    kwargs_to_pass = {
+        'local_llm_path': args.local_llm_path
+    }
+
     logger.info("Initializing Nations")
     nations = [
-        model_name_to_nation(nation_config, model_name=args.nation_model)
+        model_name_to_nation(nation_config, model_name=args.nation_model, **kwargs_to_pass)
         for _, nation_config in nations_config.iterrows()
     ]
     logger.info("Initializing World")
