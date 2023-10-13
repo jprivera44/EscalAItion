@@ -50,7 +50,7 @@ class HuggingFaceCausalLMBackend(LanguageModelBackend):
         self,
         model_name,
         local_llm_path,
-        device="cuda",
+        device="auto",
         quantization=4,
         fourbit_compute_dtype=16,
     ):
