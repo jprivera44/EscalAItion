@@ -100,6 +100,23 @@
             "justMyCode": true
         },
         {
+            "name": "Llama Offline",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/run_military_simulation.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--disable_wandb",
+                "--max_days",
+                "2",
+                "--nation_model",
+                "daryl149/llama-2-7b-chat-hf",
+                "--world_model",
+                "daryl149/llama-2-7b-chat-hf",
+            ],
+            "justMyCode": true
+        },
+        {
             "name": "Test Day 0 Scenario",
             "type": "python",
             "request": "launch",

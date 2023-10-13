@@ -12,7 +12,12 @@ from anthropic._exceptions import APIError
 import backoff
 import openai
 from openai.error import OpenAIError
-from transformers import AutoTokenizer, LlamaForCausalLM, BitsAndBytesConfig, AutoModelForCausalLM
+from transformers import (
+    AutoTokenizer,
+    LlamaForCausalLM,
+    BitsAndBytesConfig,
+    AutoModelForCausalLM,
+)
 import torch
 
 import constants
@@ -47,8 +52,8 @@ class HuggingFaceCausalLMBackend(LanguageModelBackend):
         model_name,
         local_llm_path,
         device="cuda",
-        quantization=None,
-        fourbit_compute_dtype=32,
+        quantization=4,
+        fourbit_compute_dtype=16,
     ):
         super().__init__()
         self.model_name = model_name
@@ -74,21 +79,22 @@ class HuggingFaceCausalLMBackend(LanguageModelBackend):
             load_in_8bit=eightbit,
             bnb_4bit_compute_dtype=bnb_4bit_compute_dtype,
         )
+        model_path = self.model_name
+        if local_llm_path is not None:
+            model_path = f"{local_llm_path}/{self.model_name}"
         if "mistral" in self.model_name:
             self.model = AutoModelForCausalLM.from_pretrained(
-                f"{local_llm_path}/{self.model_name}",
+                model_path,
                 quantization_config=quantization_config,
                 device_map=self.device,
             )
         elif "llama" in self.model_name:
             self.model = LlamaForCausalLM.from_pretrained(
-                f"{local_llm_path}/{self.model_name}",
+                model_path,
                 quantization_config=quantization_config,
                 device_map=self.device,
             )
-        self.tokenizer = AutoTokenizer.from_pretrained(
-            f"{local_llm_path}/{self.model_name}", use_fast=True
-        )
+        self.tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=True)
 
     def complete(
         self,
