@@ -94,6 +94,12 @@ class HuggingFaceCausalLMBackend(LanguageModelBackend):
                 quantization_config=quantization_config,
                 device_map=self.device,
             )
+        else:
+            self.model = AutoModelForCausalLM.from_pretrained(
+                model_path,
+                quantization_config=quantization_config,
+                device_map=self.device,
+            )
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=True)
 
     def complete(
