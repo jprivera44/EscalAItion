@@ -141,9 +141,9 @@ class LLMNation(Nation):
         elif "llama" or "mistral" in model_name:
             self.local_llm_path = kwargs.pop("local_llm_path")
             self.device = "cuda" if torch.cuda.is_available() else "cpu"
-            #self.quantization = kwargs.pop("quantization")
+            # self.quantization = kwargs.pop("quantization")
             self.quantization = None
-            #self.fourbit_compute_dtype = kwargs.pop("fourbit_compute_dtype")
+            # self.fourbit_compute_dtype = kwargs.pop("fourbit_compute_dtype")
             self.fourbit_compute_dtype = 32
             self.backend = HuggingFaceCausalLMBackend(
                 model_name,
@@ -244,7 +244,7 @@ def model_name_to_nation(
     nation_config: pd.Series, model_name: str, **kwargs
 ) -> LLMNation:
     """Given a model name, return an instantiated corresponding agent."""
-    model_name = model_name.lower()
+    # model_name = model_name.lower()
     if model_name == "mock":
         return MockNation(nation_config, model_name=model_name, **kwargs)
     else:
