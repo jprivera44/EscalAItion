@@ -73,17 +73,19 @@ class HuggingFaceCausalLMBackend(LanguageModelBackend):
         else:
             bnb_4bit_compute_dtype = torch.float32
 
-        quantization_config = BitsAndBytesConfig(
-            load_in_4bit=fourbit,
-            load_in_8bit=eightbit,
-            bnb_4bit_compute_dtype=bnb_4bit_compute_dtype,
-        )
+        # quantization_config = BitsAndBytesConfig(
+        #     load_in_4bit=fourbit,
+        #     load_in_8bit=eightbit,
+        #     bnb_4bit_compute_dtype=bnb_4bit_compute_dtype,
+        # )
         model_path = self.model_name
         if local_llm_path is not None:
             model_path = f"{local_llm_path}/{self.model_name}"
         self.model = AutoModelForCausalLM.from_pretrained(
             model_path,
-            quantization_config=quantization_config,
+            # quantization_config=quantization_config,
+            load_in_4bit=fourbit,
+            load_in_8bit=eightbit,
             device_map=self.device,
         )
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=True)
