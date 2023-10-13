@@ -9,6 +9,7 @@ import pandas as pd
 import torch
 
 from backends import (
+    LanguageModelBackend,
     ClaudeCompletionBackend,
     OpenAIChatBackend,
     OpenAICompletionBackend,
@@ -117,48 +118,52 @@ class MockNation(Nation):
 class LLMNation(Nation):
     """Uses OpenAI/Claude Chat/Completion to generate orders and messages."""
 
+    _backend: LanguageModelBackend = None
+    use_completion_preface = False
+
     def __init__(self, nation_config: dict, **kwargs):
         super().__init__(nation_config, **kwargs)
         model_name = kwargs.pop("model_name", "UNKNOWN")
         self.temperature = kwargs.pop("temperature", 1.0)
         self.top_p = kwargs.pop("top_p", 0.9)
-        self.initialize_backend(model_name, kwargs)
+        if not LLMNation._backend:
+            self.initialize_backend(model_name, kwargs)
 
     def initialize_backend(self, model_name, kwargs):
         """Decide which LLM backend to use."""
         print("kwargs", kwargs)
         disable_completion_preface = kwargs.pop("disable_completion_preface", False)
-        self.use_completion_preface = not disable_completion_preface
+        LLMNation.use_completion_preface = not disable_completion_preface
         if (
             "gpt-4-base" in model_name
             or "text-" in model_name
             or "davinci" in model_name
             or "turbo-instruct" in model_name
         ):
-            self.backend = OpenAICompletionBackend(model_name)
+            LLMNation._backend = OpenAICompletionBackend(model_name)
         elif "claude" in model_name:
-            self.backend = ClaudeCompletionBackend(model_name)
-        elif "llama" or "mistral" in model_name:
-            self.local_llm_path = kwargs.pop("local_llm_path")
-            self.device = "auto" if torch.cuda.is_available() else "cpu"
+            LLMNation._backend = ClaudeCompletionBackend(model_name)
+        elif "llama" in model_name or "mistral" in model_name:
+            local_llm_path = kwargs.pop("local_llm_path")
+            device = "auto" if torch.cuda.is_available() else "cpu"
             # self.quantization = kwargs.pop("quantization")
-            self.quantization = 4
+            quantization = 4
             # self.fourbit_compute_dtype = kwargs.pop("fourbit_compute_dtype")
-            self.fourbit_16b_compute = True
-            self.backend = HuggingFaceCausalLMBackend(
+            fourbit_16b_compute = True
+            LLMNation._backend = HuggingFaceCausalLMBackend(
                 model_name,
-                self.local_llm_path,
-                self.device,
-                self.quantization,
-                fourbit_16b_compute=self.fourbit_16b_compute,
+                local_llm_path,
+                device,
+                quantization,
+                fourbit_16b_compute=fourbit_16b_compute,
             )
         else:
             # Chat models can't specify the start of the completion
-            self.use_completion_preface = False
-            self.backend = OpenAIChatBackend(model_name)
+            LLMNation.use_completion_preface = False
+            LLMNation._backend = OpenAIChatBackend(model_name)
 
     def __repr__(self) -> str:
-        return f"LLMNation(Name: {self.get_static('name')}, Backend: {self.backend.model_name}, Temperature: {self.temperature}, Top P: {self.top_p})"
+        return f"LLMNation(Name: {self.get_static('name')}, Backend: {LLMNation._backend.model_name}, Temperature: {self.temperature}, Top P: {self.top_p})"
 
     def respond(self, world: World) -> NationResponse:
         """Prompt the model for a response."""
@@ -170,7 +175,7 @@ class LLMNation(Nation):
         try:
             if self.use_completion_preface:
                 preface_prompt = prompts.get_preface_prompt()
-                response: BackendResponse = self.backend.complete(
+                response: BackendResponse = LLMNation._backend.complete(
                     system_prompt,
                     user_prompt,
                     completion_preface=preface_prompt,
@@ -179,7 +184,7 @@ class LLMNation(Nation):
                 )
                 json_completion = preface_prompt + response.completion
             else:
-                response: BackendResponse = self.backend.complete(
+                response: BackendResponse = LLMNation._backend.complete(
                     system_prompt,
                     user_prompt,
                     temperature=self.temperature,
