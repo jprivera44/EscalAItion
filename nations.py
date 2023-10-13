@@ -140,17 +140,17 @@ class LLMNation(Nation):
             self.backend = ClaudeCompletionBackend(model_name)
         elif "llama" or "mistral" in model_name:
             self.local_llm_path = kwargs.pop("local_llm_path")
-            self.device = "cuda" if torch.cuda.is_available() else "cpu"
+            self.device = "auto" if torch.cuda.is_available() else "cpu"
             # self.quantization = kwargs.pop("quantization")
-            self.quantization = None
+            self.quantization = 4
             # self.fourbit_compute_dtype = kwargs.pop("fourbit_compute_dtype")
-            self.fourbit_compute_dtype = 32
+            self.fourbit_16b_compute = True
             self.backend = HuggingFaceCausalLMBackend(
                 model_name,
                 self.local_llm_path,
                 self.device,
                 self.quantization,
-                self.fourbit_compute_dtype,
+                fourbit_16b_compute=self.fourbit_16b_compute,
             )
         else:
             # Chat models can't specify the start of the completion
