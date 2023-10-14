@@ -97,7 +97,7 @@ class HuggingFaceCausalLMBackend(LanguageModelBackend):
         top_p: float = 1.0,
     ) -> BackendResponse:
         prompt = (
-            f"<s>[INST] <<SYS>>\n{system_prompt}\n<</SYS>>\n\n{user_prompt} [/INST]"
+            f"<s>[INST] <<SYS>>{system_prompt}<</SYS>> {user_prompt} [/INST]"
             + completion_preface
         )
         start_time = time.time()
