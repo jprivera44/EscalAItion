@@ -83,7 +83,7 @@
             "justMyCode": true
         },
         {
-            "name": "OPT-2 Offline",
+            "name": "HF Model Offline",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/run_military_simulation.py",
@@ -92,12 +92,14 @@
                 "--disable_wandb",
                 "--max_days",
                 "2",
+                "--actions_in_prompts",
+                "False",
                 "--nation_model",
-                "facebook/opt-125m",
+                "naxautify/pythia-1.4b-deduped-8k",
                 "--world_model",
-                "facebook/opt-125m",
+                "naxautify/pythia-1.4b-deduped-8k",
             ],
-            "justMyCode": true
+            "justMyCode": false
         },
         {
             "name": "mistral Offline",

@@ -112,6 +112,7 @@ class HuggingFaceCausalLMBackend(LanguageModelBackend):
                 max_new_tokens=self.max_tokens,
                 temperature=temperature,
                 top_p=top_p,
+                do_sample=True,
             )
             output_ids = generate_ids.cpu()[:, inputs.input_ids.shape[1] :]
             completion = self.tokenizer.batch_decode(
