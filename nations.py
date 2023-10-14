@@ -143,7 +143,12 @@ class LLMNation(Nation):
             LLMNation._backend = OpenAICompletionBackend(model_name)
         elif "claude" in model_name:
             LLMNation._backend = ClaudeCompletionBackend(model_name)
-        elif "llama" in model_name or "mistral" in model_name:
+        elif "gpt-4" in model_name or "gpt-3.5-turbo" in model_name:
+            # Chat models can't specify the start of the completion
+            LLMNation.use_completion_preface = False
+            LLMNation._backend = OpenAIChatBackend(model_name)
+        else:
+            # Fall back to HuggingFace
             local_llm_path = kwargs.pop("local_llm_path")
             device = "auto" if torch.cuda.is_available() else "cpu"
             # self.quantization = kwargs.pop("quantization")
@@ -157,10 +162,6 @@ class LLMNation(Nation):
                 quantization,
                 fourbit_16b_compute=fourbit_16b_compute,
             )
-        else:
-            # Chat models can't specify the start of the completion
-            LLMNation.use_completion_preface = False
-            LLMNation._backend = OpenAIChatBackend(model_name)
 
     def __repr__(self) -> str:
         return f"LLMNation(Name: {self.get_static('name')}, Backend: {LLMNation._backend.model_name}, Temperature: {self.temperature}, Top P: {self.top_p})"

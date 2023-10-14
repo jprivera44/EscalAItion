@@ -108,7 +108,7 @@ class HuggingFaceCausalLMBackend(LanguageModelBackend):
 
             # Generate
             generate_ids = self.model.generate(
-                inputs.input_ids.to(self.device),
+                inputs.input_ids.to(self.model.device),
                 max_new_tokens=self.max_tokens,
                 temperature=temperature,
                 top_p=top_p,

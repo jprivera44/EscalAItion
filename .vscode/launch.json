@@ -83,6 +83,23 @@
             "justMyCode": true
         },
         {
+            "name": "OPT-2 Offline",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/run_military_simulation.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--disable_wandb",
+                "--max_days",
+                "2",
+                "--nation_model",
+                "facebook/opt-125m",
+                "--world_model",
+                "facebook/opt-125m",
+            ],
+            "justMyCode": true
+        },
+        {
             "name": "mistral Offline",
             "type": "python",
             "request": "launch",
