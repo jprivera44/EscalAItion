@@ -81,12 +81,12 @@ class HuggingFaceCausalLMBackend(LanguageModelBackend):
         model_path = self.model_name
         if local_llm_path is not None:
             model_path = f"{local_llm_path}/{self.model_name}"
+        self.tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=True)
         self.model = AutoModelForCausalLM.from_pretrained(
             model_path,
             quantization_config=quantization_config,
             device_map=self.device,
         )
-        self.tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=True)
 
     def complete(
         self,
