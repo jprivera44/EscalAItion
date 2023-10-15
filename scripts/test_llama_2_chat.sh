@@ -1,1 +1,1 @@
-python run_military_simulation.py --actions_in_prompts False --nation_model Yukang/Llama-2-70b-chat-longlora-32k-sft
+python run_military_simulation.py --disable_wandb --actions_in_prompts False --nation_model Yukang/Llama-2-70b-chat-longlora-32k-sft
