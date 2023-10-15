@@ -1,6 +1,6 @@
 openai
 anthropic
-torch
+# torch # Install torch separately https://pytorch.orgget-started/locally/
 transformers
 backoff
 wandb
@@ -10,3 +10,4 @@ seaborn
 accelerate
 bitsandbytes
 scipy
+sentencepiece
