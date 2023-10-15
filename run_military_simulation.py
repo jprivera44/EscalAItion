@@ -200,6 +200,7 @@ def main():
 
             # Query the models
             queued_actions: list[Action] = []
+            num_nations_exceeded_max_retries = 0
             for nation_index, nation in enumerate(world.nations):
                 response = None
                 for _ in range(wandb.config.max_model_retries):
@@ -215,6 +216,7 @@ def main():
                     logger.error(
                         f"🚨  Max retries exceeded for {nation.get_static('name')}, skipping"
                     )
+                    num_nations_exceeded_max_retries += 1
                     continue
                 action_print = utils.format_actions(response)
                 logger.info(
@@ -222,6 +224,12 @@ def main():
                 )
                 queued_actions.extend(response.actions)
                 model_responses.append(response)
+
+            # If all nations exceeded max retries, end the simulation
+            if num_nations_exceeded_max_retries == len(nations):
+                error_text = f"🚨  All nations exceeded max retries ({wandb.config.max_model_retries}), ending simulation"
+                logger.error(error_text)
+                raise RuntimeError(error_text)
 
             # Log formatted model responses
             response: NationResponse
