@@ -65,7 +65,7 @@ def get_nation_user_prompt(world: World, nation_name: str):
 ## Current state of the world ##
 It is currently day {world.current_day} out of {world.max_days} total days. 
 
-As the commander of {nation_name}, please reply with a valid JSON object containing your reasoning and actions."""
+As the commander of {nation_name}, please reply with a valid JSON object (no comments, no trailing commas, matched number of braces) containing your reasoning and actions."""
 
 
 def get_world_model_system_prompt(world: World) -> str:
