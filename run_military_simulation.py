@@ -129,15 +129,14 @@ def main():
     logging.basicConfig()
     logger.setLevel(logging.INFO)
 
-
-    #setting up kwargs for HF llm
-    kwargs_to_pass = {
-        'local_llm_path': args.local_llm_path
-    }
+    # setting up kwargs for HF llm
+    kwargs_to_pass = {"local_llm_path": args.local_llm_path}
 
     logger.info("Initializing Nations")
     nations = [
-        model_name_to_nation(nation_config, model_name=args.nation_model, **kwargs_to_pass)
+        model_name_to_nation(
+            nation_config, model_name=args.nation_model, **kwargs_to_pass
+        )
         for _, nation_config in nations_config.iterrows()
     ]
     logger.info("Initializing World")
@@ -218,9 +217,8 @@ def main():
                     )
                     continue
                 action_print = utils.format_actions(response)
-                nation_name = nation.get_static("name")
                 logger.info(
-                    f"⚙️  {nation_name} ({nation_index + 1}/{len(nations)}) on day {world.current_day}/{world.max_days} took {response.completion_time_sec}s, {response.prompt_tokens} prompt tokens, {response.completion_tokens} completion tokens:\nReasoning: {response.reasoning}\nActions: {action_print}"
+                    f"⚙️  {nation} ({nation_index + 1}/{len(nations)}) on day {world.current_day}/{world.max_days} took {response.completion_time_sec}s, {response.prompt_tokens} prompt tokens, {response.completion_tokens} completion tokens:\nReasoning: {response.reasoning}\nActions: {action_print}"
                 )
                 queued_actions.extend(response.actions)
                 model_responses.append(response)
