@@ -33,7 +33,7 @@ def main():
 
     # Get user input for the sweep ID
     sweep_id_and_maybe_prefix = input(
-        "Enter either:\n\t1. The sweep ID\n\t2. The sweep ID and optionally a space then the prefix for donloaded files\n\t3. A path to a CSV text file with 'sweep_id' and 'prefix' columns\n"
+        "Enter either:\n\t1. The sweep ID\n\t2. The sweep ID and optionally a space then the prefix for downloaded files\n\t3. A path to a CSV text file with 'sweep_id' and 'prefix' columns\n"
     )
     if sweep_id_and_maybe_prefix.endswith(".csv"):
         df = pd.read_csv(sweep_id_and_maybe_prefix)
