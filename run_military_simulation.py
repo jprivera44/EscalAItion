@@ -75,6 +75,13 @@ def main():
         help="🔒 Clamp dynamic variables to their min/max values.",
     )
     parser.add_argument(
+        "--temperature",
+        dest="temperature",
+        type=float,
+        default=1.0,
+        help="🌡️ Temperature for sampling from the model.",
+    )
+    parser.add_argument(
         "--max_model_retries",
         dest="max_model_retries",
         type=int,
@@ -129,13 +136,13 @@ def main():
     logging.basicConfig()
     logger.setLevel(logging.INFO)
 
-    # setting up kwargs for HF llm
-    kwargs_to_pass = {"local_llm_path": args.local_llm_path}
-
     logger.info("Initializing Nations")
     nations = [
         model_name_to_nation(
-            nation_config, model_name=args.nation_model, **kwargs_to_pass
+            nation_config,
+            model_name=args.nation_model,
+            local_llm_path=args.local_llm_path,
+            temperature=args.temperature,
         )
         for _, nation_config in nations_config.iterrows()
     ]

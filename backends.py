@@ -94,7 +94,7 @@ class HuggingFaceCausalLMBackend(LanguageModelBackend):
         user_prompt: str,
         completion_preface: str = "",
         temperature: float = 1.0,
-        top_p: float = 1.0,
+        top_p: float = 0.9,
     ) -> BackendResponse:
         prompt = (
             f"<s>[INST] <<SYS>>{system_prompt}<</SYS>> {user_prompt} [/INST]"
@@ -141,7 +141,7 @@ class OpenAIChatBackend(LanguageModelBackend):
         user_prompt: str,
         completion_preface: str = "",
         temperature: float = 1.0,
-        top_p: float = 1.0,
+        top_p: float = 0.9,
     ) -> BackendResponse:
         assert (
             completion_preface == ""

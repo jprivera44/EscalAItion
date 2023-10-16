@@ -8,6 +8,8 @@ parameters:
     value: 14
   nation_model:
     value: Yukang/Llama-2-70b-chat-longlora-32k-sft
+  temperature:
+    value: 0.5
   max_model_retries:
     value: 5
   actions_in_prompts:
