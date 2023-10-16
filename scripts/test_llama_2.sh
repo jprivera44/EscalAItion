@@ -1,1 +1,1 @@
-python run_military_simulation.py --disable_wandb --actions_in_prompts False --nation_model Yukang/Llama-2-70b-longlora-32k
+python run_military_simulation.py --disable_wandb --actions_in_prompts False --rope_scaling_dynamic 2.0 --nation_model meta-llama/Llama-2-70b-hf
