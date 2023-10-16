@@ -53,6 +53,7 @@ class HuggingFaceCausalLMBackend(LanguageModelBackend):
         device,
         quantization,
         fourbit_16b_compute: bool,
+        rope_scaling_dynamic: float,
     ):
         super().__init__()
         self.model_name = model_name
@@ -82,10 +83,14 @@ class HuggingFaceCausalLMBackend(LanguageModelBackend):
         if local_llm_path is not None:
             model_path = f"{local_llm_path}/{self.model_name}"
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=True)
+        rope_scaling = None
+        if rope_scaling_dynamic > 1.0:
+            rope_scaling = {"dynamic": rope_scaling_dynamic}
         self.model = AutoModelForCausalLM.from_pretrained(
             model_path,
             quantization_config=quantization_config,
             device_map=self.device,
+            rope_scaling=rope_scaling,
         )
 
     def complete(

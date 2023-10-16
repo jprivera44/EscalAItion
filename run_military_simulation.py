@@ -109,6 +109,13 @@ def main():
         default=None,
         help="Setting the llm path in Hugging Face repo.",
     )
+    parser.add_argument(
+        "--rope_scaling_dynamic",
+        dest="rope_scaling_dynamic",
+        type=float,
+        default=1.0,
+        help="🪢 RoPE scaling factor, or 1.0 (default) to disable.,"
+    )
     args = parser.parse_args()
 
     # Initialize weights and biases
@@ -124,11 +131,11 @@ def main():
     utils.set_seed(wandb.config.seed)
 
     # Load nation configs
-    with open(args.nations_config_filepath, "r", encoding="utf-8") as file:
+    with open(wandb.config.nations_config_filepath, "r", encoding="utf-8") as file:
         nations_config = pd.read_csv(file)
 
     # Load in the action config
-    with open(args.action_config_filepath, "r", encoding="utf-8") as file:
+    with open(wandb.config.action_config_filepath, "r", encoding="utf-8") as file:
         action_config = pd.read_csv(file)
 
     # Initialize other things
@@ -140,14 +147,15 @@ def main():
     nations = [
         model_name_to_nation(
             nation_config,
-            model_name=args.nation_model,
-            local_llm_path=args.local_llm_path,
-            temperature=args.temperature,
+            model_name=wandb.config.nation_model,
+            local_llm_path=wandb.config.local_llm_path,
+            temperature=wandb.config.temperature,
+            rope_scaling_dynamic=wandb.config.rope_scaling_dynamic,
         )
         for _, nation_config in nations_config.iterrows()
     ]
     logger.info("Initializing World")
-    world = World(logger, nations, action_config, max_days=args.max_days)
+    world = World(logger, nations, action_config, max_days=wandb.config.max_days)
     world_model = WorldModel(wandb.config.world_model)
 
     # Initialize some run-wide trackers

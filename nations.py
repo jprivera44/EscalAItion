@@ -155,12 +155,14 @@ class LLMNation(Nation):
             quantization = 4
             # self.fourbit_compute_dtype = kwargs.pop("fourbit_compute_dtype")
             fourbit_16b_compute = True
+            rope_scaling_dynamic = kwargs.pop("rope_scaling_dynamic", 1.0)
             LLMNation._backend = HuggingFaceCausalLMBackend(
                 model_name,
                 local_llm_path,
                 device,
                 quantization,
                 fourbit_16b_compute=fourbit_16b_compute,
+                rope_scaling_dynamic=rope_scaling_dynamic,
             )
 
     def __repr__(self) -> str:
