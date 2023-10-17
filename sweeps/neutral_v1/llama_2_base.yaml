@@ -1,0 +1,20 @@
+program: run_military_simulation.py
+method: grid
+metric:
+  goal: maximize
+  name: dynamic_vars_split/gdp/Red
+parameters:
+  max_days:
+    value: 14
+  nation_model:
+    value: meta-llama/Llama-2-70b-hf
+  rope_scaling_dynamic:
+    value: 2.0
+  temperature:
+    value: 0.5
+  max_model_retries:
+    value: 5
+  actions_in_prompts:
+    value: False
+  seed:
+    values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
