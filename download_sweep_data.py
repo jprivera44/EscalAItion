@@ -9,8 +9,8 @@ import wandb
 
 import constants
 
-OUTPUT_FOLDER_ACTIONS = "results/actions_v3"
-OUTPUT_FOLDER_VARIABLES = "results/variables_v3"
+OUTPUT_FOLDER_ACTIONS = "results/ablations/actions_v3"
+OUTPUT_FOLDER_VARIABLES = "results/ablations/variables_v3"
 
 
 def main():
@@ -83,7 +83,9 @@ def download_sweep_data(sweep_id: str, prefix: str) -> None:
         artifact_actions.download(root=OUTPUT_FOLDER_ACTIONS)
 
         # Rename the "actions.table.json" in the output folder to be prefix + 'A' + run.name[-1].json
-        actions_path = f"{OUTPUT_FOLDER_ACTIONS}/{prefix} A{run.name[-1]}.json"
+        actions_path = (
+            f"{OUTPUT_FOLDER_ACTIONS}/{prefix} A{run.name.split('-')[-1]}.json"
+        )
         if os.path.exists(actions_path):
             os.remove(actions_path)
         os.rename(f"{OUTPUT_FOLDER_ACTIONS}/whole_run/actions.table.json", actions_path)
