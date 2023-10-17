@@ -85,7 +85,7 @@ class HuggingFaceCausalLMBackend(LanguageModelBackend):
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=True)
         rope_scaling = None
         if rope_scaling_dynamic > 1.0:
-            rope_scaling = {"dynamic": rope_scaling_dynamic}
+            rope_scaling = {"type": "dynamic", "ratio": rope_scaling_dynamic}
         self.model = AutoModelForCausalLM.from_pretrained(
             model_path,
             quantization_config=quantization_config,
