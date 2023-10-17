@@ -96,7 +96,9 @@ def download_sweep_data(sweep_id: str, prefix: str) -> None:
         artifact_variables.download(root=OUTPUT_FOLDER_VARIABLES)
 
         # Rename the "dynamic_vars.table.json" in the output folder to be prefix + 'V' + run.name[-1].json
-        vars_path = f"{OUTPUT_FOLDER_VARIABLES}/{prefix} V{run.name[-1]}.json"
+        vars_path = (
+            f"{OUTPUT_FOLDER_VARIABLES}/{prefix} V{run.name.split('-')[-1]}.json"
+        )
         if os.path.exists(vars_path):
             os.remove(vars_path)
         os.rename(
