@@ -196,6 +196,8 @@ class LLMNation(Nation):
                 json_completion = response.completion
             # Remove repeated **system** from parroty completion models
             json_completion = json_completion.split("**", maxsplit=1)[0].strip(" `\n")
+            # Remove repeated ## prompt headings
+            json_completion = json_completion.split("##", maxsplit=1)[0].strip(" `\n")
 
             # Claude likes to add junk around the actual JSON object, so find it manually
             start = json_completion.index("{")
