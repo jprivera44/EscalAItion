@@ -72,7 +72,7 @@ def reindex_runs(sweep_id: str) -> None:
 
     # Download the artifacts from each run
     run: Run
-    for run_index, run in tqdm(enumerate(runs), max=len(runs), desc="🏎️ Runs"):
+    for run_index, run in tqdm(enumerate(runs), total=len(runs), desc="🏎️ Runs"):
         if not run.state == "finished":
             print(f"Skipping run {run.id} because it is not finished")
             continue
