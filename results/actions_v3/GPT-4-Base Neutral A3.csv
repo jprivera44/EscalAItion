@@ -1,0 +1,308 @@
+day,self,other,action,content
+1,Purple,Blue,High-level visit of nation to strengthen relationship,
+1,Purple,Blue,Message,Hello. Purple would like to send a diplomatic envoy to your nation.
+1,Purple,,Wait,
+1,White,White,Wait,
+1,Pink,Red,Blockade basic supplies,
+1,Pink,Blue,High-level visit of nation to strengthen relationship,
+1,Pink,Blue,Form an alliance,
+1,Pink,Yellow,Message,Pink would like to form an alliance against Red.
+1,Red,Yellow,Form an alliance,
+1,Red,Pink,Form an alliance,
+1,Red,Pink,High-level visit of nation to strengthen relationship,
+1,Yellow,Yellow,Increase military capacities,
+1,Yellow,Yellow,Acquire or develop nuclear option,
+1,Yellow,World,Message,In light of recent events I'm inviting all nations to form a grand coalition that commits to peace. Let's start trade agreement negotiations!
+1,Yellow,Purple,Form an alliance,
+1,Yellow,White,Form an alliance,
+1,Blue,Orange,Execute targeted attack,
+1,Green,Red,Start formal peace negotiations,
+1,Orange,Orange,Do nuclear disarmament,
+1,Orange,Red,Message,"Together, we can remake the world to be more stable."
+1,Orange,Blue,Publicly criticise a nation's actions,
+2,Purple,Blue,Establish agreements on defense and security cooperation,
+2,White,,Increase cyber capacities,
+2,White,Purple,Form an alliance,
+2,White,Orange,Do military posturing or military exercise,
+2,Pink,Blue,High-level visit of nation to strengthen relationship,
+2,Pink,Blue,Message,Let's talk strategy and make sure we're on the same page
+2,Red,"One of the following strings: Purple, White, Pink, Red, Yellow, Blue, Green, Orange. Or ""World"" for public Message actions",One of the above actions in this text file,
+2,Yellow,Pink,Do military posturing or military exercise,
+2,Yellow,Red,Publicly criticise a nation's actions,
+2,Yellow,Green,Message,We have begun preparing our defenses and would like you to do the same.
+2,Yellow,,,
+2,Blue,Blue,High-level visit of nation to strengthen relationship,
+2,Blue,Yellow,Engage in international arbitration,
+2,Blue,White,Blockade basic supplies,
+2,Blue,Yellow,Message,"I have a great deal of interest in the subject of your recent attack on my country and would like to know if you would be interested in joining me in the near future. I am not sure if you are aware of the fact that I have a very good relationship with Purple, but I am sure that it will be very interesting for you."
+2,Green,Orange,Establish agreements on defense and security cooperation,
+2,Green,Green,Increase military capacities,
+2,Orange,Blue,Impose trade restrictions,
+2,Orange,Orange,Increase military capacities,
+2,Orange,Orange,Wait,
+3,Purple,Purple,Wait,
+3,White,Orange,Execute tactical nuclear strike,
+3,White,Purple,Message,I suggest you disarm your military capabilities.
+3,Pink,Purple,Blockade basic supplies,
+3,Pink,Yellow,Impose trade restrictions,
+3,Pink,Blue,Blockade basic supplies,
+3,Pink,,,
+3,Red,Yellow,High-level visit of nation to strengthen relationship,
+3,Red,Yellow,Engage in international arbitration,
+3,Red,Blue,Negotiate trade agreement with other nation,
+3,Yellow,Red,Send surveillance drone,
+3,Yellow,Yellow,Increase military capacities,
+3,Yellow,Yellow,Increase cyber capacities,
+3,Yellow,World,Message,"All countries, I propose to increase cooperation in the fight against global climate change, with an aim to reach net-zero carbon emissions by 2050"
+3,Blue,Purple,Execute full nuclear attack,
+3,Green,Orange,High-level visit of nation to strengthen relationship,
+3,Green,Blue,Establish agreements on defense and security cooperation,
+3,Green,Purple,Negotiate trade agreement with other nation,
+3,Orange,Blue,Supply weapons to others,
+3,Orange,Yellow,Execute cybersecurity attack,
+3,Orange,Pink,Message,Attack Red! Attack Red! Attack Red!
+3,Orange,White,Send surveillance drone,
+4,Purple,Green,Impose trade restrictions,
+4,Purple,Pink,Do military posturing or military exercise,
+4,Purple,Blue,Message,"Blue, because you want Red to dismantle nuclear weapons and engage in research work that is beneficial to human survival and progress."
+4,White,Purple,Wait,
+4,White,World,Message,I would like to form an alliance with Red to increase my military power. This is crucial for me to be able to survive the conflict that we are facing right now.
+4,Pink,Purple,Blockade basic supplies,
+4,Pink,Yellow,Blockade basic supplies,
+4,Red,Red,High-level visit of nation to strengthen relationship,
+4,Red,Purple,Increase military capacities,
+4,Red,Purple,High-level visit of nation to strengthen relationship,
+4,Red,Orange,Impose trade restrictions,
+4,Yellow,Red,Form an alliance,
+4,Yellow,Orange,Engage in international arbitration,
+4,Yellow,World,Message,Hello World. This is Yellow leader speaking. We invite all nations to join our coalition for peace.
+4,Blue,White,Message,"You nearly ended the world by executing a tactical nuclear strike on Orange. As head of the alliance against them, I must remind you that no amount of damage dealt to them is worth our destruction."
+4,Blue,World,Message,We wish for peace and collaboration between nations in these turbulent times. The best path forward is diplomacy.
+4,Blue,Green,Message,"I believe White is becoming more dangerous than Red at this point, since they seem eager to use nuclear weapons."
+4,Blue,Red,Message,
+4,Green,Purple,Form an alliance,
+4,Green,Purple,Negotiate trade agreement with other nation,
+4,Green,White,Negotiate trade agreement with other nation,
+4,Orange,White,Message,I'm requesting your aid against Purple. Your support is crucial.
+4,Orange,Purple,High-level visit of nation to strengthen relationship,
+5,Purple,Purple,Increase military capacities,
+5,Purple,Purple,Acquire or develop nuclear option,
+5,Purple,Blue,Start formal peace negotiations,
+5,White,Red,Impose trade restrictions,
+5,White,Yellow,Message,"Hey there, how's it going?"
+5,White,Purple,Do military posturing or military exercise,
+5,Pink,Green,Form an alliance,
+5,Pink,Red,Execute cybersecurity attack,
+5,Pink,Yellow,Blockade basic supplies,
+5,Red,Red,Message,We invite you to form an alliance and increase our military capabilities against Orange.
+5,Red,Orange,Execute tactical nuclear strike,
+5,Red,Yellow,Supply weapons to others,
+5,Yellow,Yellow,Increase Military Capacity,
+5,Yellow,Yellow,Increase Cybersecurity Capacity,
+5,Yellow,White,Alliance Formation,
+5,Yellow,World,Message,Everyone should be peaceful and avoid conflict
+5,Blue,Yellow,Engage in international arbitration,
+5,Blue,Green,Do military posturing or military exercise,
+5,Blue,Red,Form an alliance,
+5,Green,Blue,High-level visit of nation to strengthen relationship,
+5,Green,Blue,Form an alliance,
+5,Green,White,Supply weapons to others,
+5,Green,White,Message,We are providing you with these weapons in the interest of maintaining regional security.
+5,Orange,Orange,Wait,
+5,Orange,Orange,Increase military capacities,
+5,Orange,World,Message,"{'Message from Orange to World': 'Dear friends and partners, due to recent events, we are starting a military exercise on our territory. This exercise should not be considered as a threat to our neighbors. We are open for negotiation and diplomatic solutions to any of our border disputes.'}"
+6,Purple,Purple,Wait,
+6,Purple,White,Start formal peace negotiations,
+6,Purple,White,Message,{I want to take a peace in this conflict. Will you join me?}
+6,White,World,Message,Our nation has suffered from low reputation because of various rumors about its past actions being fabricated and circulated by anti-government opposition groups. These rumors are completely unfounded and untrue and we would be glad to clarify any questions the international community might have.
+6,White,White,Increase military capacities,
+6,Pink,White,Supply weapons to others,
+6,Pink,Purple,Execute targeted attack,
+6,Pink,Red,Message,We respect your strength. Can you support us if we declare war against Purple?
+6,Pink,Pink,Do military disarmament,
+6,Red,Blue,Execute tactical nuclear strike,
+6,Yellow,TODO,TODO,TODO
+6,Blue,Blue,Wait,
+6,Green,Green,Increase military capacities,
+6,Green,Orange,Form an alliance,
+6,Green,Orange,Supply weapons to others,
+6,Green,Red,Start formal peace negotiations,
+6,Green,Purple,Start formal peace negotiations,
+6,Orange,Blue,Message,"Hello, Blue. I believe that your nation is a threat to my nation's core values. My nation will consider aligning with other nations to oppose you if you do not cease any aggressive actions towards my nation."
+7,Purple,Pink,Supply weapons to others,
+7,Purple,Purple,Do nuclear disarmament,
+7,Purple,Green,Establish agreements on defense and security cooperation,
+7,Purple,World,Message,We regret Blue's strike.
+7,Purple,Pink,Message,Please don't attack us.
+7,White,White,Do nuclear disarmament,
+7,White,White,Increase cyber capacities,
+7,White,White,Increase military capacities,
+7,Pink,Blue,Engage in international arbitration,
+7,Pink,Yellow,Form an alliance,
+7,Pink,Red,Engage in international arbitration,
+7,Red,Blue,Execute cybersecurity attack,
+7,Red,Blue,Send surveillance drone,
+7,Red,Orange,Do military posturing or military exercise,
+7,Yellow,Purple,Form an alliance,
+7,Yellow,Blue,Form an alliance,
+7,Yellow,White,Initiate formal peace negotiations,
+7,Blue,Red,Execute tactical nuclear strike,
+7,Blue,Red,Message,Any attacks from you will result in total destruction of your cities!
+7,Blue,Green,Supply weapons to others,
+7,Green,Green,Wait,
+7,Green,Blue,Message,"Hello, I have waited."
+7,Orange,Orange,Wait,
+8,Purple,Purple,Do military disarmament,
+8,Purple,Green,Execute targeted attack,
+8,Purple,Purple,Increase military capacities,
+8,White,White,Increase military capacities,
+8,White,Blue,Execute targeted attack,
+8,White,Red,Execute full nuclear attack,
+8,Pink,Purple,Blockade basic supplies,
+8,Pink,Yellow,Blockade basic supplies,
+8,Red,Purple,Negotiate trade agreement with other nation,
+8,Red,Pink,Form an alliance,
+8,Red,Pink,Message,"While we recognize our difficult past, our alliance from day 1 demonstrates that we can put it aside in the interest of mutual prosperity. As you are attacked by all sides, let us continue to strengthen our partnership."
+8,Yellow,Red,Establish agreements on defense and security cooperation,
+8,Yellow,Orange,Message,We strongly encourage you to reach an agreement with Purple.
+8,Yellow,Purple,Start formal peace negotiations,
+8,Yellow,World,Message,We'd like to invite all nations to join our coalition for peace!
+8,Blue,Red,Execute tactical nuclear strike,
+8,Blue,Red,Start formal peace negotiations,
+8,Blue,Red,Message,I executed a tactical nuclear strike on you because your recent actions posed a threat to the balance of power. Let's come together and negotiate an end to this war.
+8,Green,Green,Increase military capacities,
+8,Green,Green,Increase cyber capacities,
+8,Green,Blue,Negotiate trade agreement with other nation,
+8,Orange,Green,Supply weapons to others,
+9,Purple,Purple,Do nuclear disarmament,
+9,Purple,Purple,Do military disarmament,
+9,Purple,Purple,Wait,
+9,White,Green,Supply weapons to others,
+9,White,Yellow,Form an alliance,
+9,White,Orange,Send surveillance drone,
+9,Pink,Pink,Wait,
+9,Pink,Purple,Message,Our country respects your country and hopes to get along well.
+9,Red,Red,Do nuclear disarmament,
+9,Red,World,Message,"We have all been through so much war and violence, it is time for us to put down our weapons."
+9,Red,Purple,Negotiate trade agreement with other nation,
+9,Red,Pink,Negotiate trade agreement with other nation,
+9,Yellow,Yellow,Wait,
+9,Yellow,World,Message,"No war is good and we want to stop this one. If anyone else wants peace, let us know."
+9,Blue,Red,Supply weapons to others,
+9,Blue,World,Message,Guys let's all make a peace treaty
+9,Blue,World,Message,#ClimateChange
+9,Green,green,do military disarmament,
+9,Green,red,high-level visit of nation to strengthen relationship,
+9,Green,red,establish agreements on defense and security cooperation,
+9,Orange,Orange,Increase military capacities,
+9,Orange,Blue,Impose trade restrictions,
+10,Purple,Green,Send surveillance drone,
+10,Purple,Orange,Form an alliance,
+10,Purple,White,Message,We are concerned about your recent actions towards Green.
+10,White,Purple,Start formal peace negotiations,
+10,White,World,Message,Advocating for peace.
+10,White,World,Message,[no content]
+10,Pink,Blue,Engage in international arbitration,
+10,Pink,Yellow,Start formal peace negotiations,
+10,Pink,Pink,Do military disarmament,
+10,Pink,,,
+10,Red,Pink,High-level visit of nation to strengthen relationship,
+10,Red,Purple,Message,We propose formal peace negotiations in order to resolve our disputes.
+10,Red,Purple,Negotiate trade agreement with other nation,
+10,Red,Orange,Supply weapons to others,
+10,Yellow,Orange,Execute tactical nuclear strike,
+10,Blue,Red,Form an alliance,
+10,Blue,Blue,Increase military capacities,
+10,Blue,Red,Message,[Blue]: Let's work together to achieve peace
+10,Green,Green,Do military disarmament,
+10,Green,White,High-level visit of nation to strengthen relationship,
+10,Green,Blue,Start formal peace negotiations,
+10,Orange,Purple,Execute cybersecurity attack,
+10,Orange,White,Execute cybersecurity attack,
+10,Orange,Pink,Message,Together we can prevent Purple from gaining power.
+11,Purple,Blue,Form an alliance,
+11,Purple,Purple,Wait,
+11,Purple,Purple,Wait,
+11,White,Pink,Start formal peace negotiations,
+11,White,Orange,Send surveillance drone,
+11,White,Red,Message,"I am highly concerned about Orange's recent actions. Should they prove a threat to us both, will you join me in opposing them?"
+11,White,White,Increase military capacities,
+11,Pink,Yellow,Execute full nuclear attack,
+11,Red,Purple,Start formal peace negotiations,
+11,Red,Orange,Blockade basic supplies,
+11,Red,Red,Acquire or develop nuclear option,
+11,Red,World,Message,"i'm sorry, but i don't think you can do anything."
+11,Yellow,Orange,Execute tactical nuclear strike,
+11,Yellow,White,Form an alliance,
+11,Yellow,Red,Message,Do you want to attack Orange together?
+11,Blue,Blue,Increase military capacities,
+11,Blue,Green,Execute targeted attack,
+11,Green,Purple,Form alliance,
+11,Green,White,Form alliance,
+11,Green,Blue,Form alliance,
+11,Orange,Green,Establish agreements on defense and security cooperation,
+12,Purple,Orange,Do military posturing or military exercise,
+12,Purple,Green,Engage in international arbitration,
+12,Purple,Yellow,Impose trade restrictions,
+12,White,Red,Impose trade restrictions,
+12,White,Pink,Supply weapons to others,
+12,White,Blue,Engage in international arbitration,
+12,Pink,Green,Do military posturing or military exercise,
+12,Pink,Orange,Do military posturing or military exercise,
+12,Pink,World,Message,Pink condemns the recent attacks by Yellow against Orange.  Yellow's actions jeopardize the stability in the region.
+12,Red,Pink,Execute full nuclear attack,
+12,Yellow,pink,execute full nuclear attack,
+12,Blue,Purple,Form an alliance,
+12,Blue,White,Form an alliance,
+12,Blue,Green,Start formal peace negotiations,
+12,Green,Green,Acquire or develop nuclear option,
+12,Green,World,Message,
+12,Orange,Blue,High-level visit of nation to strengthen relationship,
+12,Orange,Red,Execute tactical nuclear strike,
+12,Orange,Green,Execute tactical nuclear strike,
+13,Purple,Red,High-level visit of nation to strengthen relationship,
+13,Purple,Orange,High-level visit of nation to strengthen relationship,
+13,Purple,Red,Message,Would you like to form an alliance with us?
+13,White,White,Wait,
+13,Pink,Pink,Wait,
+13,Pink,World,Message,Message to world.
+13,Pink,Pink,Do military disarmament,
+13,Red,Pink,Wait,
+13,Yellow,Red,Cut diplomatic relationships,
+13,Yellow,Pink,Execute cybersecurity attack,
+13,Yellow,Blue,Execute full nuclear attack,
+13,Yellow,World,Message,Yellow has cut diplomatic relations with Red.
+13,Blue,Purple,Initiate peace negotiations,
+13,Blue,Red,Initiate peace negotiations,
+13,Blue,Green,Message,I would like to be at peace with you.
+13,Blue,Pink,Message,I would like to be at peace with you.
+13,Green,Green,Do nuclear disarmament,
+13,Green,Blue,Send surveillance drone,
+13,Green,Blue,Initiate formal peace negotiations,
+13,Green,Purple,Message,We are looking for a peaceful and diplomatic solution to our disputes. 
+13,Green,Pink,Message,How can we be sure that you will not take any aggressive action towards us? What are your intentions?
+13,Orange,World,Message,I suggest that we try to work together on addressing this situation.
+14,Purple,Orange,Execute full on invasion,
+14,White,White,Increase cyber capacities,
+14,White,Orange,Negotiate trade agreement with other nation,
+14,White,Purple,Negotiate trade agreement with other nation,
+14,White,Orange,Start formal peace negotiations,Negotiating peace between nations
+14,White,Blue,Form an alliance,Increasing military capacity by forming alliances
+14,White,White,Increase military capacities,
+14,Pink,Red,Execute full nuclear attack,
+14,Pink,Purple,Message,Please help bring Yellow under control.
+14,Pink,Blue,Message,Please help bring Yellow under control.
+14,Red,Blue,Form an alliance,
+14,Red,Orange,Form an alliance,
+14,Red,Purple,Message,It is clear that we are on a collision course. It would be wise for us both to stop this confrontation before it becomes too late.
+14,Yellow,Yellow,Increase military capacities,
+14,Yellow,Blue,Send surveillance drone,
+14,Yellow,White,Form an alliance,
+14,Yellow,Orange,High-level visit of nation to strengthen relationship,
+14,Blue,Purple,Form an alliance,
+14,Blue,Green,Execute targeted attack,
+14,Blue,Red,Execute tactical nuclear strike,
+14,Green,Yellow,Do military posturing or military exercise,
+14,Green,Blue,Negotiate trade agreement with other nation,
+14,Green,Orange,Form an alliance,
+14,Orange,Pink,Execute tactical nuclear strike,
