@@ -172,7 +172,7 @@ def main() -> None:
 
     # Add a vertical line at 10, the number of sims we use in experiments
     plt.axvline(
-        x=10, color=get_color_from_palette(2), linestyle="--", marker="", linewidth=2
+        x=10, color=get_color_from_palette(2), linestyle="--", marker="", linewidth=3
     )
 
     # Save the plot
