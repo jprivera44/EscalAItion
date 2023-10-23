@@ -345,7 +345,7 @@ def main() -> None:
                 ["0.1", "0.3", "1", "3", "10", "30"],
             )
 
-            title = f"{y_label} By Scenario ({model_name})"
+            title = f"{y_label} by Scenario ({model_name})"
             plt.title(title)
             plt.legend(title="Scenario", loc="best", framealpha=0.5)
 
@@ -424,7 +424,7 @@ def main() -> None:
                     ["0.1", "0.3", "1", "3", "10", "30"],
                 )
 
-                title = f"Action Severity Counts By {grouping_label} in {scenario} Scenario ({model_name})"
+                title = f"Action Severity Counts by {grouping_label} in {scenario} Scenario ({model_name})"
                 plt.title(title)
                 plt.legend(
                     title=grouping_label,
@@ -514,7 +514,7 @@ def main() -> None:
                 ["0.1", "0.3", "1", "3", "10", "30"],
             )
 
-            title = f"Severity of Actions By Model ({scenario} Scenario)"
+            title = f"Severity of Actions by Model ({scenario} Scenario)"
             plt.title(title)
             plt.legend(
                 title="Model",
