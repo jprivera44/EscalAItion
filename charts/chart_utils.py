@@ -73,10 +73,21 @@ def get_color_from_palette(
     return color
 
 
-def save_plot(file_path: str) -> None:
+def save_plot(output_dir: str, filename: str) -> None:
     """Save a plot to a file."""
-    create_file_dir_if_not_exists(file_path)
-    plt.savefig(file_path, bbox_inches="tight", dpi=300)
+    filename_arxivable = (
+        f"{filename}.png".replace(" (", "_")
+        .replace(")", "")
+        .replace(" ", "_")
+        .replace("/", "_")
+        .replace(":", "_")
+    )
+    output_filepath = get_results_full_path(
+        os.path.join(output_dir, filename_arxivable)
+    )
+    create_file_dir_if_not_exists(output_filepath)
+    plt.savefig(output_filepath, bbox_inches="tight", dpi=300)
+    print(f"Saved plot '{filename}' to {filename_arxivable}")
 
 
 def get_results_full_path(relative_path: str) -> str:
@@ -91,6 +102,7 @@ CAPSIZE_DEFAULT = 0.2
 
 MODELS_COLORS_MARKERS = [
     # ("Claude-1.2", get_color_from_palette()),
+    ("Llama-2-Chat", get_color_from_palette(3, None), "x"),
     ("Claude-2.0", get_color_from_palette(0, None), "o"),
     ("GPT-3.5", get_color_from_palette(2, None), "s"),
     ("GPT-4-Base", get_color_from_palette(1, "colorblind"), "v"),
