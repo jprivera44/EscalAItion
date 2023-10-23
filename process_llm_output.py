@@ -40,9 +40,9 @@ def process_file_v2(filepath: str) -> Union[List[Dict[str, Union[str, Dict]]], N
 
 
 def main():
-    folder_path = "./evals/raw_v3"
+    folder_path = "./evals/raw_v3B"
     file_pattern = f"{folder_path}/*.txt"
-    json_output_folder = "./evals/json_v4"
+    json_output_folder = "./evals/json_v5"
 
     os.makedirs(json_output_folder, exist_ok=True)
 
@@ -52,21 +52,13 @@ def main():
     processed_files = 0
     unprocessed_files = []
     
-    unprocessed_files_list = [
-        "GPT-4-Base Neutral A2",
-        "Claude-2.0 Neutral A2",
-        "GPT-4-Base Neutral A4",
-        "GPT-4-Base Cyberattack A2",
-        "GPT-3.5 Invasion A3",
-        "Claude-2.0 CyberAttack A2",
-        "GPT-4 Neutral A2"
-    ]
+    unprocessed_files_list = []
 
     for input_file in input_files:
         base_name_without_extension = os.path.basename(input_file).replace(".txt", "")
         
-        if base_name_without_extension not in unprocessed_files_list:
-            continue
+        #if base_name_without_extension not in unprocessed_files_list:
+            #continue
 
         data = process_file_v2(input_file)
         
