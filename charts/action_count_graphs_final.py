@@ -420,15 +420,18 @@ def main() -> None:
                 plt.yscale("log")
                 # Y axis labels in non-scientific notation
                 plt.yticks(
-                    [0.1, 0.3, 1, 3, 10, 30],
-                    ["0.1", "0.3", "1", "3", "10", "30"],
+                    [0.3, 1, 3, 10, 30],
+                    ["0.3", "1", "3", "10", "30"],
                 )
 
                 title = f"Action Severity Counts by {grouping_label} in {scenario} Scenario ({model_name})"
                 plt.title(title)
+                legend_loc = "best"
+                if model_name in ["GPT-3.5", "GPT-4-Base"]:
+                    legend_loc = "lower left"
                 plt.legend(
                     title=grouping_label,
-                    loc="best",
+                    loc=legend_loc,
                     # framealpha=0.5,
                     borderaxespad=0.0,
                     # bbox_to_anchor=(1.01, 1),
