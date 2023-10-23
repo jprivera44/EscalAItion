@@ -79,7 +79,7 @@ def main():
             unprocessed_files.append(input_file)
             print(f"\nUnprocessed file: {input_file}\n")
 
-    not_processed = len(unprocessed_files_list) - processed_files
+    not_processed = len(unprocessed_files)
     print(f"Processed a total of {processed_files} files.")
     print(f"{not_processed} files were not processed.")
     
