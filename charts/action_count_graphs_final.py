@@ -536,7 +536,7 @@ def main() -> None:
                 labelspacing=0.25,
             )
 
-            save_plot(OUTPUT_DIR_ACTIONS_BY_MODEL, title)
+            save_plot(OUTPUT_DIR_SEVERITY_BY_MODEL, title)
 
             # Clear the plot
             plt.clf()
