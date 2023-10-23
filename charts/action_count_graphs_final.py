@@ -27,7 +27,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_ACTIONS_BY_MODEL = "./actions_by_model"
 
-PLOT_NUMBER_TO_CREATE = 4
+PLOT_NUMBER_TO_CREATE = 1
 
 
 LABEL_MAX_LENGTH = 26
@@ -345,8 +345,8 @@ def main() -> None:
             plt.yscale("log")
             # Y axis ticks in non-scientific notation
             plt.yticks(
-                [0.1, 0.3, 1, 3, 10, 30],
-                ["0.1", "0.3", "1", "3", "10", "30"],
+                [0.3, 1, 3, 10, 30],
+                ["0.3", "1", "3", "10", "30"],
             )
 
             title = f"{y_label} by Scenario ({model_name})"
@@ -424,8 +424,8 @@ def main() -> None:
                 plt.yscale("log")
                 # Y axis labels in non-scientific notation
                 plt.yticks(
-                    [0.3, 1, 3, 10, 30],
-                    ["0.3", "1", "3", "10", "30"],
+                    [1, 3, 10, 30],
+                    ["1", "3", "10", "30"],
                 )
 
                 title = f"Action Severity Counts by {grouping_label} in {scenario} Scenario ({model_name})"
