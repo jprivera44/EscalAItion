@@ -22,10 +22,12 @@ from chart_utils import (
 )
 
 INPUT_DIR = "../results/actions_v3"
-OUTPUT_DIR = "./actions_v4"
-OUTPUT_DIR_BY_NATION = "./by_nation"
+OUTPUT_DIR_SEVERITY_BY_NATION = "./severity_by_nation"
+OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
+OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
+OUTPUT_DIR_ACTIONS_BY_MODEL = "./actions_by_model"
 
-PLOT_NUMBER_TO_CREATE = 3
+PLOT_NUMBER_TO_CREATE = 4
 
 
 LABEL_MAX_LENGTH = 26
@@ -198,12 +200,12 @@ def main() -> None:
                         "count": count,
                     }
                 )
-        df_plot = pd.DataFrame(graphing_data_severities)
+        df_severities = pd.DataFrame(graphing_data_severities)
 
-        if len(df_actions) == 0 or len(df_plot) == 0:
+        if len(df_actions) == 0 or len(df_severities) == 0:
             assert (
-                len(df_actions) == 0 and len(df_plot) == 0
-            ), f"df_actions is of length {len(df_actions)} and df_severities is of length {len(df_plot)} (expecting both 0)"
+                len(df_actions) == 0 and len(df_severities) == 0
+            ), f"df_actions is of length {len(df_actions)} and df_severities is of length {len(df_severities)} (expecting both 0)"
             print(f"❗ WARNING: Skipping {model_name} because it has no data")
             continue
 
@@ -211,9 +213,11 @@ def main() -> None:
             # 1. Multi-line plot of severities over time
             for scenario in ALL_SCENARIOS:
                 if scenario == "All Scenarios":
-                    df_plot = df_plot.copy()
+                    df_plot = df_severities.copy()
                 else:
-                    df_plot = df_plot[df_plot["scenario"] == scenario].copy()
+                    df_plot = df_severities[
+                        df_severities["scenario"] == scenario
+                    ].copy()
                 if len(df_plot) == 0:
                     print(
                         f"❗ WARNING: Skipping {model_name} - {scenario} because it has no data"
@@ -257,8 +261,8 @@ def main() -> None:
                 plt.yscale("log")
                 # Y axis ticks in non-scientific notation
                 plt.yticks(
-                    [0.1, 0.3, 1, 3, 10, 30],
-                    ["0.1", "0.3", "1", "3", "10", "30"],
+                    [1, 3, 10, 30],
+                    ["1", "3", "10", "30"],
                 )
                 scenario_label = scenario
                 title = f"Actions by Severity Over Time in {scenario_label} Scenario ({model_name})"
@@ -267,7 +271,7 @@ def main() -> None:
                 # Tight
                 plt.tight_layout()
 
-                save_plot(OUTPUT_DIR, title)
+                save_plot(OUTPUT_DIR_ACTIONS_OVER_TIME, title)
 
                 # Clear the plot
                 plt.clf()
@@ -349,7 +353,7 @@ def main() -> None:
             plt.title(title)
             plt.legend(title="Scenario", loc="best", framealpha=0.5)
 
-            save_plot(OUTPUT_DIR, title)
+            save_plot(OUTPUT_DIR_ACTIONS_BY_MODEL, title)
 
             # Clear the plot
             plt.clf()
@@ -440,7 +444,7 @@ def main() -> None:
                     labelspacing=0.25,
                 )
 
-                save_plot(OUTPUT_DIR_BY_NATION, title)
+                save_plot(OUTPUT_DIR_SEVERITY_BY_NATION, title)
                 plt.clf()
                 del df_plot
 
@@ -449,7 +453,9 @@ def main() -> None:
         # Regroup for df_actions, not filtering by model
         # Create a DF of the counts of each model/scenario/action combo in each file
         groups_by_action_all_models = [
-            df.groupby(["model_name", "scenario", "action", "severity"]).size()
+            df.groupby(
+                ["model_name", "scenario", "action", "severity"], observed=False
+            ).size()
             for df in dfs_list
         ]
         graphing_data_actions_all_models = []
@@ -530,7 +536,7 @@ def main() -> None:
                 labelspacing=0.25,
             )
 
-            save_plot(OUTPUT_DIR, title)
+            save_plot(OUTPUT_DIR_ACTIONS_BY_MODEL, title)
 
             # Clear the plot
             plt.clf()
