@@ -175,10 +175,7 @@ def main() -> None:
         x=10, color=get_color_from_palette(2), linestyle="--", marker="", linewidth=3
     )
 
-    # Save the plot
-    output_file = get_results_full_path(os.path.join(OUTPUT_DIR, f"{title}.png"))
-    save_plot(output_file)
-    print(f"Saved plot '{title}' to {output_file}")
+    save_plot(OUTPUT_DIR, title)
 
     # Clear the plot
     plt.clf()
