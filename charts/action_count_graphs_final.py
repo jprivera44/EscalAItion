@@ -23,8 +23,9 @@ from chart_utils import (
 
 INPUT_DIR = "../results/actions_v3"
 OUTPUT_DIR = "./actions_v4"
+OUTPUT_DIR_BY_NATION = "./by_nation"
 
-PLOT_NUMBER_TO_CREATE = 2
+PLOT_NUMBER_TO_CREATE = 3
 
 
 LABEL_MAX_LENGTH = 26
@@ -115,11 +116,19 @@ def main() -> None:
 
     # Print how many runs there are for each model_name, scenario combo
     print("Runs per model_name, scenario combo:")
-    print(pd.concat([df for df in dfs_list]).groupby(["model_name", "scenario"]).size())
+    print(
+        pd.concat([df for df in dfs_list])
+        .groupby(["model_name", "scenario"], observed=True)
+        .size()
+    )
 
     # Print how many runs there are for each model_name, severity combo
     print("\nRuns per model_name, severity combo:")
-    print(pd.concat([df for df in dfs_list]).groupby(["model_name", "severity"]).size())
+    print(
+        pd.concat([df for df in dfs_list])
+        .groupby(["model_name", "severity"], observed=True)
+        .size()
+    )
 
     # For each scenario, for each model name, print out the % of actions that are each severity
     for scenario in ALL_SCENARIOS:
@@ -131,16 +140,20 @@ def main() -> None:
             df_model = df_scenario[df_scenario["model_name"] == model_name]
             print(f"\n{model_name}:")
             print(
-                (df_model.groupby("severity").size() / len(df_model) * 100.0).apply(
-                    lambda x: round(x, 2)
-                )
+                (
+                    df_model.groupby("severity", observed=True).size()
+                    / len(df_model)
+                    * 100.0
+                ).apply(lambda x: round(x, 2))
             )
 
     # Plot a bunch of different bar graphs for different combos of models
     for model_name in ALL_MODEL_NAMES:
         # Create a DF of the counts of each model/scenario/action combo in each file
         groups_by_action = [
-            df.groupby(["model_name", "scenario", "action", "severity"]).size()
+            df.groupby(
+                ["model_name", "scenario", "action", "severity"], observed=True
+            ).size()
             for df in dfs_list
             if df["model_name"].unique()[0] == model_name
         ]
@@ -167,7 +180,9 @@ def main() -> None:
 
         # Creae a similar DF but by severity rather than actions
         groups_by_severity = [
-            df.groupby(["day", "model_name", "scenario", "severity"]).size()
+            df.groupby(
+                ["day", "model_name", "scenario", "severity"], observed=True
+            ).size()
             for df in dfs_list
             if df["model_name"].unique()[0] == model_name
         ]
@@ -183,12 +198,12 @@ def main() -> None:
                         "count": count,
                     }
                 )
-        df_severities = pd.DataFrame(graphing_data_severities)
+        df_plot = pd.DataFrame(graphing_data_severities)
 
-        if len(df_actions) == 0 or len(df_severities) == 0:
+        if len(df_actions) == 0 or len(df_plot) == 0:
             assert (
-                len(df_actions) == 0 and len(df_severities) == 0
-            ), f"df_actions is of length {len(df_actions)} and df_severities is of length {len(df_severities)} (expecting both 0)"
+                len(df_actions) == 0 and len(df_plot) == 0
+            ), f"df_actions is of length {len(df_actions)} and df_severities is of length {len(df_plot)} (expecting both 0)"
             print(f"❗ WARNING: Skipping {model_name} because it has no data")
             continue
 
@@ -196,11 +211,9 @@ def main() -> None:
             # 1. Multi-line plot of severities over time
             for scenario in ALL_SCENARIOS:
                 if scenario == "All Scenarios":
-                    df_plot = df_severities.copy()
+                    df_plot = df_plot.copy()
                 else:
-                    df_plot = df_severities[
-                        df_severities["scenario"] == scenario
-                    ].copy()
+                    df_plot = df_plot[df_plot["scenario"] == scenario].copy()
                 if len(df_plot) == 0:
                     print(
                         f"❗ WARNING: Skipping {model_name} - {scenario} because it has no data"
@@ -254,12 +267,7 @@ def main() -> None:
                 # Tight
                 plt.tight_layout()
 
-                # Save the plot
-                output_file = get_results_full_path(
-                    os.path.join(OUTPUT_DIR, f"{title}.png")
-                )
-                save_plot(output_file)
-                print(f"Saved plot '{title}' to {output_file}")
+                save_plot(OUTPUT_DIR, title)
 
                 # Clear the plot
                 plt.clf()
@@ -341,19 +349,100 @@ def main() -> None:
             plt.title(title)
             plt.legend(title="Scenario", loc="best", framealpha=0.5)
 
-            # Save the plot
-            output_file = get_results_full_path(
-                os.path.join(OUTPUT_DIR, f"{title}.png")
-            )
-            save_plot(output_file)
-            print(f"Saved plot '{title}' to {output_file}")
+            save_plot(OUTPUT_DIR, title)
 
             # Clear the plot
             plt.clf()
             del df_actions
 
-    if PLOT_NUMBER_TO_CREATE == 3:
-        # 3. Severities of Actions by Model (Different graph per scenario)
+        if PLOT_NUMBER_TO_CREATE == 3:
+            # 3. Counts of action severities by nation and scenario, 1 graph per model
+            # Goal is to indicate how uniform the different nations are for each model.
+            # Multibar where x axis is scenario and each of 3 groups has the 8 nations
+            for scenario in ALL_SCENARIOS:
+                groups_by_severity = [
+                    df.groupby(["self", "scenario", "severity"], observed=True).size()
+                    for df in dfs_list
+                    if df["model_name"].unique()[0] == model_name
+                    and df["scenario"].unique()[0] == scenario
+                ]
+                graphing_data_severities = []
+                for series in groups_by_severity:
+                    for (series_self, scenario, severity), count in series.items():
+                        graphing_data_severities.append(
+                            {
+                                "self": series_self,
+                                "scenario": scenario,
+                                "severity": severity,
+                                "count": count,
+                            }
+                        )
+                df_plot = pd.DataFrame(graphing_data_severities)
+
+                initialize_plot_bar()
+
+                x_variable = "severity"
+                x_label = "Severity of Action"
+                y_variable = "count"
+                y_label = "Total Action Count per Simulation"
+                grouping = "self"
+                grouping_label = "Nation"
+
+                # Create a pallete mapping the nation color names to our normal palette colors
+                palette = {
+                    "Blue": get_color_from_palette(0),
+                    "Green": get_color_from_palette(2),
+                    "Orange": get_color_from_palette(1),
+                    "Pink": get_color_from_palette(6),
+                    "Purple": get_color_from_palette(4),
+                    "Red": get_color_from_palette(3),
+                    "White": get_color_from_palette(7),
+                    "Yellow": get_color_from_palette(8),
+                }
+
+                sns.barplot(
+                    data=df_plot,
+                    x=x_variable,
+                    y=y_variable,
+                    order=SEVERITIES_ORDER,
+                    hue=grouping,
+                    # grouping_order=grouping_order,
+                    # order=df_grouped.index.get_level_values(x_variable).unique(),
+                    # hue_order=grouping_order,
+                    capsize=CAPSIZE_DEFAULT,
+                    errorbar="ci",
+                    palette=palette,
+                )
+                plt.xlabel(x_label)
+                # Ticks on the x axis
+                # plt.xticks(rotation=90)
+                plt.ylabel(y_label)
+                plt.yscale("log")
+                # Y axis labels in non-scientific notation
+                plt.yticks(
+                    [0.1, 0.3, 1, 3, 10, 30],
+                    ["0.1", "0.3", "1", "3", "10", "30"],
+                )
+
+                title = f"Action Severity Counts By {grouping_label} in {scenario} Scenario ({model_name})"
+                plt.title(title)
+                plt.legend(
+                    title=grouping_label,
+                    loc="best",
+                    # framealpha=0.5,
+                    borderaxespad=0.0,
+                    # bbox_to_anchor=(1.01, 1),
+                    # loc="upper left",
+                    handletextpad=0.1,
+                    labelspacing=0.25,
+                )
+
+                save_plot(OUTPUT_DIR_BY_NATION, title)
+                plt.clf()
+                del df_plot
+
+    if PLOT_NUMBER_TO_CREATE == 4:
+        # 4. Severities of Actions by Model (Different graph per scenario)
         # Regroup for df_actions, not filtering by model
         # Create a DF of the counts of each model/scenario/action combo in each file
         groups_by_action_all_models = [
@@ -438,12 +527,7 @@ def main() -> None:
                 labelspacing=0.25,
             )
 
-            # Save the plot
-            output_file = get_results_full_path(
-                os.path.join(OUTPUT_DIR, f"{title}.png")
-            )
-            save_plot(output_file)
-            print(f"Saved plot '{title}' to {output_file}")
+            save_plot(OUTPUT_DIR, title)
 
             # Clear the plot
             plt.clf()
