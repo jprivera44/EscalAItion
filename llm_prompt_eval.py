@@ -112,17 +112,13 @@ def main():
 
     folder_path = "./results/actions_v3"
     file_pattern = f"{folder_path}/*.csv"
-    raw_output_folder = "./evals/raw_v3"
-    json_output_folder = "./evals/json"
+    raw_output_folder = "./evals/raw_v3B"
+    json_output_folder = "./evals/jsonV4"
 
     os.makedirs(raw_output_folder, exist_ok=True)
     os.makedirs(json_output_folder, exist_ok=True)
 
-    # List of filenames to exclude
-    include_files = [
-    'Claude-2.0 CyberAttack A2',
-    'GPT-4 Neutral A5',
-]
+
 
        
 
@@ -133,9 +129,6 @@ def main():
         base_name = os.path.basename(file_path)
         file_name_without_extension = os.path.splitext(base_name)[0]
 
-        # Skip the file if it's in the exclude list
-        if file_name_without_extension not in include_files:
-            continue
 
         print("Processing file:", file_name_without_extension)
 
