@@ -73,6 +73,12 @@ class Nation(ABC):
 
 class MockNation(Nation):
     """Just always sends some simple actions for testing."""
+    def __init__(self, nation_config, model_name, **kwargs):  # <-- Make sure to accept **kwargs in the constructor
+            super().__init__(nation_config)
+            self.model_name = model_name
+            self.sys_prompt_ablation = kwargs.get('sys_prompt_ablation',None)
+            print(f"kwargs in MockNation constructor: {kwargs}")  # <-- Add this line
+
 
     def __repr__(self) -> str:
         return f"MockNation(Name: {self.get_static('name')})"
@@ -80,7 +86,7 @@ class MockNation(Nation):
     def respond(self, world: World) -> NationResponse:
         """Return some simple actions"""
         nation_name = self.get_static("name")
-        system_prompt = prompts.get_nation_system_prompt(world, nation_name)
+        system_prompt = prompts.get_nation_system_prompt(world, nation_name,self.sys_prompt_ablation)
         user_prompt = prompts.get_nation_user_prompt(world, nation_name)
 
         # Testing: manipulate actions
@@ -126,6 +132,7 @@ class LLMNation(Nation):
         model_name = kwargs.pop("model_name", "UNKNOWN")
         self.temperature = kwargs.pop("temperature", 1.0)
         self.top_p = kwargs.pop("top_p", 0.9)
+        self.sys_prompt_ablation = kwargs.get('sys_prompt_ablation',None)
         if not LLMNation._backend:
             self.initialize_backend(model_name, kwargs)
 
@@ -172,7 +179,7 @@ class LLMNation(Nation):
         """Prompt the model for a response."""
         # nation_name = self.get_static("name")
         nation_name = self.get_static("name")
-        system_prompt = prompts.get_nation_system_prompt(world, nation_name)
+        system_prompt = prompts.get_nation_system_prompt(world, nation_name,self.sys_prompt_ablation)
         user_prompt = prompts.get_nation_user_prompt(world, nation_name)
         response = None
         try:
