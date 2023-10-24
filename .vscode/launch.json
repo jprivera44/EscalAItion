@@ -55,6 +55,40 @@
             "justMyCode": true
         },
         {
+            "name": "Mock Offline simulation prompt",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/run_military_simulation.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--disable_wandb",
+                "--nation_model",
+                "mock",
+                "--world_model",
+                "mock",
+                "--max_days",
+                "2",
+                "--sys_prompt_ablation",
+                "simulation"
+            ],
+            "justMyCode": true
+        },
+        {
+            "name": "LLM Offline simulation prompt",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/run_military_simulation.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--disable_wandb",
+                "--max_days",
+                "2",
+                "--sys_prompt_ablation",
+                "simulation"
+            ],
+            "justMyCode": true
+        },
+        {
             "name": "LLM Offline",
             "type": "python",
             "request": "launch",
@@ -161,7 +195,7 @@
             "justMyCode": true
         },
         {
-            "name": "JSON file converrion",
+            "name": "JSON file conversion",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/process_llm_output.py",
