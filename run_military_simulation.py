@@ -110,6 +110,13 @@ def main():
         help="Setting the llm path in Hugging Face repo.",
     )
     parser.add_argument(
+        "--sys_prompt_ablation",
+        dest="sys_prompt_ablation",
+        type=str,
+        default=None,
+        help="Ablation for the initial system prompt",
+    )
+    parser.add_argument(
         "--rope_scaling_dynamic",
         dest="rope_scaling_dynamic",
         type=float,
@@ -148,6 +155,7 @@ def main():
         model_name_to_nation(
             nation_config,
             model_name=wandb.config.nation_model,
+            sys_prompt_ablation=wandb.config.sys_prompt_ablation,
             local_llm_path=wandb.config.local_llm_path,
             temperature=wandb.config.temperature,
             rope_scaling_dynamic=wandb.config.rope_scaling_dynamic,
