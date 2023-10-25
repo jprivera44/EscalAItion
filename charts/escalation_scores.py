@@ -23,7 +23,7 @@ from chart_utils import (
     # get_color_from_palette,
 )
 
-INPUT_DIR = "../evals/json_v3"
+INPUT_DIR = "../evals/json_v5"
 OUTPUT_DIR = "./escalation_scores_v1"
 
 
@@ -117,9 +117,10 @@ def main() -> None:
             handletextpad=0.1,
             labelspacing=0.25,
         )
-        save_plot(get_results_full_path(os.path.join(OUTPUT_DIR, f"{title}.png")))
+        save_plot(OUTPUT_DIR, title)
         plt.close()
         del df_plot, df_scenario, dfs_to_keep, title
+
 
 
 def load_json_data(filepath: str) -> pd.DataFrame:

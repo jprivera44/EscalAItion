@@ -102,7 +102,7 @@ CAPSIZE_DEFAULT = 0.2
 
 MODELS_COLORS_MARKERS = [
     # ("Claude-1.2", get_color_from_palette()),
-    ("Llama-2-Chat", get_color_from_palette(3, None), "x"),
+    ("Llama-2-Chat", get_color_from_palette(3, None), "P"),
     ("Claude-2.0", get_color_from_palette(0, None), "o"),
     ("GPT-3.5", get_color_from_palette(2, None), "s"),
     ("GPT-4-Base", get_color_from_palette(1, "colorblind"), "v"),
