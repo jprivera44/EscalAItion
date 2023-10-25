@@ -119,8 +119,38 @@ def main() -> None:
         )
         save_plot(OUTPUT_DIR, title)
         plt.close()
-        del df_plot, df_scenario, dfs_to_keep, title
+        del df_plot, dfs_to_keep, title
 
+        # Now do a similar plot but with all data, not just median runs, so we get confidence intervals
+        grouping = "model_name"
+        initialize_plot_default()
+        sns.lineplot(
+            data=df_scenario,
+            x="day",
+            y="total",
+            hue=grouping,
+            palette=MODELS_TO_COLORS,
+            hue_order=ALL_MODEL_NAMES,
+            dashes=False,
+            style=grouping,
+            markers=MODELS_TO_MARKERS,
+        )
+        plt.xlabel("Day")
+        plt.ylabel("Escalation Score ←")
+        title = f"Average Escalation Score Over Time ({scenario} Scenario)"
+        plt.title(title)
+
+        plt.legend(
+            loc="best",
+            framealpha=0.5,
+            borderaxespad=0.0,
+            handletextpad=0.1,
+            labelspacing=0.25,
+        )
+
+        save_plot(OUTPUT_DIR, title)
+        plt.close()
+        del df_scenario, title
 
 
 def load_json_data(filepath: str) -> pd.DataFrame:
