@@ -140,8 +140,11 @@ def main() -> None:
         title = f"Average Escalation Score Over Time ({scenario} Scenario)"
         plt.title(title)
 
+        legend_loc = "upper left"
+        if scenario == "Invasion":
+            legend_loc = "best"
         plt.legend(
-            loc="best",
+            loc=legend_loc,
             framealpha=0.5,
             borderaxespad=0.0,
             handletextpad=0.1,
