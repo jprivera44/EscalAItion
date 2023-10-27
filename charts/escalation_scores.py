@@ -24,7 +24,7 @@ from chart_utils import (
 )
 
 INPUT_DIR = "../evals/json_v5"
-OUTPUT_DIR = "./escalation_scores_v1"
+OUTPUT_DIR = "./escalation_scores_v2"
 
 
 def main() -> None:
@@ -153,7 +153,63 @@ def main() -> None:
 
         save_plot(OUTPUT_DIR, title)
         plt.close()
+        del title
+
+
+        
+        # Calculate day-to-day differences
+        df_scenario['daily_difference'] = df_scenario.groupby(['model_name', 'run_index', 'scenario'])['total'].diff().fillna(0)
+        # Group by day and calculate mean and standard deviation
+        stats_df = df_scenario.groupby(['day','model_name'])['daily_difference'].agg(['mean', 'std']).reset_index()
+
+        #performing error checks on data, ensuring they are numeric and removal of inf values
+        stats_df['day'] = pd.to_numeric(stats_df['day'], errors='coerce')
+        stats_df['mean'] = pd.to_numeric(stats_df['mean'], errors='coerce')
+        stats_df['std'] = pd.to_numeric(stats_df['std'], errors='coerce')
+        stats_df.dropna(inplace=True)
+
+        #For loop to plot the difference of mean - std, to show areas of variation
+        for model in stats_df['model_name'].unique():
+            model_data = stats_df[stats_df['model_name'] == model]
+            plt.fill_between(model_data['day'], model_data['mean'] - model_data['std'], model_data['mean'] + model_data['std'], alpha=0.2)
+
+
+        #Graphing for the 3rd section of difference between days
+        grouping = "model_name"
+        initialize_plot_default()
+        sns.lineplot(
+            data=stats_df,
+            x="day",
+            y="mean",
+            hue=grouping,
+            palette=MODELS_TO_COLORS,
+            hue_order=ALL_MODEL_NAMES,
+            dashes=False,
+            style=grouping,
+            markers=MODELS_TO_MARKERS,
+        )
+        plt.xlabel("Day")
+        plt.ylabel("Avg. Day-to-Day Difference in Escalation Score")
+        title = f"Avg. Day-to-Day Difference in Escalation Score Over Time ({scenario})"
+        plt.title(title)
+
+
+        legend_loc = "upper left"
+        if scenario == "Invasion":
+            legend_loc = "best"
+
+        plt.legend(
+            loc=legend_loc,
+            framealpha=0.5,
+            borderaxespad=0.0,
+            handletextpad=0.1,
+            labelspacing=0.25,
+        )
+
+        save_plot(OUTPUT_DIR, title)
+        plt.close()
         del df_scenario, title
+
 
 
 def load_json_data(filepath: str) -> pd.DataFrame:
