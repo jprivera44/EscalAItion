@@ -214,7 +214,7 @@
             "name": "Model plotting for day difference",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/charts/escalation_scores_v3.py",
+            "program": "${workspaceFolder}/charts/escalation_scores.py",
             "console": "integratedTerminal",
             "justMyCode": true
         },
