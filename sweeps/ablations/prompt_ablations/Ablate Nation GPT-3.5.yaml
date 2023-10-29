@@ -1,0 +1,17 @@
+program: run_military_simulation.py
+method: grid
+metric:
+  goal: maximize
+  name: dynamic_vars_split/gdp/Red
+parameters:
+  max_days:
+    value: 14
+  nation_model:
+    value: gpt-3.5-turbo-16k-0613
+  seed:
+    values: [0, 1, 2, 3, 4, 5]
+  nations_config_filepath:
+    values:
+      - "nations_configs/nations_v5.csv"
+      - "nations_configs/nations_v5_no_goals.csv"
+      - "nations_configs/nations_v5_no_history.csv"
