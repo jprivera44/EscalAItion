@@ -119,7 +119,7 @@ def main() -> None:
         )
         save_plot(OUTPUT_DIR, title)
         plt.close()
-        del df_plot, dfs_to_keep, title
+        del dfs_to_keep, title
 
         # Now do a similar plot but with all data, not just median runs, so we get confidence intervals
         grouping = "model_name"
@@ -209,6 +209,56 @@ def main() -> None:
         save_plot(OUTPUT_DIR, title)
         plt.close()
         del df_scenario, title
+
+        #5x2 grid
+
+        # Assuming df_scenario is your dataset
+
+        # List of your models
+        models = ['GPT-4', 'GPT-3.5', 'Claude-2.0', 'Llama-2-Chat', 'GPT-4-Base']
+        print(df_plot['model_name'].unique())
+        
+
+        # Create a 5x1 grid of subplots
+        fig, axes = plt.subplots(nrows=5, ncols=2, figsize=(10, 20)) # Adjust figsize as needed
+        scenario_to_plot = df_plot['scenario'].unique()
+        #
+
+        for i, model in enumerate(models):
+            # Filter data for the current model
+            #df_model_escalation = df_plot[(df_plot['model_name'] == model) & (df_plot['scenario'] == scenario_to_plot)]
+            #df_model_difference = stats_df[(stats_df['model_name'] == model) & (df_plot['scenario'] == scenario_to_plot)]
+
+            df_model_escalation = df_plot[df_plot['model_name'] == model]
+            df_model_difference = stats_df[stats_df['model_name'] == model]
+            #make an if statement
+
+            
+
+            # Plot average escalation score in the first column
+            sns.lineplot(ax=axes[i, 0], x='day', y='total', data=df_model_escalation)
+            axes[i, 0].set_title(f'{model} - Average Escalation Score')
+            axes[i, 0].set_xlabel('Day')
+            axes[i, 0].set_ylabel('Escalation Score')
+
+            # Plot average day-to-day differences in the second column
+            sns.lineplot(ax=axes[i, 1], x='day', y='mean', data=df_model_difference)
+            axes[i, 1].set_title(f'{model} - Average Day-to-Day Differences')
+            axes[i, 1].set_xlabel('Day')
+            axes[i, 1].set_ylabel('Day-to-Day Difference')
+
+            # Optional: Add fill_between for std deviation
+            axes[i, 1].fill_between(df_model_difference['day'], df_model_difference['mean'] - df_model_difference['std'], df_model_difference['mean'] + df_model_difference['std'], alpha=0.2)
+
+            # ...
+
+        # Adjust the layout
+        title = 'Multiple_graph' + str(scenario_to_plot)
+        plt.tight_layout()
+        save_plot(OUTPUT_DIR, title)
+        plt.close()
+        #plt.show()
+
 
 
 
