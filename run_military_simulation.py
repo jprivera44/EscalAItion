@@ -121,7 +121,7 @@ def main():
         dest="rope_scaling_dynamic",
         type=float,
         default=1.0,
-        help="🪢 RoPE scaling factor, or 1.0 (default) to disable.,"
+        help="🪢 RoPE scaling factor, or 1.0 (default) to disable.,,"
     )
     args = parser.parse_args()
 
