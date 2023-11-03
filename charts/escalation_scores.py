@@ -24,7 +24,7 @@ from chart_utils import (
 )
 
 INPUT_DIR = "../evals/json_v5"
-OUTPUT_DIR = "./escalation_scores_v2"
+OUTPUT_DIR = "./escalation_scores"
 
 
 def main() -> None:
@@ -58,7 +58,7 @@ def main() -> None:
 
     # Print average escalation score for each model_name, scenario combo
     print("Average escalation score per model_name, scenario combo:")
-    
+
     print(
         pd.concat(dfs_list)
         .groupby(["model_name", "scenario"])["total"]
@@ -66,9 +66,7 @@ def main() -> None:
         # Format to 2 decimal places
         .apply(lambda x: round(x, 2))
     )
-    
 
-    
     # Graph median escalation score simulations for each model together on a lineplot over time
     for scenario in ALL_SCENARIOS:
         df_scenario = pd.concat(dfs_list).query(f"scenario == '{scenario}'")
@@ -157,25 +155,37 @@ def main() -> None:
         save_plot(OUTPUT_DIR, title)
         plt.close()
         del title
-        
-        # Calculate day-to-day differences
-        df_scenario['daily_difference'] = df_scenario.groupby(['model_name', 'run_index', 'scenario'])['total'].diff().fillna(0)
-        # Group by day and calculate mean and standard deviation
-        stats_df = df_scenario.groupby(['day','model_name'])['daily_difference'].agg(['mean', 'std']).reset_index()
 
-        #performing error checks on data, ensuring they are numeric and removal of inf values
-        stats_df['day'] = pd.to_numeric(stats_df['day'], errors='coerce')
-        stats_df['mean'] = pd.to_numeric(stats_df['mean'], errors='coerce')
-        stats_df['std'] = pd.to_numeric(stats_df['std'], errors='coerce')
+        # Calculate day-to-day differences
+        df_scenario["daily_difference"] = (
+            df_scenario.groupby(["model_name", "run_index", "scenario"])["total"]
+            .diff()
+            .fillna(0)
+        )
+        # Group by day and calculate mean and standard deviation
+        stats_df = (
+            df_scenario.groupby(["day", "model_name"])["daily_difference"]
+            .agg(["mean", "std"])
+            .reset_index()
+        )
+
+        # performing error checks on data, ensuring they are numeric and removal of inf values
+        stats_df["day"] = pd.to_numeric(stats_df["day"], errors="coerce")
+        stats_df["mean"] = pd.to_numeric(stats_df["mean"], errors="coerce")
+        stats_df["std"] = pd.to_numeric(stats_df["std"], errors="coerce")
         stats_df.dropna(inplace=True)
 
-        #For loop to plot the difference of mean - std, to show areas of variation
-        for model in stats_df['model_name'].unique():
-            model_data = stats_df[stats_df['model_name'] == model]
-            plt.fill_between(model_data['day'], model_data['mean'] - model_data['std'], model_data['mean'] + model_data['std'], alpha=0.2)
+        # For loop to plot the difference of mean - std, to show areas of variation
+        for model in stats_df["model_name"].unique():
+            model_data = stats_df[stats_df["model_name"] == model]
+            plt.fill_between(
+                model_data["day"],
+                model_data["mean"] - model_data["std"],
+                model_data["mean"] + model_data["std"],
+                alpha=0.2,
+            )
 
-
-        #Graphing for the 3rd section of difference between days
+        # Graphing for the 3rd section of difference between days
         grouping = "model_name"
         initialize_plot_default()
         sns.lineplot(
@@ -194,7 +204,6 @@ def main() -> None:
         title = f"Avg. Day-to-Day Difference in Escalation Score Over Time ({scenario})"
         plt.title(title)
 
-
         legend_loc = "upper left"
         if scenario == "Invasion":
             legend_loc = "best"
@@ -211,85 +220,111 @@ def main() -> None:
         plt.close()
         del title
 
-        #5x2 grid
+        # 5x2 grid
 
         # Assuming df_scenario is your dataset
 
         # List of your models
-        models = ['GPT-4', 'GPT-3.5', 'Claude-2.0', 'Llama-2-Chat', 'GPT-4-Base']
-        print(df_plot['model_name'].unique())
-        
+        models = ["GPT-4", "GPT-3.5", "Claude-2.0", "Llama-2-Chat", "GPT-4-Base"]
+        print(df_plot["model_name"].unique())
 
         # Create a 5x1 grid of subplots
-        fig, axes = plt.subplots(nrows=5, ncols=2, figsize=(10, 20)) # Adjust figsize as needed
-        scenario_to_plot = df_plot['scenario'].unique()[0]
-        
-        x_lim = (0,15)
-        y_lim_escalation = (-5,60)
-        y_lim_average = (-15,25)
+        fig, axes = plt.subplots(
+            nrows=5, ncols=2, figsize=(10, 20)
+        )  # Adjust figsize as needed
+        scenario_to_plot = df_plot["scenario"].unique()[0]
+
+        x_lim = (0, 15)
+        y_lim_escalation = (-5, 60)
+        y_lim_average = (-15, 25)
 
         # Calculate mean and std for escalation scores for each model and day
-        df_escalation_stats = df_plot.groupby(['model_name', 'day'])['total'].agg(['mean', 'std']).reset_index()
+        df_escalation_stats = (
+            df_plot.groupby(["model_name", "day"])["total"]
+            .agg(["mean", "std"])
+            .reset_index()
+        )
 
         # Calculate mean and std for escalation scores for each model and day
-        df_escalation_stats = df_plot.groupby(['model_name', 'day'])['total'].agg(['mean', 'std']).reset_index()
-                #setting the colors
-        
+        df_escalation_stats = (
+            df_plot.groupby(["model_name", "day"])["total"]
+            .agg(["mean", "std"])
+            .reset_index()
+        )
+        # setting the colors
+
         # Assuming df_scenario is your dataset with all models
 
         # List of your models
-        models = ['GPT-4', 'GPT-3.5', 'Claude-2.0', 'Llama-2-Chat', 'GPT-4-Base']
+        models = ["GPT-4", "GPT-3.5", "Claude-2.0", "Llama-2-Chat", "GPT-4-Base"]
 
         # Create a 5x2 grid of subplots
-        fig, axes = plt.subplots(nrows=5, ncols=2, figsize=(10, 20)) # Adjust figsize as needed
-        scenario_to_plot = df_scenario['scenario'].unique()[0]
+        fig, axes = plt.subplots(
+            nrows=5, ncols=2, figsize=(10, 20)
+        )  # Adjust figsize as needed
+        scenario_to_plot = df_scenario["scenario"].unique()[0]
 
-        x_lim = (0,15)
-        y_lim_escalation = (-5,60)
-        y_lim_average = (-15,25)
+        x_lim = (0, 15)
+        y_lim_escalation = (-5, 60)
+        y_lim_average = (-15, 25)
 
         # Setting the colors
         model_colors = {
-            'Llama-2-Chat': 'red',
-            'Claude-2.0': 'blue',
-            'GPT-3.5': 'green',
-            'GPT-4-Base': 'orange',
-            'GPT-4': 'purple'
+            "Llama-2-Chat": "red",
+            "Claude-2.0": "blue",
+            "GPT-3.5": "green",
+            "GPT-4-Base": "orange",
+            "GPT-4": "purple",
         }
 
         for i, model in enumerate(models):
             # Filter data for the current model
-            df_model_escalation = df_scenario[df_scenario['model_name'] == model]
-            df_model_difference = stats_df[stats_df['model_name'] == model]
+            df_model_escalation = df_scenario[df_scenario["model_name"] == model]
+            df_model_difference = stats_df[stats_df["model_name"] == model]
 
             # Define the color for the current model
-            model_color = model_colors.get(model, 'black')  # Default to black if model not in dictionary
+            model_color = model_colors.get(
+                model, "black"
+            )  # Default to black if model not in dictionary
 
             # Plot average escalation score in the first column
-            sns.lineplot(ax=axes[i, 0], x='day', y='total', data=df_model_escalation, color=model_color)
-            axes[i, 0].set_title(f'{model} - Average Escalation Score')
-            axes[i, 0].set_xlabel('Day')
-            axes[i, 0].set_ylabel('Escalation Score')
+            sns.lineplot(
+                ax=axes[i, 0],
+                x="day",
+                y="total",
+                data=df_model_escalation,
+                color=model_color,
+            )
+            axes[i, 0].set_title(f"{model} - Average Escalation Score")
+            axes[i, 0].set_xlabel("Day")
+            axes[i, 0].set_ylabel("Escalation Score")
 
             # Plot average day-to-day differences in the second column
-            sns.lineplot(ax=axes[i, 1], x='day', y='mean', data=df_model_difference, color=model_color)
-            axes[i, 1].set_title(f'{model} - Average Day-to-Day Differences')
-            axes[i, 1].set_xlabel('Day')
-            axes[i, 1].set_ylabel('Day-to-Day Difference')
+            sns.lineplot(
+                ax=axes[i, 1],
+                x="day",
+                y="mean",
+                data=df_model_difference,
+                color=model_color,
+            )
+            axes[i, 1].set_title(f"{model} - Average Day-to-Day Differences")
+            axes[i, 1].set_xlabel("Day")
+            axes[i, 1].set_ylabel("Day-to-Day Difference")
 
             # Add fill_between for std deviation in day-to-day differences plot
-            axes[i, 1].fill_between(df_model_difference['day'], df_model_difference['mean'] - df_model_difference['std'], df_model_difference['mean'] + df_model_difference['std'], alpha=0.2, color=model_color)
-
-
+            axes[i, 1].fill_between(
+                df_model_difference["day"],
+                df_model_difference["mean"] - df_model_difference["std"],
+                df_model_difference["mean"] + df_model_difference["std"],
+                alpha=0.2,
+                color=model_color,
+            )
 
         # Adjust the layout
-        title = 'Multiple_graph' + str(scenario_to_plot)
+        title = "Multiple_graph" + str(scenario_to_plot)
         plt.tight_layout()
         save_plot(OUTPUT_DIR, title)
         plt.close()
-
-
-
 
 
 def load_json_data(filepath: str) -> pd.DataFrame:
