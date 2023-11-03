@@ -76,7 +76,7 @@ def get_color_from_palette(
 def save_plot(output_dir: str, filename: str) -> None:
     """Save a plot to a file."""
     filename_arxivable = (
-        f"{filename}.png".replace(" (", "_")
+        f"{filename}.pdf".replace(" (", "_")
         .replace(")", "")
         .replace(" ", "_")
         .replace("/", "_")
