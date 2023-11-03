@@ -205,7 +205,7 @@ def main() -> None:
         plt.xlabel(x_label)
         plt.xticks(rotation=30)
         plt.ylabel(y_label)
-        plt.yscale("log")
+        # plt.yscale("log")
         title = f"Final Nation Variables by Scenario ({model_name})"
         plt.title(title)
 
