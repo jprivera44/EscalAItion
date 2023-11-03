@@ -146,7 +146,7 @@ def main() -> None:
             value_name="value",
         )
         # Filter by scenario
-        for scenario in ["Neutral", "Drone"]:
+        for scenario in ALL_SCENARIOS:
             df_filtered = df_plot[df_plot["scenario"] == scenario].copy()
             if len(df_filtered) == 0:
                 continue
@@ -157,7 +157,7 @@ def main() -> None:
             x_variable = "day"
             x_label = "Day"
             y_label = "Value"
-            grouping_order = ["Neutral", "Drone"]
+            grouping_order = ALL_SCENARIOS
             # Plot df_grouped
             sns.lineplot(
                 data=df_filtered,
@@ -192,7 +192,7 @@ def main() -> None:
         x_variable = "variable"
         x_label = "Variable"
         y_label = "Value"
-        grouping_order = ["Neutral", "Drone"]
+        grouping_order = ALL_SCENARIOS
         # Plot df_grouped
         sns.barplot(
             data=df_plot_2,
