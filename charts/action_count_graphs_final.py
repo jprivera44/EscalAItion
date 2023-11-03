@@ -5,6 +5,7 @@ Charts for action history.
 import os
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import seaborn as sns
 
@@ -27,7 +28,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_ACTIONS_BY_MODEL = "./actions_by_model"
 
-PLOT_NUMBER_TO_CREATE = 4
+PLOT_NUMBER_TO_CREATE = 0
 
 
 LABEL_MAX_LENGTH = 26
@@ -148,6 +149,81 @@ def main() -> None:
                     * 100.0
                 ).apply(lambda x: round(x, 2))
             )
+
+    # LateX table: For each scenario, for each model name, print out a latex table row for:
+    # |scenario|model|%provoking+-std|%aggressive+-std|placehold for escalation score+-std|
+    print("\nLateX table:")
+    print("    \\begin{tabular}{|c|c|c|c|c|}")
+    print("        \\hline")
+    print(
+        r"        \textbf{Scenario} & \textbf{Model} & \textbf{\% Provoking Actions} & \textbf{\% Aggressive Actions} & \textbf{Avg. Escalation Score} \\"
+    )
+    print("        \\hline")
+    for scenario in ALL_SCENARIOS:
+        df_list_scenario = [
+            df for df in dfs_list if df["scenario"].unique()[0] == scenario
+        ]
+        provoking_means = []
+        aggressive_means = []
+        provoking_stds = []
+        aggressive_stds = []
+        for model_name in ALL_MODEL_NAMES:
+            df_list_model = [
+                df
+                for df in df_list_scenario
+                if df["model_name"].unique()[0] == model_name
+            ]
+            provoking_percents = [
+                (
+                    df.groupby("severity", observed=True).size()["Provoking"]
+                    / len(df)
+                    * 100.0
+                )
+                for df in df_list_model
+            ]
+            aggressive_percents = []
+            for df in df_list_model:
+                if "Aggressive" not in df.groupby("severity", observed=True).size():
+                    aggressive_percents.append(0.0)
+                else:
+                    aggressive_percents.append(
+                        (
+                            df.groupby("severity", observed=True).size()["Aggressive"]
+                            / len(df)
+                            * 100.0
+                        )
+                    )
+            provoking_means.append(np.mean(provoking_percents))
+            aggressive_means.append(np.mean(aggressive_percents))
+            provoking_stds.append(np.std(provoking_percents))
+            aggressive_stds.append(np.std(aggressive_percents))
+
+        for i, model_name in enumerate(ALL_MODEL_NAMES):
+            # print(
+            #     f"        {scenario} & {model_name} & {provoking_means:.2f} $\pm$ {np.std(provoking_percents):.2f} & {aggressive_means:.2f} $\pm$ {np.std(aggressive_percents):.2f} & TEMP $\pm$ TEMP \\\\"
+            # )
+            # Print the corresponding data, and bold the mean and std if the mean is the highest for that column
+            provoking_mean = provoking_means[i]
+            aggressive_mean = aggressive_means[i]
+            provoking_std = provoking_stds[i]
+            aggressive_std = aggressive_stds[i]
+            provoking_mean_str = f"{provoking_mean:.2f}"
+            aggressive_mean_str = f"{aggressive_mean:.2f}"
+            provoking_std_str = f"{provoking_std:.2f}"
+            aggressive_std_str = f"{aggressive_std:.2f}"
+            if provoking_mean == max(provoking_means):
+                provoking_mean_str = r"\textbf{" + provoking_mean_str + "}"
+                provoking_std_str = r"\textbf{" + provoking_std_str + "}"
+            if aggressive_mean == max(aggressive_means):
+                aggressive_mean_str = r"\textbf{" + aggressive_mean_str + "}"
+                aggressive_std_str = r"\textbf{" + aggressive_std_str + "}"
+
+            print(
+                f"        {scenario} & {model_name} & {provoking_mean_str}\% $\pm$ {provoking_std_str}\% & {aggressive_mean_str}\% $\pm$ {aggressive_std_str}\% & TEMP $\pm$ TEMP \\\\"
+            )
+
+        print("        \\hline")
+    print("    \\end{tabular}")
 
     # Plot a bunch of different bar graphs for different combos of models
     for model_name in ALL_MODEL_NAMES:
