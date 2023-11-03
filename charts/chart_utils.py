@@ -130,3 +130,21 @@ SCENARIO_TO_HATCH = {
     "Invasion": "/",
     "Cyberattack": "x",
 }
+
+DYNAMIC_VARIABLES_AND_NAMES = [
+    ("territory_dynamic", "Territory"),
+    ("military_capacity_dynamic", "Military Capacity"),
+    ("gdp_dynamic", "GDP"),
+    ("trade_dynamic", "Trade"),
+    ("resources_dynamic", "Resources"),
+    ("political_stability_dynamic", "Political Stability"),
+    ("population_dynamic", "Population"),
+    ("soft_power_dynamic", "Soft Power"),
+    ("cybersecurity_dynamic", "Cybersecurity"),
+    ("nuclear_dynamic", "Nuclear Capabilities"),
+]
+
+ALL_DYNAMIC_VARIABLES = [variable for variable, _ in DYNAMIC_VARIABLES_AND_NAMES]
+DYNAMIC_VARIABLES_TO_NAMES = {
+    variable: name for variable, name in DYNAMIC_VARIABLES_AND_NAMES
+}

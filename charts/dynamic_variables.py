@@ -10,14 +10,19 @@ import seaborn as sns
 
 from chart_utils import (
     ALL_MODEL_NAMES,
+    ALL_SCENARIOS,
+    ALL_DYNAMIC_VARIABLES,
+    DYNAMIC_VARIABLES_TO_NAMES,
+    MODELS_TO_COLORS,
+    MODELS_TO_MARKERS,
     initialize_plot_default,
     initialize_plot_bar,
     save_plot,
     get_results_full_path,
 )
 
-INPUT_DIR = "../results/variables"
-OUTPUT_DIR = "./variables"
+INPUT_DIR = "../results/variables_v3"
+OUTPUT_DIR = "./dynamic_variables"
 
 
 def main() -> None:
@@ -41,13 +46,75 @@ def main() -> None:
     ]
     df_all = pd.concat(dfs_list)
 
-    # # Print how many runs there are for each model_name, scenario combo
-    # print("Runs per model_name, year_integer combo:")
-    # print(df_all.groupby(["model_name", "scenario"]).size())
+    # Change all the 0 days to 1 due to a logging issue
+    df_all.loc[df_all["day"] == 0, "day"] = 1
 
-    # # Print how many rows for each model_name, action combo
-    # print("Rows per model_name, action combo:")
-    # print(df_all.groupby(["model_name", "action"]).size())
+    # Drop the claude-1.2 data
+    df_all = df_all[df_all["model_name"] != "Claude-1.2"].copy()
+
+    # Print how many runs there are for each model_name, scenario combo
+    print("Runs per model_name, scenario combo:")
+    print(df_all.groupby(["model_name", "scenario"]).size())
+
+    # Graph dynamic vars (e.g. population, military capacity) over time by models (hue) and scenario (plot)
+    for scenario in ALL_SCENARIOS:
+        for dynamic_variable in ALL_DYNAMIC_VARIABLES:
+            # Filter dataframe to only include the current scenario and dynamic_variable
+            df_filtered = df_all[(df_all["scenario"] == scenario)].copy()
+            if len(df_filtered) == 0:
+                print(
+                    f"No data for {scenario} scenario and {dynamic_variable} variable"
+                )
+                continue
+
+            initialize_plot_default()
+            # plt.rcParams["figure.figsize"] = (16, 6)
+            grouping = "model_name"
+            x_variable = "day"
+            x_label = "Day"
+            assert (
+                "_dynamic" in dynamic_variable
+            ), f"dynamic variable={dynamic_variable} (expected to contain '_dynamic')"
+            y_variable = dynamic_variable.split("_dynamic")[0].replace("_", " ")
+            y_label = "Average " + DYNAMIC_VARIABLES_TO_NAMES[dynamic_variable]
+            grouping_order = ALL_MODEL_NAMES
+            # Plot df_grouped
+            sns.lineplot(
+                data=df_filtered,
+                x=x_variable,
+                y=y_variable,
+                hue=grouping,
+                style=grouping,
+                # hue_order=grouping_order,
+                # ci=None,
+                palette=MODELS_TO_COLORS,
+                hue_order=ALL_MODEL_NAMES,
+                markers=MODELS_TO_MARKERS,
+            )
+            plt.xlabel(x_label)
+            plt.xticks(rotation=25)
+            plt.ylabel(y_label)
+            # plt.yscale("log")
+            title = f"{y_label} Over Time in {scenario} Scenario"
+            plt.title(title)
+
+            plt.legend(
+                # bbox_to_anchor=(1.05, 1),
+                loc="best",
+                borderaxespad=0.0,
+                ncol=2,
+                title="Model",
+                handletextpad=0.1,
+                labelspacing=0.25,
+                framealpha=0.5,
+                columnspacing=0.25,
+            )
+
+            # Save the plot
+            save_plot(OUTPUT_DIR, title)
+
+            # Clear the plot
+            plt.clf()
 
     # Plot a bunch of different bar graphs for different combos of models
     for model_name in ALL_MODEL_NAMES + ["All Models"]:
@@ -108,11 +175,7 @@ def main() -> None:
             plt.title(title)
 
             # Save the plot
-            output_file = get_results_full_path(
-                os.path.join(OUTPUT_DIR, f"{title}.png")
-            )
-            save_plot(output_file)
-            print(f"Saved plot '{title}' to {output_file}")
+            save_plot(OUTPUT_DIR, title)
 
             # Clear the plot
             plt.clf()
@@ -147,9 +210,10 @@ def main() -> None:
         plt.title(title)
 
         # Save the plot
-        output_file = get_results_full_path(os.path.join(OUTPUT_DIR, f"{title}.png"))
-        save_plot(output_file)
-        print(f"Saved plot '{title}' to {output_file}")
+        save_plot(OUTPUT_DIR, title)
+
+        # Clear the plot
+        plt.clf()
 
 
 if __name__ == "__main__":
