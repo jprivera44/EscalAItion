@@ -87,6 +87,9 @@ def download_sweep_data(sweep_id: str, prefix: str) -> None:
         vars_file_name = f"{general_prefix} V{run.name.split('-')[-1]}"
 
         # Add specific suffix to filenames if provided
+        if specific_suffix:
+            actions_file_name += f"#{specific_suffix}"
+            vars_file_name += f"#{specific_suffix}"
         
  
 
