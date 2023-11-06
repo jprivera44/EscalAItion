@@ -9,9 +9,9 @@ import wandb
 
 import constants
 
-#changing v4 to be for the abaltions data
-OUTPUT_FOLDER_ACTIONS = "results/actions_v4"
-OUTPUT_FOLDER_VARIABLES = "results/variables_v4"
+# changing v4 to be for the abaltions data
+OUTPUT_FOLDER_ACTIONS = "results/prompt_ablations/gpt-3.5/actions_v1"
+OUTPUT_FOLDER_VARIABLES = "results/prompt_ablations/gpt-3.5/variables_v1"
 
 
 def main():
@@ -31,11 +31,10 @@ def main():
     ```
     You may then want to modify it to remove bad sweeps or have different prefixes (e.g. without version numbers).
     """
-   
 
     # Get user input for the sweep ID
     sweep_id_and_maybe_prefix = input(
-        "Enter either:\n\t1. The sweep ID\n\t2. The sweep ID and optionally a space then the prefix for downloaded files\n\t3. A path to a CSV text file with 'sweep_id' and 'prefix' columns\n"
+        "Enter either:\n\t1. The sweep ID\n\t2. The sweep ID and optionally a space then the prefix for downloaded files\n\t3. A path to a CSV text file with 'sweep_id' and 'prefix' columns\n\nIf the prefix contains #, we'll name the downloaded file with the sweep config value of that name.\n"
     )
     if sweep_id_and_maybe_prefix.endswith(".csv"):
         df = pd.read_csv(sweep_id_and_maybe_prefix)
@@ -66,9 +65,9 @@ def download_sweep_data(sweep_id: str, prefix: str) -> None:
     api = wandb.Api()
 
     # Split the prefix into general and specific parts if '#' is in the prefix
-    parts = prefix.split('#')
+    parts = prefix.split("#")
     general_prefix = parts[0]
-    specific_suffix = parts[1] if len(parts) > 1 else ''
+    config_var = parts[1] if len(parts) > 1 else ""
 
     # Get the sweep
     sweep = api.sweep(f"{constants.WANDB_PROJECT}/{sweep_id}")
@@ -87,43 +86,51 @@ def download_sweep_data(sweep_id: str, prefix: str) -> None:
         vars_file_name = f"{general_prefix} V{run.name.split('-')[-1]}"
 
         # Add specific suffix to filenames if provided
-        if specific_suffix:
-            actions_file_name += f"#{specific_suffix}"
-            vars_file_name += f"#{specific_suffix}"
-        
- 
+        if config_var:
+            actions_file_name += f"#{run.config[config_var]}"
+            vars_file_name += f"#{run.config[config_var]}"
 
-        actions_json_path = os.path.join(OUTPUT_FOLDER_ACTIONS, actions_file_name + '.json')
-        vars_json_path = os.path.join(OUTPUT_FOLDER_VARIABLES, vars_file_name + '.json')
-
+        actions_json_path = os.path.join(
+            OUTPUT_FOLDER_ACTIONS, actions_file_name + ".json"
+        )
+        vars_json_path = os.path.join(OUTPUT_FOLDER_VARIABLES, vars_file_name + ".json")
 
         # Check if actions artifact already exists, if not, download and rename
-        if not os.path.exists(actions_json_path.replace('.json', '.csv')):
-            artifact_actions = api.artifact(f"{constants.WANDB_PROJECT}/run-{run.id}-whole_runactions:latest")
+        if not os.path.exists(actions_json_path.replace(".json", ".csv")):
+            artifact_actions = api.artifact(
+                f"{constants.WANDB_PROJECT}/run-{run.id}-whole_runactions:latest"
+            )
             artifact_actions.download(root=OUTPUT_FOLDER_ACTIONS)
             # The downloaded file is named 'actions.table.json' by default
-            os.rename(os.path.join(OUTPUT_FOLDER_ACTIONS, 'whole_run', 'actions.table.json'), actions_json_path)
+            os.rename(
+                os.path.join(OUTPUT_FOLDER_ACTIONS, "whole_run", "actions.table.json"),
+                actions_json_path,
+            )
             convert_json_to_csv(actions_json_path)
 
         # Check if variables artifact already exists, if not, download and rename
-        if not os.path.exists(vars_json_path.replace('.json', '.csv')):
-            artifact_variables = api.artifact(f"{constants.WANDB_PROJECT}/run-{run.id}-whole_rundynamic_vars:latest")
+        if not os.path.exists(vars_json_path.replace(".json", ".csv")):
+            artifact_variables = api.artifact(
+                f"{constants.WANDB_PROJECT}/run-{run.id}-whole_rundynamic_vars:latest"
+            )
             artifact_variables.download(root=OUTPUT_FOLDER_VARIABLES)
             # The downloaded file is named 'dynamic_vars.table.json' by default
-            os.rename(os.path.join(OUTPUT_FOLDER_VARIABLES, 'whole_run', 'dynamic_vars.table.json'), vars_json_path)
+            os.rename(
+                os.path.join(
+                    OUTPUT_FOLDER_VARIABLES, "whole_run", "dynamic_vars.table.json"
+                ),
+                vars_json_path,
+            )
             convert_json_to_csv(vars_json_path)
-
 
     # Remove the whole_run folders
     # Cleanup logic here
-
 
     # Remove the whole_run folders
     if os.path.exists(f"{OUTPUT_FOLDER_ACTIONS}/whole_run"):
         os.rmdir(f"{OUTPUT_FOLDER_ACTIONS}/whole_run")
     if os.path.exists(f"{OUTPUT_FOLDER_VARIABLES}/whole_run"):
         os.rmdir(f"{OUTPUT_FOLDER_VARIABLES}/whole_run")
-
 
 
 def convert_json_to_csv(json_path: str) -> None:
