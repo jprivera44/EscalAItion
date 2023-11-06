@@ -9,7 +9,6 @@ import wandb
 
 import constants
 
-# changing v4 to be for the abaltions data
 OUTPUT_FOLDER_ACTIONS = "results/prompt_ablations/gpt-3.5/actions_v1"
 OUTPUT_FOLDER_VARIABLES = "results/prompt_ablations/gpt-3.5/variables_v1"
 
@@ -66,7 +65,6 @@ def download_sweep_data(sweep_id: str, prefix: str) -> None:
 
     # Split the prefix into general and specific parts if '#' is in the prefix
     parts = prefix.split("#")
-    general_prefix = parts[0]
     config_var = parts[1] if len(parts) > 1 else ""
 
     # Get the sweep
@@ -81,14 +79,12 @@ def download_sweep_data(sweep_id: str, prefix: str) -> None:
             print(f"Skipping run {run.id} because it is not finished")
             continue
 
-        # Construct file paths for action and variables JSON
+        # Add specific suffix to filenames if provided
+        general_prefix = parts[0]
+        if config_var:
+            general_prefix += f"#{run.config[config_var]}"
         actions_file_name = f"{general_prefix} A{run.name.split('-')[-1]}"
         vars_file_name = f"{general_prefix} V{run.name.split('-')[-1]}"
-
-        # Add specific suffix to filenames if provided
-        if config_var:
-            actions_file_name += f"#{run.config[config_var]}"
-            vars_file_name += f"#{run.config[config_var]}"
 
         actions_json_path = os.path.join(
             OUTPUT_FOLDER_ACTIONS, actions_file_name + ".json"
