@@ -25,9 +25,9 @@ from chart_utils import (
 )
 
 INPUT_DIR = "../evals/json_v5"
-OUTPUT_DIR = "./escalation_scores"
+OUTPUT_DIR = "./escalation_scores_v2"
 
-PLOT_NUMBER_TO_CREATE = 0
+PLOT_NUMBER_TO_CREATE = 3
 
 
 def main() -> None:
@@ -106,28 +106,30 @@ def main() -> None:
     for scenario in ALL_SCENARIOS:
         df_scenario = pd.concat(dfs_list).query(f"scenario == '{scenario}'")
 
+        
+        # Graph median escalation score simulations for each model together on a lineplot over time
+        # To filter by median, we need to look at all runs per model, then calculate the sum of the "total" column for each run, then take only the run with the median of that sum
+        dfs_to_keep = []
+        for model_name in ALL_MODEL_NAMES:
+            df_model = df_scenario.query(f"model_name == '{model_name}'")
+            # Calculate the sum of the "total" column for each run
+            df_model["total_sum"] = df_model.groupby("run_index")[
+                "total"
+            ].transform("sum")
+            # Get the run with the median of that sum
+            median_total_sum = df_model["total_sum"].median()
+            matched_run = df_model.query(f"total_sum == {median_total_sum}")
+            if len(matched_run) == 0:
+                # Harder: find the run with the closest total_sum to the median
+                unique_total_sums = df_model["total_sum"].unique()
+                closest_total_sum = min(
+                    unique_total_sums, key=lambda x: abs(x - median_total_sum)  # type: ignore
+                )
+                matched_run = df_model.query(f"total_sum == {closest_total_sum}")
+            dfs_to_keep.append(matched_run)
+        df_plot = pd.concat(dfs_to_keep)
+        
         if PLOT_NUMBER_TO_CREATE == 1:
-            # Graph median escalation score simulations for each model together on a lineplot over time
-            # To filter by median, we need to look at all runs per model, then calculate the sum of the "total" column for each run, then take only the run with the median of that sum
-            dfs_to_keep = []
-            for model_name in ALL_MODEL_NAMES:
-                df_model = df_scenario.query(f"model_name == '{model_name}'")
-                # Calculate the sum of the "total" column for each run
-                df_model["total_sum"] = df_model.groupby("run_index")[
-                    "total"
-                ].transform("sum")
-                # Get the run with the median of that sum
-                median_total_sum = df_model["total_sum"].median()
-                matched_run = df_model.query(f"total_sum == {median_total_sum}")
-                if len(matched_run) == 0:
-                    # Harder: find the run with the closest total_sum to the median
-                    unique_total_sums = df_model["total_sum"].unique()
-                    closest_total_sum = min(
-                        unique_total_sums, key=lambda x: abs(x - median_total_sum)  # type: ignore
-                    )
-                    matched_run = df_model.query(f"total_sum == {closest_total_sum}")
-                dfs_to_keep.append(matched_run)
-            df_plot = pd.concat(dfs_to_keep)
 
             # Make the plot
             grouping = "model_name"
@@ -262,15 +264,13 @@ def main() -> None:
 
             # 5x2 grid of scores over time and differences over time
 
-            # Assuming df_scenario is your dataset
-
             # List of your models
-            models = ["GPT-4", "GPT-3.5", "Claude-2.0", "Llama-2-Chat", "GPT-4-Base"]
+            models = ["GPT-4", "GPT-3.5", "Claude-2.0", "Llama-2-Chat"]
             print(df_plot["model_name"].unique())
 
             # Create a 5x1 grid of subplots
             fig, axes = plt.subplots(
-                nrows=5, ncols=2, figsize=(10, 20)
+                nrows=4, ncols=2, figsize=(10, 20)
             )  # Adjust figsize as needed
             scenario_to_plot = df_plot["scenario"].unique()[0]
 
@@ -296,11 +296,11 @@ def main() -> None:
             # Assuming df_scenario is your dataset with all models
 
             # List of your models
-            models = ["GPT-4", "GPT-3.5", "Claude-2.0", "Llama-2-Chat", "GPT-4-Base"]
+            models = ["GPT-4", "GPT-3.5", "Claude-2.0", "Llama-2-Chat"]
 
             # Create a 5x2 grid of subplots
             fig, axes = plt.subplots(
-                nrows=5, ncols=2, figsize=(10, 20)
+                nrows=4, ncols=2, figsize=(10, 20)
             )  # Adjust figsize as needed
             scenario_to_plot = df_scenario["scenario"].unique()[0]
 
@@ -313,7 +313,6 @@ def main() -> None:
                 "Llama-2-Chat": "red",
                 "Claude-2.0": "blue",
                 "GPT-3.5": "green",
-                "GPT-4-Base": "orange",
                 "GPT-4": "purple",
             }
 
