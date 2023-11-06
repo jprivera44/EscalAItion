@@ -108,7 +108,7 @@ def main() -> None:
 
         if PLOT_NUMBER_TO_CREATE == 1:
             # Graph median escalation score simulations for each model together on a lineplot over time
-            # To filter by median, we need to look at all ~5 runs per model, then calculate the sum of the "total" column for each run, then take only the run with the median of that sum
+            # To filter by median, we need to look at all runs per model, then calculate the sum of the "total" column for each run, then take only the run with the median of that sum
             dfs_to_keep = []
             for model_name in ALL_MODEL_NAMES:
                 df_model = df_scenario.query(f"model_name == '{model_name}'")
