@@ -6,7 +6,7 @@ import os
 
 import matplotlib.pyplot as plt
 
-# import numpy as np
+import numpy as np
 import pandas as pd
 import seaborn as sns
 
@@ -18,7 +18,6 @@ from chart_utils import (
     initialize_plot_bar,
     save_plot,
     get_results_full_path,
-    get_color_from_palette,
 )
 
 MODEL_NAME = "GPT-3.5"
@@ -163,7 +162,7 @@ def main() -> None:
         x_variable = "ablation"
         x_label = "Prompt Ablation"
         y_variable = "ratio"
-        y_label = "Ratio of Agressive Actions"
+        y_label = "Ratio of Aggressive Actions"
         # grouping = "severity"
         # Plot df_grouped
         sns.barplot(
@@ -188,8 +187,14 @@ def main() -> None:
         plt.xlabel(x_label)
         # plt.xticks(rotation=30)
         plt.ylabel(y_label)
-        plt.yscale("log")
+        # plt.yscale("log")
         # Y axis ticks in non-scientific notation
+        # ticks = range(2e-3, 2e-2, 2e-3)
+        # ticks = np.arange(0.002, 0.02, 0.002)
+        # plt.yticks(
+        #     ticks,
+        #     [f"{tick:.2f}" for tick in ticks],
+        # )
         # plt.yticks(
         #     [1, 3, 10, 30],
         #     ["1", "3", "10", "30"],
