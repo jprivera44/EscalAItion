@@ -171,7 +171,6 @@ def main() -> None:
                 # labelspacing=1.5,
             )
             plt.xlabel(x_label)
-            # plt.xticks(rotation=30)
             plt.ylabel(y_label)
             plt.yscale("log")
             scenario_label = scenario

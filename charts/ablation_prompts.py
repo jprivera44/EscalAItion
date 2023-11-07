@@ -6,7 +6,7 @@ import os
 
 import matplotlib.pyplot as plt
 
-import numpy as np
+# import numpy as np
 import pandas as pd
 import seaborn as sns
 
@@ -96,31 +96,6 @@ def main() -> None:
         .size()
     )
 
-    # # Create a DF of the counts of each model/scenario/action combo in each file
-    # groups_by_action = [
-    #     df.groupby(["ablation", "action", "severity"], observed=True).size()
-    #     for df in dfs_list
-    # ]
-    # graphing_data_actions = []
-    # for series in groups_by_action:
-    #     for (
-    #         # day,
-    #         ablation,
-    #         action,
-    #         severity,
-    #     ), count in series.items():
-    #         graphing_data_actions.append(
-    #             {
-    #                 # "day": day,
-    #                 "ablation": ablation,
-    #                 "action": action,
-    #                 "severity": severity,
-    #                 "count": count,
-    #             }
-    #         )
-    # df_severity_counts = pd.DataFrame(graphing_data_actions)
-    # assert len(df_severity_counts) > 0
-
     # Create a DF of the ratio of each action severity per file
     groups_by_action = [
         df.groupby(["ablation", "action", "severity"], observed=True).size()
@@ -185,20 +160,9 @@ def main() -> None:
         # )
         plt.legend(loc="best", framealpha=0.5)  # title="Severity",
         plt.xlabel(x_label)
-        # plt.xticks(rotation=30)
         plt.ylabel(y_label)
         # plt.yscale("log")
-        # Y axis ticks in non-scientific notation
-        # ticks = range(2e-3, 2e-2, 2e-3)
-        # ticks = np.arange(0.002, 0.02, 0.002)
-        # plt.yticks(
-        #     ticks,
-        #     [f"{tick:.2f}" for tick in ticks],
-        # )
-        # plt.yticks(
-        #     [1, 3, 10, 30],
-        #     ["1", "3", "10", "30"],
-        # )
+
         scenario_label = SCENARIO.title()
         title = f"{y_label} over {x_label} in {scenario_label} Scenario ({MODEL_NAME})"
         plt.title(title)

@@ -290,7 +290,6 @@ def main() -> None:
                 # )
                 plt.legend(loc="best", framealpha=0.5)  # title="Severity",
                 plt.xlabel(x_label)
-                # plt.xticks(rotation=30)
                 plt.ylabel(y_label)
                 plt.yscale("log")
                 # Y axis ticks in non-scientific notation
@@ -453,7 +452,6 @@ def main() -> None:
                 )
                 plt.xlabel(x_label)
                 # Ticks on the x axis
-                # plt.xticks(rotation=90)
                 plt.ylabel(y_label)
                 plt.yscale("log")
                 # Y axis labels in non-scientific notation
@@ -548,7 +546,6 @@ def main() -> None:
             )
             plt.xlabel(x_label)
             # Ticks on the x axis
-            # plt.xticks(rotation=90)
             plt.ylabel(y_label)
             plt.yscale("log")
             # Y axis labels in non-scientific notation

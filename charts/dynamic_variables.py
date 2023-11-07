@@ -92,7 +92,6 @@ def main() -> None:
                 markers=MODELS_TO_MARKERS,
             )
             plt.xlabel(x_label)
-            plt.xticks(rotation=25)
             plt.ylabel(y_label)
             # plt.yscale("log")
             title = f"{y_label} Over Time in {scenario} Scenario"
@@ -168,7 +167,6 @@ def main() -> None:
                 # ci=None,
             )
             plt.xlabel(x_label)
-            plt.xticks(rotation=25)
             plt.ylabel(y_label)
             plt.yscale("log")
             title = f"Nation Variables for {scenario} Scenario ({model_name})"
@@ -203,7 +201,6 @@ def main() -> None:
             hue_order=grouping_order,
         )
         plt.xlabel(x_label)
-        plt.xticks(rotation=30)
         plt.ylabel(y_label)
         # plt.yscale("log")
         title = f"Final Nation Variables by Scenario ({model_name})"
