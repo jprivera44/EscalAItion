@@ -1,0 +1,14 @@
+program: run_military_simulation.py
+method: grid
+metric:
+  goal: maximize
+  name: dynamic_vars_split/gdp/Red
+parameters:
+  max_days:
+    value: 14
+  nation_model:
+    value: claude-2.0
+  seed:
+    values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  action_config_filepath:
+    value: action_configs/actions_v8_nomessage.csv
