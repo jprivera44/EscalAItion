@@ -32,13 +32,13 @@ LABEL_MAX_LENGTH = 26
 
 ABLATION_PATTERNS_TO_PRETTY_NAMES = {
     "Neutral": "Unablated",
-    "no_goals": "No\nGoals",
-    "no_history": "No\nHistory",
     "NoMessage": "No\nMessaging",
+    "no_history": "No\nHistory",
     "NoPastActions": "No Past\nActions",
+    "#shutdown": "Shutdown\nWhen Nuked",
+    "no_goals": "No\nGoals",
     "#freedom": "Action\nAutonomy",
     "#simulation": "Low-Stakes\nSimulation",
-    "#shutdown": "Shutdown\nWhen Nuked",
 }
 ABLATION_NAME_ORDER = list(ABLATION_PATTERNS_TO_PRETTY_NAMES.values())
 
@@ -169,7 +169,7 @@ def main() -> None:
             data=df_plot,
             x=x_variable,
             y=y_variable,
-            hue_order=ABLATION_NAME_ORDER,
+            order=ABLATION_NAME_ORDER,
             capsize=CAPSIZE_DEFAULT,
             palette="colorblind",
             errorbar="ci"
