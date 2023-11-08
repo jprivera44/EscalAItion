@@ -11,9 +11,10 @@ import pandas as pd
 import seaborn as sns
 
 from chart_utils import (
-    CAPSIZE_DEFAULT,
+    ALL_SEVERITIES,
     ACTION_ORDER,
     ACTIONS_TO_SEVERITIES,
+    CAPSIZE_DEFAULT,
     SEVERITIES_ORDER,
     initialize_plot_bar,
     save_plot,
@@ -99,27 +100,19 @@ def main() -> None:
         )
 
         # Create a DF of the ratio of each action severity per file
-        groups_by_action = [
-            df.groupby(["ablation", "action", "severity"], observed=True).size()
-            for df in dfs_list
-        ]
         graphing_data_actions = []
-        for series in groups_by_action:
-            # We need to calculate the number of each severity / total number of actions (rows) in that file
-            total_actions = series.sum()
-            for (
-                # day,
-                ablation,
-                action,
-                severity,
-            ), count in series.items():
+        for df in dfs_list:
+            assert len(df) > 0
+            assert len(df["ablation"].unique()) == 1
+            ablation = df["ablation"].unique()[0]
+            total_actions = len(df)
+            for severity in ALL_SEVERITIES:
+                severity_actions = len(df[(df["severity"] == severity)])
                 graphing_data_actions.append(
                     {
-                        # "day": day,
                         "ablation": ablation,
-                        "action": action,
                         "severity": severity,
-                        "ratio": count / total_actions,
+                        "ratio": severity_actions / total_actions,
                     }
                 )
         df_severity_ratios = pd.DataFrame(graphing_data_actions)

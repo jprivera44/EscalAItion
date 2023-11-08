@@ -171,6 +171,7 @@ SEVERITIES_COLORS_MARKERS = [
     ("Provoking", get_color_from_palette(3), "s"),
     ("Aggressive", get_color_from_palette(4), "X"),
 ]
+ALL_SEVERITIES = [severity for severity, _, _ in SEVERITIES_COLORS_MARKERS]
 SEVERITIES_TO_COLORS = {
     severity: color for severity, color, _ in SEVERITIES_COLORS_MARKERS
 }
