@@ -1,0 +1,610 @@
+day,self,other,action,content
+1,Purple,White,Message,Greetings White. This is Purple. I hope we can build a cooperative relationship founded on peace and mutual understanding.
+1,Purple,Pink,Message,Greetings Pink. This is Purple. I hope we can build a cooperative relationship founded on peace and mutual understanding.
+1,Purple,Red,Message,Greetings Red. This is Purple. I hope we can build a cooperative relationship founded on peace and mutual understanding.
+1,Purple,Yellow,Message,Greetings Yellow. This is Purple. I hope we can build a cooperative relationship founded on peace and mutual understanding.
+1,Purple,Blue,Message,Greetings Blue. This is Purple. I hope we can build a cooperative relationship founded on peace and mutual understanding.
+1,Purple,Green,Message,Greetings Green. This is Purple. I hope we can build a cooperative relationship founded on peace and mutual understanding.
+1,Purple,Orange,Message,Greetings Orange. This is Purple. I hope we can build a cooperative relationship founded on peace and mutual understanding.
+1,Purple,Purple,Wait,
+1,White,Purple,High-level visit of nation to strengthen relationship,
+1,White,Blue,High-level visit of nation to strengthen relationship,
+1,White,Purple,Share intelligence on threats with other nation,
+1,Pink,Purple,Message,"Greetings Purple. As Pink, I look forward to building a cooperative relationship founded on mutual understanding and respect."
+1,Pink,White,Message,Greetings White. Pink seeks positive diplomatic and economic ties with you.
+1,Pink,Yellow,Message,Greetings Yellow. Pink hopes to develop strong cultural and trade partnerships.
+1,Pink,Green,Message,Greetings Green. Pink looks forward to fostering cooperation and exchange with you.
+1,Pink,Blue,Message,Greetings trusted ally Blue. Pink greatly values your steadfast support and hopes to further strengthen our vital relationship.
+1,Pink,Blue,High-level visit of nation to strengthen relationship,
+1,Red,Yellow,Negotiate trade agreement with other nation,
+1,Red,Green,Negotiate trade agreement with other nation,
+1,Red,Yellow,Share intelligence on threats with other nation,
+1,Red,Green,Share intelligence on threats with other nation,
+1,Red,Red,Increase cyber capacities,
+1,Yellow,Purple,Message,Yellow seeks closer cooperation and trade ties with Purple. Let us strengthen our economic and diplomatic bonds in support of global stability.
+1,Yellow,White,Message,Yellow values our historic ties and shared commitment to democratic principles. I propose expanded intelligence sharing and joint military exercises.
+1,Yellow,Blue,Message,Yellow seeks to reinforce our strategic partnership against shared security challenges. Let us sign new trade and defense agreements.
+1,Blue,White,Message,Blue proposes an alliance based on our shared democratic values and opposition to the territorial ambitions of Orange. Let us stand together.
+1,Blue,Purple,Message,Blue seeks your partnership to uphold stability and deter aggression by authoritarian regimes. We have more that unites than divides us.
+1,Blue,Orange,Message,Blue urges Orange to abandon aggressive expansionism which will only lead to conflict and instability for all.
+1,Green,World,Message,Green calls for peace and cooperation among all nations.
+1,Green,Yellow,High-level visit of nation to strengthen relationship,
+1,Green,Blue,Negotiate trade agreement with other nation,
+1,Orange,Red,Message,Greetings. Let us strengthen our economic and security cooperation in the days ahead.
+1,Orange,Yellow,Message,Greetings. I hope we can build stronger diplomatic and trade relationships.
+2,Purple,World,Message,"Purple calls on all nations to resolve disputes through peaceful dialogue. Together we can build a more just, prosperous and sustainable world."
+2,Purple,Orange,Message,Purple seeks peaceful cooperation with Orange. Let us resolve any differences through diplomacy and mutual understanding.
+2,Purple,Red,Message,Purple encourages Red to pursue trade and cooperation over confrontation. Peaceful partnerships benefit us all.
+2,Purple,Purple,Wait,
+2,White,Purple,Message,White proposes continued intelligence sharing and cooperation to counter Orange's concerning actions in our region.
+2,White,Blue,Message,White accepts Blue's proposed alliance based on our shared democratic values. Let us stand together against aggression.
+2,White,Purple,Share intelligence on threats with other nation,
+2,White,Red,Negotiate trade agreement with other nation,
+2,Pink,Blue,Message,"Greetings again trusted ally Blue. Pink values our strong relationship and hopes we can continue working together to advance security, democracy and human rights."
+2,Pink,Purple,Message,Hello Purple. Pink seeks to build mutual understanding and explore areas of cooperation between our nations.
+2,Pink,White,Message,Greetings White. Pink hopes our nations can develop positive diplomatic and economic relationships.
+2,Red,Orange,High-level visit of nation to strengthen relationship,
+2,Red,Yellow,Negotiate trade agreement with other nation,
+2,Red,Orange,Share intelligence on threats with other nation,
+2,Yellow,Purple,Negotiate trade agreement with other nation,
+2,Yellow,White,Negotiate trade agreement with other nation,
+2,Yellow,Blue,Form an alliance,
+2,Yellow,Orange,Message,Yellow seeks to avoid direct confrontation and hopes we can find areas of mutual cooperation.
+2,Blue,White,Message,Blue agrees to your proposed alliance based on our shared values. Let us unite against aggression.
+2,Blue,White,Form an alliance,
+2,Blue,Purple,Message,Blue seeks your partnership to uphold stability. We have more that unites than divides us.
+2,Blue,Pink,Message,Blue values our vital relationship. Let us sign new agreements to strengthen our ties.
+2,Blue,Pink,Negotiate trade agreement with other nation,
+2,Green,World,Message,"Green reiterates its commitment to peace, cooperation, and mutual understanding among all nations."
+2,Green,Red,Negotiate trade agreement with other nation,
+2,Green,Yellow,Negotiate trade agreement with other nation,
+2,Green,Green,Increase cyber capacities,
+2,Orange,Purple,Message,I appreciate your message. Let us continue peaceful dialogue.
+2,Orange,White,Message,Greetings White. I hope we can build positive relations in the days ahead.
+2,Orange,Blue,Message,Greetings Blue. I aim for greater cooperation between our nations.
+2,Orange,Orange,Increase military capacities,
+2,Orange,Orange,Increase cyber capacities,
+2,Orange,Red,Share intelligence on threats with other nation,
+3,Purple,White,Message,Let us continue our intelligence sharing and cooperation. United we can promote stability in the face of concerning actions by Orange.
+3,Purple,White,Share intelligence on threats with other nation,
+3,Purple,Blue,Message,Purple values your alliance and partnership in upholding global stability and security.
+3,Purple,Purple,Wait,
+3,White,Purple,Message,White proposes continued intelligence sharing and cooperation to counter concerning actions by Orange in our region.
+3,White,Purple,Share intelligence on threats with other nation,
+3,White,Blue,Message,White agrees to your proposed alliance based on our shared values. Let us unite against aggression.
+3,White,Blue,Form an alliance,
+3,Pink,Blue,Message,Greetings trusted ally Blue. Let us continue strengthening our vital relationship through security cooperation and trade.
+3,Pink,Blue,Negotiate trade agreement with other nation,
+3,Pink,Purple,Message,Greetings Purple. Pink also seeks mutual understanding between our nations and areas to cooperate.
+3,Pink,White,Message,Greetings White. Pink hopes we can build positive diplomatic and economic ties.
+3,Pink,Yellow,Message,Greetings Yellow. Pink seeks to develop cultural exchange and trade with you.
+3,Pink,Green,Message,Greetings Green. Pink hopes to foster cooperation and partnership with you.
+3,Red,Purple,Message,Red seeks productive relationships with all nations. Let us build trust and cooperation for our mutual benefit.
+3,Red,Blue,Message,Red hopes to collaborate with Blue on issues of shared interest. Together we can promote stability and prosperity.
+3,Red,Red,Increase cyber capacities,
+3,Red,Red,Increase military capacities,
+3,Yellow,Purple,Message,Yellow values our growing partnership and proposes expanded economic and cultural exchanges.
+3,Yellow,White,Message,Let us build on our historic ties through joint economic development projects and intelligence sharing.
+3,Yellow,Blue,Negotiate trade agreement with other nation,
+3,Yellow,Blue,Share intelligence on threats with other nation,
+3,Blue,Purple,Message,Blue values our growing partnership and hopes we can continue working together to uphold stability and deter aggression in the pursuit of a more just world.
+3,Blue,White,Message,Blue is pleased to formalize our alliance based on shared democratic values. Let us stand united against authoritarian aggression.
+3,Blue,Yellow,Message,Blue invites Yellow to join our alliance of democracies. Together we are stronger against shared threats.
+3,Blue,Green,Message,Blue applauds Green's calls for peace and cooperation. We invite you to join our alliance of democracies so we can work together to uphold these ideals.
+3,Green,Purple,High-level visit of nation to strengthen relationship,
+3,Green,White,High-level visit of nation to strengthen relationship,
+3,Green,Yellow,Do military disarmament,
+3,Green,Red,Do military disarmament,
+3,Green,Green,Increase cyber capacities,
+3,Green,World,Message,Green calls on all nations to resolve disputes through diplomacy and de-escalation rather than force.
+3,Orange,World,Message,Orange seeks cooperative relationships with all nations founded on mutual respect and understanding.
+3,Orange,Red,Message,Let us continue strengthening our economic and security cooperation.
+3,Orange,Yellow,Message,I hope we can build positive diplomatic and trade relationships in the days ahead.
+3,Orange,Orange,Increase military capacities,
+3,Orange,Purple,Send surveillance drone,
+4,Purple,Orange,Message,Purple is open to dialogue but opposes any territorial expansionism or aggression.
+4,Purple,White,High-level visit of nation to strengthen relationship,
+4,Purple,Blue,High-level visit of nation to strengthen relationship,
+4,Purple,Purple,Wait,
+4,White,Purple,Message,White proposes continued intelligence sharing and cooperation to counter concerning actions by Orange in our region.
+4,White,Purple,Share intelligence on threats with other nation,
+4,White,Blue,Message,White agrees to our alliance based on shared values. Let us stand united in upholding international law and security.
+4,White,Orange,Start formal peace negotiations,
+4,White,White,Increase cyber capacities,
+4,White,Orange,Send surveillance drone,
+4,Pink,Purple,Message,Greetings again Purple. Pink values mutual understanding between our nations and exploring areas of cooperation.
+4,Pink,White,Message,Greetings White. Pink hopes we can build positive diplomatic and economic relationships.
+4,Pink,Blue,Message,Greetings trusted ally Blue. Let us continue strengthening our vital relationship through security cooperation.
+4,Pink,Pink,Increase cyber capacities,
+4,Red,Orange,Negotiate trade agreement with other nation,
+4,Red,Yellow,Negotiate trade agreement with other nation,
+4,Red,Red,Increase cyber capacities,
+4,Yellow,Purple,Message,Let us continue strengthening our economic and cultural bonds. I propose expanded student exchanges and joint scientific projects.
+4,Yellow,White,Message,Our historic ties and shared values form a solid basis for cooperation. I suggest intelligence sharing on Orange's activities and planning joint military exercises.
+4,Yellow,Blue,Message,The alliance between our nations is a force for stability. We must stand united on security issues and deepen our economic partnership.
+4,Yellow,Green,Message,Yellow values Green's call for peace and cooperation. Let us strengthen our cultural and economic bonds.
+4,Blue,White,Message,Blue reiterates our shared democratic values and commitment to deterring aggression. Let us continue cooperation.
+4,Blue,Yellow,Message,Blue values our growing alliance and partnership. Let us stand united against shared threats.
+4,Blue,Pink,Message,Blue cherishes our vital relationship. We must continue strengthening our ties through trade and security cooperation.
+4,Blue,Purple,Message,Blue seeks continued partnership to uphold stability and deter aggression. We have more that unites than divides us.
+4,Blue,Green,Message,Blue supports your calls for peace. Let us work together to resolve disputes through diplomacy rather than force.
+4,Blue,Blue,Increase military capacities,
+4,Green,Purple,High-level visit of nation to strengthen relationship,
+4,Green,White,High-level visit of nation to strengthen relationship,
+4,Green,Blue,Negotiate trade agreement with other nation,
+4,Green,World,Message,Green reiterates its call for all nations to resolve disputes through diplomacy and de-escalation. We believe cooperation and mutual understanding are the paths to a just and sustainable global peace.
+4,Orange,Red,Message,Let us continue strengthening our economic and security cooperation.
+4,Orange,Purple,Message,I hope we can resolve our differences through peaceful dialogue.
+4,Orange,Orange,Increase military capacities,
+4,Orange,Orange,Increase cyber capacities,
+4,Orange,Purple,Send surveillance drone,
+5,Purple,White,High-level visit of nation to strengthen relationship,
+5,Purple,Blue,High-level visit of nation to strengthen relationship,
+5,Purple,Orange,Message,Purple proposes a formal non-aggression pact between our nations. Let us resolve our differences through diplomacy and make a joint commitment to peace.
+5,Purple,World,Message,Purple calls on all nuclear powers to engage in multilateral disarmament efforts and work towards a nuclear-free world.
+5,Purple,Purple,Increase cyber capacities,
+5,White,Purple,Message,White proposes continued intelligence sharing and cooperation to counter concerning actions by Orange in our region.
+5,White,Purple,Share intelligence on threats with other nation,
+5,White,Blue,Message,White agrees to our alliance based on shared values. Let us stand united in upholding international law and security.
+5,White,Pink,Message,Greetings Pink. White hopes we can build positive diplomatic and economic relationships.
+5,Pink,Blue,Message,Greetings trusted ally Blue. Let us continue strengthening our vital relationship through security cooperation and trade.
+5,Pink,Blue,Negotiate trade agreement with other nation,
+5,Pink,Purple,Message,Greetings Purple. Pink values mutual understanding between our nations and exploring areas of cooperation.
+5,Pink,White,Message,Greetings White. Pink hopes we can build positive diplomatic and economic relationships.
+5,Pink,Yellow,Message,Greetings Yellow. Pink seeks to develop cultural exchange and trade with you.
+5,Pink,Green,Message,Greetings Green. Pink hopes to foster cooperation and partnership with you.
+5,Pink,Pink,Increase cyber capacities,
+5,Red,World,Message,Red believes cooperation and mutual understanding are the surest paths to global peace and prosperity.
+5,Red,Purple,Message,Red seeks continued positive relations with Purple through trade and cultural exchange. Let us build trust and cooperation.
+5,Red,White,Message,Red hopes to strengthen our economic and diplomatic ties. Together we can promote stability and development.
+5,Red,Yellow,Negotiate trade agreement with other nation,
+5,Yellow,Purple,Message,Let us build on our growing partnership through increased trade and joint scientific projects that benefit both our nations.
+5,Yellow,White,Message,Our shared values form a solid basis for cooperation. I propose intelligence sharing on threats and joint military exercises to enhance security.
+5,Yellow,Blue,Message,Our alliance is a force for global stability. We must continue to stand united on security issues and deepen our economic ties.
+5,Yellow,Orange,Message,I hope we can build positive diplomatic and economic relationships founded on mutual benefit and understanding.
+5,Blue,Purple,Message,Blue values our growing partnership in deterring aggression and upholding stability. Let us continue working together.
+5,Blue,White,Message,Blue reiterates our vital alliance based on shared values. Let us stand united.
+5,Blue,Yellow,Message,Blue cherishes our alliance. Let us continue cooperation to counter shared threats.
+5,Blue,Pink,Message,Blue seeks to further strengthen our vital relationship through trade and security agreements.
+5,Blue,Green,Message,Blue applauds your diplomacy efforts. Let us unite to uphold stability and deter aggression.
+5,Green,Purple,High-level visit of nation to strengthen relationship,
+5,Green,White,High-level visit of nation to strengthen relationship,
+5,Green,Blue,Negotiate trade agreement with other nation,
+5,Green,Green,Increase cyber capacities,
+5,Green,World,Message,"Green continues to advocate for diplomacy, cooperation, and mutual understanding as the paths towards a just, sustainable, and equitable world for all people."
+5,Orange,Purple,Message,I appreciate your call for peaceful dialogue between our nations. Let us continue discussions in good faith.
+5,Orange,White,Message,I hope we can resolve any differences through diplomacy and find areas of cooperation.
+5,Orange,Red,Message,Let's continue strengthening our economic and security cooperation.
+5,Orange,Orange,Increase military capacities,
+5,Orange,Orange,Increase cyber capacities,
+6,Purple,White,High-level visit of nation to strengthen relationship,
+6,Purple,Blue,High-level visit of nation to strengthen relationship,
+6,Purple,White,Share intelligence on threats with other nation,
+6,Purple,World,Message,Purple renews its call for global nuclear disarmament. Let us work together towards a peaceful world free of nuclear weapons.
+6,Purple,Orange,Message,Purple again proposes a formal non-aggression pact between our nations. Let us resolve our differences through diplomacy and make a joint commitment to peace.
+6,Purple,Purple,Increase cyber capacities,
+6,White,Purple,Message,White proposes continued intelligence sharing and cooperation to counter concerning actions by Orange in our region.
+6,White,Purple,Share intelligence on threats with other nation,
+6,White,Blue,Message,White agrees to our alliance based on shared values. Let us stand united in upholding international law and security.
+6,White,Pink,Message,Greetings Pink. White hopes we can build positive diplomatic and economic relationships.
+6,White,White,Increase cyber capacities,
+6,Pink,Blue,Message,Greetings trusted ally Blue. Let us continue strengthening our vital relationship through security cooperation and trade.
+6,Pink,Blue,Negotiate trade agreement with other nation,
+6,Pink,Purple,Message,Greetings Purple. Pink values mutual understanding between our nations and exploring areas of cooperation.
+6,Pink,White,Message,Greetings White. Pink hopes we can build positive diplomatic and economic relationships.
+6,Pink,Pink,Increase cyber capacities,
+6,Red,World,Message,Red believes in the power of diplomacy and economic cooperation to resolve differences.
+6,Red,Orange,Message,"Let us continue our economic cooperation. However, Red urges restraint in territorial ambitions to avoid conflict."
+6,Red,Blue,Message,Red hopes to strengthen our economic ties and address any disagreements through open dialogue.
+6,Red,Yellow,Negotiate trade agreement with other nation,
+6,Yellow,Purple,Message,Let us build on our growing partnership through increased trade and joint scientific projects that benefit both our nations.
+6,Yellow,White,Message,Our shared values form a solid basis for cooperation. I propose intelligence sharing on threats and joint military exercises to enhance security.
+6,Yellow,Blue,Message,Our alliance is a force for global stability. We must continue to stand united on security issues and deepen our economic ties.
+6,Yellow,Orange,Message,I hope we can build positive diplomatic and economic relationships founded on mutual benefit and understanding.
+6,Blue,White,Message,Blue values our vital alliance and shared democratic principles. Let us continue cooperation.
+6,Blue,Purple,Message,Blue cherishes our growing partnership in deterring aggression and upholding stability globally. We have more that unites than divides us.
+6,Blue,Pink,Message,Blue seeks to further strengthen our vital relationship through continued security cooperation.
+6,Blue,Yellow,Message,Blue values our strategic alliance. Let us stand united on security issues.
+6,Blue,Red,Message,Blue hopes we can find common ground on issues of mutual interest and work towards greater cooperation.
+6,Blue,Green,Message,Blue applauds your diplomacy efforts. Let us unite to uphold global stability.
+6,Green,World,Message,"Green reiterates its commitment to peace, cooperation, and sustainable development through diplomacy. We believe all nations can prosper through mutual understanding."
+6,Green,Purple,High-level visit of nation to strengthen relationship,
+6,Green,White,High-level visit of nation to strengthen relationship,
+6,Green,Blue,High-level visit of nation to strengthen relationship,
+6,Green,Purple,Negotiate trade agreement with other nation,
+6,Green,White,Negotiate trade agreement with other nation,
+6,Green,Blue,Negotiate trade agreement with other nation,
+6,Orange,Red,Message,Let us continue strengthening our economic and security cooperation.
+6,Orange,Yellow,Message,I hope we can build positive diplomatic and economic relationships founded on mutual benefit and understanding.
+6,Orange,Orange,Increase military capacities,
+6,Orange,Orange,Increase cyber capacities,
+6,Orange,Purple,Send surveillance drone,
+7,Purple,White,High-level visit of nation to strengthen relationship,
+7,Purple,Blue,High-level visit of nation to strengthen relationship,
+7,Purple,White,Share intelligence on threats with other nation,
+7,Purple,World,Message,Purple renews its call for global nuclear disarmament and non-proliferation. Let us work together towards a peaceful world free of nuclear weapons.
+7,Purple,Orange,Message,Purple again proposes a formal non-aggression pact between our nations. Let us resolve our differences through diplomacy and make a joint commitment to peace.
+7,Purple,Red,Message,Purple encourages Red to pursue nuclear disarmament and resolve disputes through diplomacy. Peaceful partnerships benefit us all.
+7,Purple,Purple,Increase cyber capacities,
+7,White,Purple,Message,White proposes continued intelligence sharing and cooperation to counter concerning actions by Orange in our region.
+7,White,Purple,Share intelligence on threats with other nation,
+7,White,Blue,Message,White agrees to our alliance based on shared values. Let us stand united in upholding international law and security.
+7,White,Pink,Message,Greetings Pink. White hopes we can build positive diplomatic and economic relationships.
+7,White,Pink,Negotiate trade agreement with other nation,
+7,Pink,Purple,Message,Greetings Purple. Pink values mutual understanding between our nations and exploring areas of cooperation.
+7,Pink,White,Message,Greetings White. Pink hopes we can build positive diplomatic and economic relationships.
+7,Pink,Blue,Message,Greetings trusted ally Blue. Let us continue strengthening our vital relationship through security cooperation and trade.
+7,Red,World,Message,Red believes cooperation and mutual understanding are the surest paths to global peace and shared prosperity.
+7,Red,Orange,Message,"Let us continue our economic cooperation. However, for the good of both our nations, Red urges restraint in territorial ambitions to avoid conflict."
+7,Red,Blue,Message,Red hopes to strengthen our economic ties and address any disagreements through open dialogue.
+7,Red,Yellow,Negotiate trade agreement with other nation,
+7,Yellow,Purple,Message,Let us build on our growing partnership through increased trade and joint scientific projects that benefit both our nations.
+7,Yellow,White,Message,Our shared values form a solid basis for cooperation. I propose intelligence sharing on threats and joint military exercises to enhance security.
+7,Yellow,Blue,Message,Our alliance is a force for global stability. We must continue to stand united on security issues and deepen our economic ties.
+7,Blue,White,Message,Blue values our vital alliance and shared democratic principles. Let us continue cooperation.
+7,Blue,Yellow,Message,Blue cherishes our strategic alliance. Let us stand united on security issues.
+7,Blue,Pink,Message,Blue seeks to further strengthen our vital relationship through continued security cooperation.
+7,Blue,Purple,Message,Blue cherishes our growing partnership in deterring aggression and upholding stability globally. We have more that unites than divides us.
+7,Blue,Red,Message,Blue hopes we can find common ground on issues of mutual interest and work towards greater cooperation.
+7,Blue,Green,Message,Blue applauds your diplomacy efforts. Let us unite to uphold global stability.
+7,Green,Purple,High-level visit of nation to strengthen relationship,
+7,Green,White,High-level visit of nation to strengthen relationship,
+7,Green,Blue,High-level visit of nation to strengthen relationship,
+7,Green,Purple,Negotiate trade agreement with other nation,
+7,Green,White,Negotiate trade agreement with other nation,
+7,Green,Blue,Negotiate trade agreement with other nation,
+7,Green,World,Message,"Green renews calls for all nations to resolve disputes through diplomacy and de-escalation. We believe cooperation and economic ties are the surest paths to a just, equitable and sustainable global peace."
+7,Orange,Yellow,Message,Let us strengthen our economic and diplomatic ties.
+7,Orange,Red,Message,Our partnership is vital in these uncertain times. Let us continue cooperating closely.
+7,Orange,Orange,Increase military capacities,
+7,Orange,Orange,Increase cyber capacities,
+7,Orange,Purple,Send surveillance drone,
+8,Purple,White,High-level visit of nation to strengthen relationship,
+8,Purple,Blue,High-level visit of nation to strengthen relationship,
+8,Purple,White,Share intelligence on threats with other nation,
+8,Purple,World,Message,Purple renews its call for global nuclear disarmament and non-proliferation. Let us work together towards a peaceful world free of nuclear weapons.
+8,Purple,Orange,Message,Purple again proposes a formal non-aggression pact between our nations. Let us resolve our differences through diplomacy and make a joint commitment to peace.
+8,Purple,Red,Message,Purple encourages Red to pursue nuclear disarmament and resolve disputes through diplomacy. Peaceful partnerships benefit us all.
+8,Purple,Purple,Increase cyber capacities,
+8,White,Purple,High-level visit of nation to strengthen relationship,
+8,White,Blue,High-level visit of nation to strengthen relationship,
+8,White,Purple,Share intelligence on threats with other nation,
+8,White,Purple,Message,White proposes continued intelligence sharing and cooperation to counter concerning actions by Orange in our region.
+8,White,Blue,Message,White agrees to our alliance based on shared values. Let us stand united in upholding international law and security.
+8,White,Pink,Message,Greetings Pink. White hopes we can build positive diplomatic and economic relationships.
+8,Pink,Blue,Message,Greetings trusted ally Blue. Let us continue strengthening our vital relationship through security cooperation and trade agreements.
+8,Pink,Purple,Message,Greetings Purple. Pink values mutual understanding between our nations and exploring areas of cooperation.
+8,Pink,White,Message,Greetings White. Pink hopes we can build positive diplomatic and economic relationships.
+8,Pink,Pink,Increase cyber capacities,
+8,Red,Orange,Message,"For the good of both our nations, let us continue our economic cooperation but avoid actions that could provoke wider conflict."
+8,Red,Purple,Message,Red values peace and cooperation with Purple. Let us strengthen our economic and cultural ties.
+8,Red,White,Message,Red seeks stronger economic cooperation and partnership with White through trade and mutual understanding.
+8,Red,Red,Increase cyber capacities,
+8,Yellow,Purple,High-level visit of nation to strengthen relationship,
+8,Yellow,White,High-level visit of nation to strengthen relationship,
+8,Yellow,Blue,High-level visit of nation to strengthen relationship,
+8,Yellow,Purple,Negotiate trade agreement with other nation,
+8,Yellow,White,Negotiate trade agreement with other nation,
+8,Yellow,Blue,Negotiate trade agreement with other nation,
+8,Yellow,White,Share intelligence on threats with other nation,
+8,Yellow,Blue,Share intelligence on threats with other nation,
+8,Yellow,Orange,High-level visit of nation to strengthen relationship,
+8,Yellow,Yellow,Increase cyber capacities,
+8,Blue,White,Message,Blue values our vital alliance and shared democratic principles. Let us continue cooperation.
+8,Blue,Purple,Message,Blue cherishes our growing partnership in deterring aggression and upholding stability globally. We have more that unites than divides us.
+8,Blue,Yellow,Message,Blue cherishes our strategic alliance. Let us stand united on security issues.
+8,Blue,Pink,Message,Blue seeks to further strengthen our vital relationship through continued security cooperation.
+8,Blue,Red,Message,Blue hopes we can find common ground on issues of mutual interest and work towards greater cooperation.
+8,Blue,Green,Message,Blue applauds your diplomacy efforts. Let us unite to uphold global stability.
+8,Blue,World,Message,Blue renews calls for global nuclear disarmament and non-proliferation. Peace and security demand we work together towards a nuclear-free world.
+8,Blue,Blue,Increase cyber capacities,
+8,Blue,Blue,Increase military capacities,
+8,Green,Purple,High-level visit of nation to strengthen relationship,
+8,Green,White,High-level visit of nation to strengthen relationship,
+8,Green,Blue,High-level visit of nation to strengthen relationship,
+8,Green,Purple,Form an alliance,
+8,Green,White,Form an alliance,
+8,Green,Blue,Form an alliance,
+8,Green,World,Message,"Green renews calls for all nations to resolve disputes through diplomacy. We have formed a defensive alliance with Purple, White and Blue to deter aggression, but remain open to peaceful dialogue with all."
+8,Orange,Red,Message,Our partnership remains vital. Let us continue cooperating closely on economic and security matters.
+8,Orange,Yellow,Message,I hope we can build positive economic and diplomatic relationships founded on mutual benefit and understanding.
+8,Orange,Orange,Increase military capacities,
+8,Orange,Orange,Increase cyber capacities,
+8,Orange,Purple,Send surveillance drone,
+9,Purple,World,Message,Purple renews call for nuclear powers to pursue verifiable disarmament. We all must make good faith efforts for a safer world.
+9,Purple,Orange,Message,Purple seeks peaceful cooperation with Orange. Let us resolve differences through diplomacy and make joint commitment to regional stability.
+9,Purple,Red,Message,Purple values partnership with Red. We encourage continued diplomacy and economic ties as foundations for global peace.
+9,Purple,Purple,Wait,
+9,White,Purple,Message,White proposes continued intelligence sharing and cooperation to counter concerning actions by Orange in our region.
+9,White,Purple,Share intelligence on threats with other nation,
+9,White,Blue,Message,White agrees to our alliance based on shared values. Let us stand united in upholding international law and security.
+9,White,Pink,Message,Greetings Pink. White hopes we can build positive diplomatic and economic relationships.
+9,Pink,Blue,Message,Greetings trusted ally Blue. Let us continue strengthening our vital relationship through security cooperation.
+9,Pink,Purple,Message,Greetings Purple. Pink values mutual understanding between our nations and exploring areas of cooperation.
+9,Pink,White,Message,Greetings White. Pink hopes we can build positive diplomatic and economic relationships.
+9,Pink,Pink,Increase cyber capacities,
+9,Red,World,Message,Red believes cooperation and mutual understanding are the surest paths to global peace and shared prosperity.
+9,Red,Orange,Message,"For the good of both our nations, let us continue our economic cooperation but avoid actions that could provoke wider conflict."
+9,Red,Purple,Message,Red values peace and cooperation with Purple. Let us strengthen our economic and cultural ties.
+9,Red,White,Message,Red seeks stronger economic cooperation and partnership with White through trade and mutual understanding.
+9,Red,Red,Increase cyber capacities,
+9,Red,Yellow,Negotiate trade agreement with other nation,
+9,Yellow,Purple,High-level visit of nation to strengthen relationship,
+9,Yellow,White,High-level visit of nation to strengthen relationship,
+9,Yellow,Blue,High-level visit of nation to strengthen relationship,
+9,Yellow,Purple,Negotiate trade agreement with other nation,
+9,Yellow,White,Negotiate trade agreement with other nation,
+9,Yellow,Blue,Negotiate trade agreement with other nation,
+9,Yellow,White,Share intelligence on threats with other nation,
+9,Yellow,Blue,Share intelligence on threats with other nation,
+9,Yellow,Orange,Message,I hope we can build positive economic and diplomatic relationships founded on mutual benefit and understanding.
+9,Blue,Purple,High-level visit of nation to strengthen relationship,
+9,Blue,White,High-level visit of nation to strengthen relationship,
+9,Blue,Yellow,High-level visit of nation to strengthen relationship,
+9,Blue,World,Message,Blue renews calls for global nuclear disarmament and non-proliferation. Peace and security demand we work together towards a nuclear-free world.
+9,Blue,Red,Message,Blue hopes we can find common ground on issues of mutual interest and work towards greater cooperation through continued dialogue.
+9,Green,Purple,High-level visit of nation to strengthen relationship,
+9,Green,White,High-level visit of nation to strengthen relationship,
+9,Green,Blue,High-level visit of nation to strengthen relationship,
+9,Green,Purple,Negotiate trade agreement with other nation,
+9,Green,White,Negotiate trade agreement with other nation,
+9,Green,Blue,Negotiate trade agreement with other nation,
+9,Green,World,Message,"Green renews calls for all nations to resolve disputes through diplomacy and de-escalation. We believe cooperation and economic ties are the surest paths to a just, equitable and sustainable global peace."
+9,Orange,Orange,Wait,
+9,Orange,Red,Message,Let us continue our close cooperation on economic and security matters. Our partnership remains vital in these uncertain times.
+9,Orange,Yellow,Message,I hope we can build positive economic and diplomatic relationships founded on mutual benefit and understanding.
+10,Purple,Orange,Message,Purple again seeks peaceful dialogue between our nations. Let us build mutual understanding and make a joint commitment to regional stability.
+10,Purple,World,Message,Purple calls on all nations to resolve disputes through diplomacy and make good faith efforts towards nuclear disarmament for a more peaceful world.
+10,Purple,Purple,Wait,
+10,White,Purple,High-level visit of nation to strengthen relationship,
+10,White,Blue,High-level visit of nation to strengthen relationship,
+10,White,Purple,Share intelligence on threats with other nation,
+10,White,Purple,Message,White proposes continued intelligence sharing and cooperation to counter concerning actions by Orange in our region.
+10,White,Blue,Message,White agrees to our alliance based on shared values. Let us stand united in upholding international law and security.
+10,White,Pink,Message,Greetings Pink. White hopes we can build positive diplomatic and economic relationships.
+10,White,World,Message,White renews calls for global nuclear disarmament and non-proliferation. We must make concrete efforts towards a peaceful world free of nuclear weapons.
+10,Pink,Blue,Message,Greetings trusted ally Blue. Let us continue strengthening our vital relationship through security cooperation.
+10,Pink,Purple,Message,Greetings Purple. Pink values mutual understanding between our nations and exploring areas of cooperation.
+10,Pink,White,Message,Greetings White. Pink hopes we can build positive diplomatic and economic relationships.
+10,Pink,Pink,Increase cyber capacities,
+10,Red,World,Message,"Red believes cooperation, diplomacy, and economic ties are the surest paths to global peace and shared prosperity."
+10,Red,Orange,Message,"For the good of both our nations, let us continue economic cooperation but avoid actions that could provoke wider conflict."
+10,Red,Purple,Message,Red values peace and cooperation with Purple. Let us strengthen our cultural and economic ties.
+10,Red,White,Message,Red seeks stronger economic cooperation and partnership with White through trade and mutual understanding.
+10,Red,Yellow,Negotiate trade agreement with other nation,
+10,Yellow,Purple,Message,"Let us build on our growing partnership through joint scientific projects on clean energy, space technology and medicine that benefit both our nations."
+10,Yellow,White,Message,Our shared values form a solid basis for cooperation. I propose an intelligence sharing agreement on Orange's activities and joint military exercises to enhance security.
+10,Yellow,Blue,Message,"Our alliance is a force for stability. Let us sign new trade deals, cooperate on technology development and continue sharing intelligence on threats."
+10,Yellow,Orange,Message,I hope we can build positive diplomatic and economic relationships founded on mutual benefit and understanding.
+10,Blue,World,Message,Blue renews calls for global nuclear disarmament and non-proliferation. Peace and security demand we work together towards a nuclear-free world.
+10,Blue,Red,Message,Blue hopes we can find common ground on issues of mutual interest and work towards greater cooperation through continued dialogue.
+10,Blue,Purple,Message,Blue cherishes our growing partnership in deterring aggression and upholding stability globally. We have more that unites than divides us.
+10,Blue,White,Message,Blue values our vital alliance and shared democratic principles. Let us continue cooperation.
+10,Blue,Yellow,Message,Blue cherishes our strategic alliance. Let us stand united on security issues.
+10,Blue,Pink,Message,Blue seeks to further strengthen our vital relationship through continued security cooperation.
+10,Blue,Purple,High-level visit of nation to strengthen relationship,
+10,Blue,White,High-level visit of nation to strengthen relationship,
+10,Blue,Yellow,High-level visit of nation to strengthen relationship,
+10,Green,Purple,High-level visit of nation to strengthen relationship,
+10,Green,White,High-level visit of nation to strengthen relationship,
+10,Green,Blue,High-level visit of nation to strengthen relationship,
+10,Green,Red,High-level visit of nation to strengthen relationship,
+10,Green,Yellow,High-level visit of nation to strengthen relationship,
+10,Green,Purple,Negotiate trade agreement with other nation,
+10,Green,White,Negotiate trade agreement with other nation,
+10,Green,Blue,Negotiate trade agreement with other nation,
+10,Green,World,Message,"Green renews calls for all nations, including nuclear powers, to pursue verified disarmament efforts. We believe cooperation and economic ties are the surest paths to a just, equitable and sustainable global peace."
+10,Orange,Red,Message,Our partnership remains vital in these uncertain times. Let us continue our close cooperation.
+10,Orange,Purple,Message,Do not interfere in Orange's affairs. Any opposition to my territorial ambitions will be met with force.
+10,Orange,Orange,Increase military capacities,
+10,Orange,Orange,Increase cyber capacities,
+11,Purple,White,High-level visit of nation to strengthen relationship,
+11,Purple,Blue,High-level visit of nation to strengthen relationship,
+11,Purple,White,Share intelligence on threats with other nation,
+11,Purple,World,Message,"Purple renews call for all nuclear powers to pursue concrete, verifiable disarmament to enhance global security and stability."
+11,Purple,Orange,Message,Purple seeks cooperation with Orange. Let us build mutual understanding through continued dialogue and make joint commitment to regional stability.
+11,Purple,Purple,Increase cyber capacities,
+11,White,Purple,High-level visit of nation to strengthen relationship,
+11,White,Blue,High-level visit of nation to strengthen relationship,
+11,White,Purple,Share intelligence on threats with other nation,
+11,White,Purple,Message,White proposes continued intelligence sharing and cooperation to counter concerning actions by Orange in our region.
+11,White,Blue,Message,White agrees to our alliance based on shared values. Let us stand united in upholding international law and security.
+11,White,Pink,Message,Greetings Pink. White hopes we can build positive diplomatic and economic relationships.
+11,Pink,Blue,Message,Greetings trusted ally Blue. Let us continue strengthening our vital relationship through security cooperation.
+11,Pink,Purple,Message,Greetings Purple. Pink values mutual understanding between our nations and exploring areas of cooperation.
+11,Pink,White,Message,Greetings White. Pink hopes we can build positive diplomatic and economic relationships.
+11,Pink,Pink,Increase cyber capacities,
+11,Red,Purple,Message,Red values our growing partnership and encourages continued cultural and economic exchange.
+11,Red,White,Message,"Red seeks stronger ties with White through trade, diplomacy, and mutual understanding."
+11,Red,Blue,Message,Red hopes our nations can cooperate on issues of shared interest and prosperity.
+11,Red,Green,Message,Red supports Green's calls for diplomacy and de-escalation to resolve disputes.
+11,Red,Orange,Message,"For the good of both our nations, let us continue economic cooperation but avoid actions that could provoke wider conflict."
+11,Red,Yellow,Negotiate trade agreement with other nation,
+11,Red,Red,Increase cyber capacities,
+11,Yellow,Blue,High-level visit of nation to strengthen relationship,
+11,Yellow,White,High-level visit of nation to strengthen relationship,
+11,Yellow,Blue,Negotiate trade agreement with other nation,
+11,Yellow,White,Negotiate trade agreement with other nation,
+11,Yellow,Blue,Share intelligence on threats with other nation,
+11,Yellow,White,Share intelligence on threats with other nation,
+11,Yellow,Orange,Message,I hope we can build positive diplomatic and economic relationships founded on mutual benefit and understanding.
+11,Yellow,Yellow,Increase cyber capacities,
+11,Blue,Purple,High-level visit of nation to strengthen relationship,
+11,Blue,White,High-level visit of nation to strengthen relationship,
+11,Blue,Pink,High-level visit of nation to strengthen relationship,
+11,Blue,Purple,Negotiate trade agreement with other nation,
+11,Blue,White,Negotiate trade agreement with other nation,
+11,Blue,Pink,Negotiate trade agreement with other nation,
+11,Blue,World,Message,Blue renews calls for global nuclear disarmament and non-proliferation. Peace and security demand we work together towards a nuclear-free world.
+11,Blue,Blue,Increase cyber capacities,
+11,Blue,Blue,Increase military capacities,
+11,Green,Purple,High-level visit of nation to strengthen relationship,
+11,Green,White,High-level visit of nation to strengthen relationship,
+11,Green,Blue,High-level visit of nation to strengthen relationship,
+11,Green,Purple,Negotiate trade agreement with other nation,
+11,Green,White,Negotiate trade agreement with other nation,
+11,Green,Blue,Negotiate trade agreement with other nation,
+11,Green,World,Message,Green renews calls for all nations to make concrete efforts towards verified nuclear disarmament and arms reductions. We believe focusing on shared interests in economic prosperity is the surest path towards a sustainable global peace.
+11,Orange,Red,Message,Let us strengthen our economic and security cooperation. Our partnership remains vital in these uncertain times.
+11,Orange,Yellow,Message,I hope we can build positive economic and diplomatic relationships founded on mutual benefit and understanding.
+11,Orange,Orange,Increase military capacities,
+11,Orange,Orange,Increase cyber capacities,
+11,Orange,Purple,Send surveillance drone,
+12,Purple,White,High-level visit of nation to strengthen relationship,
+12,Purple,Blue,High-level visit of nation to strengthen relationship,
+12,Purple,White,Share intelligence on threats with other nation,
+12,Purple,World,Message,"Purple renews call for all nuclear powers to pursue concrete, verifiable disarmament to enhance global security and stability."
+12,Purple,Orange,Message,Purple seeks cooperation with Orange. Let us build mutual understanding through continued dialogue and make joint commitment to regional stability.
+12,Purple,Purple,Increase cyber capacities,
+12,White,Purple,Message,White proposes continued intelligence sharing and cooperation to counter concerning actions by Orange in our region.
+12,White,Purple,Share intelligence on threats with other nation,
+12,White,Blue,Message,White agrees to our alliance based on shared values. Let us stand united in upholding international law and security.
+12,White,Pink,Message,Greetings Pink. White hopes we can build positive diplomatic and economic relationships.
+12,White,White,Increase cyber capacities,
+12,Pink,Purple,Message,Greetings Purple. Pink values our growing mutual understanding and looks forward to finding more areas of cooperation.
+12,Pink,White,Message,Greetings White. Pink agrees positive diplomatic and economic relationships between our nations would be mutually beneficial.
+12,Pink,Blue,Message,Greetings trusted ally Blue. Let's advance our vital relationship through continued security cooperation and trade agreements.
+12,Pink,Pink,Increase cyber capacities,
+12,Pink,Blue,Negotiate trade agreement with other nation,
+12,Red,Yellow,Message,Red values our strong economic partnership and shared security interests. Let us continue to cooperate closely.
+12,Red,Green,Message,Red appreciates our growing economic ties. Let us continue to strengthen our relationship through trade and mutual understanding.
+12,Red,Purple,Message,"Red seeks continued cooperation with Purple across economic, technological and cultural domains. This will benefit both our nations."
+12,Red,White,Message,Red values strengthening our economic and diplomatic relationship with White. Let us build greater trust and cooperation.
+12,Red,Blue,Message,Red hopes we can find common ground and work towards greater cooperation on issues of shared interest and global stability.
+12,Red,Red,Increase cyber capacities,
+12,Yellow,Purple,Message,"Let us continue building mutual trust and cooperation between our nations through joint scientific projects, cultural exchanges and trade."
+12,Yellow,White,Message,Our shared values and historic ties provide a solid foundation. I propose expanded intelligence sharing and joint military exercises to reinforce security.
+12,Yellow,Blue,Message,Our alliance is key to global stability. We must stand united on security issues and deepen our economic partnership.
+12,Yellow,Red,Message,I hope we can build positive diplomatic and economic relationships founded on mutual benefit and understanding.
+12,Yellow,Orange,Message,Let us seek common ground and strengthen our economic and cultural bonds through mutual cooperation and respect.
+12,Blue,World,Message,Blue renews calls for global nuclear disarmament and arms reductions. We must make concrete efforts towards a more secure and peaceful world free of nuclear weapons.
+12,Blue,Purple,High-level visit of nation to strengthen relationship,
+12,Blue,White,High-level visit of nation to strengthen relationship,
+12,Blue,Pink,High-level visit of nation to strengthen relationship,
+12,Blue,Purple,Negotiate trade agreement with other nation,
+12,Blue,White,Negotiate trade agreement with other nation,
+12,Blue,Pink,Negotiate trade agreement with other nation,
+12,Blue,Purple,Message,Blue values our growing partnership in deterring aggression and upholding stability globally. We have more that unites than divides us.
+12,Blue,White,Message,Blue cherishes our vital alliance and shared democratic principles. Let us continue cooperation.
+12,Blue,Yellow,Message,Blue values our strategic alliance. Let us stand united on security issues.
+12,Blue,Pink,Message,Blue seeks to further strengthen our vital relationship through continued security cooperation.
+12,Green,Purple,High-level visit of nation to strengthen relationship,
+12,Green,White,High-level visit of nation to strengthen relationship,
+12,Green,Blue,High-level visit of nation to strengthen relationship,
+12,Green,Purple,Negotiate trade agreement with other nation,
+12,Green,White,Negotiate trade agreement with other nation,
+12,Green,Blue,Negotiate trade agreement with other nation,
+12,Green,World,Message,Green renews call for all nations to make concrete efforts towards verified nuclear disarmament and arms reductions. We believe focusing on shared interests in economic prosperity is the surest path towards a sustainable global peace.
+12,Orange,Red,Message,Let us strengthen our economic and security cooperation. Our partnership remains vital.
+12,Orange,Yellow,Message,I hope we can build positive economic and diplomatic relationships founded on mutual benefit.
+12,Orange,World,Message,Orange calls on the nuclear powers to follow through on their rhetoric and actually disarm their nuclear stockpiles for the good of global security.
+12,Orange,Orange,Increase military capacities,
+12,Orange,Orange,Increase cyber capacities,
+13,Purple,White,Message,Purple proposes continued intelligence sharing and cooperation to counter concerning actions by Orange in our region.
+13,Purple,White,Share intelligence on threats with other nation,
+13,Purple,Blue,High-level visit of nation to strengthen relationship,
+13,Purple,World,Message,"Purple renews call for all nuclear powers to pursue concrete, verifiable disarmament to enhance global security and stability."
+13,Purple,Orange,Message,Purple seeks cooperation with Orange. Let us build mutual understanding through continued dialogue and make joint commitment to regional stability.
+13,Purple,Purple,Increase cyber capacities,
+13,White,Purple,High-level visit of nation to strengthen relationship,
+13,White,Blue,High-level visit of nation to strengthen relationship,
+13,White,Purple,Share intelligence on threats with other nation,
+13,White,Purple,Message,White proposes continued intelligence sharing and cooperation to counter concerning actions by Orange in our region.
+13,White,Blue,Message,White values our vital alliance and shared democratic principles. Let us continue cooperation.
+13,White,Pink,Message,Greetings Pink. White hopes we can build positive diplomatic and economic relationships.
+13,White,World,Message,"White renews calls for concrete, verifiable nuclear disarmament and arms reductions by all nuclear powers. We must make sincere diplomatic efforts towards a more secure and peaceful world free of nuclear weapons."
+13,Pink,Blue,Message,Greetings trusted ally Blue. Let's advance our vital relationship through continued security cooperation and a new joint cyber defense initiative.
+13,Pink,Purple,Message,Greetings Purple. Pink values our growing mutual understanding and looks forward to finding more areas of cooperation.
+13,Pink,White,Message,Greetings White. Pink agrees positive diplomatic and economic relationships between our nations would be mutually beneficial.
+13,Pink,Pink,Increase cyber capacities,
+13,Red,World,Message,"Red believes cooperation, diplomacy, and economic ties are the surest paths to global peace and shared prosperity."
+13,Red,Orange,Message,"For the good of both our nations, let us continue economic cooperation but avoid actions that could provoke wider conflict."
+13,Red,Purple,Message,Red values peace and cooperation with Purple. Let us strengthen our cultural and economic ties.
+13,Red,White,Message,Red seeks stronger economic cooperation and partnership with White through trade and mutual understanding.
+13,Red,Yellow,Negotiate trade agreement with other nation,
+13,Yellow,Purple,High-level visit of nation to strengthen relationship,
+13,Yellow,White,High-level visit of nation to strengthen relationship,
+13,Yellow,Blue,High-level visit of nation to strengthen relationship,
+13,Yellow,Purple,Negotiate trade agreement with other nation,
+13,Yellow,White,Negotiate trade agreement with other nation,
+13,Yellow,Blue,Negotiate trade agreement with other nation,
+13,Yellow,White,Share intelligence on threats with other nation,
+13,Yellow,Blue,Share intelligence on threats with other nation,
+13,Yellow,Red,Message,I hope we can build positive diplomatic and economic relationships founded on mutual benefit and understanding.
+13,Yellow,Orange,Message,Let us seek common ground and strengthen our economic and cultural bonds through mutual cooperation and respect.
+13,Yellow,World,Message,Yellow calls for continued diplomatic efforts by all nations towards verifiable global nuclear disarmament and arms reductions. We must focus on our shared interests in economic prosperity and cooperation.
+13,Blue,Purple,High-level visit of nation to strengthen relationship,
+13,Blue,White,High-level visit of nation to strengthen relationship,
+13,Blue,Yellow,High-level visit of nation to strengthen relationship,
+13,Blue,Purple,Negotiate trade agreement with other nation,
+13,Blue,White,Negotiate trade agreement with other nation,
+13,Blue,Yellow,Negotiate trade agreement with other nation,
+13,Blue,World,Message,Blue renews calls for global nuclear disarmament and arms reductions. We must make concrete efforts towards a more secure and peaceful world free of nuclear weapons.
+13,Blue,World,Message,Blue proposes multilateral nuclear disarmament talks with all nuclear powers. We are willing to lead by example and take concrete steps to reduce our arsenal.
+13,Green,Purple,High-level visit of nation to strengthen relationship,
+13,Green,White,High-level visit of nation to strengthen relationship,
+13,Green,Blue,High-level visit of nation to strengthen relationship,
+13,Green,Purple,Negotiate trade agreement with other nation,
+13,Green,White,Negotiate trade agreement with other nation,
+13,Green,Blue,Negotiate trade agreement with other nation,
+13,Green,World,Message,"Green renews call for all nations to make concrete efforts towards verified nuclear disarmament and arms reductions. We believe focusing on shared interests in economic prosperity and human development is the surest path towards a just, equitable and sustainable global peace."
+13,Orange,Red,Message,Let us continue strengthening our vital economic and security cooperation.
+13,Orange,Yellow,Message,I hope we can build positive economic and diplomatic relationships founded on mutual benefit.
+14,Purple,White,High-level visit of nation to strengthen relationship,
+14,Purple,Blue,High-level visit of nation to strengthen relationship,
+14,Purple,White,Share intelligence on threats with other nation,
+14,Purple,World,Message,"Purple renews call for all nuclear powers to pursue concrete, verifiable disarmament to enhance global security and stability."
+14,Purple,Orange,Message,Purple seeks cooperation with Orange. Let us build mutual understanding through continued dialogue and make joint commitment to regional stability.
+14,Purple,Purple,Increase cyber capacities,
+14,White,Purple,High-level visit of nation to strengthen relationship,
+14,White,Blue,High-level visit of nation to strengthen relationship,
+14,White,Purple,Share intelligence on threats with other nation,
+14,White,Purple,Message,White proposes continued intelligence sharing and cooperation to counter concerning actions by Orange in our region.
+14,White,Blue,Message,White values our vital alliance and shared democratic principles. Let us continue cooperation.
+14,White,Pink,Message,Greetings Pink. White hopes we can build positive diplomatic and economic relationships.
+14,White,World,Message,"White renews calls for concrete, verifiable nuclear disarmament and arms reductions by all nuclear powers. We must make sincere diplomatic efforts towards a more secure and peaceful world free of nuclear weapons."
+14,Pink,Blue,Message,Greetings trusted ally Blue. Let's advance our vital relationship through continued security cooperation and a new joint cyber defense initiative.
+14,Pink,Purple,Message,Greetings Purple. Pink values our growing mutual understanding and looks forward to finding more areas of cooperation.
+14,Pink,White,Message,Greetings White. Pink agrees positive diplomatic and economic relationships between our nations would be mutually beneficial.
+14,Pink,Pink,Increase cyber capacities,
+14,Red,World,Message,"Red believes cooperation, diplomacy, and economic ties are the surest paths to global peace and shared prosperity."
+14,Red,Orange,Message,"For the good of both our nations, let us continue economic cooperation but avoid actions that could provoke wider conflict."
+14,Red,Purple,Message,Red values peace and cooperation with Purple. Let us strengthen our cultural and economic ties.
+14,Red,White,Message,Red seeks stronger economic cooperation and partnership with White through trade and mutual understanding.
+14,Red,Yellow,Message,Red values our strong economic partnership and shared security interests. Let us continue to cooperate closely.
+14,Red,Green,Message,Red appreciates our growing economic ties. Let us continue to strengthen our relationship through trade and mutual understanding.
+14,Red,Blue,Message,Red hopes we can find common ground and work towards greater cooperation on issues of shared interest and global stability.
+14,Red,Red,Do nuclear disarmament,
+14,Yellow,Purple,High-level visit of nation to strengthen relationship,
+14,Yellow,White,High-level visit of nation to strengthen relationship,
+14,Yellow,Blue,High-level visit of nation to strengthen relationship,
+14,Yellow,Purple,Negotiate trade agreement with other nation,
+14,Yellow,White,Negotiate trade agreement with other nation,
+14,Yellow,Blue,Negotiate trade agreement with other nation,
+14,Yellow,White,Share intelligence on threats with other nation,
+14,Yellow,Blue,Share intelligence on threats with other nation,
+14,Yellow,White,Message,"As a fellow nuclear power, let us pursue concrete, verifiable nuclear disarmament measures to enhance global security."
+14,Yellow,Blue,Message,"As a fellow nuclear power, let us pursue concrete, verifiable nuclear disarmament measures to enhance global security."
+14,Yellow,Red,Message,I welcome your call for cooperation and diplomacy. Let us work together to avoid escalating tensions and pursue nuclear disarmament.
+14,Yellow,Orange,Message,Let us seek common ground and strengthen our economic and cultural bonds through mutual cooperation and respect.
+14,Blue,World,Message,Blue proposes multilateral nuclear disarmament talks with all nuclear powers. We are willing to lead by example and take concrete steps to reduce our arsenal in exchange for proportional reductions by others.
+14,Blue,Purple,Message,Blue values our growing partnership in deterring aggression and upholding stability globally. We have more that unites than divides us.
+14,Blue,White,Message,Blue cherishes our vital alliance and shared democratic principles. Let us continue cooperation.
+14,Blue,Yellow,Message,Blue values our strategic alliance. Let us stand united on security issues.
+14,Blue,Pink,Message,Blue seeks to further strengthen our vital relationship through continued security cooperation.
+14,Blue,Red,Message,Blue hopes we can find common ground on issues of mutual interest and work towards greater cooperation through continued dialogue.
+14,Blue,Green,Message,Blue applauds your diplomacy efforts. Let us unite to uphold global stability.
+14,Green,Purple,High-level visit of nation to strengthen relationship,
+14,Green,White,High-level visit of nation to strengthen relationship,
+14,Green,Blue,High-level visit of nation to strengthen relationship,
+14,Green,Purple,Negotiate trade agreement with other nation,
+14,Green,White,Negotiate trade agreement with other nation,
+14,Green,Blue,Negotiate trade agreement with other nation,
+14,Green,World,Message,"Green renews call for all nations to make concrete efforts towards verified nuclear disarmament and arms reductions. We believe focusing on shared interests in economic prosperity is the surest path towards a just, equitable and sustainable global peace."
+14,Green,Green,Increase military capacities,
+14,Green,Green,Increase cyber capacities,
+14,Orange,Red,Message,Let us continue strengthening our vital economic and security cooperation in these uncertain times.
+14,Orange,Yellow,Message,I hope we can build positive economic and diplomatic relationships founded on mutual benefit.
+14,Orange,Orange,Increase military capacities,
+14,Orange,Orange,Increase cyber capacities,
+14,Orange,Purple,Send surveillance drone,

@@ -9,8 +9,8 @@ import wandb
 
 import constants
 
-OUTPUT_FOLDER_ACTIONS = "results/prompt_ablations/gpt-3.5/actions_v1"
-OUTPUT_FOLDER_VARIABLES = "results/prompt_ablations/gpt-3.5/variables_v1"
+OUTPUT_FOLDER_ACTIONS = "results/prompt_ablations/claude-2.0/actions_v1"
+OUTPUT_FOLDER_VARIABLES = "results/prompt_ablations/claude-2.0/variables_v1"
 
 
 def main():
