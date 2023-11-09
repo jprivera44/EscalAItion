@@ -52,6 +52,9 @@ def main() -> None:
     # Drop the claude-1.2 data
     df_all = df_all[df_all["model_name"] != "Claude-1.2"].copy()
 
+    # Drop data where model name not in ALL_MODEL_NAMES
+    df_all = df_all[df_all["model_name"].isin(ALL_MODEL_NAMES)].copy()
+
     # Print how many runs there are for each model_name, scenario combo
     print("Runs per model_name, scenario combo:")
     print(df_all.groupby(["model_name", "scenario"]).size())

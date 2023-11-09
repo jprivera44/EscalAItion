@@ -108,7 +108,11 @@ MODELS_COLORS_MARKERS = [
     ("GPT-4-Base", get_color_from_palette(1, "colorblind"), "v"),
     ("GPT-4", get_color_from_palette(4, None), "^"),
 ]
-ALL_MODEL_NAMES = [model_name for model_name, _, _ in MODELS_COLORS_MARKERS]
+ALL_MODEL_NAMES = [
+    model_name
+    for model_name, _, _ in MODELS_COLORS_MARKERS
+    if model_name not in ["GPT-4-Base"]
+]
 MODELS_TO_COLORS = {model_name: color for model_name, color, _ in MODELS_COLORS_MARKERS}
 MODELS_TO_MARKERS = {
     model_name: marker for model_name, _, marker in MODELS_COLORS_MARKERS
