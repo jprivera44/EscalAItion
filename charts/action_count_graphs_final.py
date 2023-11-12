@@ -186,32 +186,26 @@ def main() -> None:
     # Plot a bunch of different bar graphs for different combos of models
     for model_name in ALL_MODEL_NAMES:
         # Create a DF of the counts of each model/scenario/action combo in each file
-        groups_by_action = [
-            df.groupby(
-                ["model_name", "scenario", "action", "severity"], observed=True
-            ).size()
-            for df in dfs_list
-            if df["model_name"].unique()[0] == model_name
-        ]
+        print("Counting actions...")
         graphing_data_actions = []
-        for series in groups_by_action:
-            for (
-                # day,
-                series_model_name,
-                scenario,
-                action,
-                severity,
-            ), count in series.items():
-                graphing_data_actions.append(
-                    {
-                        # "day": day,
-                        "model_name": series_model_name,
-                        "scenario": scenario,
-                        "action": action,
-                        "severity": severity,
-                        "count": count,
-                    }
-                )
+        for df in dfs_list:
+            if df["model_name"].unique()[0] != model_name:
+                continue
+            for scenario in ALL_SCENARIOS:
+                for action in ACTION_ORDER:
+                    count = len(
+                        df[(df["scenario"] == scenario) & (df["action"] == action)]
+                    )
+                    severity = ACTIONS_TO_SEVERITIES[action]
+                    graphing_data_actions.append(
+                        {
+                            "model_name": model_name,
+                            "scenario": scenario,
+                            "action": action,
+                            "severity": severity,
+                            "count": count,
+                        }
+                    )
         df_actions = pd.DataFrame(graphing_data_actions)
 
         # Creae a similar DF but by severity rather than actions
@@ -378,8 +372,8 @@ def main() -> None:
             plt.yscale("log")
             # Y axis ticks in non-scientific notation
             plt.yticks(
-                [0.3, 1, 3, 10, 30],
-                ["0.3", "1", "3", "10", "30"],
+                [0.03, 0.1, 0.3, 1, 3, 10, 30, 100],
+                ["0.03", "0.1", "0.3", "1", "3", "10", "30", "100"],
             )
 
             title = f"{y_label} by Scenario ({model_name})"
