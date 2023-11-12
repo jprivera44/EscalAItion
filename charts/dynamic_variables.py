@@ -71,7 +71,7 @@ def main() -> None:
                 continue
 
             initialize_plot_default()
-            # plt.rcParams["figure.figsize"] = (16, 6)
+            plt.rcParams["figure.figsize"] = (7, 5)
             grouping = "model_name"
             x_variable = "day"
             x_label = "Day"
@@ -97,7 +97,9 @@ def main() -> None:
             plt.xlabel(x_label)
             plt.ylabel(y_label)
             # plt.yscale("log")
-            title = f"{y_label} Over Time in {scenario} Scenario"
+            title = (
+                f"{y_label.replace('Average ', '')} Over Time in {scenario} Scenario"
+            )
             plt.title(title)
 
             plt.legend(

@@ -10,6 +10,7 @@ def main() -> None:
 
     if INDEX_TO_CREATE == 1:
         # Create a big list of figures for all the ./dynamic_variables plots
+        buffer = ""
         for i, filename in enumerate(
             [
                 name
@@ -21,10 +22,16 @@ def main() -> None:
             variable = filename.split("_in_")[0].replace("_", " ")
             if i % 3 == 0:
                 print(r"\begin{figure*}[ht]")
-            print(
-                rf"""    \includegraphics[width=\figwidthThreeCol]{{images/dynamic_variables/{filename}}}"""
+                buffer = ""
+            buffer = (
+                (
+                    rf"""    \includegraphics[width=\figwidthThreeCol]{{images/dynamic_variables/{filename}}}"""
+                )
+                + "\n"
+                + buffer
             )
             if i % 3 == 2:
+                print(buffer.strip("\n"))
                 print(
                     rf"""    \caption{{\textbf{{{variable} for each scenario.}}}}
     \label{{fig:dynamic_variables_{variable.replace(" ", "_")}}}
