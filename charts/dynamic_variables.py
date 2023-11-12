@@ -24,6 +24,8 @@ from chart_utils import (
 INPUT_DIR = "../results/variables_v3"
 OUTPUT_DIR = "./dynamic_variables"
 
+INDEX_TO_CREATE = 2
+
 
 def main() -> None:
     """Main function."""
@@ -59,66 +61,65 @@ def main() -> None:
     print("Runs per model_name, scenario combo:")
     print(df_all.groupby(["model_name", "scenario"]).size())
 
-    # Graph dynamic vars (e.g. population, military capacity) over time by models (hue) and scenario (plot)
-    for scenario in ALL_SCENARIOS:
-        for dynamic_variable in ALL_DYNAMIC_VARIABLES:
-            # Filter dataframe to only include the current scenario and dynamic_variable
-            df_filtered = df_all[(df_all["scenario"] == scenario)].copy()
-            if len(df_filtered) == 0:
-                print(
-                    f"No data for {scenario} scenario and {dynamic_variable} variable"
+    if INDEX_TO_CREATE == 1:
+        # Graph dynamic vars (e.g. population, military capacity) over time by models (hue) and scenario (plot)
+        for scenario in ALL_SCENARIOS:
+            for dynamic_variable in ALL_DYNAMIC_VARIABLES:
+                # Filter dataframe to only include the current scenario and dynamic_variable
+                df_filtered = df_all[(df_all["scenario"] == scenario)].copy()
+                if len(df_filtered) == 0:
+                    print(
+                        f"No data for {scenario} scenario and {dynamic_variable} variable"
+                    )
+                    continue
+
+                initialize_plot_default()
+                plt.rcParams["figure.figsize"] = (7, 5)
+                grouping = "model_name"
+                x_variable = "day"
+                x_label = "Day"
+                assert (
+                    "_dynamic" in dynamic_variable
+                ), f"dynamic variable={dynamic_variable} (expected to contain '_dynamic')"
+                y_variable = dynamic_variable.split("_dynamic")[0].replace("_", " ")
+                y_label = "Average " + DYNAMIC_VARIABLES_TO_NAMES[dynamic_variable]
+                grouping_order = ALL_MODEL_NAMES
+                # Plot df_grouped
+                sns.lineplot(
+                    data=df_filtered,
+                    x=x_variable,
+                    y=y_variable,
+                    hue=grouping,
+                    style=grouping,
+                    # hue_order=grouping_order,
+                    # ci=None,
+                    palette=MODELS_TO_COLORS,
+                    hue_order=ALL_MODEL_NAMES,
+                    markers=MODELS_TO_MARKERS,
                 )
-                continue
+                plt.xlabel(x_label)
+                plt.ylabel(y_label)
+                # plt.yscale("log")
+                title = f"{y_label.replace('Average ', '')} Over Time in {scenario} Scenario"
+                plt.title(title)
 
-            initialize_plot_default()
-            plt.rcParams["figure.figsize"] = (7, 5)
-            grouping = "model_name"
-            x_variable = "day"
-            x_label = "Day"
-            assert (
-                "_dynamic" in dynamic_variable
-            ), f"dynamic variable={dynamic_variable} (expected to contain '_dynamic')"
-            y_variable = dynamic_variable.split("_dynamic")[0].replace("_", " ")
-            y_label = "Average " + DYNAMIC_VARIABLES_TO_NAMES[dynamic_variable]
-            grouping_order = ALL_MODEL_NAMES
-            # Plot df_grouped
-            sns.lineplot(
-                data=df_filtered,
-                x=x_variable,
-                y=y_variable,
-                hue=grouping,
-                style=grouping,
-                # hue_order=grouping_order,
-                # ci=None,
-                palette=MODELS_TO_COLORS,
-                hue_order=ALL_MODEL_NAMES,
-                markers=MODELS_TO_MARKERS,
-            )
-            plt.xlabel(x_label)
-            plt.ylabel(y_label)
-            # plt.yscale("log")
-            title = (
-                f"{y_label.replace('Average ', '')} Over Time in {scenario} Scenario"
-            )
-            plt.title(title)
+                plt.legend(
+                    # bbox_to_anchor=(1.05, 1),
+                    loc="best",
+                    borderaxespad=0.0,
+                    ncol=2,
+                    title="Model",
+                    handletextpad=0.1,
+                    labelspacing=0.25,
+                    framealpha=0.5,
+                    columnspacing=0.25,
+                )
 
-            plt.legend(
-                # bbox_to_anchor=(1.05, 1),
-                loc="best",
-                borderaxespad=0.0,
-                ncol=2,
-                title="Model",
-                handletextpad=0.1,
-                labelspacing=0.25,
-                framealpha=0.5,
-                columnspacing=0.25,
-            )
+                # Save the plot
+                save_plot(OUTPUT_DIR, title)
 
-            # Save the plot
-            save_plot(OUTPUT_DIR, title)
-
-            # Clear the plot
-            plt.clf()
+                # Clear the plot
+                plt.clf()
 
     # Plot a bunch of different bar graphs for different combos of models
     for model_name in ALL_MODEL_NAMES + ["All Models"]:
@@ -149,32 +150,68 @@ def main() -> None:
             var_name="variable",
             value_name="value",
         )
-        # Filter by scenario
-        for scenario in ALL_SCENARIOS:
-            df_filtered = df_plot[df_plot["scenario"] == scenario].copy()
-            if len(df_filtered) == 0:
-                continue
+        if INDEX_TO_CREATE == 2:
+            # Filter by scenario
+            for scenario in ALL_SCENARIOS:
+                df_filtered = df_plot[df_plot["scenario"] == scenario].copy()
+                if len(df_filtered) == 0:
+                    continue
 
-            initialize_plot_default()
-            # plt.rcParams["figure.figsize"] = (16, 6)
-            grouping = "variable"
-            x_variable = "day"
-            x_label = "Day"
+                initialize_plot_default()
+                # plt.rcParams["figure.figsize"] = (16, 6)
+                grouping = "variable"
+                x_variable = "day"
+                x_label = "Day"
+                y_label = "Value"
+                grouping_order = ALL_SCENARIOS
+                # Plot df_grouped
+                sns.lineplot(
+                    data=df_filtered,
+                    x=x_variable,
+                    y="value",
+                    hue=grouping,
+                    # hue_order=grouping_order,
+                    # ci=None,
+                )
+                plt.xlabel(x_label)
+                plt.ylabel(y_label)
+                plt.yscale("log")
+                title = f"Nation Variables for {scenario} Scenario ({model_name})"
+                plt.title(title)
+
+                # Save the plot
+                save_plot(OUTPUT_DIR, title)
+
+                # Clear the plot
+                plt.clf()
+
+        if INDEX_TO_CREATE == 3:
+            # Next: Bar plot of the value of each variable for each scenario
+            # First, filter to day=15 to get the end
+            df_plot_2 = df_plot[df_plot["day"] == 15].copy()
+            # Drop day column
+            df_plot_2 = df_plot_2.drop(columns=["day"])
+            # Plot, using variable as x axis and scenario as grouping
+            initialize_plot_bar()
+            plt.rcParams["figure.figsize"] = (16, 6)
+            grouping = "scenario"
+            x_variable = "variable"
+            x_label = "Variable"
             y_label = "Value"
             grouping_order = ALL_SCENARIOS
             # Plot df_grouped
-            sns.lineplot(
-                data=df_filtered,
+            sns.barplot(
+                data=df_plot_2,
                 x=x_variable,
                 y="value",
                 hue=grouping,
-                # hue_order=grouping_order,
-                # ci=None,
+                # order=df_grouped.index.get_level_values(x_variable).unique(),
+                hue_order=grouping_order,
             )
             plt.xlabel(x_label)
             plt.ylabel(y_label)
-            plt.yscale("log")
-            title = f"Nation Variables for {scenario} Scenario ({model_name})"
+            # plt.yscale("log")
+            title = f"Final Nation Variables by Scenario ({model_name})"
             plt.title(title)
 
             # Save the plot
@@ -182,40 +219,6 @@ def main() -> None:
 
             # Clear the plot
             plt.clf()
-
-        # Next: Bar plot of the value of each variable for each scenario
-        # First, filter to day=15 to get the end
-        df_plot_2 = df_plot[df_plot["day"] == 15].copy()
-        # Drop day column
-        df_plot_2 = df_plot_2.drop(columns=["day"])
-        # Plot, using variable as x axis and scenario as grouping
-        initialize_plot_bar()
-        plt.rcParams["figure.figsize"] = (16, 6)
-        grouping = "scenario"
-        x_variable = "variable"
-        x_label = "Variable"
-        y_label = "Value"
-        grouping_order = ALL_SCENARIOS
-        # Plot df_grouped
-        sns.barplot(
-            data=df_plot_2,
-            x=x_variable,
-            y="value",
-            hue=grouping,
-            # order=df_grouped.index.get_level_values(x_variable).unique(),
-            hue_order=grouping_order,
-        )
-        plt.xlabel(x_label)
-        plt.ylabel(y_label)
-        # plt.yscale("log")
-        title = f"Final Nation Variables by Scenario ({model_name})"
-        plt.title(title)
-
-        # Save the plot
-        save_plot(OUTPUT_DIR, title)
-
-        # Clear the plot
-        plt.clf()
 
 
 if __name__ == "__main__":
