@@ -113,6 +113,9 @@ ALL_MODEL_NAMES = [
     for model_name, _, _ in MODELS_COLORS_MARKERS
     if model_name not in ["GPT-4-Base"]
 ]
+ALL_MODEL_NAMES_WITH_GPT_4_BASE = [
+    model_name for model_name, _, _ in MODELS_COLORS_MARKERS
+]
 MODELS_TO_COLORS = {model_name: color for model_name, color, _ in MODELS_COLORS_MARKERS}
 MODELS_TO_MARKERS = {
     model_name: marker for model_name, _, marker in MODELS_COLORS_MARKERS

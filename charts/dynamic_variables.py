@@ -10,6 +10,7 @@ import seaborn as sns
 
 from chart_utils import (
     ALL_MODEL_NAMES,
+    ALL_MODEL_NAMES_WITH_GPT_4_BASE,
     ALL_SCENARIOS,
     ALL_DYNAMIC_VARIABLES,
     DYNAMIC_VARIABLES_TO_NAMES,
@@ -54,8 +55,8 @@ def main() -> None:
     # Drop the claude-1.2 data
     df_all = df_all[df_all["model_name"] != "Claude-1.2"].copy()
 
-    # Drop data where model name not in ALL_MODEL_NAMES
-    df_all = df_all[df_all["model_name"].isin(ALL_MODEL_NAMES)].copy()
+    # Drop data where model name not in ALL_MODEL_NAMES_WITH_GPT_4_BASE
+    df_all = df_all[df_all["model_name"].isin(ALL_MODEL_NAMES_WITH_GPT_4_BASE)].copy()
 
     # Print how many runs there are for each model_name, scenario combo
     print("Runs per model_name, scenario combo:")
@@ -67,6 +68,10 @@ def main() -> None:
             for dynamic_variable in ALL_DYNAMIC_VARIABLES:
                 # Filter dataframe to only include the current scenario and dynamic_variable
                 df_filtered = df_all[(df_all["scenario"] == scenario)].copy()
+                # Filter out GPT-4 base and only use ALL_MODEL_NAMES
+                df_filtered = df_filtered[
+                    (df_filtered["model_name"].isin(ALL_MODEL_NAMES))
+                ].copy()
                 if len(df_filtered) == 0:
                     print(
                         f"No data for {scenario} scenario and {dynamic_variable} variable"
@@ -122,7 +127,7 @@ def main() -> None:
                 plt.clf()
 
     # Plot a bunch of different bar graphs for different combos of models
-    for model_name in ALL_MODEL_NAMES + ["All Models"]:
+    for model_name in ["GPT-4-Base"] + ALL_MODEL_NAMES + ["All Models"]:
         # Filter dataframe to only include the current model
         if model_name == "All Models":
             df_model = df_all.copy()
@@ -155,14 +160,22 @@ def main() -> None:
             for scenario in ALL_SCENARIOS:
                 df_filtered = df_plot[df_plot["scenario"] == scenario].copy()
                 if len(df_filtered) == 0:
+                    print(f"No data for {scenario} scenario and {model_name} model")
                     continue
 
+                # Rename variables to be prettier
+                df_filtered["variable"] = df_filtered["variable"].apply(
+                    lambda x: DYNAMIC_VARIABLES_TO_NAMES[
+                        x.replace(" ", "_") + "_dynamic"
+                    ].replace(" ", "\n")
+                )
+
                 initialize_plot_default()
-                # plt.rcParams["figure.figsize"] = (16, 6)
+                plt.rcParams["figure.figsize"] = (12, 6)
                 grouping = "variable"
                 x_variable = "day"
                 x_label = "Day"
-                y_label = "Value"
+                y_label = "Dynamic Variable Value"
                 grouping_order = ALL_SCENARIOS
                 # Plot df_grouped
                 sns.lineplot(
@@ -170,20 +183,43 @@ def main() -> None:
                     x=x_variable,
                     y="value",
                     hue=grouping,
-                    # hue_order=grouping_order,
-                    # ci=None,
+                    style=grouping,
+                    markers=True,
+                    errorbar="ci",
                 )
                 plt.xlabel(x_label)
                 plt.ylabel(y_label)
-                plt.yscale("log")
-                title = f"Nation Variables for {scenario} Scenario ({model_name})"
+                # plt.yscale("log")
+                ticks = [5, 10, 15, 20, 25, 30]
+                # plt.yticks(ticks, [str(tick) for tick in ticks])
+                title = (
+                    f"Dynamic Variables Over Time in {scenario} Scenario ({model_name})"
+                )
                 plt.title(title)
+                # Legend to the right of the plot
+                plt.legend(
+                    bbox_to_anchor=(1.01, 1),
+                    loc="upper left",
+                    borderaxespad=0.0,
+                    ncol=1,
+                    title="Variable",
+                    handletextpad=0.1,
+                    labelspacing=0.5,
+                    framealpha=0.5,
+                    columnspacing=0.25,
+                    # map={
+                    #     variable: DYNAMIC_VARIABLES_TO_NAMES[variable]
+                    #     for variable in ALL_DYNAMIC_VARIABLES
+                    # },
+                )
 
                 # Save the plot
                 save_plot(OUTPUT_DIR, title)
 
                 # Clear the plot
                 plt.clf()
+
+                # exit()  # DEBUG
 
         if INDEX_TO_CREATE == 3:
             # Next: Bar plot of the value of each variable for each scenario
