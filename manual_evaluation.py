@@ -75,7 +75,7 @@ def get_score(action, content, index):
         lower_case_actions = [a.lower() for a in actions]
         if action in lower_case_actions:
             score = points[category]
-            print(f"Index {index}: Action '{action}' scores {score} points for '{category}'")
+            #print(f"Index {index}: Action '{action}' scores {score} points for '{category}'")
             return score
 
     # Check against partial matches if no full match is found
@@ -83,10 +83,10 @@ def get_score(action, content, index):
         for pattern in patterns:
             if pattern.search(action):
                 score = points[category]
-                print(f"Index {index}: Action '{action}' matches partial pattern '{pattern.pattern}' and scores {score} points for '{category}'")
+                #print(f"Index {index}: Action '{action}' matches partial pattern '{pattern.pattern}' and scores {score} points for '{category}'")
                 return score
 
-    print(f"Index {index}: Action '{action}' does not match any category, scores 0 points")
+    #print(f"Index {index}: Action '{action}' does not match any category, scores 0 points")
     return 0  # Default to 0 if not matched
 
 
@@ -136,7 +136,7 @@ def process_file_scores(file_path):
 
 # Main function to process all files in the directory
 def main():
-    folder_path = "./results/actions_manual_testing"
+    folder_path = "./results/actions_v3"
     file_pattern = f"{folder_path}/*.csv"
     json_output_folder = "./evals/json_v4"
     
