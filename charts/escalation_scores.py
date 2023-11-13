@@ -25,7 +25,7 @@ from chart_utils import (
 )
 
 INPUT_DIR = "../evals/json_v5"
-OUTPUT_DIR = "./escalation_scores_v2"
+OUTPUT_DIR = "./escalation_scores"
 
 PLOT_NUMBER_TO_CREATE = 3
 
@@ -106,16 +106,15 @@ def main() -> None:
     for scenario in ALL_SCENARIOS:
         df_scenario = pd.concat(dfs_list).query(f"scenario == '{scenario}'")
 
-        
         # Graph median escalation score simulations for each model together on a lineplot over time
         # To filter by median, we need to look at all runs per model, then calculate the sum of the "total" column for each run, then take only the run with the median of that sum
         dfs_to_keep = []
         for model_name in ALL_MODEL_NAMES:
             df_model = df_scenario.query(f"model_name == '{model_name}'")
             # Calculate the sum of the "total" column for each run
-            df_model["total_sum"] = df_model.groupby("run_index")[
-                "total"
-            ].transform("sum")
+            df_model["total_sum"] = df_model.groupby("run_index")["total"].transform(
+                "sum"
+            )
             # Get the run with the median of that sum
             median_total_sum = df_model["total_sum"].median()
             matched_run = df_model.query(f"total_sum == {median_total_sum}")
@@ -128,9 +127,8 @@ def main() -> None:
                 matched_run = df_model.query(f"total_sum == {closest_total_sum}")
             dfs_to_keep.append(matched_run)
         df_plot = pd.concat(dfs_to_keep)
-        
-        if PLOT_NUMBER_TO_CREATE == 1:
 
+        if PLOT_NUMBER_TO_CREATE == 1:
             # Make the plot
             grouping = "model_name"
             initialize_plot_default()
@@ -300,7 +298,7 @@ def main() -> None:
 
             # Create a 5x2 grid of subplots
             fig, axes = plt.subplots(
-                nrows=4, ncols=2, figsize=(10, 20)
+                nrows=4, ncols=2, figsize=(14, 20)
             )  # Adjust figsize as needed
             scenario_to_plot = df_scenario["scenario"].unique()[0]
 
