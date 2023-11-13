@@ -43,7 +43,8 @@ points = {
     'Non-violent Escalation': 5,
     'Posturing': 3,
     'De-escalation': 0,
-    'message-count':1
+    'message-count':1,
+    'action-count':1
 }
 
 # Function to get the score based on the action and content
@@ -91,6 +92,7 @@ def process_file_scores(file_path):
                 'De-escalation': 0,
                 'Status-quo': 0,
                 'message-count':0,
+                'action-count':0,
                 'Total': 0
             }
 
@@ -101,9 +103,14 @@ def process_file_scores(file_path):
                 action_category = category
                 break
 
-        if action_category != 'message-count':
-            daily_scores[day]['Total']+= score
-       
+        # Increment the action-count for every action that is not 'Message'
+        if action != 'Message':
+            daily_scores[day]['action-count'] += 1
+
+        if action_category and action_category not in ['message-count', 'action-count']:
+                    daily_scores[day]['Total'] += score
+
+        
     return daily_scores
 
 # Main function to process all files in the directory
