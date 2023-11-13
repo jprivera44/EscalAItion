@@ -94,12 +94,16 @@ def process_file_scores(file_path):
                 'Total': 0
             }
 
+        action_category= None
         for category in escalation_points:
             if action in escalation_points[category]:
                 daily_scores[day][category] += score
+                action_category = category
                 break
-        daily_scores[day]['Total'] += score
 
+        if action_category != 'message-count':
+            daily_scores[day]['Total']+= score
+       
     return daily_scores
 
 # Main function to process all files in the directory
