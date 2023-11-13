@@ -219,6 +219,14 @@
             "justMyCode": true
         },
         {
+            "name": "Manual evaluations",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/manual_evaluation.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
             "name": "De-bugging Download sweeps data",
             "type": "python",
             "request": "launch",
