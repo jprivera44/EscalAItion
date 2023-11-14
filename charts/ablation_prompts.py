@@ -157,6 +157,10 @@ def main() -> None:
             plt.xlabel(x_label)
             plt.ylabel(y_label)
             # plt.yscale("log")
+            if "3.5" in model_name:
+                plt.ylim(0, 0.055)
+            else:
+                plt.ylim(0, 0.0105)
 
             scenario_label = SCENARIO.title()
             title = (
