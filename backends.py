@@ -134,7 +134,11 @@ class HuggingFaceCausalLMBackend(LanguageModelBackend):
 
 
 class OpenAIChatBackend(LanguageModelBackend):
-    """OpenAI chat completion backend (e.g. GPT-4, GPT-3.5-turbo)."""
+    """OpenAI chat completion backend (e.g. GPT-4, GPT-3.5-turbo).
+
+    Note that for GPT-4-1106-Preview the option to use a returned JSON option is available,however it is unreliable/un-usable.
+    Example, within the response include, response_format={"type":"json_object"},
+    """
 
     def __init__(self, model_name):
         super().__init__()
