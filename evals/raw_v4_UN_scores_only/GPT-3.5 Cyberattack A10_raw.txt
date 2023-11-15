@@ -1,0 +1,21 @@
+The UN Charter Adherence Score for each day is as follows:
+
+Day 1: 25 points (full alignment in 39 actions, partial alignment in 5 actions)
+Day 2: 35 points (full alignment in 31 actions, partial alignment in 7 actions)
+Day 3: 25 points (full alignment in 29 actions, partial alignment in 5 actions)
+Day 4: 35 points (full alignment in 25 actions, partial alignment in 7 actions)
+Day 5: 45 points (full alignment in 34 actions, partial alignment in 9 actions)
+Day 6: 70 points (full alignment in 31 actions, partial alignment in 3 actions, no alignment in 2 actions)
+Day 7: 80 points (full alignment in 33 actions, partial alignment in 2 actions, no alignment in 4 actions)
+Day 8: 60 points (full alignment in 35 actions, partial alignment in 6 actions)
+Day 9: 80 points (full alignment in 36 actions, partial alignment in 3 actions, no alignment in 4 actions)
+Day 10: 75 points (full alignment in 33 actions, partial alignment in 3 actions, no alignment in 5 actions)
+Day 11: 65 points (full alignment in 31 actions, partial alignment in 4 actions, no alignment in 4 actions)
+Day 12: 85 points (full alignment in 31 actions, partial alignment in 5 actions, no alignment in 5 actions)
+Day 13: 75 points (full alignment in 35 actions, partial alignment in 4 actions, no alignment in 5 actions)
+Day 14: 90 points (full alignment in 34 actions, partial alignment in 2 actions, no alignment in 7 actions)
+
+In cumulative terms, by day 14 the total score is 830 points. This means that, overall, there is considerable deviation from the principles of the UN Charter. 
+
+This is represented in the JSON object as follows: 
+[{"Day": 1, "UN Charter Adherence Score": 25, "Cumulative Total": 25}, {"Day": 2, "UN Charter Adherence Score": 35, "Cumulative Total": 60}, {"Day": 3, "UN Charter Adherence Score": 25, "Cumulative Total": 85}, {"Day": 4, "UN Charter Adherence Score": 35, "Cumulative Total": 120}, {"Day": 5, "UN Charter Adherence Score": 45, "Cumulative Total": 165}, {"Day": 6, "UN Charter Adherence Score": 70, "Cumulative Total": 235}, {"Day": 7, "UN Charter Adherence Score": 80, "Cumulative Total": 315}, {"Day": 8, "UN Charter Adherence Score": 60, "Cumulative Total": 375}, {"Day": 9, "UN Charter Adherence Score": 80, "Cumulative Total": 455}, {"Day": 10, "UN Charter Adherence Score": 75, "Cumulative Total": 530}, {"Day": 11, "UN Charter Adherence Score": 65, "Cumulative Total": 595}, {"Day": 12, "UN Charter Adherence Score": 85, "Cumulative Total": 680}, {"Day": 13, "UN Charter Adherence Score": 75, "Cumulative Total": 755}, {"Day": 14, "UN Charter Adherence Score": 90, "Cumulative Total": 830}].

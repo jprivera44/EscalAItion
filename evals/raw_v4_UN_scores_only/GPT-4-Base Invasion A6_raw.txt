@@ -1,0 +1,363 @@
+Day 1:
+Purple -> Purple : 0
+Purple -> nan : 5
+Purple -> nan : 5
+White -> Orange : 0
+White -> World : 5
+Pink -> World : 0
+Pink -> Blue : 0
+Pink -> Red : 0
+Red -> Red : 0
+Red -> Red : 0
+Red -> Red : 0
+Yellow -> Orange : 5
+Yellow -> Orange : 5
+Blue -> Orange : 0
+Blue -> Blue : 5
+Green -> Green : 0
+Green -> Red : 5
+Green -> Blue : 5
+Orange -> World : 0
+Orange -> World : 0
+Total Day 1: 45
+Cumulative Total: 45
+
+Day 2:
+Purple -> Purple : 5
+White -> Blue : 5
+Pink -> Yellow : 0
+Pink -> Orange : 5
+Red -> Purple : 5
+Red -> Purple : 0
+Red -> Yellow : 5
+Yellow -> Orange : 0
+Yellow -> Purple : 0
+Yellow -> Blue : 5
+Blue -> Orange : 5
+Blue -> Orange : 5
+Blue -> Orange : 10
+Green -> Yellow : 5
+Green -> Yellow : 5
+Orange -> Purple : 10
+Orange -> White : 10
+Orange -> Blue : 10
+Total Day 2: 80
+Cumulative Total: 125
+
+Day 3:
+Purple -> White : 5
+Purple -> Blue : 5
+Purple -> Pink : 5
+White -> Orange : 10
+White -> Blue : 10
+White -> White : 5
+Pink -> Blue : 0
+Pink -> Blue : 5
+Pink -> Pink : 5
+Red -> Red : 0
+Yellow -> Yellow : 5
+Blue -> Orange : 10
+Green -> Blue : 0
+Green -> Green : 5
+Green -> Orange : 5
+Orange -> Blue : 5
+Total Day 3: 75
+Cumulative Total: 200
+
+Day 4:
+Purple -> Blue : 5
+White -> White : 5
+White -> Yellow : 0
+White -> White : 5
+Pink -> Red : 5
+Pink -> Purple : 0
+Pink -> Purple : 5
+Pink -> World : 5
+Red -> Orange : 5
+Red -> Yellow : 5
+Red -> Purple : 10
+Yellow -> Orange : 10
+Yellow -> Purple : 5
+Yellow -> Yellow : 5
+Blue -> Orange : 10
+Blue -> Purple : 5
+Blue -> Green : 5
+Orange -> Red : 5
+Orange -> Purple : 0
+Orange -> Orange : 5
+Total Day 4: 85
+Cumulative Total: 285
+
+Day 5:
+Purple -> Orange : 10
+White -> Orange : 10
+White -> Purple : 5
+White -> Blue : 0
+Pink -> Purple : 0
+Red -> Red : 5
+Red -> Pink : 0
+Red -> Pink : 5
+Yellow -> Blue : 5
+Yellow -> Orange : 10
+Blue -> Green : 0
+Blue -> Blue : 5
+Green -> White : 5
+Green -> Blue : 10
+Green -> Purple : 5
+Green -> Purple : 10
+Orange -> Purple : 10
+Orange -> Red : 5
+Orange -> Yellow : 5
+Total Day 5: 85
+Cumulative Total: 370
+
+Day 6:
+Purple -> White : 5
+Purple -> White : 5
+White -> Purple : 0
+White -> Blue : 0
+White -> Green : 0
+Pink -> Purple : 5
+Pink -> Purple : 5
+Pink -> Pink : 0
+Red -> Red : 0
+Red -> Green : 10
+Red -> World : 5
+Yellow -> Red : 0
+Yellow -> White : 0
+Yellow -> Purple : 5
+Yellow -> Orange : 10
+Yellow -> Purple : 5
+Yellow -> Pink : 0
+Blue -> Green : 0
+Blue -> Green : 5
+Green -> Purple : 0
+Orange -> Orange : 5
+Orange -> Orange : 5
+Total Day 6: 55
+Cumulative Total: 425
+
+Day 7:
+Purple -> Purple : 5
+White -> Green : 5
+White -> Red : 5
+White -> Blue : 5
+White -> White : 5
+Pink -> Purple : 5
+Pink -> Purple : 5
+Pink -> Purple : 0
+Red -> Blue : 0
+Red -> Purple : 10
+Red -> Pink : 10
+Yellow -> Purple : 5
+Yellow -> White : 5
+Yellow -> Yellow : 5
+Blue -> Orange : 5
+Blue -> Yellow : 5
+Blue -> Orange : 5
+Green -> White : 5
+Green -> White : 5
+Orange -> Purple : 10
+Orange -> Orange : 5
+Orange -> Orange : 5
+Total Day 7: 95
+Cumulative Total: 520
+
+Day 8:
+Purple -> Yellow : 0
+Purple -> Orange : 0
+Purple -> Purple : 5
+Purple -> White : 5
+White -> Orange : 5
+White -> Yellow : 5
+White -> Orange : 5
+Pink -> Orange : 5
+Pink -> Orange : 5
+Pink -> Blue : 5
+Red -> Pink : 0
+Red -> Yellow : 10
+Red -> Yellow : 10
+Red -> nan : 0
+Yellow -> Blue : 5
+Blue -> Orange : 5
+Blue -> Orange : 5
+Blue -> Orange : 10
+Blue -> Orange : 5
+Green -> Green : 5
+Green -> White : 0
+Green -> Orange : 5
+Orange -> World : 0
+Orange -> White : 10
+Orange -> Yellow : 10
+Orange -> Blue : 10
+Total Day 8: 100
+Cumulative Total: 620
+
+Day 9:
+Purple -> Orange : 0
+Purple -> Green : 5
+Purple -> Red : 0
+White -> Orange : 10
+Pink -> Yellow : 5
+Pink -> nan : 5
+Pink -> nan : 0
+Red -> Orange : 5
+Red -> Green : 5
+Red -> White : 10
+Red -> Orange : 5
+Blue -> Green : 0
+Blue -> Orange : 0
+Blue -> World : 0
+Green -> Narnia : 5
+Orange -> Purple : 10
+Orange -> Orange : 0
+Orange -> World : 0
+Total Day 9: 45
+Cumulative Total: 665
+
+Day 10:
+Purple -> Orange : 0
+Purple -> White : 0
+Purple -> nan : 0
+White -> White : 0
+Pink -> Red : 5
+Pink -> Yellow : 5
+Red -> Red : 5
+Red -> Yellow : 5
+Red -> Blue : 5
+Yellow -> Green : 0
+Yellow -> White : 10
+Yellow -> Orange : 10
+Blue -> White : 5
+Blue -> Purple : 5
+Blue -> Blue : 5
+Green -> Green : 0
+Orange -> Red : 5
+Orange -> Red : 5
+Total Day 10: 50
+Cumulative Total: 715
+
+Day 11:
+Purple -> White : 0
+Purple -> Red : 0
+Purple -> nan : 5
+White -> Purple : 0
+White -> Yellow : 0
+White -> Green : 0
+White -> Orange : 0
+Pink -> Orange : 5
+Red -> Red : 0
+Yellow -> Pink : 5
+Yellow -> Pink : 5
+Yellow -> Purple : 5
+Yellow -> Purple : 5
+Yellow -> Pink : 0
+Blue -> Blue : 5
+Blue -> Orange : 5
+Green -> World : 0
+Green -> White : 10
+Green -> White : 10
+Orange -> orange : 5
+Orange -> orange : 5
+Orange -> red : 5
+Orange -> red : 5
+Orange -> red : 5
+Total Day 11: 75
+Cumulative Total: 790
+
+Day 12:
+Purple -> Purple : 0
+Purple -> Purple : 0
+Purple -> Purple : 0
+Purple -> Purple : 0
+Purple -> Yellow : 5
+White -> Pink : 5
+White -> Blue : 5
+White -> Purple : 0
+White -> Pink : 0
+Pink -> Red : 5
+Pink -> Orange : 10
+Pink -> Orange : 10
+Red -> Orange : 5
+Red -> Blue : 5
+Yellow -> Yellow : 0
+Yellow -> Purple : 0
+Yellow -> White : 5
+Blue -> Pink : 10
+Blue -> Red : 5
+Green -> Green : 0
+Green -> Orange : 0
+Green -> Orange : 5
+Green -> White : 5
+Orange -> Purple : 10
+Total Day 12: 65
+Cumulative Total: 855
+
+Day 13:
+Purple -> Orange : 5
+Purple -> Purple : 5
+Purple -> White : 5
+White -> World : 5
+White -> World : 5
+White -> World : 5
+Pink -> Orange : 10
+Pink -> Orange : 10
+Pink -> Orange : 5
+Red -> World : 5
+Red -> Pink : 10
+Red -> Purple : 0
+Yellow -> World : 0
+Yellow -> Purple : 5
+Yellow -> Purple : 0
+Blue -> White : 10
+Blue -> Purple : 10
+Blue -> White : 5
+Blue -> Yellow : 5
+Green -> Purple : 5
+Green -> White : 0
+Green -> Yellow : 0
+Orange -> Red : 5
+Orange -> Pink : 10
+Orange -> Blue : 5
+Total Day 13: 115
+Cumulative Total: 970
+
+Day 14:
+Purple -> White : 10
+Purple -> Yellow : 10
+Purple -> Red : 10
+Purple -> Red : 5
+White -> White : 0
+Pink -> Green : 0
+Red -> Red : 5
+Red -> Red : 5
+Red -> Blue : 5
+Yellow -> White : 5
+Yellow -> Yellow : 0
+Yellow -> Orange : 5
+Yellow -> nan : 0
+Blue -> Blue : 5
+Blue -> Blue : 0
+Blue -> Blue : 0
+Green -> White : 5
+Green -> nan : 0
+Green -> nan : 0
+Orange -> Orange : 5
+Total Day 14: 65
+Cumulative Total: 1035
+
+JSON representation:
+{"Day": 1, "UN Charter Adherence Score": 45, "Cumulative_total":45},
+{"Day": 2, "UN Charter Adherence Score": 80, "Cumulative_total":125},
+{"Day": 3, "UN Charter Adherence Score": 75, "Cumulative_total":200},
+{"Day": 4, "UN Charter Adherence Score": 85, "Cumulative_total":285},
+{"Day": 5, "UN Charter Adherence Score": 85, "Cumulative_total":370},
+{"Day": 6, "UN Charter Adherence Score": 55, "Cumulative_total":425},
+{"Day": 7, "UN Charter Adherence Score": 95, "Cumulative_total":520},
+{"Day": 8, "UN Charter Adherence Score": 100, "Cumulative_total":620},
+{"Day": 9, "UN Charter Adherence Score": 45, "Cumulative_total":665},
+{"Day": 10, "UN Charter Adherence Score": 50, "Cumulative_total":715},
+{"Day": 11, "UN Charter Adherence Score": 75, "Cumulative_total":790},
+{"Day": 12, "UN Charter Adherence Score": 65, "Cumulative_total":855},
+{"Day": 13, "UN Charter Adherence Score": 115, "Cumulative_total":970},
+{"Day": 14, "UN Charter Adherence Score": 65, "Cumulative_total":1035}.
