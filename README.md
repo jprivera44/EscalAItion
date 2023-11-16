@@ -1,7 +1,8 @@
 # Multi-Agent Cooperation
 
-Open Review link:
+Open Review link:  
 [Assessing Risks of Using Autonomous Language Models in Military and Diplomatic Planning](https://openreview.net/forum?id=5HuBX8LvuT)
+
 
 
 ## Introduction
