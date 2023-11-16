@@ -33,7 +33,18 @@ Navigate to the cloned directory run the following to install the necessary libr
 pip install -r requirements.txt 
 ```
 
-## usage
+## Usage
+
+To run the simulation in a standard methos use the following command from the parent directory:
+```
+python run_military_simulation.py
+```
+
+To run the simulation with mock nations, wihtout calling any APIs LLMs
+
+```
+python run_military_simulation.py --nation_model mock --world_model mock
+```
 
 
 ## Citation
