@@ -3,7 +3,7 @@
 Open Review link: [Link](https://openreview.net/forum?id=5HuBX8LvuT&referrer=%5Bthe%20profile%20of%20Juan-Pablo%20Rivera%5D(%2Fprofile%3Fid%3D~Juan-Pablo_Rivera1))
 
 ## Introduction
-Welcome to the Military Simulation repository! This project is designed to simulate military escalations, offering a dynamic and intricate look into how different nations might respond under various scenarios. It's a powerful tool for understanding the complexities of global military dynamics.
+This project uses frontier LLMs to simulate  interactions between nation-state actors, offering a dynamic and intricate look into how different AI agents might respond under various scenarios. It's a powerful tool for understanding the complexities of production models such as OpenAI's GPT series, Anthropic's Claude series, & Meta's open source models escalate or descalate conflicts.
 
 ## Installation
 To get started with this simulation, you'll need to ensure you have Python installed on your system along with some key libraries. Follow these steps:
