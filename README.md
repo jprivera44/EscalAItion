@@ -1,6 +1,8 @@
-# Assessing Risks of Using Autonomous Language Models in Military and Diplomatic Planning
+# Multi-Agent Cooperation
 
-Open Review link: [Link](https://openreview.net/forum?id=5HuBX8LvuT&referrer=%5Bthe%20profile%20of%20Juan-Pablo%20Rivera%5D(%2Fprofile%3Fid%3D~Juan-Pablo_Rivera1))
+Open Review link:
+[Assessing Risks of Using Autonomous Language Models in Military and Diplomatic Planning](https://openreview.net/forum?id=5HuBX8LvuT)
+
 
 ## Introduction
 This project uses frontier LLMs to simulate  interactions between nation-state actors, offering a dynamic and intricate look into how different AI agents might respond under various scenarios. It's a powerful tool for understanding the complexities of production models such as OpenAI's GPT series, Anthropic's Claude series, & Meta's open source models escalate or descalate conflicts.
@@ -29,6 +31,9 @@ Navigate to the cloned directory run the following to install the necessary libr
 ```
 pip install -r requirements.txt 
 ```
+
+## usage
+
 
 ## Citation
 If you are citing this for your work, please use the following citation format.
