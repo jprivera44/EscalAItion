@@ -2,9 +2,13 @@
 
 Open Review link: [Link](https://openreview.net/forum?id=5HuBX8LvuT&referrer=%5Bthe%20profile%20of%20Juan-Pablo%20Rivera%5D(%2Fprofile%3Fid%3D~Juan-Pablo_Rivera1))
 
+## Introduction
+Welcome to the Military Simulation repository! This project is designed to simulate military escalations, offering a dynamic and intricate look into how different nations might respond under various scenarios. It's a powerful tool for understanding the complexities of global military dynamics.
 
+## Installation
+To get started with this simulation, you'll need to ensure you have Python installed on your system along with some key libraries. Follow these steps:
 
-## Setup
+### Clone the Repository:
 
 1. Create a python environment
 
@@ -15,10 +19,14 @@ conda activate escalaition
 
 2. Install Pytorch separately
 > https://pytorch.orgget-started/locally/
+```
+git clone https://github.com/jprivera44/EscalAItion.git
+```
 
-
-3. Install dependencies 
+3. Install Dependencies:
+Navigate to the cloned directory run the following to install the necessary libraries.
 
 ```
-pip install -r requirements.txt
+pip install -r requirements.txt 
 ```
+
