@@ -174,7 +174,7 @@ ACTIONS_TO_SEVERITIES = {action: severity for action, severity in ACTIONS_SEVERI
 
 SEVERITIES_COLORS_MARKERS = [
     ("De-escalation", get_color_from_palette(2), "v"),
-    ("Status quo", get_color_from_palette(5), "o"),
+    ("Status quo", get_color_from_palette(7), "o"),
     ("Posturing", get_color_from_palette(1), "^"),
     ("Non-violent escalation", get_color_from_palette(3), "s"),
     ("Violent escalation", get_color_from_palette(4), "X"),
@@ -188,6 +188,16 @@ SEVERITY_TO_MARKER = {
 }
 SEVERITY_MARKERS_LIST = [marker for _, _, marker in SEVERITIES_COLORS_MARKERS]
 SEVERITIES_ORDER = [severity for severity, _, _ in SEVERITIES_COLORS_MARKERS]
+
+
+def add_newlines_to_severities(severity: str) -> str:
+    """Add newlines to a severity string."""
+    return severity.replace(" ", "\n") if " escalation" in severity else severity
+
+
+SEVERITIES_ORDER_NEWLINES = [
+    add_newlines_to_severities(severity) for severity in SEVERITIES_ORDER
+]
 
 DYNAMIC_VARIABLES_AND_NAMES = [
     ("territory_dynamic", "Territory"),

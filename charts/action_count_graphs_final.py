@@ -18,8 +18,10 @@ from chart_utils import (
     ACTION_ORDER,
     ACTIONS_TO_SEVERITIES,
     SEVERITIES_ORDER,
+    SEVERITIES_ORDER_NEWLINES,
     SEVERITY_TO_MARKER,
     SEVERITIES_TO_COLORS,
+    add_newlines_to_severities,
     initialize_plot_default,
     initialize_plot_bar,
     save_plot,
@@ -33,7 +35,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_ACTIONS_BY_MODEL = "./actions_by_model"
 
-PLOT_NUMBER_TO_CREATE = 4
+PLOT_NUMBER_TO_CREATE = 2
 
 
 LABEL_MAX_LENGTH = 26
@@ -109,75 +111,86 @@ def main() -> None:
             )
 
     # LateX table: For each scenario, for each model name, print out a latex table row for:
-    # |scenario|model|%provoking+-std|%aggressive+-std|placehold for escalation score+-std|
+    # |scenario|model|%Non-violent+-std|%Violent+-std|placehold for escalation score+-std|
     print("\nLateX table:")
     print("    \\begin{tabular}{|c|c|c|c|c|}")
     print("        \\hline")
     print(
-        r"        \textbf{Scenario} & \textbf{Model} & \textbf{\% Provoking Actions} & \textbf{\% Aggressive Actions} & \textbf{Avg. Escalation Score} \\"
+        r"        \textbf{Scenario} & \textbf{Model} & \textbf{\% Non-violent Escalation Actions} & \textbf{\% Violent Escalation Actions} & \textbf{Avg. Escalation Score} \\"
     )
     print("        \\hline")
     for scenario in ALL_SCENARIOS:
         df_list_scenario = [
             df for df in dfs_list if df["scenario"].unique()[0] == scenario
         ]
-        provoking_means = []
-        aggressive_means = []
-        provoking_stds = []
-        aggressive_stds = []
+        nonviolent_means = []
+        violent_means = []
+        nonviolent_stds = []
+        violent_stds = []
         for model_name in ALL_MODEL_NAMES:
             df_list_model = [
                 df
                 for df in df_list_scenario
                 if df["model_name"].unique()[0] == model_name
             ]
-            provoking_percents = [
-                (
-                    df.groupby("severity", observed=True).size()["Provoking"]
-                    / len(df)
-                    * 100.0
-                )
-                for df in df_list_model
-            ]
-            aggressive_percents = []
+            nonviolent_percents = []
             for df in df_list_model:
-                if "Aggressive" not in df.groupby("severity", observed=True).size():
-                    aggressive_percents.append(0.0)
+                if (
+                    "Non-violent escalation"
+                    not in df.groupby("severity", observed=True).size()
+                ):
+                    nonviolent_percents.append(0.0)
                 else:
-                    aggressive_percents.append(
+                    nonviolent_percents.append(
                         (
-                            df.groupby("severity", observed=True).size()["Aggressive"]
+                            df.groupby("severity", observed=True).size()[
+                                "Non-violent escalation"
+                            ]
                             / len(df)
                             * 100.0
                         )
                     )
-            provoking_means.append(np.mean(provoking_percents))
-            aggressive_means.append(np.mean(aggressive_percents))
-            provoking_stds.append(np.std(provoking_percents))
-            aggressive_stds.append(np.std(aggressive_percents))
+            violent_percents = []
+            for df in df_list_model:
+                if (
+                    "Violent escalation"
+                    not in df.groupby("severity", observed=True).size()
+                ):
+                    violent_percents.append(0.0)
+                else:
+                    violent_percents.append(
+                        (
+                            df.groupby("severity", observed=True).size()[
+                                "Violent escalation"
+                            ]
+                            / len(df)
+                            * 100.0
+                        )
+                    )
+            nonviolent_means.append(np.mean(nonviolent_percents))
+            violent_means.append(np.mean(violent_percents))
+            nonviolent_stds.append(np.std(nonviolent_percents))
+            violent_stds.append(np.std(violent_percents))
 
         for i, model_name in enumerate(ALL_MODEL_NAMES):
-            # print(
-            #     f"        {scenario} & {model_name} & {provoking_means:.2f} $\pm$ {np.std(provoking_percents):.2f} & {aggressive_means:.2f} $\pm$ {np.std(aggressive_percents):.2f} & TEMP $\pm$ TEMP \\\\"
-            # )
             # Print the corresponding data, and bold the mean and std if the mean is the highest for that column
-            provoking_mean = provoking_means[i]
-            aggressive_mean = aggressive_means[i]
-            provoking_std = provoking_stds[i]
-            aggressive_std = aggressive_stds[i]
-            provoking_mean_str = f"{provoking_mean:.2f}"
-            aggressive_mean_str = f"{aggressive_mean:.2f}"
-            provoking_std_str = f"{provoking_std:.2f}"
-            aggressive_std_str = f"{aggressive_std:.2f}"
-            if provoking_mean == max(provoking_means):
-                provoking_mean_str = r"\textbf{" + provoking_mean_str + "}"
-                provoking_std_str = r"\textbf{" + provoking_std_str + "}"
-            if aggressive_mean == max(aggressive_means):
-                aggressive_mean_str = r"\textbf{" + aggressive_mean_str + "}"
-                aggressive_std_str = r"\textbf{" + aggressive_std_str + "}"
+            nonviolent_mean = nonviolent_means[i]
+            violent_mean = violent_means[i]
+            nonviolent_std = nonviolent_stds[i]
+            violent_std = violent_stds[i]
+            nonviolent_mean_str = f"{nonviolent_mean:.2f}"
+            violent_mean_str = f"{violent_mean:.2f}"
+            nonviolent_std_str = f"{nonviolent_std:.2f}"
+            violent_std_str = f"{violent_std:.2f}"
+            if nonviolent_mean == max(nonviolent_means):
+                nonviolent_mean_str = r"\textbf{" + nonviolent_mean_str + "}"
+                nonviolent_std_str = r"\textbf{" + nonviolent_std_str + "}"
+            if violent_mean == max(violent_means):
+                violent_mean_str = r"\textbf{" + violent_mean_str + "}"
+                violent_std_str = r"\textbf{" + violent_std_str + "}"
 
             print(
-                f"        {scenario} & {model_name} & {provoking_mean_str}\% $\pm$ {provoking_std_str}\% & {aggressive_mean_str}\% $\pm$ {aggressive_std_str}\% & TEMP $\pm$ TEMP \\\\"
+                f"        {scenario} & {model_name} & {nonviolent_mean_str}\% $\pm$ {nonviolent_std_str}\% & {violent_mean_str}\% $\pm$ {violent_std_str}\% & TEMP $\pm$ TEMP \\\\"
             )
 
         print("        \\hline")
@@ -208,7 +221,7 @@ def main() -> None:
                     )
         df_actions = pd.DataFrame(graphing_data_actions)
 
-        # Creae a similar DF but by severity rather than actions
+        # Create a similar DF but by severity rather than actions
         groups_by_severity = [
             df.groupby(
                 ["day", "model_name", "scenario", "severity"], observed=True
@@ -314,9 +327,6 @@ def main() -> None:
             y_label = "Total Action Count per Simulation"
             grouping = "scenario"
             grouping_order = ALL_SCENARIOS
-            # palette = [
-            #     SEVERITIES_TO_COLORS[severity] for severity in df_actions["severity"]
-            # ]
             # Plot df_grouped
             sns.barplot(
                 data=df_actions,
@@ -333,7 +343,9 @@ def main() -> None:
             )
             plt.xlabel(x_label)
             # Ticks on the x axis
-            plt.xticks(rotation=90)
+            plt.xticks(
+                rotation=90,
+            )
 
             # Change x labels by automatically breaking long ones to 2 lines
             ax = plt.gca()
@@ -446,6 +458,10 @@ def main() -> None:
                 )
                 plt.xlabel(x_label)
                 # Ticks on the x axis
+                plt.xticks(
+                    list(range(0, len(SEVERITIES_ORDER_NEWLINES))),
+                    labels=SEVERITIES_ORDER_NEWLINES,
+                )
                 plt.ylabel(y_label)
                 plt.yscale("log")
                 # Y axis labels in non-scientific notation
@@ -540,6 +556,10 @@ def main() -> None:
             )
             plt.xlabel(x_label)
             # Ticks on the x axis
+            plt.xticks(
+                list(range(0, len(SEVERITIES_ORDER_NEWLINES))),
+                labels=SEVERITIES_ORDER_NEWLINES,
+            )
             plt.ylabel(y_label)
             plt.yscale("log")
             # Y axis labels in non-scientific notation
