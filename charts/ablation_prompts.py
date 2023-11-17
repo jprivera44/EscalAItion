@@ -121,7 +121,7 @@ def main() -> None:
         if PLOT_NUMBER_TO_CREATE == 1:
             # 1. Bar plot comparing the most severe action counts for each ablation
             df_plot = df_severity_ratios[
-                df_severity_ratios["severity"] == "Aggressive"
+                df_severity_ratios["severity"] == "Violent escalation"
             ].copy()
             assert len(df_plot) > 0
 
@@ -132,7 +132,7 @@ def main() -> None:
             x_variable = "ablation"
             x_label = "Prompt Ablation"
             y_variable = "ratio"
-            y_label = "Ratio of Aggressive Actions"
+            y_label = "Ratio of Violent Escalation Actions"
             # grouping = "severity"
             # Plot df_grouped
             sns.barplot(

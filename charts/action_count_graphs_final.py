@@ -21,7 +21,6 @@ from chart_utils import (
     SEVERITIES_ORDER_NEWLINES,
     SEVERITY_TO_MARKER,
     SEVERITIES_TO_COLORS,
-    add_newlines_to_severities,
     initialize_plot_default,
     initialize_plot_bar,
     save_plot,
