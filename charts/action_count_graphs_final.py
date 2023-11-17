@@ -112,10 +112,10 @@ def main() -> None:
     # LateX table: For each scenario, for each model name, print out a latex table row for:
     # |scenario|model|%Non-violent+-std|%Violent+-std|placehold for escalation score+-std|
     print("\nLateX table:")
-    print("    \\begin{tabularx}{|X|X|X|X|X|}")
+    print("    \\begin{tabularx}{\\textwidth}{|c|c|X|X|X|}")
     print("        \\hline")
     print(
-        r"        \textbf{Scenario} & \textbf{Model} & \textbf{\% Non-violent Escalation} & \textbf{\% Violent Escalation} & \textbf{Avg. Escalation Score} \\"
+        r"        \textbf{Scenario} & \textbf{Model} & \textbf{\% Non-violent Escalation (Count)} & \textbf{\% Violent Escalation (Count)} & \textbf{Avg. Escalation Score} \\"
     )
     print("        \\hline")
     for scenario in ALL_SCENARIOS:
@@ -126,6 +126,8 @@ def main() -> None:
         violent_means = []
         nonviolent_stds = []
         violent_stds = []
+        nonviolent_counts_mean = []
+        violent_counts_mean = []
         for model_name in ALL_MODEL_NAMES:
             df_list_model = [
                 df
@@ -133,12 +135,14 @@ def main() -> None:
                 if df["model_name"].unique()[0] == model_name
             ]
             nonviolent_percents = []
+            nonviolent_counts = []
             for df in df_list_model:
                 if (
                     "Non-violent escalation"
                     not in df.groupby("severity", observed=True).size()
                 ):
                     nonviolent_percents.append(0.0)
+                    nonviolent_counts.append(0)
                 else:
                     nonviolent_percents.append(
                         (
@@ -149,13 +153,21 @@ def main() -> None:
                             * 100.0
                         )
                     )
+                    nonviolent_counts.append(
+                        df.groupby("severity", observed=True).size()[
+                            "Non-violent escalation"
+                        ]
+                    )
+
             violent_percents = []
+            violent_counts = []
             for df in df_list_model:
                 if (
                     "Violent escalation"
                     not in df.groupby("severity", observed=True).size()
                 ):
                     violent_percents.append(0.0)
+                    violent_counts.append(0)
                 else:
                     violent_percents.append(
                         (
@@ -166,10 +178,17 @@ def main() -> None:
                             * 100.0
                         )
                     )
+                    violent_counts.append(
+                        df.groupby("severity", observed=True).size()[
+                            "Violent escalation"
+                        ]
+                    )
             nonviolent_means.append(np.mean(nonviolent_percents))
             violent_means.append(np.mean(violent_percents))
             nonviolent_stds.append(np.std(nonviolent_percents))
             violent_stds.append(np.std(violent_percents))
+            nonviolent_counts_mean.append(np.mean(nonviolent_counts))
+            violent_counts_mean.append(np.mean(violent_counts))
 
         for i, model_name in enumerate(ALL_MODEL_NAMES):
             # Print the corresponding data, and bold the mean and std if the mean is the highest for that column
@@ -181,6 +200,10 @@ def main() -> None:
             violent_mean_str = f"{violent_mean:.2f}"
             nonviolent_std_str = f"{nonviolent_std:.2f}"
             violent_std_str = f"{violent_std:.2f}"
+            nonviolent_count_mean = nonviolent_counts_mean[i]
+            violent_count_mean = violent_counts_mean[i]
+            nonviolent_count_mean_str = f"{nonviolent_count_mean:.2f}"
+            violent_count_mean_str = f"{violent_count_mean:.2f}"
             if nonviolent_mean == max(nonviolent_means):
                 nonviolent_mean_str = r"\textbf{" + nonviolent_mean_str + "}"
                 nonviolent_std_str = r"\textbf{" + nonviolent_std_str + "}"
@@ -189,7 +212,7 @@ def main() -> None:
                 violent_std_str = r"\textbf{" + violent_std_str + "}"
 
             print(
-                f"        {scenario} & {model_name} & {nonviolent_mean_str}\% $\pm$ {nonviolent_std_str}\% & {violent_mean_str}\% $\pm$ {violent_std_str}\% & TEMP $\pm$ TEMP \\\\"
+                f"        {scenario} & {model_name} & {nonviolent_mean_str}\% $\pm$ {nonviolent_std_str}\% ({nonviolent_count_mean_str}) & {violent_mean_str}\% $\pm$ {violent_std_str}\% ({violent_count_mean_str}) & TEMP $\pm$ TEMP \\\\"
             )
 
         print("        \\hline")
