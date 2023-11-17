@@ -34,7 +34,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_ACTIONS_BY_MODEL = "./actions_by_model"
 
-PLOT_NUMBER_TO_CREATE = 2
+PLOT_NUMBER_TO_CREATE = 0
 
 
 LABEL_MAX_LENGTH = 26
@@ -112,10 +112,10 @@ def main() -> None:
     # LateX table: For each scenario, for each model name, print out a latex table row for:
     # |scenario|model|%Non-violent+-std|%Violent+-std|placehold for escalation score+-std|
     print("\nLateX table:")
-    print("    \\begin{tabular}{|c|c|c|c|c|}")
+    print("    \\begin{tabularx}{|X|X|X|X|X|}")
     print("        \\hline")
     print(
-        r"        \textbf{Scenario} & \textbf{Model} & \textbf{\% Non-violent Escalation Actions} & \textbf{\% Violent Escalation Actions} & \textbf{Avg. Escalation Score} \\"
+        r"        \textbf{Scenario} & \textbf{Model} & \textbf{\% Non-violent Escalation} & \textbf{\% Violent Escalation} & \textbf{Avg. Escalation Score} \\"
     )
     print("        \\hline")
     for scenario in ALL_SCENARIOS:
@@ -193,7 +193,7 @@ def main() -> None:
             )
 
         print("        \\hline")
-    print("    \\end{tabular}")
+    print("    \\end{tabularx}")
 
     # Plot a bunch of different bar graphs for different combos of models
     for model_name in ALL_MODEL_NAMES:
