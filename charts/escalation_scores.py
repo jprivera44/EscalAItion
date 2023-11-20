@@ -24,8 +24,8 @@ from chart_utils import (
     # get_color_from_palette,
 )
 
-INPUT_DIR = "../evals/json_v4_nuclear"
-OUTPUT_DIR = "./escalation_scores_nuclear"
+INPUT_DIR = "../evals/json_v4_exponential"
+OUTPUT_DIR = "./escalation_scores_exponential"
 
 PLOT_NUMBER_TO_CREATE = 3
 
@@ -335,7 +335,7 @@ def main() -> None:
                 axes[i, 0].set_title(f"{model} - Average Escalation Score")
                 axes[i, 0].set_xlabel("Day")
                 axes[i, 0].set_ylabel("Escalation Score")
-                axes[i, 0].set_ylim(-20, 100)
+                axes[i, 0].set_ylim(-50, 60)
 
                 # Plot average day-to-day differences in the second column
                 sns.lineplot(
