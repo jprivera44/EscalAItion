@@ -24,8 +24,8 @@ from chart_utils import (
     # get_color_from_palette,
 )
 
-INPUT_DIR = "../evals/json_v4"
-OUTPUT_DIR = "./escalation_scores"
+INPUT_DIR = "../evals/json_v4_nuclear"
+OUTPUT_DIR = "./escalation_scores_nuclear"
 
 PLOT_NUMBER_TO_CREATE = 3
 
