@@ -25,7 +25,7 @@ from chart_utils import (
 INPUT_DIR = "../results/variables_v3"
 OUTPUT_DIR = "./dynamic_variables"
 
-INDEX_TO_CREATE = 2
+INDEX_TO_CREATE = 3
 
 
 def main() -> None:
