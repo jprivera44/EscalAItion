@@ -25,7 +25,7 @@ SCENARIO = "NEUTRAL"
 
 OUTPUT_DIR = "./ablations"
 
-PLOT_NUMBER_TO_CREATE = 0
+PLOT_NUMBER_TO_CREATE = 1
 
 LABEL_MAX_LENGTH = 26
 
@@ -120,9 +120,10 @@ def main() -> None:
 
         if PLOT_NUMBER_TO_CREATE == 1:
             # 1. Bar plot comparing the most severe action counts for each ablation
+            # Filter to Violent escalation or Nuclear actions
             df_plot = df_severity_ratios[
-                df_severity_ratios["severity"] == "Violent escalation"
-                or df_severity_ratios["severity"] == "Nuclear"
+                (df_severity_ratios["severity"] == "Violent escalation")
+                | (df_severity_ratios["severity"] == "Nuclear")
             ].copy()
             assert len(df_plot) > 0
 

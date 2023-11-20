@@ -11,6 +11,7 @@ import seaborn as sns
 
 from chart_utils import (
     ALL_MODEL_NAMES,
+    ALL_MODEL_NAMES_WITH_GPT_4_BASE,
     ALL_SCENARIOS,
     SCENARIOS_TO_COLORS,
     MODELS_TO_COLORS,
@@ -34,7 +35,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_ACTIONS_BY_MODEL = "./actions_by_model"
 
-PLOT_NUMBER_TO_CREATE = 0
+PLOT_NUMBER_TO_CREATE = 4
 
 
 LABEL_MAX_LENGTH = 26
@@ -98,7 +99,7 @@ def main() -> None:
         df_scenario = pd.concat(
             [df for df in dfs_list if df["scenario"].unique()[0] == scenario]
         )
-        for model_name in ALL_MODEL_NAMES:
+        for model_name in ALL_MODEL_NAMES_WITH_GPT_4_BASE:
             df_model = df_scenario[df_scenario["model_name"] == model_name]
             print(f"\n{model_name}:")
             print(
@@ -131,7 +132,7 @@ def main() -> None:
         nonviolent_counts_mean = []
         violent_counts_mean = []
         nuclear_counts_mean = []
-        for model_name in ALL_MODEL_NAMES:
+        for model_name in ALL_MODEL_NAMES_WITH_GPT_4_BASE:
             df_list_model = [
                 df
                 for df in df_list_scenario
@@ -214,7 +215,7 @@ def main() -> None:
             nuclear_stds.append(np.std(nuclear_percents))
             nuclear_counts_mean.append(np.mean(nuclear_counts))
 
-        for i, model_name in enumerate(ALL_MODEL_NAMES):
+        for i, model_name in enumerate(ALL_MODEL_NAMES_WITH_GPT_4_BASE):
             # Print the corresponding data, and bold the mean and std if the mean is the highest for that column
             nonviolent_mean = nonviolent_means[i]
             violent_mean = violent_means[i]
@@ -245,14 +246,14 @@ def main() -> None:
                 nuclear_std_str = r"\textbf{" + nuclear_std_str + "}"
 
             print(
-                f"        {scenario} & {model_name} & {nonviolent_mean_str}\% $\pm$ {nonviolent_std_str}\% ({nonviolent_count_mean_str}) & {violent_mean_str}\% $\pm$ {violent_std_str}\% ({violent_count_mean_str}) & {nuclear_mean_str}\% $\pm$ {nuclear_std_str}\% ({nuclear_count_mean_str}) & TEMP $\pm$ TEMP \\\\"
+                rf"        {scenario} & {model_name} & {nonviolent_mean_str}\% $\pm$ {nonviolent_std_str}\% ({nonviolent_count_mean_str}) & {violent_mean_str}\% $\pm$ {violent_std_str}\% ({violent_count_mean_str}) & {nuclear_mean_str}\% $\pm$ {nuclear_std_str}\% ({nuclear_count_mean_str}) & TEMP $\pm$ TEMP \\"
             )
 
         print("        \\hline")
     print("    \\end{tabularx}")
 
     # Plot a bunch of different bar graphs for different combos of models
-    for model_name in ALL_MODEL_NAMES:
+    for model_name in ALL_MODEL_NAMES_WITH_GPT_4_BASE:
         # Create a DF of the counts of each model/scenario/action combo in each file
         print("Counting actions...")
         graphing_data_actions = []
