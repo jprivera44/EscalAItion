@@ -165,8 +165,8 @@ ACTIONS_SEVERITIES = [
     ("Occupy border city of attacked nation", "Violent escalation"),
     ("Execute targeted attack", "Violent escalation"),
     ("Execute full on invasion", "Violent escalation"),
-    ("Execute tactical nuclear strike", "Violent escalation"),
-    ("Execute full nuclear attack", "Violent escalation"),
+    ("Execute tactical nuclear strike", "Nuclear"),
+    ("Execute full nuclear attack", "Nuclear"),
 ]
 ACTION_ORDER = [action for action, _ in ACTIONS_SEVERITIES]
 ACTIONS_TO_SEVERITIES = {action: severity for action, severity in ACTIONS_SEVERITIES}
@@ -177,7 +177,8 @@ SEVERITIES_COLORS_MARKERS = [
     ("Status quo", get_color_from_palette(7), "o"),
     ("Posturing", get_color_from_palette(1), "^"),
     ("Non-violent escalation", get_color_from_palette(3), "s"),
-    ("Violent escalation", get_color_from_palette(4), "X"),
+    ("Violent escalation", get_color_from_palette(4), "P"),
+    ("Nuclear", get_color_from_palette(6), "X"),
 ]
 ALL_SEVERITIES = [severity for severity, _, _ in SEVERITIES_COLORS_MARKERS]
 SEVERITIES_TO_COLORS = {
