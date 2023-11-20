@@ -35,7 +35,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_ACTIONS_BY_MODEL = "./actions_by_model"
 
-PLOT_NUMBER_TO_CREATE = 4
+PLOT_NUMBER_TO_CREATE = 0
 
 
 LABEL_MAX_LENGTH = 26
@@ -113,7 +113,7 @@ def main() -> None:
     # LateX table: For each scenario, for each model name, print out a latex table row for:
     # |scenario|model|%Non-violent+-std|%Violent+-std|%Nuclear+-std|placehold for escalation score+-std|
     print("\nLateX table:")
-    print("    \\begin{tabularx}{\\textwidth}{|c|c|X|X|X|}")
+    print("    \\begin{tabularx}{\\textwidth}{|c|c|X|X|X|X|}")
     print("        \\hline")
     print(
         r"        \textbf{Scenario} & \textbf{Model} & \textbf{\% Non-violent Escalation (Count)} & \textbf{\% Violent Escalation (Count)} & \textbf{\% Nuclear (Count)} & \textbf{Avg. Escalation Score} \\"
@@ -235,13 +235,15 @@ def main() -> None:
             nonviolent_count_mean_str = f"{nonviolent_count_mean:.2f}"
             violent_count_mean_str = f"{violent_count_mean:.2f}"
             nuclear_count_mean_str = f"{nuclear_count_mean:.2f}"
-            if nonviolent_mean == max(nonviolent_means):
+            if nonviolent_mean == max(
+                nonviolent_means[:3] + nonviolent_means[-1]  # Skip GPT-4-Base
+            ):
                 nonviolent_mean_str = r"\textbf{" + nonviolent_mean_str + "}"
                 nonviolent_std_str = r"\textbf{" + nonviolent_std_str + "}"
-            if violent_mean == max(violent_means):
+            if violent_mean == max(violent_means[:3] + violent_means[-1]):
                 violent_mean_str = r"\textbf{" + violent_mean_str + "}"
                 violent_std_str = r"\textbf{" + violent_std_str + "}"
-            if nuclear_mean == max(nuclear_means):
+            if nuclear_mean == max(nuclear_means[:3] + nuclear_means[-1]):
                 nuclear_mean_str = r"\textbf{" + nuclear_mean_str + "}"
                 nuclear_std_str = r"\textbf{" + nuclear_std_str + "}"
 
