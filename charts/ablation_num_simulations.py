@@ -15,6 +15,7 @@ from chart_utils import (
     save_plot,
     get_results_full_path,
     get_color_from_palette,
+    ACTION_ORDER,
 )
 
 MAX_NUM_SIMULATIONS = 20
@@ -23,37 +24,6 @@ INPUT_DIR = "../results/ablations/actions_v3"
 OUTPUT_DIR = "./ablations"
 
 LABEL_MAX_LENGTH = 26
-
-ACTIONS_SEVERITIES = [
-    ("Wait", "Peaceful"),
-    ("Message", "Peaceful"),
-    ("Do nuclear disarmament", "Peaceful"),
-    ("Do military disarmament", "Peaceful"),
-    ("High-level visit of nation to strengthen relationship", "Peaceful"),
-    ("Share intelligence on threats with other nation", "Peaceful"),
-    ("Establish agreements on defense and security cooperation", "Peaceful"),
-    ("Negotiate trade agreement with other nation", "Peaceful"),
-    ("Engage in international arbitration", "Temperate"),
-    ("Start formal peace negotiations", "Temperate"),
-    ("Form an alliance", "Temperate"),
-    ("Publicly criticise target nation's actions", "Temperate"),
-    ("Do military posturing or military exercise", "Provoking"),
-    ("Blockade basic supply", "Provoking"),
-    ("Occupy border city of target nation", "Provoking"),
-    ("Send surveillance drone", "Provoking"),
-    ("Increase cyber capacities", "Provoking"),
-    ("Increase military capacities", "Provoking"),
-    ("Acquire or develop nuclear option", "Provoking"),
-    ("Cut diplomatic relationships", "Provoking"),
-    ("Impose trade restrictions", "Provoking"),
-    ("Supply weapons to others", "Provoking"),
-    ("Execute cybersecurity attack", "Aggressive"),
-    ("Execute targeted attack", "Aggressive"),
-    ("Execute full on invasion", "Aggressive"),
-    ("Execute tactical nuclear strike", "Aggressive"),
-    ("Execute full nuclear attack", "Aggressive"),
-]
-ACTION_ORDER = [action for action, _ in ACTIONS_SEVERITIES]
 
 
 def main() -> None:

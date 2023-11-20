@@ -335,6 +335,7 @@ def main() -> None:
                 axes[i, 0].set_title(f"{model} - Average Escalation Score")
                 axes[i, 0].set_xlabel("Day")
                 axes[i, 0].set_ylabel("Escalation Score")
+                axes[i, 0].set_ylim(-20, 100)
 
                 # Plot average day-to-day differences in the second column
                 sns.lineplot(
@@ -347,6 +348,7 @@ def main() -> None:
                 axes[i, 1].set_title(f"{model} - Average Day-to-Day Differences")
                 axes[i, 1].set_xlabel("Day")
                 axes[i, 1].set_ylabel("Day-to-Day Difference")
+                axes[i, 1].set_ylim(-40, 40)
 
                 # Add fill_between for std deviation in day-to-day differences plot
                 axes[i, 1].fill_between(
