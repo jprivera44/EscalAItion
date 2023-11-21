@@ -24,8 +24,8 @@ from chart_utils import (
     # get_color_from_palette,
 )
 
-INPUT_DIR = "../evals/json_v4_exponential"
-OUTPUT_DIR = "./escalation_scores_exponential"
+INPUT_DIR = "../evals/json_v4_linear"
+OUTPUT_DIR = "./escalation_scores_linear"
 
 PLOT_NUMBER_TO_CREATE = 3
 
@@ -335,7 +335,7 @@ def main() -> None:
                 axes[i, 0].set_title(f"{model} - Average Escalation Score")
                 axes[i, 0].set_xlabel("Day")
                 axes[i, 0].set_ylabel("Escalation Score")
-                axes[i, 0].set_ylim(-50, 60)
+                axes[i, 0].set_ylim(-20, 50)
 
                 # Plot average day-to-day differences in the second column
                 sns.lineplot(
@@ -348,7 +348,7 @@ def main() -> None:
                 axes[i, 1].set_title(f"{model} - Average Day-to-Day Differences")
                 axes[i, 1].set_xlabel("Day")
                 axes[i, 1].set_ylabel("Day-to-Day Difference")
-                axes[i, 1].set_ylim(-40, 40)
+                axes[i, 1].set_ylim(-30, 30)
 
                 # Add fill_between for std deviation in day-to-day differences plot
                 axes[i, 1].fill_between(
@@ -360,7 +360,7 @@ def main() -> None:
                 )
 
             # Adjust the layout
-            title = "Multiple_graph" + str(scenario_to_plot)
+            title = "Multiple_graph" +'_'+ str(scenario_to_plot) +"_linear"
             plt.tight_layout()
             save_plot(OUTPUT_DIR, title)
             plt.close()
