@@ -41,6 +41,8 @@ def initialize_plot_default() -> None:
     plt.rcParams.update(plt.rcParamsDefault)
     # Set seed
     set_seed(66)
+    # Grid
+    plt.grid(True)
     # Default theme
     sns.set_theme(context="paper", font_scale=1.5, style="whitegrid")
     # Figure size
