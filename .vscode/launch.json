@@ -211,6 +211,14 @@
             "justMyCode": true
         },
         {
+            "name": "Action counts plotting",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/charts/action_count_graphs_final.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
             "name": "Model plotting for day difference",
             "type": "python",
             "request": "launch",
