@@ -35,7 +35,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_ACTIONS_BY_MODEL = "./actions_by_model"
 
-PLOT_NUMBER_TO_CREATE = 5
+PLOT_NUMBER_TO_CREATE = 0
 
 
 LABEL_MAX_LENGTH = 26
@@ -248,7 +248,7 @@ def main() -> None:
                 nuclear_std_str = r"\textbf{" + nuclear_std_str + "}"
 
             print(
-                rf"        {scenario} & {model_name} & {nonviolent_mean_str}\% $\pm$ {nonviolent_std_str}\% ({nonviolent_count_mean_str}) & {violent_mean_str}\% $\pm$ {violent_std_str}\% ({violent_count_mean_str}) & {nuclear_mean_str}\% $\pm$ {nuclear_std_str}\% ({nuclear_count_mean_str}) & TEMP $\pm$ TEMP \\"
+                rf"        {scenario} & {model_name} & {nonviolent_mean_str} $\pm$ {nonviolent_std_str}\% ({nonviolent_count_mean_str}) & {violent_mean_str} $\pm$ {violent_std_str}\% ({violent_count_mean_str}) & {nuclear_mean_str} $\pm$ {nuclear_std_str}\% ({nuclear_count_mean_str}) & TEMP $\pm$ TEMP \\"
             )
 
         print("        \\hline")

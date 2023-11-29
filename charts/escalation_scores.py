@@ -17,6 +17,7 @@ from chart_utils import (
     MODELS_TO_COLORS,
     # CAPSIZE_DEFAULT,
     ALL_MODEL_NAMES,
+    ALL_MODEL_NAMES_WITH_GPT_4_BASE,
     initialize_plot_default,
     # initialize_plot_bar,
     save_plot,
@@ -27,7 +28,7 @@ from chart_utils import (
 INPUT_DIR = "../evals/json_v4_exponential"
 OUTPUT_DIR = "./escalation_scores_exponential_2x4"
 
-PLOT_NUMBER_TO_CREATE = 3
+PLOT_NUMBER_TO_CREATE = 0
 
 
 def main() -> None:
@@ -52,7 +53,7 @@ def main() -> None:
         )
         for filename, df in filenames_and_data
         # Filter to model names in ALL_MODEL_NAMES
-        if filename.split(" ")[0] in ALL_MODEL_NAMES
+        if filename.split(" ")[0] in ALL_MODEL_NAMES_WITH_GPT_4_BASE
     ]
 
     # Print how many runs there are for each model_name, scenario combo
@@ -78,7 +79,7 @@ def main() -> None:
         ]
         mean_per_run_list = []
         stdper_run_list = []
-        for model_name in ALL_MODEL_NAMES:
+        for model_name in ALL_MODEL_NAMES_WITH_GPT_4_BASE:
             df_list_model = [
                 df
                 for df in df_list_scenario
@@ -89,7 +90,7 @@ def main() -> None:
             mean_per_run_list.append(np.mean(run_mean_scores))
             stdper_run_list.append(np.std(run_mean_scores))
 
-        for i, model_name in enumerate(ALL_MODEL_NAMES):
+        for i, model_name in enumerate(ALL_MODEL_NAMES_WITH_GPT_4_BASE):
             score_mean = mean_per_run_list[i]
             score_std = stdper_run_list[i]
             score_mean_str = f"{score_mean:.2f}"
