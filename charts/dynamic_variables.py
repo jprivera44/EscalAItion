@@ -14,6 +14,7 @@ from chart_utils import (
     ALL_SCENARIOS,
     ALL_DYNAMIC_VARIABLES,
     DYNAMIC_VARIABLES_TO_NAMES,
+    LABELSIZE_DEFAULT,
     MODELS_TO_COLORS,
     MODELS_TO_MARKERS,
     initialize_plot_default,
@@ -25,7 +26,7 @@ from chart_utils import (
 INPUT_DIR = "../results/variables_v3"
 OUTPUT_DIR = "./dynamic_variables"
 
-INDEX_TO_CREATE = 3
+INDEX_TO_CREATE = 4
 
 
 def main() -> None:
@@ -40,13 +41,43 @@ def main() -> None:
         for filename in os.listdir(get_results_full_path(INPUT_DIR))
     ]
     # Create a concatted dataframe using filenames to add columns. Split filenames on spaces, then first element is model_name and second is scenario
-    dfs_list = [
+    dfs_list_unprocessed = [
         df.assign(
             model_name=filename.split(" ")[0],
             scenario=filename.split(" ")[1],
         )
         for filename, df in filenames_and_data
     ]
+    # For each df, average the dynamic variables for each day first, that way we normalize differences between nations but still get run error bands
+    print("Averaging dynamic variables for each day...")
+    columns = dfs_list_unprocessed[0].columns
+    dfs_list = []
+    for df_unprocessed in dfs_list_unprocessed:
+        new_rows = []
+        for day in range(0, 16):
+            df_day = df_unprocessed[df_unprocessed["day"] == day].copy()
+            if day == 1:
+                continue  # Naming error
+            elif day == 0:
+                df_day["day"] = 1
+            if len(df_day) == 0:
+                print(f"⚠️ No data for day {day} in {df_unprocessed['model_name']}")
+                continue
+            averaged_values = []
+            for column in columns:
+                # Check if numeric
+                if pd.api.types.is_numeric_dtype(df_day[column]):
+                    # Average the values
+                    averaged_values.append(df_day[column].mean())
+                else:
+                    # Append the first value
+                    averaged_values.append(df_day[column].iloc[0])
+            new_row = pd.Series(averaged_values, index=columns)
+            # new_row["day"] = day
+            new_rows.append(new_row)
+        df_processed = pd.DataFrame(new_rows)
+        dfs_list.append(df_processed)
+    # Concat the dfs
     df_all = pd.concat(dfs_list)
 
     # Change all the 0 days to 1 due to a logging issue
@@ -82,7 +113,7 @@ def main() -> None:
                 plt.rcParams["figure.figsize"] = (7, 5)
                 grouping = "model_name"
                 x_variable = "day"
-                x_label = "Day"
+                x_label = "Time t [Days]"
                 assert (
                     "_dynamic" in dynamic_variable
                 ), f"dynamic variable={dynamic_variable} (expected to contain '_dynamic')"
@@ -102,8 +133,8 @@ def main() -> None:
                     hue_order=ALL_MODEL_NAMES,
                     markers=MODELS_TO_MARKERS,
                 )
-                plt.xlabel(x_label)
-                plt.ylabel(y_label)
+                plt.xlabel(x_label, size=LABELSIZE_DEFAULT)
+                plt.ylabel(y_label, size=LABELSIZE_DEFAULT)
                 # plt.yscale("log")
                 title = f"{y_label.replace('Average ', '')} Over Time in {scenario} Scenario"
                 plt.title(title)
@@ -174,7 +205,7 @@ def main() -> None:
                 plt.rcParams["figure.figsize"] = (12, 6)
                 grouping = "variable"
                 x_variable = "day"
-                x_label = "Day"
+                x_label = "Time t [Days]"
                 y_label = "Dynamic Variable Value"
                 grouping_order = ALL_SCENARIOS
                 # Plot df_grouped
@@ -187,8 +218,8 @@ def main() -> None:
                     markers=True,
                     errorbar="ci",
                 )
-                plt.xlabel(x_label)
-                plt.ylabel(y_label)
+                plt.xlabel(x_label, size=LABELSIZE_DEFAULT)
+                plt.ylabel(y_label, size=LABELSIZE_DEFAULT)
                 # plt.yscale("log")
                 ticks = [5, 10, 15, 20, 25, 30]
                 # plt.yticks(ticks, [str(tick) for tick in ticks])
@@ -244,8 +275,8 @@ def main() -> None:
                 # order=df_grouped.index.get_level_values(x_variable).unique(),
                 hue_order=grouping_order,
             )
-            plt.xlabel(x_label)
-            plt.ylabel(y_label)
+            plt.xlabel(x_label, size=LABELSIZE_DEFAULT)
+            plt.ylabel(y_label, size=LABELSIZE_DEFAULT)
             # plt.yscale("log")
             title = f"Final Nation Variables by Scenario ({model_name})"
             plt.title(title)
