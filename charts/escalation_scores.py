@@ -295,6 +295,8 @@ def main() -> None:
                     model, "black"
                 )  # Default to black if model not in dictionary
 
+                # TODO: plot each individual run with transparency on the same plot to show variance and if there are sudden jumps
+
                 # Plot average escalation score in the first column
                 sns.lineplot(
                     ax=axes[0, i],
