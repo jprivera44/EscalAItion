@@ -100,7 +100,7 @@ def main() -> None:
                 score_std_str = r"\textbf{" + score_std_str + "}"
 
             print(
-                f"{scenario:11s} | {model_name:12s} | {score_mean_str} $\pm$ {score_std_str}"
+                rf"{scenario:11s} | {model_name:12s} | {score_mean_str} $\pm$ {score_std_str}"
             )
         print()
 
@@ -267,7 +267,7 @@ def main() -> None:
             models = ["GPT-4", "GPT-3.5", "Claude-2.0", "Llama-2-Chat"]
 
             # Create a 5x2 grid of subplots
-            fig, axes = plt.subplots(
+            _, axes = plt.subplots(
                 nrows=2, ncols=4, figsize=(14, 7)
             )  # Adjust figsize as needed
             scenario_to_plot = df_scenario["scenario"].unique()[0]

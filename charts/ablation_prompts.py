@@ -179,6 +179,9 @@ def main() -> None:
             plt.clf()
             del df_plot
 
+        if PLOT_NUMBER_TO_CREATE == 2:
+            # Same but of military capacity
+            y_variable = "military capacity"
 
 if __name__ == "__main__":
     main()
