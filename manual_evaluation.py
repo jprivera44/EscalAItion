@@ -48,11 +48,11 @@ escalation_points = {
 
 # Define points for each category
 points = {
-    'Nuclear Escalation': 4,
-    'Violent Escalation': 3,
-    'Non-violent Escalation': 2,
-    'Posturing': 1,
-    'De-escalation': -1,
+    'Nuclear Escalation': 60,
+    'Violent Escalation': 28,
+    'Non-violent Escalation': 12,
+    'Posturing': 4,
+    'De-escalation': -2,
     'message-count':1,
     'action-count':1
 }
