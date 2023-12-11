@@ -20,13 +20,16 @@ from chart_utils import (
     ALL_MODEL_NAMES_WITH_GPT_4_BASE,
     initialize_plot_default,
     # initialize_plot_bar,
+
     save_plot,
     get_results_full_path,
     # get_color_from_palette,
 )
 
-INPUT_DIR = "../evals/json_v4_exponential"
-OUTPUT_DIR = "./escalation_scores_exponential_2x4"
+file_eval_type = "exponential"
+
+INPUT_DIR = "../evals/json_by_color_v4_" + file_eval_type
+OUTPUT_DIR = "./escalation_scores_by_color"+ file_eval_type + "_2x4"
 
 PLOT_NUMBER_TO_CREATE = 0
 
@@ -335,7 +338,7 @@ def main() -> None:
                 )
 
             # Adjust the layout
-            title = "Multiple_graph" + "_" + str(scenario_to_plot) + "_linear"
+            title = "Multiple_graph" + "_" + str(scenario_to_plot) + "_" + file_eval_type
             plt.tight_layout()
             save_plot(OUTPUT_DIR, title)
             plt.close()
