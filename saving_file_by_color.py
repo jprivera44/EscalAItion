@@ -14,7 +14,7 @@ def save_file_by_color(df, color, original_filename, file_save_location):
     """
     df_color = df[df['self'] == color]
     # Construct the new filename
-    new_filename = f'{file_save_location}{original_filename}_{color}'
+    new_filename = f'{file_save_location}{original_filename}_{color}.csv'
     df_color.to_csv(new_filename, index=False)
 
 def main():
