@@ -140,9 +140,12 @@ def process_file_scores(file_path):
 
 # Main function to process all files in the directory
 def main():
-    folder_path = "./results/actions_v3"
+
+    type_of_file = 'exponential'
+
+    folder_path = "./results/actions_by_color_v3"
     file_pattern = f"{folder_path}/*.csv"
-    json_output_folder = "./evals/json_v4_linear"
+    json_output_folder = "./evals/json_by_color_v4_" + type_of_file
     
     os.makedirs(json_output_folder, exist_ok=True)
     file_paths = glob.glob(file_pattern)
@@ -153,8 +156,6 @@ def main():
         # Remove the '.csv' part from the base_name before appending '_eval.json'
         base_name_without_csv = base_name.replace('.csv', '')
         json_output_path = os.path.join(json_output_folder, f"{base_name_without_csv}_raw.json").replace("\\", "/")
-
-        #json_output_path = os.path.join(json_output_folder, f"{base_name}_eval.json").replace("\\", "/")
 
         # Gather all daily scores into a list
         scores_list = [{'Day': day, **day_scores} for day, day_scores in sorted(scores.items())]
