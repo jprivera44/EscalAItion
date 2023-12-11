@@ -12,7 +12,11 @@ This project uses frontier LLMs to simulate  interactions between nation-state a
 ## Installation
 To get started with this simulation, you'll need to ensure you have Python installed on your system along with some key libraries. Follow these steps:
 
-### Clone the Repository:
+0. Clone the Repository:
+
+```
+git clone https://github.com/jprivera44/EscalAItion.git
+```
 
 1. Create a python environment
 
@@ -22,10 +26,7 @@ conda activate escalaition
 ```
 
 2. Install Pytorch separately
-> https://pytorch.orgget-started/locally/
-```
-git clone https://github.com/jprivera44/EscalAItion.git
-```
+> https://pytorch.org/get-started/locally/
 
 3. Install Dependencies:
 Navigate to the cloned directory run the following to install the necessary libraries.
