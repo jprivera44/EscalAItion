@@ -143,9 +143,11 @@ def main():
 
     type_of_file = 'exponential'
 
-    folder_path = "./results/actions_by_color_v3"
-    file_pattern = f"{folder_path}/*.csv"
-    json_output_folder = "./evals/json_by_color_v4_" + type_of_file
+    model_type = 'claude-2.0'
+
+    folder_path = "./results/prompt_ablations/" + model_type + "/actions_v1/"
+    file_pattern = f"{folder_path}/*no_goals*.csv"
+    json_output_folder = "./evals/prompt_ablations_no_goals/" + type_of_file
     
     os.makedirs(json_output_folder, exist_ok=True)
     file_paths = glob.glob(file_pattern)
@@ -155,7 +157,7 @@ def main():
         base_name = os.path.basename(file_path)
         # Remove the '.csv' part from the base_name before appending '_eval.json'
         base_name_without_csv = base_name.replace('.csv', '')
-        json_output_path = os.path.join(json_output_folder, f"{base_name_without_csv}_raw.json").replace("\\", "/")
+        json_output_path = os.path.join(json_output_folder, f"{base_name_without_csv}_{model_type}_raw.json").replace("\\", "/")
 
         # Gather all daily scores into a list
         scores_list = [{'Day': day, **day_scores} for day, day_scores in sorted(scores.items())]
