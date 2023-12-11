@@ -235,6 +235,14 @@
             "justMyCode": true
         },
         {
+            "name": "De-bug file saving color",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/saving_file_by_color.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
             "name": "De-bugging Download sweeps data",
             "type": "python",
             "request": "launch",
