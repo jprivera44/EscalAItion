@@ -20,7 +20,6 @@ from chart_utils import (
     ALL_MODEL_NAMES_WITH_GPT_4_BASE,
     initialize_plot_default,
     # initialize_plot_bar,
-
     save_plot,
     get_results_full_path,
     # get_color_from_palette,
@@ -28,8 +27,9 @@ from chart_utils import (
 
 file_eval_type = "exponential"
 
-INPUT_DIR = "../evals/json_by_color_v4_" + file_eval_type
-OUTPUT_DIR = "./escalation_scores_by_color"+ file_eval_type + "_2x4"
+# INPUT_DIR = "../evals/json_by_color_v4_" + file_eval_type
+INPUT_DIR = "../evals/json_v4_" + file_eval_type
+OUTPUT_DIR = "./escalation_scores_by_color" + file_eval_type + "_2x4"
 
 PLOT_NUMBER_TO_CREATE = 0
 
@@ -40,56 +40,55 @@ def main() -> None:
     # colors = ["White", "Yellow", "Blue", "Green", "Pink", "Purple", "Red", "Orange"]  # List your colors here
 
     # for color in colors:
-        # TODO @JP you broke all the past graphs by doing this, please
-        # 1) only push code that works and
-        # 2) make your code modular so we can still run the old graphs if we need to update them
+    # TODO @JP you broke all the past graphs by doing this, please
+    # 1) only push code that works and
+    # 2) make your code modular so we can still run the old graphs if we need to update them
 
-        # filenames_and_data = []
-        # for filename in os.listdir(get_results_full_path(INPUT_DIR)):
-        #     if f"_{color}_" in filename:
-        #         df = load_json_data(get_results_full_path(os.path.join(INPUT_DIR, filename)), color)
-        #         filenames_and_data.append((filename, df))
+    # filenames_and_data = []
+    # for filename in os.listdir(get_results_full_path(INPUT_DIR)):
+    #     if f"_{color}_" in filename:
+    #         df = load_json_data(get_results_full_path(os.path.join(INPUT_DIR, filename)), color)
+    #         filenames_and_data.append((filename, df))
 
+    # TODO @JP this is bad code smell, 1) use # not ''' for commenting things out and 2) avoid pushing commented out code
+    # '''
+    # # Load the data from each file into one big dataframe
+    # filenames_and_data = [
+    #     (
+    #         filename,
+    #         load_json_data(get_results_full_path(os.path.join(INPUT_DIR, filename))),
+    #     )
+    #     for filename in os.listdir(get_results_full_path(INPUT_DIR))
+    # ]
+    # '''
 
-        # TODO @JP this is bad code smell, 1) use # not ''' for commenting things out and 2) avoid pushing commented out code
-        # '''
-        # # Load the data from each file into one big dataframe
-        # filenames_and_data = [
-        #     (
-        #         filename,
-        #         load_json_data(get_results_full_path(os.path.join(INPUT_DIR, filename))),
-        #     )
-        #     for filename in os.listdir(get_results_full_path(INPUT_DIR))
-        # ]
-        # '''
+    # # Concatenate all dataframes for the current color
+    # dfs_list = [
+    #     df.assign(
+    #         model_name=filename.split(" ")[0],
+    #         run_index=filename.replace(".json", "").replace("_raw", "")[-1],
+    #         scenario=filename.split(" ")[1].replace("_", " ").replace("CyberAttack", "Cyberattack"),
+    #     )
+    #     for filename, df in filenames_and_data
+    #     if filename.split(" ")[0] in ALL_MODEL_NAMES_WITH_GPT_4_BASE
+    # ]
 
-        # # Concatenate all dataframes for the current color
-        # dfs_list = [
-        #     df.assign(
-        #         model_name=filename.split(" ")[0],
-        #         run_index=filename.replace(".json", "").replace("_raw", "")[-1],
-        #         scenario=filename.split(" ")[1].replace("_", " ").replace("CyberAttack", "Cyberattack"),
-        #     )
-        #     for filename, df in filenames_and_data
-        #     if filename.split(" ")[0] in ALL_MODEL_NAMES_WITH_GPT_4_BASE
-        # ]
+    # '''
+    # # Create a concatted dataframe using filenames to add columns. Split filenames on spaces, then first element is model_name and second is scenario
+    # dfs_list = [
+    #     df.assign(
+    #         model_name=filename.split(" ")[0],
+    #         run_index=filename.replace(".json", "").replace("_raw", "")[-1],
+    #         scenario=filename.split(" ")[1]
+    #         .replace("_", " ")
+    #         .replace("CyberAttack", "Cyberattack"),
+    #     )
+    #     for filename, df in filenames_and_data
+    #     # Filter to model names in ALL_MODEL_NAMES
+    #     if filename.split(" ")[0] in ALL_MODEL_NAMES_WITH_GPT_4_BASE
+    # ]
+    # '''
 
-        # '''
-        # # Create a concatted dataframe using filenames to add columns. Split filenames on spaces, then first element is model_name and second is scenario
-        # dfs_list = [
-        #     df.assign(
-        #         model_name=filename.split(" ")[0],
-        #         run_index=filename.replace(".json", "").replace("_raw", "")[-1],
-        #         scenario=filename.split(" ")[1]
-        #         .replace("_", " ")
-        #         .replace("CyberAttack", "Cyberattack"),
-        #     )
-        #     for filename, df in filenames_and_data
-        #     # Filter to model names in ALL_MODEL_NAMES
-        #     if filename.split(" ")[0] in ALL_MODEL_NAMES_WITH_GPT_4_BASE
-        # ]
-        # '''
-    
     # Load the data from each file into one big dataframe
     filenames_and_data = [
         (
@@ -162,8 +161,9 @@ def main() -> None:
     print("\nLatex Table of beginning, middle, and end escalation scores (t=1, 8, 14)")
     # Print header
     print(
-        rf"    \begin{{tabularx}}{{\textwidth}}{{|c|c|X|X|X|}} \hline" "\n"
-        rf"    \textbf{{Scenario}} & \textbf{{Model}} & \textbf{{Escalation Score  \newline ($t=1$)}} & \textbf{{Escalation Score  \newline ($t=8$)}} & \textbf{{Escalation Score  \newline ($t=14$)}} \\ \hline"
+        r"    \begin{tabularx}{0.85\textwidth}{|c|c|X|X|X|} \hline"
+        "\n"
+        r"    \textbf{Scenario} & \textbf{Model} & \textbf{Escalation Score \newline Beginning ($t=1$)} & \textbf{Escalation Score \newline Middle ($t=8$)} & \textbf{Escalation Score \newline End ($t=14$)} \\ \hline"
     )
     gpt_4_base_rows = ""
     for scenario in ALL_SCENARIOS:
@@ -179,14 +179,10 @@ def main() -> None:
             # Filter by day=1, 8, 14 and print mean and std ES across the 10 runs
             mean_mean_str_std_str: list[tuple[float, str, str]] = []
             for day in [1, 8, 14]:
-                df_list_day = [
-                    df[df["day"] == day] for df in df_list_model
-                ]
+                df_list_day = [df[df["day"] == day] for df in df_list_model]
                 assert len(df_list_day) == 10, f"len(df_list_day) = {len(df_list_day)}"
                 # Mean escalation score within each run
-                run_mean_scores = [
-                    (np.mean(df["total"])) for df in df_list_day
-                ]
+                run_mean_scores = [(np.mean(df["total"])) for df in df_list_day]
                 mean = np.mean(run_mean_scores)
                 std = np.std(run_mean_scores)
                 mean_str = f"{mean:.2f}"
@@ -194,29 +190,34 @@ def main() -> None:
                 mean_mean_str_std_str.append((mean, mean_str, std_str))
             # Print full row, bolding the cell with the highest mean
             max_mean = max(mean_mean_str_std_str, key=lambda x: x[0])[0]
-            row = f"    {scenario:15s} & {model_name:12s}"
+            scenario_str = scenario
+            if "Llama" not in model_name and "Base" not in model_name:
+                # Only print scenario once per group
+                scenario_str = ""
+            row = f"    {scenario_str:15s} & {model_name:12s}"
             for mean, mean_str, std_str in mean_mean_str_std_str:
                 if mean == max_mean:
-                    mean_str = (
-                        r"\textbf{" + mean_str
-                    )
+                    mean_str = r"\textbf{" + mean_str
                     std_str = std_str + "}"
                 # Underline second highest
                 elif mean == sorted(mean_mean_str_std_str)[-2][0]:
-                    mean_str = (
-                        r"\underline{" + mean_str
-                    )
+                    mean_str = r"\underline{" + mean_str
                     std_str = std_str + "}"
-                row += f" & {mean_str:13s} $\pm$ {std_str:6s}"
-            row += r" \\[2.5pt] \hline"
+                row += rf" & {mean_str:13s} $\pm$ {std_str:6s}"
+            row += r" \\[2.5pt]"
             # Save GPT-4-base to the end
             if model_name == "GPT-4-Base":
                 gpt_4_base_rows += row + "\n"
             else:
                 print(row)
-    print(r"    \hline\hline" + "\n" + gpt_4_base_rows + r"    \end{tabularx}")
+        print(r"    \hline")
+    print(
+        r"    \hline\hline" + "\n" + gpt_4_base_rows + r"    \hline"
+        "\n"
+        r"    \end{tabularx}"
+    )
     print("\n")
-                
+
     if PLOT_NUMBER_TO_CREATE == 0:
         return
 
@@ -451,8 +452,10 @@ def main() -> None:
                 )
 
             # Adjust the layout
-            # title = "Multiple_graph" + "_" + str(scenario_to_plot) +"_"+ color + "_" + file_eval_type 
-            title = "Multiple_graph" + "_" + str(scenario_to_plot) +"_" + file_eval_type 
+            # title = "Multiple_graph" + "_" + str(scenario_to_plot) +"_"+ color + "_" + file_eval_type
+            title = (
+                "Multiple_graph" + "_" + str(scenario_to_plot) + "_" + file_eval_type
+            )
             plt.tight_layout()
             save_plot(OUTPUT_DIR, title)
             plt.close()
