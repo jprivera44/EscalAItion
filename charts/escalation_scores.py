@@ -29,9 +29,10 @@ file_eval_type = "exponential"
 
 # INPUT_DIR = "../evals/json_by_color_v4_" + file_eval_type
 INPUT_DIR = "../evals/json_v4_" + file_eval_type
-OUTPUT_DIR = "./escalation_scores_by_color" + file_eval_type + "_2x4"
+# OUTPUT_DIR = "./escalation_scores_by_color" + file_eval_type + "_2x4"
+OUTPUT_DIR = "./escalation_scores_v5"
 
-PLOT_NUMBER_TO_CREATE = 0
+PLOT_NUMBER_TO_CREATE = 3
 
 
 def main() -> None:
@@ -311,6 +312,7 @@ def main() -> None:
             plt.close()
             del title
 
+        # 3. grid of scores over time and differences over time
         elif PLOT_NUMBER_TO_CREATE >= 3:
             # Calculate day-to-day differences
             df_scenario["daily_difference"] = (
@@ -378,14 +380,15 @@ def main() -> None:
                 plt.close()
                 del title
 
-            # grid of scores over time and differences over time
-
             # List of your models
             models = ["GPT-4", "GPT-3.5", "Claude-2.0", "Llama-2-Chat"]
 
             # Create a 5x2 grid of subplots
             _, axes = plt.subplots(
-                nrows=2, ncols=4, figsize=(14, 7)
+                # nrows=2, ncols=4, figsize=(14, 7)
+                nrows=2,
+                ncols=4,
+                figsize=(24, 12),
             )  # Adjust figsize as needed
             scenario_to_plot = df_scenario["scenario"].unique()[0]
 
@@ -415,18 +418,37 @@ def main() -> None:
                 # TODO: plot each individual run with transparency on the same plot to show variance and if there are sudden jumps
 
                 # Plot average escalation score in the first column
+                plt.rcParams["lines.marker"] = ""
+                sns.lineplot(
+                    ax=axes[0, i],
+                    x="day",
+                    y="total",
+                    hue="run_index",
+                    data=df_model_escalation,
+                    # color=model_color,
+                    # palette=sns.color_palette("rocket"),
+                    palette=sns.light_palette(model_color, n_colors=10),
+                    marker=False,
+                    ci=None,
+                    # linestyle="dashed",
+                    alpha=0.5,
+                )
                 sns.lineplot(
                     ax=axes[0, i],
                     x="day",
                     y="total",
                     data=df_model_escalation,
                     color=model_color,
+                    linewidth=6,
+                    ci=None,
                 )
+                # Remove legend
+                axes[0, i].get_legend().remove()
                 axes[0, i].set_title(f"{model}")
                 axes[0, i].set_xlabel("Day")
                 ylabel = "Escalation Score" if i == 0 else ""
                 axes[0, i].set_ylabel(ylabel)
-                axes[0, i].set_ylim(0, 100)
+                axes[0, i].set_ylim(0, 250)
 
                 # Plot average day-to-day differences in the second column
                 sns.lineplot(
