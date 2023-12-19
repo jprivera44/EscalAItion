@@ -114,6 +114,10 @@ def main() -> None:
         if filename.split(" ")[0] in ALL_MODEL_NAMES_WITH_GPT_4_BASE
     ]
 
+    # Divide all escalation scores by 8 to normalize by number of nations
+    for df in dfs_list:
+        df["total"] = df["total"] / 8
+
     # Print how many runs there are for each model_name, scenario combo
     print("Runs per model_name, scenario combo:")
     print(pd.concat(dfs_list).groupby(["model_name", "scenario"]).size())
@@ -413,7 +417,7 @@ def main() -> None:
                         color=model_color,
                         linewidth=6,
                         errorbar=None,
-                        label=model,
+                        label=f"{model} Mean",
                     )
                     # legend in upper left
                     axes[i].legend(
@@ -422,7 +426,7 @@ def main() -> None:
                     axes[i].set_xlabel(TIMELABEL_DEFAULT)
                     ylabel = "Escalation Score" if i == 0 else ""
                     axes[i].set_ylabel(ylabel)
-                    axes[i].set_ylim(-10, 350)
+                    axes[i].set_ylim(-1.25, 44)
 
                 title = (
                     "es_individual_runs_" + str(scenario_to_plot) + "_" + file_eval_type
