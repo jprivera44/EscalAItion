@@ -37,7 +37,15 @@ def create_file_dir_if_not_exists(file_path: str) -> None:
 
 def initialize_plot_default() -> None:
     """Set default plot styling."""
+    # Reinit some plot things
+    # plt.close()
+    # plt.clf()
+    # plt.cla()
+    # plt.show(block=False)
+    # plt.close()
+    plt.tight_layout()
     # Reset rcParams
+    sns.reset_orig()
     plt.rcParams.update(plt.rcParamsDefault)
     # Set seed
     set_seed(66)

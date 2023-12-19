@@ -35,7 +35,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_ACTIONS_BY_MODEL = "./actions_by_model"
 
-PLOT_NUMBER_TO_CREATE = 0
+PLOT_NUMBER_TO_CREATE = 6
 
 
 LABEL_MAX_LENGTH = 26
@@ -256,6 +256,9 @@ def main() -> None:
 
     # Plot a bunch of different bar graphs for different combos of models
     for model_name in ALL_MODEL_NAMES_WITH_GPT_4_BASE:
+        if PLOT_NUMBER_TO_CREATE >= 4 or PLOT_NUMBER_TO_CREATE == 0:
+            continue
+
         # Create a DF of the counts of each model/scenario/action combo in each file
         print("Counting actions...")
         graphing_data_actions = []
@@ -752,6 +755,67 @@ def main() -> None:
             )
 
             title = f"Multiple_graph_action_severities_{scenario}"
+            plt.tight_layout()
+            save_plot(OUTPUT_DIR_ACTIONS_OVER_TIME, title)
+            plt.close()
+            plt.clf()
+            del title
+
+    # 1x4 total num actions over time plot row, not grouped by severity
+    if PLOT_NUMBER_TO_CREATE == 6:
+        # Create a DF with the total counts per day
+        grouped = [
+            df.groupby(["day", "model_name", "scenario"], observed=True).size()
+            for df in dfs_list
+        ]
+        graphing_data = []
+        for series in grouped:
+            for (day, series_model_name, scenario), count in series.items():
+                count /= 8  # Divide by 8 nations
+                graphing_data.append(
+                    {
+                        "day": day,
+                        "model_name": series_model_name,
+                        "scenario": scenario,
+                        "count": count,
+                    }
+                )
+        df_actions = pd.DataFrame(graphing_data)
+
+        for scenario in ALL_SCENARIOS:
+            initialize_plot_default()
+            _, axes = plt.subplots(nrows=1, ncols=4, figsize=(12, 3.5))
+
+            x_variable = "day"
+            y_variable = "count"
+            y_label = "Action Count Per Nation"
+            for i, model_name in enumerate(ALL_MODEL_NAMES[::-1]):
+                # Filter data for the current model
+                df_plot = df_actions[df_actions["model_name"] == model_name].copy()
+                df_plot = df_plot[df_plot["scenario"] == scenario].copy()
+
+                sns.lineplot(
+                    ax=axes[i],
+                    data=df_plot,
+                    x=x_variable,
+                    y=y_variable,
+                    markers=True,
+                    color=MODELS_TO_COLORS[model_name],
+                    label=model_name,
+                )
+                # Make sure label is in upper left
+                handles, labels = axes[i].get_legend_handles_labels()
+                axes[i].legend(handles[::-1], labels[::-1], loc="upper left")
+
+                # axes[i].set_title(f"{model_name}")
+                axes[i].set_xlabel("Day")
+                ylabel_sub = y_label if i == 0 else ""
+                axes[i].set_ylabel(ylabel_sub)
+                axes[i].set_ylim(1.25, 9.5)
+                axes[i].grid(True, alpha=0.5)
+
+            title = f"{y_label} Over Time ({scenario} Scenario)"
+            plt.suptitle(title, y=0.875)
             plt.tight_layout()
             save_plot(OUTPUT_DIR_ACTIONS_OVER_TIME, title)
             plt.close()
