@@ -314,6 +314,7 @@ def main() -> None:
 
         # 3. grid of scores over time and differences over time
         elif PLOT_NUMBER_TO_CREATE >= 3:
+            initialize_plot_default()
             # Calculate day-to-day differences
             df_scenario["daily_difference"] = (
                 df_scenario.groupby(["model_name", "run_index", "scenario"])["total"]
@@ -342,43 +343,6 @@ def main() -> None:
                     model_data["mean"] + model_data["std"],
                     alpha=0.2,
                 )
-
-            # TODO fix weird no grid on first plot
-            if True or PLOT_NUMBER_TO_CREATE == 4:
-                # Graphing for the 3rd section of difference between days
-                grouping = "model_name"
-                initialize_plot_default()
-                sns.lineplot(
-                    data=stats_df,
-                    x="day",
-                    y="mean",
-                    hue=grouping,
-                    palette=MODELS_TO_COLORS,
-                    hue_order=ALL_MODEL_NAMES,
-                    dashes=False,
-                    style=grouping,
-                    markers=MODELS_TO_MARKERS,
-                )
-                plt.xlabel("Day")
-                plt.ylabel("Avg. Day-to-Day Difference in Escalation Score")
-                title = f"Avg. Day-to-Day Difference in Escalation Score Over Time ({scenario})"
-                plt.title(title)
-
-                legend_loc = "upper left"
-                if scenario == "Invasion":
-                    legend_loc = "best"
-
-                plt.legend(
-                    loc=legend_loc,
-                    framealpha=0.5,
-                    borderaxespad=0.0,
-                    handletextpad=0.1,
-                    labelspacing=0.25,
-                )
-
-                save_plot(OUTPUT_DIR, title)
-                plt.close()
-                del title
 
             # List of your models
             models = ["GPT-4", "GPT-3.5", "Claude-2.0", "Llama-2-Chat"]
@@ -429,7 +393,7 @@ def main() -> None:
                     # palette=sns.color_palette("rocket"),
                     palette=sns.light_palette(model_color, n_colors=10),
                     marker=False,
-                    ci=None,
+                    errorbar=None,
                     # linestyle="dashed",
                     alpha=0.5,
                 )
@@ -440,7 +404,7 @@ def main() -> None:
                     data=df_model_escalation,
                     color=model_color,
                     linewidth=6,
-                    ci=None,
+                    errorbar=None,
                 )
                 # Remove legend
                 axes[0, i].get_legend().remove()
