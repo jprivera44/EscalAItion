@@ -63,6 +63,8 @@ def initialize_plot_default() -> None:
     plt.rcParams["lines.marker"] = "o"
     # Default marker size
     plt.rcParams["lines.markersize"] = 12
+    # Set font size to LABELSIZE_DEFAULT
+    plt.rcParams["font.size"] = LABELSIZE_DEFAULT
     # Accessible colors
     sns.set_palette(DEFAULT_COLOR_PALETTE)
 

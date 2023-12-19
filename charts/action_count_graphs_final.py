@@ -18,6 +18,7 @@ from chart_utils import (
     CAPSIZE_DEFAULT,
     ACTION_ORDER,
     ACTIONS_TO_SEVERITIES,
+    LABELSIZE_DEFAULT,
     SEVERITIES_ORDER,
     SEVERITIES_ORDER_NEWLINES,
     SEVERITY_TO_MARKER,
@@ -35,8 +36,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_ACTIONS_BY_MODEL = "./actions_by_model"
 
-PLOT_NUMBER_TO_CREATE = 2
-
+PLOT_NUMBER_TO_CREATE = 1
 
 LABEL_MAX_LENGTH = 26
 
@@ -290,6 +290,14 @@ def main() -> None:
             for df in dfs_list
             if df["model_name"].unique()[0] == model_name
         ]
+        # Manually add in 0 counts for missing severities each day
+        for i, series in enumerate(groups_by_severity):
+            scenario = dfs_list[i]["scenario"].unique()[0]
+            for day in range(1, 15):
+                for severity in SEVERITIES_ORDER:
+                    grouping = (day, model_name, scenario, severity)
+                    if grouping not in series:
+                        groups_by_severity[i][grouping] = 0
         graphing_data_severities = []
         for series in groups_by_severity:
             for (day, series_model_name, scenario, severity), count in series.items():
@@ -327,9 +335,6 @@ def main() -> None:
                     continue
 
                 initialize_plot_default()
-                # palette = sns.color_palette(palette="Spectral_r", n_colors=27)
-                # sns.set_palette(palette)
-                # plt.rcParams["figure.figsize"] = (12, 8)
                 x_variable = "day"
                 y_variable = "count"
                 x_label = "Day"
@@ -343,30 +348,29 @@ def main() -> None:
                     hue=grouping,
                     style=grouping,
                     hue_order=SEVERITIES_ORDER,
-                    markers=SEVERITY_TO_MARKER,  # ["X", ".", "^", "v"],
-                    # markers=True,
+                    markers=SEVERITY_TO_MARKER,
                     palette=SEVERITIES_TO_COLORS,
-                    # hue_order=["Attack", "Defend", "Negotiate"],
                 )
-                # # Legend to the right of the plot
-                # plt.legend(
-                #     borderaxespad=0.0,
-                #     bbox_to_anchor=(1.01, 1),
-                #     loc="upper left",
-                #     handletextpad=0.1,
-                #     # labelspacing=1.5,
-                # )
-                plt.legend(loc="best", framealpha=0.5)  # title="Severity",
-                plt.xlabel(x_label)
-                plt.ylabel(y_label)
+                # Legend below the plot in a row
+                plt.legend(
+                    loc="upper center",
+                    bbox_to_anchor=(0.5, -0.2),
+                    ncol=6,
+                    framealpha=0.5,
+                    borderaxespad=0.0,
+                )
+                plt.xlabel(x_label, size=LABELSIZE_DEFAULT)
+                plt.ylabel(y_label, size=LABELSIZE_DEFAULT)
                 plt.yscale("log")
                 # Y axis ticks in non-scientific notation
                 plt.yticks(
-                    [1, 3, 10, 30],
-                    ["1", "3", "10", "30"],
+                    [0.1, 0.3, 1, 3, 10],
+                    ["0.1", "0.3", "1", "3", "10"],
+                    size=LABELSIZE_DEFAULT,
                 )
+                plt.xticks(size=LABELSIZE_DEFAULT)
                 scenario_label = scenario
-                title = f"Actions by Severity Over Time in {scenario_label} Scenario ({model_name})"
+                title = f"{model_name} Action Severities ({scenario_label} Scenario)"
                 plt.title(title)
 
                 # Tight
