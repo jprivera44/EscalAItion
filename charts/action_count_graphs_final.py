@@ -381,46 +381,21 @@ def main() -> None:
                 title = f"{model_name} ({scenario} Scenario)"
                 ax.set_title(title)
 
+            # Add a legend to the bottom of the plot without changing the relative sizing of the plots
+            artists = axes[-1].get_legend_handles_labels()
+            plt.figlegend(
+                *artists,
+                loc="lower center",
+                ncol=6,
+                framealpha=1.0,
+                borderaxespad=0.0,
+                borderpad=0.5,
+                bbox_to_anchor=(0.5, -0.08),
+            )
+
             save_plot(
                 OUTPUT_DIR_ACTIONS_OVER_TIME, f"{model_name} Action Severities All"
             )
-
-            # After creating your plot and setting up the legend
-            # Retrieve the handles and labels from the existing plot
-            handles, labels = plt.gca().get_legend_handles_labels()
-
-            # Clear the plot
-            plt.clf()
-            del df_plot
-
-            # Create a new figure for the legend
-            fig_legend = plt.figure(figsize=(6, 0.3))
-            ax_legend = fig_legend.add_subplot(111)
-            # Add the legend to the new figure
-            ax_legend.legend(
-                handles,
-                labels,
-                loc="center",
-                ncol=6,
-                framealpha=1.0,
-                borderpad=0.8,
-            )
-            # legend.get_frame().set_linewidth(0.0)
-            ax_legend.axis("off")
-
-            # Save the legend
-            fig.tight_layout()
-            save_plot(
-                OUTPUT_DIR_ACTIONS_OVER_TIME,
-                "action_severities_legend",
-                save_target=fig_legend,
-            )
-
-            # Close the figures
-            plt.close(fig_legend)
-            plt.close()  # This closes the original plot figure
-
-            plt.clf()
 
         if PLOT_NUMBER_TO_CREATE == 2:
             # 2. Bar plot showing names grouped by scenario and for each model
