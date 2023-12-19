@@ -351,14 +351,7 @@ def main() -> None:
                     markers=SEVERITY_TO_MARKER,
                     palette=SEVERITIES_TO_COLORS,
                 )
-                # Legend below the plot in a row
-                plt.legend(
-                    loc="upper center",
-                    bbox_to_anchor=(0.5, -0.2),
-                    ncol=6,
-                    framealpha=0.5,
-                    borderaxespad=0.0,
-                )
+                plt.legend().remove()  # We save the legend separately
                 plt.xlabel(x_label, size=LABELSIZE_DEFAULT)
                 plt.ylabel(y_label, size=LABELSIZE_DEFAULT)
                 plt.yscale("log")
@@ -377,6 +370,39 @@ def main() -> None:
                 plt.tight_layout()
 
                 save_plot(OUTPUT_DIR_ACTIONS_OVER_TIME, title)
+
+                # After creating your plot and setting up the legend
+                # Retrieve the handles and labels from the existing plot
+                handles, labels = plt.gca().get_legend_handles_labels()
+
+                # Save the plot
+                save_plot(OUTPUT_DIR_ACTIONS_OVER_TIME, title)
+
+                # Create a new figure for the legend
+                fig_legend = plt.figure(figsize=(6, 0.3))
+                ax_legend = fig_legend.add_subplot(111)
+                # Add the legend to the new figure
+                ax_legend.legend(
+                    handles,
+                    labels,
+                    loc="center",
+                    ncol=6,
+                    framealpha=1.0,
+                    borderpad=0.8,
+                )
+                # legend.get_frame().set_linewidth(0.0)
+                ax_legend.axis("off")
+
+                # Save the legend
+                save_plot(
+                    OUTPUT_DIR_ACTIONS_OVER_TIME,
+                    "action_severities_legend",
+                    save_target=fig_legend,
+                )
+
+                # Close the figures
+                plt.close(fig_legend)
+                plt.close()  # This closes the original plot figure
 
                 # Clear the plot
                 plt.clf()

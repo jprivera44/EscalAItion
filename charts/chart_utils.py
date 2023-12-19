@@ -85,7 +85,7 @@ def get_color_from_palette(
     return color
 
 
-def save_plot(output_dir: str, filename: str) -> None:
+def save_plot(output_dir: str, filename: str, save_target: Any = plt) -> None:
     """Save a plot to a file."""
     filename_arxivable = (
         f"{filename}.pdf".replace(" (", "_")
@@ -98,7 +98,7 @@ def save_plot(output_dir: str, filename: str) -> None:
         os.path.join(output_dir, filename_arxivable)
     )
     create_file_dir_if_not_exists(output_filepath)
-    plt.savefig(output_filepath, bbox_inches="tight", dpi=300)
+    save_target.savefig(output_filepath, bbox_inches="tight", dpi=300)
     print(f"Saved plot '{filename}' to {filename_arxivable}")
 
 
