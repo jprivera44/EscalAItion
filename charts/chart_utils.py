@@ -112,6 +112,7 @@ COLOR_ALT_2 = "tab:red"
 
 CAPSIZE_DEFAULT = 0.2
 LABELSIZE_DEFAULT = 14
+TIMELABEL_DEFAULT = "Time $t$ [Days]"
 
 MODELS_COLORS_MARKERS = [
     # ("Claude-1.2", get_color_from_palette()),

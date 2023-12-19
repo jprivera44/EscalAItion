@@ -17,6 +17,7 @@ from chart_utils import (
     LABELSIZE_DEFAULT,
     MODELS_TO_COLORS,
     MODELS_TO_MARKERS,
+    TIMELABEL_DEFAULT,
     initialize_plot_default,
     initialize_plot_bar,
     save_plot,
@@ -113,7 +114,7 @@ def main() -> None:
                 plt.rcParams["figure.figsize"] = (7, 5)
                 grouping = "model_name"
                 x_variable = "day"
-                x_label = "Time t [Days]"
+                x_label = TIMELABEL_DEFAULT
                 assert (
                     "_dynamic" in dynamic_variable
                 ), f"dynamic variable={dynamic_variable} (expected to contain '_dynamic')"
@@ -205,7 +206,7 @@ def main() -> None:
                 plt.rcParams["figure.figsize"] = (12, 6)
                 grouping = "variable"
                 x_variable = "day"
-                x_label = "Time t [Days]"
+                x_label = TIMELABEL_DEFAULT
                 y_label = "Dynamic Variable Value"
                 grouping_order = ALL_SCENARIOS
                 # Plot df_grouped

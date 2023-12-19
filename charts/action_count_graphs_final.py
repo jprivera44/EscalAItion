@@ -23,6 +23,7 @@ from chart_utils import (
     SEVERITIES_ORDER_NEWLINES,
     SEVERITY_TO_MARKER,
     SEVERITIES_TO_COLORS,
+    TIMELABEL_DEFAULT,
     initialize_plot_default,
     initialize_plot_bar,
     save_plot,
@@ -335,10 +336,11 @@ def main() -> None:
                     continue
 
                 initialize_plot_default()
+                plt.figure(figsize=((6, 5)))
                 x_variable = "day"
                 y_variable = "count"
-                x_label = "Day"
-                y_label = "Daily Action Count"
+                x_label = TIMELABEL_DEFAULT
+                y_label = "Mean Action Count by Severity"
                 grouping = "severity"
                 # Plot df_grouped
                 sns.lineplot(
@@ -365,48 +367,44 @@ def main() -> None:
                 scenario_label = scenario
                 title = f"{model_name} Action Severities ({scenario_label} Scenario)"
                 plt.title(title)
-
-                # Tight
                 plt.tight_layout()
-
                 save_plot(OUTPUT_DIR_ACTIONS_OVER_TIME, title)
 
                 # After creating your plot and setting up the legend
                 # Retrieve the handles and labels from the existing plot
                 handles, labels = plt.gca().get_legend_handles_labels()
 
-                # Save the plot
-                save_plot(OUTPUT_DIR_ACTIONS_OVER_TIME, title)
-
-                # Create a new figure for the legend
-                fig_legend = plt.figure(figsize=(6, 0.3))
-                ax_legend = fig_legend.add_subplot(111)
-                # Add the legend to the new figure
-                ax_legend.legend(
-                    handles,
-                    labels,
-                    loc="center",
-                    ncol=6,
-                    framealpha=1.0,
-                    borderpad=0.8,
-                )
-                # legend.get_frame().set_linewidth(0.0)
-                ax_legend.axis("off")
-
-                # Save the legend
-                save_plot(
-                    OUTPUT_DIR_ACTIONS_OVER_TIME,
-                    "action_severities_legend",
-                    save_target=fig_legend,
-                )
-
-                # Close the figures
-                plt.close(fig_legend)
-                plt.close()  # This closes the original plot figure
-
                 # Clear the plot
                 plt.clf()
                 del df_plot
+
+            # Create a new figure for the legend
+            fig_legend = plt.figure(figsize=(6, 0.3))
+            ax_legend = fig_legend.add_subplot(111)
+            # Add the legend to the new figure
+            ax_legend.legend(
+                handles,
+                labels,
+                loc="center",
+                ncol=6,
+                framealpha=1.0,
+                borderpad=0.8,
+            )
+            # legend.get_frame().set_linewidth(0.0)
+            ax_legend.axis("off")
+
+            # Save the legend
+            save_plot(
+                OUTPUT_DIR_ACTIONS_OVER_TIME,
+                "action_severities_legend",
+                save_target=fig_legend,
+            )
+
+            # Close the figures
+            plt.close(fig_legend)
+            plt.close()  # This closes the original plot figure
+
+            plt.clf()
 
         if PLOT_NUMBER_TO_CREATE == 2:
             # 2. Bar plot showing names grouped by scenario and for each model
