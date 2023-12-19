@@ -320,12 +320,14 @@ def main() -> None:
             print(f"❗ WARNING: Skipping {model_name} because it has no data")
             continue
 
-        # 1. Multi-line plot of severities over time
+        # 1. Multi-line plot of severities over timeP
         if PLOT_NUMBER_TO_CREATE == 1:
             # Create a 1x3 subplot with shared y-axis and y-label
             initialize_plot_default()
-            fig, axes = plt.subplots(1, 3, figsize=(18, 6))  # , sharey=True)
+            fig, axes = plt.subplots(1, 3, figsize=(15, 5.4))  # , sharey=True)
             fig.subplots_adjust(wspace=0.125)
+            # Add padding to the bottom without subplots_adjust
+            fig.tight_layout(h_pad=10.0)
 
             for i, scenario in enumerate(ALL_SCENARIOS):
                 if scenario == "All Scenarios":
@@ -385,7 +387,7 @@ def main() -> None:
                 borderpad=0.5,
                 bbox_to_anchor=(0.5, -0.08),
             )
-            plt.suptitle(f"{model_name} Action Severities Over Time", y=1.0)
+            plt.suptitle(f"{model_name} Action Severities Over Time", y=0.98)
 
             save_plot(
                 OUTPUT_DIR_ACTIONS_OVER_TIME, f"{model_name} Action Severities All"
