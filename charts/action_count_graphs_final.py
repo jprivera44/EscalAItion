@@ -35,7 +35,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_ACTIONS_BY_MODEL = "./actions_by_model"
 
-PLOT_NUMBER_TO_CREATE = 6
+PLOT_NUMBER_TO_CREATE = 2
 
 
 LABEL_MAX_LENGTH = 26
@@ -381,7 +381,9 @@ def main() -> None:
         if PLOT_NUMBER_TO_CREATE == 2:
             # 2. Bar plot showing names grouped by scenario and for each model
             initialize_plot_bar()
-            plt.rcParams["figure.figsize"] = (15, 4)
+
+            plt.figure(figsize=(15, 4))
+
             x_variable = "action"
             x_label = "Action"
             y_variable = "count"
@@ -451,7 +453,7 @@ def main() -> None:
 
             title = f"{y_label} by Scenario ({model_name})"
             plt.title(title)
-            plt.legend(title="Scenario", loc="best", framealpha=0.5)
+            plt.legend(title="Scenario", loc="upper right", framealpha=0.5)
 
             save_plot(OUTPUT_DIR_ACTIONS_BY_MODEL, title)
 
