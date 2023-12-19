@@ -34,7 +34,7 @@ INPUT_DIR = "../evals/json_v4_" + file_eval_type
 # OUTPUT_DIR = "./escalation_scores_by_color" + file_eval_type + "_2x4"
 OUTPUT_DIR = "./escalation_scores_v6"
 
-PLOT_NUMBER_TO_CREATE = 3
+PLOT_NUMBER_TO_CREATE = -1
 
 
 def main() -> None:
@@ -268,7 +268,7 @@ def main() -> None:
                 style=grouping,
                 markers=MODELS_TO_MARKERS,
             )
-            plt.xlabel("Day")
+            plt.xlabel(TIMELABEL_DEFAULT)
             plt.ylabel("Escalation Score ←")
             title = f"Escalation Score Over Time for Median Simulation ({scenario} Scenario)"
             plt.title(title)
@@ -298,7 +298,7 @@ def main() -> None:
                 style=grouping,
                 markers=MODELS_TO_MARKERS,
             )
-            plt.xlabel("Day")
+            plt.xlabel(TIMELABEL_DEFAULT)
             plt.ylabel("Escalation Score ←")
             title = f"Average Escalation Score Over Time ({scenario} Scenario)"
             plt.title(title)
@@ -424,7 +424,7 @@ def main() -> None:
                         loc="upper left",
                     )
                     axes[i].set_xlabel(TIMELABEL_DEFAULT)
-                    ylabel = "Escalation Score" if i == 0 else ""
+                    ylabel = "Escalation Score ←" if i == 0 else ""
                     axes[i].set_ylabel(ylabel)
                     axes[i].set_ylim(-1.25, 44)
 
@@ -459,7 +459,7 @@ def main() -> None:
                     ]
                     df_model_difference = stats_df[stats_df["model_name"] == model]
 
-                    xlabel = "Day" if i == 3 else None
+                    xlabel = TIMELABEL_DEFAULT if i == 4 else None
 
                     # Define the color for the current model
                     model_color = MODELS_TO_COLORS.get(
@@ -481,9 +481,9 @@ def main() -> None:
                     )
 
                     axes[i, 0].set_xlabel(xlabel)
-                    ylabel = "Escalation Score"
+                    ylabel = "Escalation Score ←"
                     axes[i, 0].set_ylabel(ylabel)
-                    axes[i, 0].set_ylim(0, 275)
+                    axes[i, 0].set_ylim(0, 35)
 
                     # Plot average day-to-day differences in the second column
                     sns.lineplot(
@@ -501,7 +501,7 @@ def main() -> None:
                     axes[i, 1].set_xlabel(xlabel)
                     ylabel = "Turn-to-Turn Differences"
                     axes[i, 1].set_ylabel(ylabel)
-                    axes[i, 1].set_ylim(-100, 100)
+                    axes[i, 1].set_ylim(-12.5, 12.5)
 
                     # Add fill_between for std deviation in day-to-day differences plot
                     axes[i, 1].fill_between(
@@ -539,4 +539,10 @@ def load_json_data(filepath: str, color: str = "") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    main()
+    if PLOT_NUMBER_TO_CREATE == -1:
+        # Run all plot indices:
+        for i in range(6):
+            PLOT_NUMBER_TO_CREATE = i
+            main()
+    else:
+        main()
