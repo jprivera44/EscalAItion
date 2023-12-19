@@ -254,119 +254,6 @@ def main() -> None:
         print("        \\hline")
     print("    \\end{tabularx}")
 
-    # 1x4 action severities over time plot row
-    if PLOT_NUMBER_TO_CREATE == 5:
-        graphing_data_actions = []
-        for model_name in ALL_MODEL_NAMES:
-            # Create a DF of the counts of each model/scenario/action combo in each file
-            print("Counting actions...")
-            for df in dfs_list:
-                if df["model_name"].unique()[0] != model_name:
-                    continue
-                for scenario in ALL_SCENARIOS:
-                    for action in ACTION_ORDER:
-                        count = len(
-                            df[(df["scenario"] == scenario) & (df["action"] == action)]
-                        )
-                        severity = ACTIONS_TO_SEVERITIES[action]
-                        graphing_data_actions.append(
-                            {
-                                "model_name": model_name,
-                                "scenario": scenario,
-                                "action": action,
-                                "severity": severity,
-                                "count": count,
-                            }
-                        )
-        df_actions = pd.DataFrame(graphing_data_actions)
-
-        # Create a DF but by severity rather than actions
-        groups_by_severity = [
-            df.groupby(
-                ["day", "model_name", "scenario", "severity"], observed=True
-            ).size()
-            for df in dfs_list
-        ]
-        graphing_data_severities = []
-        for series in groups_by_severity:
-            for (day, series_model_name, scenario, severity), count in series.items():
-                graphing_data_severities.append(
-                    {
-                        "day": day,
-                        "model_name": series_model_name,
-                        "scenario": scenario,
-                        "severity": severity,
-                        "count": count,
-                    }
-                )
-        df_severities = pd.DataFrame(graphing_data_severities)
-
-        for scenario in ALL_SCENARIOS:
-            _, axes = plt.subplots(
-                nrows=1, ncols=4, figsize=(14, 3.5)
-            )  # Adjust figsize as needed
-
-            x_variable = "day"
-            y_variable = "count"
-
-            for i, model_name in enumerate(ALL_MODEL_NAMES[::-1]):
-                # Filter data for the current model
-                df_plot = df_severities[
-                    df_severities["model_name"] == model_name
-                ].copy()
-                df_plot = df_plot[df_plot["scenario"] == scenario].copy()
-
-                grouping = "severity"
-                initialize_plot_default()
-                sns.lineplot(
-                    ax=axes[i],
-                    data=df_plot,
-                    x=x_variable,
-                    y=y_variable,
-                    hue=grouping,
-                    style=grouping,
-                    hue_order=SEVERITIES_ORDER,
-                    markers=SEVERITY_TO_MARKER,
-                    palette=SEVERITIES_TO_COLORS,
-                )
-                axes[i].set_title(f"{model_name}")
-                axes[i].set_xlabel("Day")
-                ylabel = "Daily Action Count" if i == 0 else ""
-                axes[i].set_ylabel(ylabel)
-                axes[i].set_yscale("log")
-                # Y axis ticks in non-scientific notation
-                axes[i].set_yticks(
-                    [1, 3, 10, 30],
-                    ["1", "3", "10", "30"],
-                )
-                # No legend
-                axes[i].legend().remove()
-                axes[i].grid(True, alpha=0.5)
-
-            # Add a legend to the bottom of the plot without changing the relative sizing of the plots
-            # axes[0].legend(
-            #     loc="upper center",
-            #     bbox_to_anchor=(0.5, -0.2),
-            #     ncol=6,
-            #     framealpha=0.5,
-            #     borderaxespad=0.0,
-            # )
-            artists = axes[-1].get_legend_handles_labels()
-            plt.figlegend(
-                *artists,
-                loc="lower center",
-                ncol=6,
-                framealpha=0.5,
-                borderaxespad=0.0,
-            )
-
-            title = f"Multiple_graph_action_severities_{scenario}"
-            plt.tight_layout()
-            save_plot(OUTPUT_DIR_ACTIONS_OVER_TIME, title)
-            plt.close()
-            plt.clf()
-            del title
-
     # Plot a bunch of different bar graphs for different combos of models
     for model_name in ALL_MODEL_NAMES_WITH_GPT_4_BASE:
         # Create a DF of the counts of each model/scenario/action combo in each file
@@ -757,6 +644,119 @@ def main() -> None:
             # Clear the plot
             plt.clf()
             del df_plot
+
+    # 1x4 action severities over time plot row
+    if PLOT_NUMBER_TO_CREATE == 5:
+        graphing_data_actions = []
+        for model_name in ALL_MODEL_NAMES:
+            # Create a DF of the counts of each model/scenario/action combo in each file
+            print("Counting actions...")
+            for df in dfs_list:
+                if df["model_name"].unique()[0] != model_name:
+                    continue
+                for scenario in ALL_SCENARIOS:
+                    for action in ACTION_ORDER:
+                        count = len(
+                            df[(df["scenario"] == scenario) & (df["action"] == action)]
+                        )
+                        severity = ACTIONS_TO_SEVERITIES[action]
+                        graphing_data_actions.append(
+                            {
+                                "model_name": model_name,
+                                "scenario": scenario,
+                                "action": action,
+                                "severity": severity,
+                                "count": count,
+                            }
+                        )
+        df_actions = pd.DataFrame(graphing_data_actions)
+
+        # Create a DF but by severity rather than actions
+        groups_by_severity = [
+            df.groupby(
+                ["day", "model_name", "scenario", "severity"], observed=True
+            ).size()
+            for df in dfs_list
+        ]
+        graphing_data_severities = []
+        for series in groups_by_severity:
+            for (day, series_model_name, scenario, severity), count in series.items():
+                graphing_data_severities.append(
+                    {
+                        "day": day,
+                        "model_name": series_model_name,
+                        "scenario": scenario,
+                        "severity": severity,
+                        "count": count,
+                    }
+                )
+        df_severities = pd.DataFrame(graphing_data_severities)
+
+        for scenario in ALL_SCENARIOS:
+            _, axes = plt.subplots(
+                nrows=1, ncols=4, figsize=(14, 3.5)
+            )  # Adjust figsize as needed
+
+            x_variable = "day"
+            y_variable = "count"
+
+            for i, model_name in enumerate(ALL_MODEL_NAMES[::-1]):
+                # Filter data for the current model
+                df_plot = df_severities[
+                    df_severities["model_name"] == model_name
+                ].copy()
+                df_plot = df_plot[df_plot["scenario"] == scenario].copy()
+
+                grouping = "severity"
+                initialize_plot_default()
+                sns.lineplot(
+                    ax=axes[i],
+                    data=df_plot,
+                    x=x_variable,
+                    y=y_variable,
+                    hue=grouping,
+                    style=grouping,
+                    hue_order=SEVERITIES_ORDER,
+                    markers=SEVERITY_TO_MARKER,
+                    palette=SEVERITIES_TO_COLORS,
+                )
+                axes[i].set_title(f"{model_name}")
+                axes[i].set_xlabel("Day")
+                ylabel = "Daily Action Count" if i == 0 else ""
+                axes[i].set_ylabel(ylabel)
+                axes[i].set_yscale("log")
+                # Y axis ticks in non-scientific notation
+                axes[i].set_yticks(
+                    [1, 3, 10, 30],
+                    ["1", "3", "10", "30"],
+                )
+                # No legend
+                axes[i].legend().remove()
+                axes[i].grid(True, alpha=0.5)
+
+            # Add a legend to the bottom of the plot without changing the relative sizing of the plots
+            # axes[0].legend(
+            #     loc="upper center",
+            #     bbox_to_anchor=(0.5, -0.2),
+            #     ncol=6,
+            #     framealpha=0.5,
+            #     borderaxespad=0.0,
+            # )
+            artists = axes[-1].get_legend_handles_labels()
+            plt.figlegend(
+                *artists,
+                loc="lower center",
+                ncol=6,
+                framealpha=0.5,
+                borderaxespad=0.0,
+            )
+
+            title = f"Multiple_graph_action_severities_{scenario}"
+            plt.tight_layout()
+            save_plot(OUTPUT_DIR_ACTIONS_OVER_TIME, title)
+            plt.close()
+            plt.clf()
+            del title
 
 
 if __name__ == "__main__":
