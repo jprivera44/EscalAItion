@@ -387,7 +387,7 @@ def main() -> None:
                 borderpad=0.5,
                 bbox_to_anchor=(0.5, -0.08),
             )
-            plt.suptitle(f"{model_name} Action Severities Over Time", y=0.98)
+            plt.suptitle(f"{model_name} Action Severities Over Time", y=1.04)
 
             save_plot(
                 OUTPUT_DIR_ACTIONS_OVER_TIME, f"{model_name} Action Severities All"
