@@ -325,14 +325,7 @@ def main() -> None:
             # Create a 1x3 subplot with shared y-axis and y-label
             initialize_plot_default()
             fig, axes = plt.subplots(1, 3, figsize=(18, 5))  # , sharey=True)
-            # fig.subplots_adjust(wspace=0.2)
-            # plt.yscale("log")
-            # plt.yticks(
-            #     [0.1, 0.3, 1, 3, 10],
-            #     ["0.1", "0.3", "1", "3", "10"],
-            #     size=LABELSIZE_DEFAULT,
-            # )
-            # plt.ylim(0.03, 10)
+            fig.subplots_adjust(wspace=0.125)
 
             for i, scenario in enumerate(ALL_SCENARIOS):
                 if scenario == "All Scenarios":
@@ -369,15 +362,15 @@ def main() -> None:
                 ax.set_xlabel(x_label, size=LABELSIZE_DEFAULT)
                 ax.set_ylabel(y_label, size=LABELSIZE_DEFAULT)
                 ax.set_yscale("log")
-                ax.set_ylim(bottom=0.05)
+                ax.set_ylim(bottom=0.05, top=20)
                 # Y axis ticks in non-scientific notation
                 ax.set_yticks(
                     [0.1, 0.3, 1, 3, 10],
                     ["0.1", "0.3", "1", "3", "10"],
                     size=LABELSIZE_DEFAULT,
                 )
-                # xticks = list(range(2, 14, 2))
-                # ax.set_xticks(ticks=xticks, labels=xticks, size=LABELSIZE_DEFAULT)
+                xticks = list(range(2, 15, 2))
+                ax.set_xticks(ticks=xticks, labels=xticks, size=LABELSIZE_DEFAULT)
                 title = f"{model_name} ({scenario} Scenario)"
                 ax.set_title(title)
 
