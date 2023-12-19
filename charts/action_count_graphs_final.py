@@ -302,6 +302,7 @@ def main() -> None:
         graphing_data_severities = []
         for series in groups_by_severity:
             for (day, series_model_name, scenario, severity), count in series.items():
+                count /= 8  # Divide by 8 nations
                 graphing_data_severities.append(
                     {
                         "day": day,
@@ -346,7 +347,7 @@ def main() -> None:
                 x_variable = "day"
                 y_variable = "count"
                 x_label = TIMELABEL_DEFAULT
-                y_label = "Mean Action Count by Severity" if i == 0 else None
+                y_label = "Mean Action Count per Nation by Severity" if i == 0 else None
                 grouping = "severity"
                 # Plot df_grouped
                 sns.lineplot(
@@ -364,11 +365,11 @@ def main() -> None:
                 ax.set_xlabel(x_label, size=LABELSIZE_DEFAULT)
                 ax.set_ylabel(y_label, size=LABELSIZE_DEFAULT)
                 ax.set_yscale("log")
-                ax.set_ylim(bottom=0.05, top=20)
+                ax.set_ylim(bottom=0.005, top=3)
                 # Y axis ticks in non-scientific notation
                 ax.set_yticks(
-                    [0.1, 0.3, 1, 3, 10],
-                    ["0.1", "0.3", "1", "3", "10"],
+                    [0.01, 0.03, 0.1, 0.3, 1],
+                    ["0.01", "0.03", "0.1", "0.3", "1"],
                     size=LABELSIZE_DEFAULT,
                 )
                 xticks = list(range(2, 15, 2))
