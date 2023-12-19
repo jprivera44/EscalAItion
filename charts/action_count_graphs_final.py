@@ -324,7 +324,7 @@ def main() -> None:
         if PLOT_NUMBER_TO_CREATE == 1:
             # Create a 1x3 subplot with shared y-axis and y-label
             initialize_plot_default()
-            fig, axes = plt.subplots(1, 3, figsize=(18, 5))  # , sharey=True)
+            fig, axes = plt.subplots(1, 3, figsize=(18, 6))  # , sharey=True)
             fig.subplots_adjust(wspace=0.125)
 
             for i, scenario in enumerate(ALL_SCENARIOS):
@@ -371,7 +371,7 @@ def main() -> None:
                 )
                 xticks = list(range(2, 15, 2))
                 ax.set_xticks(ticks=xticks, labels=xticks, size=LABELSIZE_DEFAULT)
-                title = f"{model_name} ({scenario} Scenario)"
+                title = f"{scenario} Scenario"
                 ax.set_title(title)
 
             # Add a legend to the bottom of the plot without changing the relative sizing of the plots
@@ -385,6 +385,7 @@ def main() -> None:
                 borderpad=0.5,
                 bbox_to_anchor=(0.5, -0.08),
             )
+            plt.suptitle(f"{model_name} Action Severities Over Time", y=1.0)
 
             save_plot(
                 OUTPUT_DIR_ACTIONS_OVER_TIME, f"{model_name} Action Severities All"
