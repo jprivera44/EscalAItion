@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+from seaborn.external import husl
 
 from chart_utils import (
     ALL_SCENARIOS,
@@ -374,20 +375,35 @@ def main() -> None:
 
                     # Plot average escalation score in the first column
                     plt.rcParams["lines.marker"] = ""
+                    # Create a palette where the hue and lightness vary across 10 discrete values
+                    color_husl = husl.rgb_to_husl(*model_color)
+                    hue = color_husl[0]
+                    hue_constant = 8
+                    lightness_constant = 6
+                    husl_list = [
+                        (
+                            hue + hue_constant * (i - 5),
+                            99,
+                            70 - lightness_constant * i,
+                        )  # saturation,  # 1.0,
+                        for i in range(10)
+                    ]
+                    rgb_list = [husl.husl_to_rgb(*x) for x in husl_list]
+                    palette_runs = sns.color_palette(rgb_list)
                     sns.lineplot(
                         ax=axes[i],
                         x="day",
                         y="total",
                         hue="run_index",
                         data=df_model_escalation,
-                        # color=model_color,
-                        # palette=sns.color_palette("rocket"),
-                        palette=sns.light_palette(model_color, n_colors=10),
-                        marker=False,
+                        palette=palette_runs,
+                        markers=None,
                         errorbar=None,
-                        # linestyle="dashed",
-                        alpha=0.5,
+                        alpha=0.3,
+                        # alpha=1.0,
                         legend=False,
+                        linewidth=2,
+                        # linewidth=5,
                     )
                     sns.lineplot(
                         ax=axes[i],
@@ -395,7 +411,7 @@ def main() -> None:
                         y="total",
                         data=df_model_escalation,
                         color=model_color,
-                        linewidth=4.5,
+                        linewidth=6,
                         errorbar=None,
                         label=model,
                     )
