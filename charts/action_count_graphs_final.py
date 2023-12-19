@@ -320,9 +320,21 @@ def main() -> None:
             print(f"❗ WARNING: Skipping {model_name} because it has no data")
             continue
 
+        # 1. Multi-line plot of severities over time
         if PLOT_NUMBER_TO_CREATE == 1:
-            # 1. Multi-line plot of severities over time
-            for scenario in ALL_SCENARIOS:
+            # Create a 1x3 subplot with shared y-axis and y-label
+            initialize_plot_default()
+            fig, axes = plt.subplots(1, 3, figsize=(18, 5))  # , sharey=True)
+            # fig.subplots_adjust(wspace=0.2)
+            # plt.yscale("log")
+            # plt.yticks(
+            #     [0.1, 0.3, 1, 3, 10],
+            #     ["0.1", "0.3", "1", "3", "10"],
+            #     size=LABELSIZE_DEFAULT,
+            # )
+            # plt.ylim(0.03, 10)
+
+            for i, scenario in enumerate(ALL_SCENARIOS):
                 if scenario == "All Scenarios":
                     df_plot = df_severities.copy()
                 else:
@@ -335,15 +347,15 @@ def main() -> None:
                     )
                     continue
 
-                initialize_plot_default()
-                plt.figure(figsize=((6, 5)))
+                ax = axes[i]
                 x_variable = "day"
                 y_variable = "count"
                 x_label = TIMELABEL_DEFAULT
-                y_label = "Mean Action Count by Severity"
+                y_label = "Mean Action Count by Severity" if i == 0 else None
                 grouping = "severity"
                 # Plot df_grouped
                 sns.lineplot(
+                    ax=ax,
                     data=df_plot,
                     x=x_variable,
                     y=y_variable,
@@ -353,30 +365,33 @@ def main() -> None:
                     markers=SEVERITY_TO_MARKER,
                     palette=SEVERITIES_TO_COLORS,
                 )
-                plt.legend().remove()  # We save the legend separately
-                plt.xlabel(x_label, size=LABELSIZE_DEFAULT)
-                plt.ylabel(y_label, size=LABELSIZE_DEFAULT)
-                plt.yscale("log")
+                ax.legend().remove()  # We save the legend separately
+                ax.set_xlabel(x_label, size=LABELSIZE_DEFAULT)
+                ax.set_ylabel(y_label, size=LABELSIZE_DEFAULT)
+                ax.set_yscale("log")
+                ax.set_ylim(bottom=0.05)
                 # Y axis ticks in non-scientific notation
-                plt.yticks(
+                ax.set_yticks(
                     [0.1, 0.3, 1, 3, 10],
                     ["0.1", "0.3", "1", "3", "10"],
                     size=LABELSIZE_DEFAULT,
                 )
-                plt.xticks(size=LABELSIZE_DEFAULT)
-                scenario_label = scenario
-                title = f"{model_name} Action Severities ({scenario_label} Scenario)"
-                plt.title(title)
-                plt.tight_layout()
-                save_plot(OUTPUT_DIR_ACTIONS_OVER_TIME, title)
+                # xticks = list(range(2, 14, 2))
+                # ax.set_xticks(ticks=xticks, labels=xticks, size=LABELSIZE_DEFAULT)
+                title = f"{model_name} ({scenario} Scenario)"
+                ax.set_title(title)
 
-                # After creating your plot and setting up the legend
-                # Retrieve the handles and labels from the existing plot
-                handles, labels = plt.gca().get_legend_handles_labels()
+            save_plot(
+                OUTPUT_DIR_ACTIONS_OVER_TIME, f"{model_name} Action Severities All"
+            )
 
-                # Clear the plot
-                plt.clf()
-                del df_plot
+            # After creating your plot and setting up the legend
+            # Retrieve the handles and labels from the existing plot
+            handles, labels = plt.gca().get_legend_handles_labels()
+
+            # Clear the plot
+            plt.clf()
+            del df_plot
 
             # Create a new figure for the legend
             fig_legend = plt.figure(figsize=(6, 0.3))
@@ -394,6 +409,7 @@ def main() -> None:
             ax_legend.axis("off")
 
             # Save the legend
+            fig.tight_layout()
             save_plot(
                 OUTPUT_DIR_ACTIONS_OVER_TIME,
                 "action_severities_legend",
