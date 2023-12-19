@@ -18,6 +18,7 @@ from chart_utils import (
     # CAPSIZE_DEFAULT,
     ALL_MODEL_NAMES,
     ALL_MODEL_NAMES_WITH_GPT_4_BASE,
+    TIMELABEL_DEFAULT,
     initialize_plot_default,
     # initialize_plot_bar,
     save_plot,
@@ -32,7 +33,7 @@ INPUT_DIR = "../evals/json_v4_" + file_eval_type
 # OUTPUT_DIR = "./escalation_scores_by_color" + file_eval_type + "_2x4"
 OUTPUT_DIR = "./escalation_scores_v6"
 
-PLOT_NUMBER_TO_CREATE = 4
+PLOT_NUMBER_TO_CREATE = 3
 
 
 def main() -> None:
@@ -229,7 +230,7 @@ def main() -> None:
         # To filter by median, we need to look at all runs per model, then calculate the sum of the "total" column for each run, then take only the run with the median of that sum
         dfs_to_keep = []
         for model_name in ALL_MODEL_NAMES:
-            df_model = df_scenario.query(f"model_name == '{model_name}'")
+            df_model = df_scenario.query(f"model_name == '{model_name}'").copy()
             # Calculate the sum of the "total" column for each run
             df_model["total_sum"] = df_model.groupby("run_index")["total"].transform(
                 "sum"
@@ -350,12 +351,13 @@ def main() -> None:
                 _, axes = plt.subplots(
                     # nrows=2, ncols=4, figsize=(14, 7)
                     ncols=4,
-                    figsize=(16, 6),
+                    figsize=(15, 5.4),
                 )  # Adjust figsize as needed
                 scenario_to_plot = df_scenario["scenario"].unique()[0]
 
                 plt.suptitle(
-                    f"Escalation Scores for All Runs over Time ({scenario_to_plot} Scenario)"
+                    f"Escalation Scores for All Runs over Time ({scenario_to_plot} Scenario)",
+                    y=0.95,
                 )
 
                 for i, model in enumerate(ALL_MODEL_NAMES):
@@ -385,6 +387,7 @@ def main() -> None:
                         errorbar=None,
                         # linestyle="dashed",
                         alpha=0.5,
+                        legend=False,
                     )
                     sns.lineplot(
                         ax=axes[i],
@@ -394,11 +397,13 @@ def main() -> None:
                         color=model_color,
                         linewidth=4.5,
                         errorbar=None,
+                        label=model,
                     )
-                    # Remove legend
-                    axes[i].get_legend().remove()
-                    axes[i].set_title(f"{model}")
-                    axes[i].set_xlabel("Day")
+                    # legend in upper left
+                    axes[i].legend(
+                        loc="upper left",
+                    )
+                    axes[i].set_xlabel(TIMELABEL_DEFAULT)
                     ylabel = "Escalation Score" if i == 0 else ""
                     axes[i].set_ylabel(ylabel)
                     axes[i].set_ylim(-10, 350)
@@ -412,7 +417,7 @@ def main() -> None:
                 plt.clf()
                 del title
 
-            # 4x2 grid of average escalation scores and differences over time
+            # 4x2 grid of average escalation scores and differences over tizme
             elif PLOT_NUMBER_TO_CREATE == 4:
                 # Create a 5x2 grid of subplots
                 _, axes = plt.subplots(
