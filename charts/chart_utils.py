@@ -116,8 +116,8 @@ MODELS_COLORS_MARKERS = [
     ("Llama-2-Chat", get_color_from_palette(3, None), "P"),
     ("Claude-2.0", get_color_from_palette(0, None), "o"),
     ("GPT-3.5", get_color_from_palette(2, None), "s"),
-    ("GPT-4-Base", get_color_from_palette(1, "colorblind"), "v"),
     ("GPT-4", get_color_from_palette(4, None), "^"),
+    ("GPT-4-Base", get_color_from_palette(1, "colorblind"), "v"),
 ]
 ALL_MODEL_NAMES = [
     model_name

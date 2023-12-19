@@ -344,17 +344,6 @@ def main() -> None:
                     alpha=0.2,
                 )
 
-            # List of your models
-            models = ["GPT-4", "GPT-3.5", "Claude-2.0", "Llama-2-Chat"]
-
-            # Setting the colors
-            model_colors = {
-                "Llama-2-Chat": "red",
-                "Claude-2.0": "blue",
-                "GPT-3.5": "green",
-                "GPT-4": "purple",
-            }
-
             # 1x4 grid showing individual runs
             if PLOT_NUMBER_TO_CREATE == 3:
                 # Create a 5x2 grid of subplots
@@ -369,7 +358,7 @@ def main() -> None:
                     f"Escalation Scores for All Runs over Time ({scenario_to_plot} Scenario)"
                 )
 
-                for i, model in enumerate(models):
+                for i, model in enumerate(ALL_MODEL_NAMES):
                     # Filter data for the current model
                     df_model_escalation = df_scenario[
                         df_scenario["model_name"] == model
@@ -377,7 +366,7 @@ def main() -> None:
                     df_model_difference = stats_df[stats_df["model_name"] == model]
 
                     # Define the color for the current model
-                    model_color = model_colors.get(
+                    model_color = MODELS_TO_COLORS.get(
                         model, "black"
                     )  # Default to black if model not in dictionary
 
@@ -428,7 +417,7 @@ def main() -> None:
                 # Create a 5x2 grid of subplots
                 _, axes = plt.subplots(
                     # nrows=2, ncols=4, figsize=(14, 7)
-                    nrows=4,
+                    nrows=5,
                     ncols=2,
                     figsize=(12, 16),
                 )  # Adjust figsize as needed
@@ -438,7 +427,7 @@ def main() -> None:
                     f"Mean Escalation Scores and Turn-to-Turn Differences over Time ({scenario_to_plot} Scenario)"
                 )
 
-                for i, model in enumerate(models):
+                for i, model in enumerate(ALL_MODEL_NAMES_WITH_GPT_4_BASE):
                     # Filter data for the current model
                     df_model_escalation = df_scenario[
                         df_scenario["model_name"] == model
@@ -448,7 +437,7 @@ def main() -> None:
                     xlabel = "Day" if i == 3 else None
 
                     # Define the color for the current model
-                    model_color = model_colors.get(
+                    model_color = MODELS_TO_COLORS.get(
                         model, "black"
                     )  # Default to black if model not in dictionary
 
