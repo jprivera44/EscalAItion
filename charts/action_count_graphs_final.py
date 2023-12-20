@@ -37,7 +37,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_ACTIONS_BY_MODEL = "./actions_by_model"
 
-PLOT_NUMBER_TO_CREATE = 6  # -1 to create all plots
+PLOT_NUMBER_TO_CREATE = 3  # -1 to create all plots
 
 LABEL_MAX_LENGTH = 26
 
@@ -514,6 +514,7 @@ def main() -> None:
                 df_plot = pd.DataFrame(graphing_data_severities)
 
                 initialize_plot_bar()
+                plt.figure(figsize=(8, 5))
 
                 x_variable = "severity"
                 x_label = "Severity of Action"
@@ -561,7 +562,7 @@ def main() -> None:
                     ["1", "3", "10", "30"],
                 )
 
-                title = f"Action Severity Counts by {grouping_label} in {scenario} Scenario ({model_name})"
+                title = f"{model_name} Action Severity Counts by {grouping_label} ({scenario} Scenario)"
                 plt.title(title)
                 legend_loc = "best"
                 if model_name in ["GPT-3.5", "GPT-4-Base"]:
