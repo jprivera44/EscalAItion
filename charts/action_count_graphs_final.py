@@ -37,7 +37,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_DISTRIBUTIONS_ALL_ACTIONS = "./distributions_all_actions"
 
-PLOT_NUMBER_TO_CREATE = 5  # -1 to create all plots
+PLOT_NUMBER_TO_CREATE = 2  # -1 to create all plots
 
 LABEL_MAX_LENGTH = 26
 
@@ -280,9 +280,10 @@ def main() -> None:
                 continue
             for scenario in ALL_SCENARIOS:
                 for action in ACTION_ORDER:
-                    count = len(
-                        df[(df["scenario"] == scenario) & (df["action"] == action)]
-                    )
+                    count = (
+                        len(df[(df["scenario"] == scenario) & (df["action"] == action)])
+                        / 8
+                    )  # Divide by 8 nations
                     severity = ACTIONS_TO_SEVERITIES[action]
                     graphing_data_actions.append(
                         {
@@ -359,7 +360,7 @@ def main() -> None:
                 x_variable = "day"
                 y_variable = "count"
                 x_label = TIMELABEL_DEFAULT
-                y_label = "Mean Action Count per Nation by Severity" if i == 0 else None
+                y_label = "Mean Action Count per Nation" if i == 0 else None
                 grouping = "severity"
                 # Plot df_grouped
                 sns.lineplot(
@@ -410,7 +411,7 @@ def main() -> None:
             # 2. Bar plot showing names grouped by scenario and for each model
             initialize_plot_bar()
 
-            plt.figure(figsize=(15, 4))
+            plt.figure(figsize=(15, 6))
 
             x_variable = "action"
             x_label = "Action"
@@ -473,13 +474,11 @@ def main() -> None:
 
             plt.ylabel(y_label)
             plt.yscale("log")
-            plt.yticks(
-                [0.03, 0.1, 0.3, 1, 3, 10, 30, 100],
-                ["0.03", "0.1", "0.3", "1", "3", "10", "30", "100"],
-            )
+            yticks = [0.003, 0.01, 0.03, 0.1, 0.3, 1, 3, 10]
+            plt.yticks(yticks, yticks, size=LABELSIZE_DEFAULT)
 
             title = f"{model_name} Distribution of All {len(ACTION_ORDER)} Actions by Scenario"
-            plt.title(title)
+            plt.title(model_name)
             plt.legend(title="Scenario", loc="upper right", framealpha=0.5)
 
             save_plot(OUTPUT_DIR_DISTRIBUTIONS_ALL_ACTIONS, title)
@@ -518,7 +517,7 @@ def main() -> None:
                 x_variable = "severity"
                 x_label = "Severity of Action"
                 y_variable = "count"
-                y_label = "Total Action Count per Simulation"
+                y_label = "Mean Action Count per Nation"
                 grouping = "self"
                 grouping_label = "Nation"
 
