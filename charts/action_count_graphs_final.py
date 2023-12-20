@@ -37,7 +37,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_ACTIONS_BY_MODEL = "./actions_by_model"
 
-PLOT_NUMBER_TO_CREATE = 1
+PLOT_NUMBER_TO_CREATE = 6  # -1 to create all plots
 
 LABEL_MAX_LENGTH = 26
 
@@ -854,4 +854,10 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    if PLOT_NUMBER_TO_CREATE == -1:
+        # Run all plot indices:
+        for i in range(7):
+            PLOT_NUMBER_TO_CREATE = i
+            main()
+    else:
+        main()
