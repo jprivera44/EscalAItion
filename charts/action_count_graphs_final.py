@@ -37,7 +37,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_ACTIONS_BY_MODEL = "./actions_by_model"
 
-PLOT_NUMBER_TO_CREATE = 1
+PLOT_NUMBER_TO_CREATE = 0
 
 LABEL_MAX_LENGTH = 26
 
@@ -117,9 +117,10 @@ def main() -> None:
     print("    \\begin{tabularx}{\\textwidth}{|c|c|X|X|X|X|}")
     print("        \\hline")
     print(
-        r"        \textbf{Scenario} & \textbf{Model} & \textbf{\% Non-violent Escalation (Count)} & \textbf{\% Violent Escalation (Count)} & \textbf{\% Nuclear (Count)} & \textbf{Avg. Escalation Score} \\"
+        r"        \textbf{Scenario} & \textbf{Model} & \textbf{\% Non-violent Escalation (Count)} & \textbf{\% Violent Escalation (Count)} & \textbf{\% Nuclear (Count)} & \textbf{Mean Escalation Score} \\"
     )
     print("        \\hline")
+    gpt_4_base_rows = ""
     for scenario in ALL_SCENARIOS:
         df_list_scenario = [
             df for df in dfs_list if df["scenario"].unique()[0] == scenario
@@ -233,26 +234,37 @@ def main() -> None:
             nonviolent_count_mean = nonviolent_counts_mean[i]
             violent_count_mean = violent_counts_mean[i]
             nuclear_count_mean = nuclear_counts_mean[i]
-            nonviolent_count_mean_str = f"{nonviolent_count_mean:.2f}"
-            violent_count_mean_str = f"{violent_count_mean:.2f}"
-            nuclear_count_mean_str = f"{nuclear_count_mean:.2f}"
-            if nonviolent_mean == max(
-                nonviolent_means[:3] + nonviolent_means[-1]  # Skip GPT-4-Base
-            ):
-                nonviolent_mean_str = r"\textbf{" + nonviolent_mean_str + "}"
-                nonviolent_std_str = r"\textbf{" + nonviolent_std_str + "}"
-            if violent_mean == max(violent_means[:3] + violent_means[-1]):
-                violent_mean_str = r"\textbf{" + violent_mean_str + "}"
-                violent_std_str = r"\textbf{" + violent_std_str + "}"
-            if nuclear_mean == max(nuclear_means[:3] + nuclear_means[-1]):
-                nuclear_mean_str = r"\textbf{" + nuclear_mean_str + "}"
-                nuclear_std_str = r"\textbf{" + nuclear_std_str + "}"
+            nonviolent_count_mean_str = f"({nonviolent_count_mean:.2f})"
+            violent_count_mean_str = f"({violent_count_mean:.2f})"
+            nuclear_count_mean_str = f"({nuclear_count_mean:.2f})"
+            if nonviolent_mean == max(nonviolent_means[:-1]):  # Skip GPT-4-Base
+                nonviolent_mean_str = r"\textbf{" + nonviolent_mean_str
+                nonviolent_std_str = nonviolent_std_str + "}"
+            if violent_mean == max(violent_means[:-1]):
+                violent_mean_str = r"\textbf{" + violent_mean_str
+                violent_std_str = violent_std_str + "}"
+            if nuclear_mean == max(nuclear_means[:-1]):
+                nuclear_mean_str = r"\textbf{" + nuclear_mean_str
+                nuclear_std_str = nuclear_std_str + "}"
+            if nonviolent_count_mean == max(nonviolent_counts_mean[:-1]):
+                nonviolent_count_mean_str = (
+                    r"\textbf{" + nonviolent_count_mean_str + "}"
+                )
+            if violent_count_mean == max(violent_counts_mean[:-1]):
+                violent_count_mean_str = r"\textbf{" + violent_count_mean_str + "}"
+            if nuclear_count_mean == max(nuclear_counts_mean[:-1]):
+                nuclear_count_mean_str = r"\textbf{" + nuclear_count_mean_str + "}"
 
-            print(
-                rf"        {scenario} & {model_name} & {nonviolent_mean_str} $\pm$ {nonviolent_std_str}\% ({nonviolent_count_mean_str}) & {violent_mean_str} $\pm$ {violent_std_str}\% ({violent_count_mean_str}) & {nuclear_mean_str} $\pm$ {nuclear_std_str}\% ({nuclear_count_mean_str}) & TEMP $\pm$ TEMP \\"
-            )
-
+            scenario_str = scenario if "GPT-4" in model_name else ""
+            row = rf"        {scenario_str} & {model_name} & {nonviolent_mean_str} $\pm$ {nonviolent_std_str}\% {nonviolent_count_mean_str} & {violent_mean_str} $\pm$ {violent_std_str}\% {violent_count_mean_str} & {nuclear_mean_str} $\pm$ {nuclear_std_str}\% {nuclear_count_mean_str} & TEMP $\pm$ TEMP \\"
+            if model_name == "GPT-4-Base":
+                # Hold out to print at the end
+                gpt_4_base_rows += row + "\n"
+            else:
+                print(row)
         print("        \\hline")
+    print("        \\hline")
+    print(gpt_4_base_rows + "        \\hline")
     print("    \\end{tabularx}")
 
     # Plot a bunch of different bar graphs for different combos of models

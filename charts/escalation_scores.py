@@ -34,7 +34,7 @@ INPUT_DIR = "../evals/json_v4_" + file_eval_type
 # OUTPUT_DIR = "./escalation_scores_by_color" + file_eval_type + "_2x4"
 OUTPUT_DIR = "./escalation_scores_v6"
 
-PLOT_NUMBER_TO_CREATE = -1
+PLOT_NUMBER_TO_CREATE = 0  # Set to -1 to generate all
 
 
 def main() -> None:
@@ -198,7 +198,7 @@ def main() -> None:
             # Print full row, bolding the cell with the highest mean
             max_mean = max(mean_mean_str_std_str, key=lambda x: x[0])[0]
             scenario_str = scenario
-            if "Llama" not in model_name and "Base" not in model_name:
+            if "GPT-4" not in model_name:
                 # Only print scenario once per group
                 scenario_str = ""
             row = f"    {scenario_str:15s} & {model_name:12s}"
