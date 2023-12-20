@@ -27,7 +27,7 @@ from chart_utils import (
 INPUT_DIR = "../results/variables_v3"
 OUTPUT_DIR = "./dynamic_variables"
 
-INDEX_TO_CREATE = 4
+PLOT_NUMBER_TO_CREATE = 2
 
 
 def main() -> None:
@@ -45,7 +45,7 @@ def main() -> None:
     dfs_list_unprocessed = [
         df.assign(
             model_name=filename.split(" ")[0],
-            scenario=filename.split(" ")[1],
+            scenario=filename.split(" ")[1].replace("CyberAttack", "Cyberattack"),
         )
         for filename, df in filenames_and_data
     ]
@@ -74,7 +74,6 @@ def main() -> None:
                     # Append the first value
                     averaged_values.append(df_day[column].iloc[0])
             new_row = pd.Series(averaged_values, index=columns)
-            # new_row["day"] = day
             new_rows.append(new_row)
         df_processed = pd.DataFrame(new_rows)
         dfs_list.append(df_processed)
@@ -94,7 +93,7 @@ def main() -> None:
     print("Runs per model_name, scenario combo:")
     print(df_all.groupby(["model_name", "scenario"]).size())
 
-    if INDEX_TO_CREATE == 1:
+    if PLOT_NUMBER_TO_CREATE == 1:
         # Graph dynamic vars (e.g. population, military capacity) over time by models (hue) and scenario (plot)
         for scenario in ALL_SCENARIOS:
             for dynamic_variable in ALL_DYNAMIC_VARIABLES:
@@ -175,7 +174,7 @@ def main() -> None:
             "trade",
             "resources",
             "political stability",
-            # "population",
+            "population",
             "soft power",
             "cybersecurity",
             "nuclear",
@@ -187,7 +186,12 @@ def main() -> None:
             var_name="variable",
             value_name="value",
         )
-        if INDEX_TO_CREATE == 2:
+        # Divide the population rows by a constant so they fit
+        population_divisor = 25
+        df_plot.loc[df_plot["variable"] == "population", "value"] = (
+            df_plot[df_plot["variable"] == "population"]["value"] / population_divisor
+        )
+        if PLOT_NUMBER_TO_CREATE == 2:
             # Filter by scenario
             for scenario in ALL_SCENARIOS:
                 df_filtered = df_plot[df_plot["scenario"] == scenario].copy()
@@ -199,7 +203,9 @@ def main() -> None:
                 df_filtered["variable"] = df_filtered["variable"].apply(
                     lambda x: DYNAMIC_VARIABLES_TO_NAMES[
                         x.replace(" ", "_") + "_dynamic"
-                    ].replace(" ", "\n")
+                    ]
+                    .replace(" ", "\n")
+                    .replace("Population", f"Population\n$\div$ {population_divisor}")  # type: ignore
                 )
 
                 initialize_plot_default()
@@ -221,11 +227,8 @@ def main() -> None:
                 )
                 plt.xlabel(x_label, size=LABELSIZE_DEFAULT)
                 plt.ylabel(y_label, size=LABELSIZE_DEFAULT)
-                # plt.yscale("log")
-                ticks = [5, 10, 15, 20, 25, 30]
-                # plt.yticks(ticks, [str(tick) for tick in ticks])
                 title = (
-                    f"Dynamic Variables Over Time in {scenario} Scenario ({model_name})"
+                    f"{model_name} Dynamic Variables Over Time ({scenario} Scenario)"
                 )
                 plt.title(title)
                 # Legend to the right of the plot
@@ -253,7 +256,7 @@ def main() -> None:
 
                 # exit()  # DEBUG
 
-        if INDEX_TO_CREATE == 3:
+        if PLOT_NUMBER_TO_CREATE == 3:
             # Next: Bar plot of the value of each variable for each scenario
             # First, filter to day=15 to get the end
             df_plot_2 = df_plot[df_plot["day"] == 15].copy()
@@ -290,4 +293,10 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    if PLOT_NUMBER_TO_CREATE == -1:
+        # Run all plot indices:
+        for i in range(6):
+            PLOT_NUMBER_TO_CREATE = i
+            main()
+    else:
+        main()
