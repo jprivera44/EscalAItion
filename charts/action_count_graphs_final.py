@@ -411,7 +411,7 @@ def main() -> None:
             # 2. Bar plot showing names grouped by scenario and for each model
             initialize_plot_bar()
 
-            plt.figure(figsize=(15, 6))
+            plt.figure(figsize=(15, 5))
 
             x_variable = "action"
             x_label = "Action"
