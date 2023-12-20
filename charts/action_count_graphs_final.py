@@ -37,7 +37,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_DISTRIBUTIONS_ALL_ACTIONS = "./distributions_all_actions"
 
-PLOT_NUMBER_TO_CREATE = 2  # -1 to create all plots
+PLOT_NUMBER_TO_CREATE = 5  # -1 to create all plots
 
 LABEL_MAX_LENGTH = 26
 
@@ -415,7 +415,7 @@ def main() -> None:
             x_variable = "action"
             x_label = "Action"
             y_variable = "count"
-            y_label = "Total Action Count per Simulation"
+            y_label = "Mean Action Count per Nation"
             grouping = "scenario"
             grouping_order = ALL_SCENARIOS
             # Plot df_grouped
@@ -473,7 +473,6 @@ def main() -> None:
 
             plt.ylabel(y_label)
             plt.yscale("log")
-            # Y axis ticks in non-scientific notation
             plt.yticks(
                 [0.03, 0.1, 0.3, 1, 3, 10, 30, 100],
                 ["0.03", "0.1", "0.3", "1", "3", "10", "30", "100"],
@@ -625,29 +624,21 @@ def main() -> None:
             x_variable = "severity"
             x_label = "Severity of Action"
             y_variable = "count"
-            y_label = "Total Action Count per Simulation"
+            y_label = "Mean Action Count per Nation"
             grouping = "model_name"
             grouping_order = ALL_MODEL_NAMES
-            # palette = [
-            #     SEVERITIES_TO_COLORS[severity] for severity in df_actions["severity"]
-            # ]
-            # Plot df_grouped
             sns.barplot(
                 data=df_plot,
                 x=x_variable,
                 y=y_variable,
                 order=SEVERITIES_ORDER,
                 hue=grouping,
-                # grouping_order=grouping_order,
-                # palette="bright",
-                # order=df_grouped.index.get_level_values(x_variable).unique(),
                 hue_order=grouping_order,
                 capsize=CAPSIZE_DEFAULT,
                 errorbar="ci",
                 palette=MODELS_TO_COLORS,
             )
             plt.xlabel(x_label)
-            # Ticks on the x axis
             plt.xticks(
                 list(range(0, len(SEVERITIES_ORDER_NEWLINES))),
                 labels=SEVERITIES_ORDER_NEWLINES,
@@ -667,8 +658,6 @@ def main() -> None:
                 loc="best",
                 framealpha=0.5,
                 borderaxespad=0.0,
-                # bbox_to_anchor=(1.01, 1),
-                # loc="upper left",
                 handletextpad=0.1,
                 labelspacing=0.25,
             )
@@ -679,8 +668,89 @@ def main() -> None:
             plt.clf()
             del df_plot
 
-    # 1x4 action severities over time plot row
     if PLOT_NUMBER_TO_CREATE == 5:
+        # 5. Severities of Actions by Model (but with GPT-4-Base and wider)
+        groups_by_action_all_models = [
+            df.groupby(
+                ["model_name", "scenario", "action", "severity"], observed=False
+            ).size()
+            for df in dfs_list
+        ]
+        graphing_data_actions_all_models = []
+        for series in groups_by_action_all_models:
+            for (
+                series_model_name,
+                scenario,
+                action,
+                severity,
+            ), count in series.items():
+                count /= 8  # Divide by 8 nations
+                graphing_data_actions_all_models.append(
+                    {
+                        "model_name": series_model_name,
+                        "scenario": scenario,
+                        "action": action,
+                        "severity": severity,
+                        "count": count,
+                    }
+                )
+        df_actions_all_models = pd.DataFrame(graphing_data_actions_all_models)
+        for scenario in ALL_SCENARIOS:
+            # Filter down to the rows of df_actions with this scenario
+            df_plot = df_actions_all_models[
+                df_actions_all_models["scenario"] == scenario
+            ].copy()
+            if len(df_plot) == 0:
+                print(f"❗ WARNING: Skipping {scenario} because it has no data")
+                continue
+
+            initialize_plot_bar()
+            plt.figure(figsize=(10, 5))
+            x_variable = "severity"
+            x_label = "Severity of Action"
+            y_variable = "count"
+            y_label = "Mean Action Count per Nation"
+            grouping = "model_name"
+            grouping_order = ALL_MODEL_NAMES_WITH_GPT_4_BASE
+            sns.barplot(
+                data=df_plot,
+                x=x_variable,
+                y=y_variable,
+                order=SEVERITIES_ORDER,
+                hue=grouping,
+                hue_order=grouping_order,
+                capsize=CAPSIZE_DEFAULT,
+                errorbar="ci",
+                palette=MODELS_TO_COLORS,
+            )
+            plt.xlabel(x_label)
+            plt.xticks(
+                list(range(0, len(SEVERITIES_ORDER_NEWLINES))),
+                labels=SEVERITIES_ORDER_NEWLINES,
+                size=LABELSIZE_DEFAULT,
+            )
+            plt.ylabel(y_label)
+            plt.yscale("log")
+            yticks = [0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1, 3]
+            plt.yticks(yticks, yticks, size=LABELSIZE_DEFAULT)
+
+            title = f"Severity of Actions by Model ({scenario} Scenario)"
+            plt.title(f"{scenario} Scenario")
+            plt.legend(
+                title="Model",
+                loc="best",
+                framealpha=0.5,
+                borderaxespad=0.0,
+                handletextpad=0.1,
+                labelspacing=0.25,
+            )
+
+            save_plot(OUTPUT_DIR_SEVERITY_BY_MODEL, "full_" + title)
+            plt.clf()
+            del df_plot
+
+    # 1x4 action severities over time plot row
+    if PLOT_NUMBER_TO_CREATE == 6:
         graphing_data_actions = []
         for model_name in ALL_MODEL_NAMES:
             # Create a DF of the counts of each model/scenario/action combo in each file
@@ -793,7 +863,7 @@ def main() -> None:
             del title
 
     # 1x4 total num actions over time plot row, not grouped by severity
-    if PLOT_NUMBER_TO_CREATE == 6:
+    if PLOT_NUMBER_TO_CREATE == 7:
         # Create a DF with the total counts per day
         grouped = [
             df.groupby(["day", "model_name", "scenario"], observed=True).size()
@@ -857,7 +927,7 @@ def main() -> None:
 if __name__ == "__main__":
     if PLOT_NUMBER_TO_CREATE == -1:
         # Run all plot indices:
-        for i in range(7):
+        for i in range(8):
             PLOT_NUMBER_TO_CREATE = i
             main()
     else:
