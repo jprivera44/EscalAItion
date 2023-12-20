@@ -35,9 +35,9 @@ INPUT_DIR = "../results/actions_v3"
 OUTPUT_DIR_SEVERITY_BY_NATION = "./severity_by_nation"
 OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
-OUTPUT_DIR_ACTIONS_BY_MODEL = "./actions_by_model"
+OUTPUT_DIR_DISTRIBUTIONS_ALL_ACTIONS = "./distributions_all_actions"
 
-PLOT_NUMBER_TO_CREATE = 1  # -1 to create all plots
+PLOT_NUMBER_TO_CREATE = 2  # -1 to create all plots
 
 LABEL_MAX_LENGTH = 26
 
@@ -479,11 +479,11 @@ def main() -> None:
                 ["0.03", "0.1", "0.3", "1", "3", "10", "30", "100"],
             )
 
-            title = f"{y_label} by Scenario ({model_name})"
+            title = f"{model_name} Distribution of All {len(ACTION_ORDER)} Actions by Scenario"
             plt.title(title)
             plt.legend(title="Scenario", loc="upper right", framealpha=0.5)
 
-            save_plot(OUTPUT_DIR_ACTIONS_BY_MODEL, title)
+            save_plot(OUTPUT_DIR_DISTRIBUTIONS_ALL_ACTIONS, title)
 
             # Clear the plot
             plt.clf()
