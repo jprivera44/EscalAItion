@@ -754,7 +754,7 @@ def main() -> None:
                     palette=SEVERITIES_TO_COLORS,
                 )
                 axes[i].set_title(f"{model_name}")
-                axes[i].set_xlabel("Day")
+                axes[i].set_xlabel(TIMELABEL_DEFAULT)
                 ylabel = "Daily Action Count" if i == 0 else ""
                 axes[i].set_ylabel(ylabel)
                 axes[i].set_yscale("log")
@@ -812,14 +812,14 @@ def main() -> None:
                 )
         df_actions = pd.DataFrame(graphing_data)
 
-        for scenario in ALL_SCENARIOS:
+        for model_name in ALL_MODEL_NAMES_WITH_GPT_4_BASE:
             initialize_plot_default()
-            _, axes = plt.subplots(nrows=1, ncols=4, figsize=(12, 3.5))
+            _, axes = plt.subplots(nrows=1, ncols=3, figsize=(14, 4))
 
             x_variable = "day"
             y_variable = "count"
-            y_label = "Action Count Per Nation"
-            for i, model_name in enumerate(ALL_MODEL_NAMES[::-1]):
+            y_label = "Total Action Count Per Nation"
+            for i, scenario in enumerate(ALL_SCENARIOS):
                 # Filter data for the current model
                 df_plot = df_actions[df_actions["model_name"] == model_name].copy()
                 df_plot = df_plot[df_plot["scenario"] == scenario].copy()
@@ -831,21 +831,21 @@ def main() -> None:
                     y=y_variable,
                     markers=True,
                     color=MODELS_TO_COLORS[model_name],
-                    label=model_name,
+                    label=f"{model_name} {scenario} Scenario",
                 )
                 # Make sure label is in upper left
                 handles, labels = axes[i].get_legend_handles_labels()
                 axes[i].legend(handles[::-1], labels[::-1], loc="upper left")
 
                 # axes[i].set_title(f"{model_name}")
-                axes[i].set_xlabel("Day")
+                axes[i].set_xlabel(TIMELABEL_DEFAULT, size=LABELSIZE_DEFAULT)
                 ylabel_sub = y_label if i == 0 else ""
-                axes[i].set_ylabel(ylabel_sub)
-                axes[i].set_ylim(1.25, 9.5)
+                axes[i].set_ylabel(ylabel_sub, size=LABELSIZE_DEFAULT)
+                axes[i].set_ylim(1.25, 10)
                 axes[i].grid(True, alpha=0.5)
 
-            title = f"{y_label} Over Time ({scenario} Scenario)"
-            plt.suptitle(title, y=0.875)
+            title = f"{model_name} {y_label} Over Time"
+            plt.suptitle(title, y=0.95)
             plt.tight_layout()
             save_plot(OUTPUT_DIR_ACTIONS_OVER_TIME, title)
             plt.close()
