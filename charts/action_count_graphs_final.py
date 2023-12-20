@@ -540,9 +540,6 @@ def main() -> None:
                     y=y_variable,
                     order=SEVERITIES_ORDER,
                     hue=grouping,
-                    # grouping_order=grouping_order,
-                    # order=df_grouped.index.get_level_values(x_variable).unique(),
-                    # hue_order=grouping_order,
                     capsize=CAPSIZE_DEFAULT,
                     errorbar="ci",
                     palette=palette,
@@ -586,26 +583,21 @@ def main() -> None:
         # Regroup for df_actions, not filtering by model
         # Create a DF of the counts of each model/scenario/action combo in each file
         groups_by_action_all_models = [
-            df.groupby(
-                ["model_name", "scenario", "action", "severity"], observed=False
-            ).size()
+            df.groupby(["model_name", "scenario", "severity"], observed=False).size()
             for df in dfs_list
         ]
         graphing_data_actions_all_models = []
         for series in groups_by_action_all_models:
             for (
-                # day,
                 series_model_name,
                 scenario,
-                action,
                 severity,
             ), count in series.items():
+                count /= 8  # Divide by 8 nations
                 graphing_data_actions_all_models.append(
                     {
-                        # "day": day,
                         "model_name": series_model_name,
                         "scenario": scenario,
-                        "action": action,
                         "severity": severity,
                         "count": count,
                     }
@@ -621,6 +613,7 @@ def main() -> None:
                 continue
 
             initialize_plot_bar()
+            plt.figure(figsize=(8, 5))
             x_variable = "severity"
             x_label = "Severity of Action"
             y_variable = "count"
@@ -646,10 +639,8 @@ def main() -> None:
             plt.ylabel(y_label)
             plt.yscale("log")
             # Y axis labels in non-scientific notation
-            plt.yticks(
-                [0.1, 0.3, 1, 3, 10, 30],
-                ["0.1", "0.3", "1", "3", "10", "30"],
-            )
+            yticks = [0.03, 0.1, 0.3, 1, 3, 10, 30]
+            plt.yticks(yticks, yticks, size=LABELSIZE_DEFAULT)
 
             title = f"Severity of Actions by Model ({scenario} Scenario)"
             plt.title(title)
@@ -671,9 +662,7 @@ def main() -> None:
     if PLOT_NUMBER_TO_CREATE == 5:
         # 5. Severities of Actions by Model (but with GPT-4-Base and wider)
         groups_by_action_all_models = [
-            df.groupby(
-                ["model_name", "scenario", "action", "severity"], observed=False
-            ).size()
+            df.groupby(["model_name", "scenario", "severity"], observed=False).size()
             for df in dfs_list
         ]
         graphing_data_actions_all_models = []
@@ -681,7 +670,6 @@ def main() -> None:
             for (
                 series_model_name,
                 scenario,
-                action,
                 severity,
             ), count in series.items():
                 count /= 8  # Divide by 8 nations
@@ -689,7 +677,6 @@ def main() -> None:
                     {
                         "model_name": series_model_name,
                         "scenario": scenario,
-                        "action": action,
                         "severity": severity,
                         "count": count,
                     }
@@ -731,7 +718,7 @@ def main() -> None:
             )
             plt.ylabel(y_label)
             plt.yscale("log")
-            yticks = [0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1, 3]
+            yticks = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30]
             plt.yticks(yticks, yticks, size=LABELSIZE_DEFAULT)
 
             title = f"Severity of Actions by Model ({scenario} Scenario)"
