@@ -27,7 +27,7 @@ from chart_utils import (
 INPUT_DIR = "../results/variables_v3"
 OUTPUT_DIR = "./dynamic_variables"
 
-PLOT_NUMBER_TO_CREATE = 2
+PLOT_NUMBER_TO_CREATE = 1
 
 
 def main() -> None:
@@ -110,7 +110,7 @@ def main() -> None:
                     continue
 
                 initialize_plot_default()
-                plt.rcParams["figure.figsize"] = (7, 5)
+                plt.figure(figsize=(7, 5))
                 grouping = "model_name"
                 x_variable = "day"
                 x_label = TIMELABEL_DEFAULT
