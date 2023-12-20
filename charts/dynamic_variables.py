@@ -209,11 +209,11 @@ def main() -> None:
                 )
 
                 initialize_plot_default()
-                plt.rcParams["figure.figsize"] = (12, 6)
+                plt.figure(figsize=(12, 6))
                 grouping = "variable"
                 x_variable = "day"
                 x_label = TIMELABEL_DEFAULT
-                y_label = "Dynamic Variable Value"
+                y_label = "Dynamic Variable Averaged Across Nations"
                 grouping_order = ALL_SCENARIOS
                 # Plot df_grouped
                 sns.lineplot(
