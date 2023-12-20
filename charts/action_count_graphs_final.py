@@ -37,7 +37,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_ACTIONS_BY_MODEL = "./actions_by_model"
 
-PLOT_NUMBER_TO_CREATE = 3  # -1 to create all plots
+PLOT_NUMBER_TO_CREATE = 1  # -1 to create all plots
 
 LABEL_MAX_LENGTH = 26
 
@@ -337,7 +337,7 @@ def main() -> None:
         if PLOT_NUMBER_TO_CREATE == 1:
             # Create a 1x3 subplot with shared y-axis and y-label
             initialize_plot_default()
-            fig, axes = plt.subplots(1, 3, figsize=(15, 5.4))  # , sharey=True)
+            fig, axes = plt.subplots(1, 3, figsize=(15, 5))  # , sharey=True)
             fig.subplots_adjust(wspace=0.125)
             # Add padding to the bottom without subplots_adjust
             fig.tight_layout(h_pad=10.0)
