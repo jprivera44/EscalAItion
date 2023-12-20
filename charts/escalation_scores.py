@@ -361,7 +361,7 @@ def main() -> None:
                 scenario_to_plot = df_scenario["scenario"].unique()[0]
 
                 plt.suptitle(
-                    f"Escalation Scores for All Runs over Time ({scenario_to_plot} Scenario)",
+                    f"Escalation Scores for All Runs Over Time ({scenario_to_plot} Scenario)",
                     y=0.95,
                 )
 
@@ -449,7 +449,7 @@ def main() -> None:
                 scenario_to_plot = df_scenario["scenario"].unique()[0]
 
                 plt.suptitle(
-                    f"Mean Escalation Scores and Turn-to-Turn Differences over Time ({scenario_to_plot} Scenario)"
+                    f"Mean Escalation Scores and Turn-to-Turn Differences Over Time ({scenario_to_plot} Scenario)"
                 )
 
                 for i, model in enumerate(ALL_MODEL_NAMES_WITH_GPT_4_BASE):
