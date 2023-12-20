@@ -37,7 +37,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_ACTIONS_BY_MODEL = "./actions_by_model"
 
-PLOT_NUMBER_TO_CREATE = 0
+PLOT_NUMBER_TO_CREATE = 1
 
 LABEL_MAX_LENGTH = 26
 
@@ -333,7 +333,7 @@ def main() -> None:
             print(f"❗ WARNING: Skipping {model_name} because it has no data")
             continue
 
-        # 1. Multi-line plot of severities over timeP
+        # 1. Multi-line plot of severities over time
         if PLOT_NUMBER_TO_CREATE == 1:
             # Create a 1x3 subplot with shared y-axis and y-label
             initialize_plot_default()
@@ -400,7 +400,7 @@ def main() -> None:
                 borderpad=0.5,
                 bbox_to_anchor=(0.5, -0.08),
             )
-            plt.suptitle(f"{model_name} Action Severities Over Time", y=1.04)
+            plt.suptitle(f"{model_name} Action Severities Over Time", y=1.06)
 
             save_plot(
                 OUTPUT_DIR_ACTIONS_OVER_TIME, f"{model_name} Action Severities All"
