@@ -2,9 +2,14 @@
 
 import os
 
-from chart_utils import ALL_MODEL_NAMES_WITH_GPT_4_BASE, ALL_SCENARIOS
+from chart_utils import (
+    ALL_DYNAMIC_VARIABLES,
+    DYNAMIC_VARIABLES_TO_NAMES,
+    ALL_MODEL_NAMES_WITH_GPT_4_BASE,
+    ALL_SCENARIOS,
+)
 
-INDEX_TO_CREATE = 2
+INDEX_TO_CREATE = 3
 
 
 def main() -> None:
@@ -48,6 +53,23 @@ def main() -> None:
                 print(
                     rf"""    \includegraphics[width=\figwidthTwoCol]{{images/severity_by_nation/{model}_Action_Severity_Counts_by_Nation_{scenario}_Scenario.pdf}}"""
                 )
+
+    elif INDEX_TO_CREATE == 3:
+        # Dynamic variables prompt ablation
+        for dynamic_variable in ALL_DYNAMIC_VARIABLES:
+            dynamic_variable_pretty = DYNAMIC_VARIABLES_TO_NAMES[
+                dynamic_variable
+            ].replace(" ", "_")
+            print(r"""\begin{figure}[H]""")
+            for model in ["GPT-4", "GPT-3.5", "Claude-2.0"]:
+                print(
+                    rf"""    \includegraphics[width=\figwidthFull]{{images/ablations_dynamic_variables/ablate_var_{dynamic_variable_pretty}_{model}.pdf}}"""
+                )
+            print(
+                f"""    \\caption{{\\textbf{{{dynamic_variable_pretty} prompt ablations.}}}}\n"""
+                f"""    \\label{{fig:ablate_var_{dynamic_variable_pretty.lower()}}}\n"""
+                r"""\end{figure}"""
+            )
 
 
 if __name__ == "__main__":

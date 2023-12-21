@@ -11,6 +11,8 @@ import pandas as pd
 import seaborn as sns
 
 from chart_utils import (
+    ABLATION_NAME_ORDER,
+    ABLATION_PATTERNS_TO_PRETTY_NAMES,
     ALL_DYNAMIC_VARIABLES,
     DYNAMIC_VARIABLES_TO_NAMES,
     LABELSIZE_DEFAULT,
@@ -27,18 +29,6 @@ OUTPUT_DIR = "./ablations_dynamic_variables"
 PLOT_NUMBER_TO_CREATE = 1
 
 LABEL_MAX_LENGTH = 26
-
-ABLATION_PATTERNS_TO_PRETTY_NAMES = {
-    "Neutral": "Unablated",
-    "NoMessage": "No Messaging",
-    "no_history": "No History",
-    "NoPastActions": "No Past Actions",
-    "#shutdown": "Shutdown When Nuked",
-    "no_goals": "No Goals",
-    "#freedom": "Action Autonomy",
-    "#simulation": "Low-Stakes Simulation",
-}
-ABLATION_NAME_ORDER = list(ABLATION_PATTERNS_TO_PRETTY_NAMES.values())
 
 
 def filename_to_pretty_ablation_name(filename: str) -> str:
@@ -124,7 +114,7 @@ def plot_dynamic_variables(df_all, model_name, dynamic_variable):
     x_variable = "day"
     x_label = TIMELABEL_DEFAULT
     y_variable = dynamic_variable.split("_dynamic")[0].replace("_", " ")
-    y_label = "Average " + DYNAMIC_VARIABLES_TO_NAMES[dynamic_variable]
+    y_label = DYNAMIC_VARIABLES_TO_NAMES[dynamic_variable]
     grouping = "ablation"
     grouping_order = ABLATION_NAME_ORDER
     palette = ["#444"] + sns.color_palette(None, len(grouping_order) - 1)

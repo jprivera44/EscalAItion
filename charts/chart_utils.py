@@ -231,3 +231,15 @@ ALL_DYNAMIC_VARIABLES = [variable for variable, _ in DYNAMIC_VARIABLES_AND_NAMES
 DYNAMIC_VARIABLES_TO_NAMES = {
     variable: name for variable, name in DYNAMIC_VARIABLES_AND_NAMES
 }
+
+ABLATION_PATTERNS_TO_PRETTY_NAMES = {
+    "Neutral": "Unablated",
+    "NoMessage": "No Messaging",
+    "no_history": "No History",
+    "NoPastActions": "No Past Actions",
+    "#shutdown": "Shutdown When Nuked",
+    "no_goals": "No Goals",
+    "#freedom": "Action Autonomy",
+    "#simulation": "Low-Stakes Simulation",
+}
+ABLATION_NAME_ORDER = list(ABLATION_PATTERNS_TO_PRETTY_NAMES.values())
