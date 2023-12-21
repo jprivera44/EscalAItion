@@ -37,7 +37,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_DISTRIBUTIONS_ALL_ACTIONS = "./distributions_all_actions"
 
-PLOT_NUMBER_TO_CREATE = 6  # -1 to create all plots
+PLOT_NUMBER_TO_CREATE = 3  # -1 to create all plots
 
 LABEL_MAX_LENGTH = 26
 
@@ -491,6 +491,20 @@ def main() -> None:
             # 3. Counts of action severities by nation and scenario, 1 graph per model
             # Goal is to indicate how uniform the different nations are for each model.
             # Multibar where x axis is scenario and each of 3 groups has the 8 nations
+
+            # Create a pallete mapping the nation color names to our normal palette colors
+            palette = {
+                "Blue": get_color_from_palette(0),
+                "Green": get_color_from_palette(2),
+                "Orange": get_color_from_palette(1),
+                "Pink": get_color_from_palette(6),
+                "Purple": get_color_from_palette(4),
+                "Red": get_color_from_palette(3),
+                "White": get_color_from_palette(7),
+                "Yellow": get_color_from_palette(8),
+            }
+            nation_names = list(palette.keys())
+
             for scenario in ALL_SCENARIOS:
                 groups_by_severity = [
                     df.groupby(["self", "scenario", "severity"], observed=True).size()
@@ -498,6 +512,13 @@ def main() -> None:
                     if df["model_name"].unique()[0] == model_name
                     and df["scenario"].unique()[0] == scenario
                 ]
+                # Ensure missing (nation, scenario, severity) tuples have a 0 count
+                for i, series in enumerate(groups_by_severity):
+                    for nation in nation_names:
+                        for severity in SEVERITIES_ORDER:
+                            grouping = (nation, scenario, severity)
+                            if grouping not in series:
+                                groups_by_severity[i][grouping] = 0
                 graphing_data_severities = []
                 for series in groups_by_severity:
                     for (series_self, scenario, severity), count in series.items():
@@ -521,18 +542,6 @@ def main() -> None:
                 grouping = "self"
                 grouping_label = "Nation"
 
-                # Create a pallete mapping the nation color names to our normal palette colors
-                palette = {
-                    "Blue": get_color_from_palette(0),
-                    "Green": get_color_from_palette(2),
-                    "Orange": get_color_from_palette(1),
-                    "Pink": get_color_from_palette(6),
-                    "Purple": get_color_from_palette(4),
-                    "Red": get_color_from_palette(3),
-                    "White": get_color_from_palette(7),
-                    "Yellow": get_color_from_palette(8),
-                }
-
                 sns.barplot(
                     data=df_plot,
                     x=x_variable,
@@ -552,15 +561,16 @@ def main() -> None:
                 plt.ylabel(y_label)
                 plt.yscale("log")
                 # Y axis labels in non-scientific notation
-                plt.yticks(
-                    [1, 3, 10, 30],
-                    ["1", "3", "10", "30"],
-                )
+                yticks = [0.1, 0.3, 1, 3, 10, 30]
+                plt.yticks(yticks, yticks)
+                plt.ylim(0.05, 75)
 
-                title = f"{model_name} Action Severity Counts by {grouping_label} ({scenario} Scenario)"
+                title = (
+                    f"{model_name} Severities by {grouping_label} ({scenario} Scenario)"
+                )
                 plt.title(title)
-                legend_loc = "best"
-                if model_name in ["GPT-3.5", "GPT-4-Base"]:
+                legend_loc = "upper right"
+                if model_name in ["GPT-4-Base"]:
                     legend_loc = "lower left"
                 plt.legend(
                     title=grouping_label,
