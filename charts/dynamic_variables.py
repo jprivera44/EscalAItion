@@ -136,26 +136,35 @@ def main() -> None:
                 plt.xlabel(x_label, size=LABELSIZE_DEFAULT)
                 plt.ylabel(y_label, size=LABELSIZE_DEFAULT)
                 # plt.yscale("log")
-                title = f"{y_label.replace('Average ', '')} Over Time in {scenario} Scenario"
+                title = f"{y_label.replace('Average ', '')} ({scenario} Scenario)"
                 plt.title(title)
 
+                loc = (
+                    "lower left"
+                    if dynamic_variable == "population_dynamic"
+                    else "upper left"
+                )
                 plt.legend(
                     # bbox_to_anchor=(1.05, 1),
-                    loc="best",
+                    loc=loc,
                     borderaxespad=0.0,
-                    ncol=2,
+                    # ncol=2,
                     title="Model",
                     handletextpad=0.1,
                     labelspacing=0.25,
-                    framealpha=0.5,
+                    # framealpha=0.5,
                     columnspacing=0.25,
                 )
 
                 # Save the plot
-                save_plot(OUTPUT_DIR, title)
+                save_plot(
+                    OUTPUT_DIR,
+                    f"Var_{DYNAMIC_VARIABLES_TO_NAMES[dynamic_variable]}_{scenario}",
+                )
 
                 # Clear the plot
                 plt.clf()
+                plt.close()
 
     # Plot a bunch of different bar graphs for different combos of models
     for model_name in ["GPT-4-Base"] + ALL_MODEL_NAMES + ["All Models"]:
