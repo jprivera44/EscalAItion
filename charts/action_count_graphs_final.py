@@ -37,7 +37,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_DISTRIBUTIONS_ALL_ACTIONS = "./distributions_all_actions"
 
-PLOT_NUMBER_TO_CREATE = 3  # -1 to create all plots
+PLOT_NUMBER_TO_CREATE = 8  # -1 to create all plots
 
 LABEL_MAX_LENGTH = 26
 
@@ -960,7 +960,7 @@ def main() -> None:
 
         for model_name in ALL_MODEL_NAMES_WITH_GPT_4_BASE:
             initialize_plot_default()
-            _, axes = plt.subplots(nrows=1, ncols=3, figsize=(14, 4))
+            _, axes = plt.subplots(nrows=1, ncols=3, figsize=(14, 3.9))
 
             x_variable = "day"
             y_variable = "count"
