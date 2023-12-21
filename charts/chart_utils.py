@@ -37,7 +37,15 @@ def create_file_dir_if_not_exists(file_path: str) -> None:
 
 def initialize_plot_default() -> None:
     """Set default plot styling."""
+    # Reinit some plot things
+    # plt.close()
+    # plt.clf()
+    # plt.cla()
+    # plt.show(block=False)
+    # plt.close()
+    plt.tight_layout()
     # Reset rcParams
+    sns.reset_orig()
     plt.rcParams.update(plt.rcParamsDefault)
     # Set seed
     set_seed(66)
@@ -55,6 +63,8 @@ def initialize_plot_default() -> None:
     plt.rcParams["lines.marker"] = "o"
     # Default marker size
     plt.rcParams["lines.markersize"] = 12
+    # Set font size to LABELSIZE_DEFAULT
+    plt.rcParams["font.size"] = LABELSIZE_DEFAULT
     # Accessible colors
     sns.set_palette(DEFAULT_COLOR_PALETTE)
 
@@ -75,7 +85,7 @@ def get_color_from_palette(
     return color
 
 
-def save_plot(output_dir: str, filename: str) -> None:
+def save_plot(output_dir: str, filename: str, save_target: Any = plt) -> None:
     """Save a plot to a file."""
     filename_arxivable = (
         f"{filename}.pdf".replace(" (", "_")
@@ -88,7 +98,7 @@ def save_plot(output_dir: str, filename: str) -> None:
         os.path.join(output_dir, filename_arxivable)
     )
     create_file_dir_if_not_exists(output_filepath)
-    plt.savefig(output_filepath, bbox_inches="tight", dpi=300)
+    save_target.savefig(output_filepath, bbox_inches="tight", dpi=300)
     print(f"Saved plot '{filename}' to {filename_arxivable}")
 
 
@@ -102,14 +112,15 @@ COLOR_ALT_2 = "tab:red"
 
 CAPSIZE_DEFAULT = 0.2
 LABELSIZE_DEFAULT = 14
+TIMELABEL_DEFAULT = "Time $t$ [Days]"
 
 MODELS_COLORS_MARKERS = [
     # ("Claude-1.2", get_color_from_palette()),
-    ("Llama-2-Chat", get_color_from_palette(3, None), "P"),
-    ("Claude-2.0", get_color_from_palette(0, None), "o"),
-    ("GPT-3.5", get_color_from_palette(2, None), "s"),
-    ("GPT-4-Base", get_color_from_palette(1, "colorblind"), "v"),
     ("GPT-4", get_color_from_palette(4, None), "^"),
+    ("GPT-3.5", get_color_from_palette(2, None), "s"),
+    ("Claude-2.0", get_color_from_palette(0, None), "o"),
+    ("Llama-2-Chat", get_color_from_palette(3, None), "P"),
+    ("GPT-4-Base", get_color_from_palette(1, "colorblind"), "v"),
 ]
 ALL_MODEL_NAMES = [
     model_name

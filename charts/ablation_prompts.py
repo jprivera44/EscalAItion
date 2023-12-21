@@ -166,7 +166,7 @@ def main() -> None:
 
             scenario_label = SCENARIO.title()
             title = (
-                f"{y_label} over {x_label} in {scenario_label} Scenario ({model_name})"
+                f"{y_label} Over {x_label} in {scenario_label} Scenario ({model_name})"
             )
             plt.title(title)
 

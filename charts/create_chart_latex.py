@@ -2,7 +2,9 @@
 
 import os
 
-INDEX_TO_CREATE = 1
+from chart_utils import ALL_MODEL_NAMES_WITH_GPT_4_BASE, ALL_SCENARIOS
+
+INDEX_TO_CREATE = 2
 
 
 def main() -> None:
@@ -37,6 +39,14 @@ def main() -> None:
     \label{{fig:dynamic_variables_{variable.replace(" ", "_")}}}
 \end{{figure*}}
 """
+                )
+
+    elif INDEX_TO_CREATE == 2:
+        # Action severities by nation
+        for model in ALL_MODEL_NAMES_WITH_GPT_4_BASE:
+            for scenario in ALL_SCENARIOS:
+                print(
+                    rf"""    \includegraphics[width=\figwidthTwoCol]{{images/severity_by_nation/{model}_Action_Severity_Counts_by_Nation_{scenario}_Scenario.pdf}}"""
                 )
 
 
