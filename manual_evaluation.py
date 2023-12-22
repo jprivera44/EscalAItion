@@ -146,7 +146,7 @@ def process_file_scores(file_path):
 def main():
     type_of_file = "exponential"
 
-    model_type = "claude-2.0"
+    
 
     folder_path = "./results/actions_v3/"
 
@@ -162,8 +162,11 @@ def main():
         # Remove the '.csv' part from the base_name before appending '_eval.json'
         base_name_without_csv = base_name.replace(".csv", "")
         json_output_path = os.path.join(
-            json_output_folder, f"{base_name_without_csv}_{model_type}_raw.json"
+            json_output_folder, f"{base_name_without_csv}_raw.json"
         ).replace("\\", "/")
+
+        json_output_path = os.path.join(json_output_folder, f"{base_name_without_csv}_raw.json").replace("\\", "/")
+
 
         # Gather all daily scores into a list
         scores_list = [
