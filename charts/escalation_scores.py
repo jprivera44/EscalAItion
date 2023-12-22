@@ -135,7 +135,7 @@ def main() -> None:
 
     # For each scenario, for each model, print avg and std escalation scores (for main comparison table)
     print("\nMain Table Escalation Score Data")
-    print("dfs list", dfs_list)
+    
     
     for scenario in ALL_SCENARIOS:
         df_list_scenario = [
