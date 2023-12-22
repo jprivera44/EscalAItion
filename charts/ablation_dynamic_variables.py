@@ -110,7 +110,7 @@ def plot_dynamic_variables(df_all, model_name, dynamic_variable):
     ), f"dynamic variable={dynamic_variable} (expected to contain '_dynamic')"
 
     initialize_plot_default()
-    plt.figure(figsize=(15, 4.25))
+    plt.figure(figsize=(7.5, 6.25))
     x_variable = "day"
     x_label = TIMELABEL_DEFAULT
     y_variable = dynamic_variable.split("_dynamic")[0].replace("_", " ")
@@ -158,6 +158,9 @@ def plot_dynamic_variables(df_all, model_name, dynamic_variable):
         # framealpha=0.5,
         columnspacing=0.25,
     )
+    if dynamic_variable == "nuclear_dynamic" and model_name != "Claude-2.0":
+        # Remove legend, just doesn't fit well
+        plt.legend().remove()
 
     # Save the plot
     save_plot(

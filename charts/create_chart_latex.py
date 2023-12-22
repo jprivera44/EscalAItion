@@ -55,21 +55,28 @@ def main() -> None:
                 )
 
     elif INDEX_TO_CREATE == 3:
-        # Dynamic variables prompt ablation
-        for dynamic_variable in ALL_DYNAMIC_VARIABLES:
+        # Dynamic variables prompt ablation (put territory last)
+        for i, dynamic_variable in enumerate(
+            ALL_DYNAMIC_VARIABLES[1:] + [ALL_DYNAMIC_VARIABLES[0]]
+        ):
             dynamic_variable_pretty = DYNAMIC_VARIABLES_TO_NAMES[
                 dynamic_variable
             ].replace(" ", "_")
-            print(r"""\begin{figure}[H]""")
+            print(
+                r"""\begin{minipage}{\figwidthTwoColSmaller}""" r"""\begin{figure}[H]"""
+            )
             for model in ["GPT-4", "GPT-3.5", "Claude-2.0"]:
                 print(
                     rf"""    \includegraphics[width=\figwidthFull]{{images/ablations_dynamic_variables/ablate_var_{dynamic_variable_pretty}_{model}.pdf}}"""
                 )
             print(
-                f"""    \\caption{{\\textbf{{{dynamic_variable_pretty} prompt ablations.}}}}\n"""
+                f"""    \\caption{{\\textbf{{{dynamic_variable_pretty.replace("_", " ")} prompt ablations.}}}}\n"""
                 f"""    \\label{{fig:ablate_var_{dynamic_variable_pretty.lower()}}}\n"""
                 r"""\end{figure}"""
+                r"""\end{minipage}"""
             )
+            if i % 2 == 1:
+                print(r"""\clearpage""")
 
 
 if __name__ == "__main__":
