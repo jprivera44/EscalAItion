@@ -12,6 +12,7 @@ from chart_utils import (
     ALL_NATIONS,
     MODELS_TO_COLORS,
     NATIONS_TO_COLORS,
+    SCENARIOS_TO_COLORS,
 )
 
 INDEX_TO_CREATE = 4
@@ -84,7 +85,7 @@ def main() -> None:
                 print(r"""\clearpage""")
 
     elif INDEX_TO_CREATE == 4:
-        # Colors for nations and models
+        # Colors for nations, models, and scenarios
         for nation_name in ALL_NATIONS:
             print(
                 f"\\definecolor{{color{nation_name.lower()}}}{{HTML}}{{{mpl.colors.rgb2hex(NATIONS_TO_COLORS[nation_name])[1:]}}}"
@@ -93,6 +94,11 @@ def main() -> None:
         for model_name in ALL_MODEL_NAMES_WITH_GPT_4_BASE:
             print(
                 f"\\definecolor{{color{model_name.lower().replace('-','')}}}{{HTML}}{{{mpl.colors.rgb2hex(MODELS_TO_COLORS[model_name])[1:]}}}"
+            )
+        print()
+        for scenario_name in ALL_SCENARIOS:
+            print(
+                f"\\definecolor{{color{scenario_name.lower().replace('-','')}}}{{HTML}}{{{mpl.colors.rgb2hex(SCENARIOS_TO_COLORS[scenario_name])[1:]}}}"
             )
 
 
