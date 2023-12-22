@@ -232,6 +232,18 @@ DYNAMIC_VARIABLES_TO_NAMES = {
     variable: name for variable, name in DYNAMIC_VARIABLES_AND_NAMES
 }
 
+NATIONS_TO_COLORS = {
+    "Blue": get_color_from_palette(0),
+    "Green": get_color_from_palette(2),
+    "Orange": get_color_from_palette(1),
+    "Pink": get_color_from_palette(6),
+    "Purple": get_color_from_palette(4),
+    "Red": get_color_from_palette(3),
+    "White": get_color_from_palette(7),
+    "Yellow": get_color_from_palette(8),
+}
+ALL_NATIONS = list(NATIONS_TO_COLORS.keys())
+
 ABLATION_PATTERNS_TO_PRETTY_NAMES = {
     "Neutral": "Unablated",
     "NoMessage": "No Messaging",

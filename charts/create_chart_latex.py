@@ -2,14 +2,19 @@
 
 import os
 
+import matplotlib as mpl
+
 from chart_utils import (
     ALL_DYNAMIC_VARIABLES,
     DYNAMIC_VARIABLES_TO_NAMES,
     ALL_MODEL_NAMES_WITH_GPT_4_BASE,
     ALL_SCENARIOS,
+    ALL_NATIONS,
+    MODELS_TO_COLORS,
+    NATIONS_TO_COLORS,
 )
 
-INDEX_TO_CREATE = 3
+INDEX_TO_CREATE = 4
 
 
 def main() -> None:
@@ -77,6 +82,18 @@ def main() -> None:
             )
             if i % 2 == 1:
                 print(r"""\clearpage""")
+
+    elif INDEX_TO_CREATE == 4:
+        # Colors for nations and models
+        for nation_name in ALL_NATIONS:
+            print(
+                f"\\definecolor{{color{nation_name.lower()}}}{{HTML}}{{{mpl.colors.rgb2hex(NATIONS_TO_COLORS[nation_name])[1:]}}}"
+            )
+        print()
+        for model_name in ALL_MODEL_NAMES_WITH_GPT_4_BASE:
+            print(
+                f"\\definecolor{{color{model_name.lower().replace('-','')}}}{{HTML}}{{{mpl.colors.rgb2hex(MODELS_TO_COLORS[model_name])[1:]}}}"
+            )
 
 
 if __name__ == "__main__":
