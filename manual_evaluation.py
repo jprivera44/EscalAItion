@@ -147,11 +147,14 @@ def main():
     type_of_file = "exponential"
 
     
+    model_type = 'gpt-3.5'
 
-    folder_path = "./results/actions_v3/"
-
+    folder_path = "./results/prompt_ablations/" + model_type + "/actions_v1/"
     file_pattern = f"{folder_path}/*.csv"
-    json_output_folder = "./evals/json_v6_" + type_of_file
+    json_output_folder = "./evals/prompt_ablations_total_all_files_v2/" + type_of_file
+    
+
+    #json_output_folder = "./evals/json_v6_" + type_of_file
 
     os.makedirs(json_output_folder, exist_ok=True)
     file_paths = glob.glob(file_pattern)
@@ -165,8 +168,9 @@ def main():
             json_output_folder, f"{base_name_without_csv}_raw.json"
         ).replace("\\", "/")
 
-        json_output_path = os.path.join(json_output_folder, f"{base_name_without_csv}_raw.json").replace("\\", "/")
+        #json_output_path = os.path.join(json_output_folder, f"{base_name_without_csv}_raw.json").replace("\\", "/")
 
+        json_output_path = os.path.join(json_output_folder, f"{model_type}_{base_name_without_csv}_raw.json").replace("\\", "/")
 
         # Gather all daily scores into a list
         scores_list = [
