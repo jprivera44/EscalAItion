@@ -10,15 +10,17 @@ import pandas as pd
 import seaborn as sns
 
 from chart_utils import (
-    ALL_MODEL_NAMES,
-    ALL_MODEL_NAMES_WITH_GPT_4_BASE,
-    ALL_SCENARIOS,
-    SCENARIOS_TO_COLORS,
-    MODELS_TO_COLORS,
-    CAPSIZE_DEFAULT,
     ACTION_ORDER,
     ACTIONS_TO_SEVERITIES,
+    ALL_MODEL_NAMES,
+    ALL_MODEL_NAMES_WITH_GPT_4_BASE,
+    ALL_NATIONS,
+    ALL_SCENARIOS,
+    CAPSIZE_DEFAULT,
     LABELSIZE_DEFAULT,
+    MODELS_TO_COLORS,
+    NATIONS_TO_COLORS,
+    SCENARIOS_TO_COLORS,
     SEVERITIES_ORDER,
     SEVERITIES_ORDER_NEWLINES,
     SEVERITY_TO_MARKER,
@@ -28,7 +30,6 @@ from chart_utils import (
     initialize_plot_bar,
     save_plot,
     get_results_full_path,
-    get_color_from_palette,
 )
 
 INPUT_DIR = "../results/actions_v3"
@@ -491,20 +492,6 @@ def main() -> None:
             # 3. Counts of action severities by nation and scenario, 1 graph per model
             # Goal is to indicate how uniform the different nations are for each model.
             # Multibar where x axis is scenario and each of 3 groups has the 8 nations
-
-            # Create a pallete mapping the nation color names to our normal palette colors
-            palette = {
-                "Blue": get_color_from_palette(0),
-                "Green": get_color_from_palette(2),
-                "Orange": get_color_from_palette(1),
-                "Pink": get_color_from_palette(6),
-                "Purple": get_color_from_palette(4),
-                "Red": get_color_from_palette(3),
-                "White": get_color_from_palette(7),
-                "Yellow": get_color_from_palette(8),
-            }
-            nation_names = list(palette.keys())
-
             for scenario in ALL_SCENARIOS:
                 groups_by_severity = [
                     df.groupby(["self", "scenario", "severity"], observed=True).size()
@@ -514,7 +501,7 @@ def main() -> None:
                 ]
                 # Ensure missing (nation, scenario, severity) tuples have a 0 count
                 for i, series in enumerate(groups_by_severity):
-                    for nation in nation_names:
+                    for nation in ALL_NATIONS:
                         for severity in SEVERITIES_ORDER:
                             grouping = (nation, scenario, severity)
                             if grouping not in series:
@@ -548,9 +535,10 @@ def main() -> None:
                     y=y_variable,
                     order=SEVERITIES_ORDER,
                     hue=grouping,
+                    hue_order=ALL_NATIONS,
                     capsize=CAPSIZE_DEFAULT,
                     errorbar="ci",
-                    palette=palette,
+                    palette=NATIONS_TO_COLORS,
                 )
                 plt.xlabel(x_label)
                 # Ticks on the x axis
