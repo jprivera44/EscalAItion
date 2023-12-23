@@ -34,7 +34,7 @@ INPUT_DIR = "../evals/json_v6_" + file_eval_type
 # OUTPUT_DIR = "./escalation_scores_by_color" + file_eval_type + "_2x4"
 OUTPUT_DIR = "./escalation_scores_v7"
 
-PLOT_NUMBER_TO_CREATE = -1  # Set to -1 to generate all
+PLOT_NUMBER_TO_CREATE = 0  # Set to -1 to generate all
 
 
 def main() -> None:
@@ -135,8 +135,6 @@ def main() -> None:
 
     # For each scenario, for each model, print avg and std escalation scores (for main comparison table)
     print("\nMain Table Escalation Score Data")
-    
-    
     for scenario in ALL_SCENARIOS:
         df_list_scenario = [
             df for df in dfs_list if df["scenario"].unique()[0] == scenario
@@ -221,7 +219,7 @@ def main() -> None:
                 print(row)
         print(r"    \hline")
     print(
-        r"    \hline\hline" + "\n" + gpt_4_base_rows + r"    \hline"
+        r"    \hline" + "\n" + gpt_4_base_rows + r"    \hline"
         "\n"
         r"    \end{tabularx}"
     )
@@ -372,11 +370,13 @@ def main() -> None:
                     df_model_escalation = df_scenario[
                         df_scenario["model_name"] == model
                     ]
-                    #print("shape of df model escalation", df_model_escalation.shape)
+                    # print("shape of df model escalation", df_model_escalation.shape)
 
                     df_model_difference = stats_df[stats_df["model_name"] == model]
-                    assert not df_model_difference.empty, f"No stats data found for model {model}"  # Debugging assertion
-                    #print("shape of model difference", df_model_difference.shape)  # Debugging print statement
+                    assert (
+                        not df_model_difference.empty
+                    ), f"No stats data found for model {model}"  # Debugging assertion
+                    # print("shape of model difference", df_model_difference.shape)  # Debugging print statement
 
                     # Define the color for the current model
                     model_color = MODELS_TO_COLORS.get(
@@ -400,7 +400,7 @@ def main() -> None:
                     ]
                     rgb_list = [husl.husl_to_rgb(*x) for x in husl_list]
                     palette_runs = sns.color_palette(rgb_list)
-                    #print(f"Palette for model {model}: {palette_runs}")  # Debugging print statement
+                    # print(f"Palette for model {model}: {palette_runs}")  # Debugging print statement
 
                     sns.lineplot(
                         ax=axes[i],
