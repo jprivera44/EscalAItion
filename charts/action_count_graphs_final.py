@@ -38,7 +38,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_DISTRIBUTIONS_ALL_ACTIONS = "./distributions_all_actions"
 
-PLOT_NUMBER_TO_CREATE = 8  # -1 to create all plots
+PLOT_NUMBER_TO_CREATE = 6  # -1 to create all plots
 
 LABEL_MAX_LENGTH = 26
 
@@ -638,6 +638,7 @@ def main() -> None:
             # Y axis labels in non-scientific notation
             yticks = [0.03, 0.1, 0.3, 1, 3, 10, 30]
             plt.yticks(yticks, yticks, size=LABELSIZE_DEFAULT)
+            plt.ylim(0.01, 60)
 
             title = f"Severity of Actions by Model ({scenario} Scenario)"
             plt.title(title)
@@ -717,6 +718,7 @@ def main() -> None:
             plt.yscale("log")
             yticks = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30]
             plt.yticks(yticks, yticks, size=LABELSIZE_DEFAULT)
+            plt.ylim(0.01, 60)
 
             title = f"Severity of Actions by Model ({scenario} Scenario)"
             plt.title(f"{scenario} Scenario")
@@ -794,6 +796,7 @@ def main() -> None:
             # Y axis labels in non-scientific notation
             yticks = [0.03, 0.1, 0.3, 1, 3, 10, 30]
             plt.yticks(yticks, yticks, size=LABELSIZE_DEFAULT)
+            plt.ylim(0.01, 60)
 
             title = f"GPT-4-Base Severity of Actions ({scenario} Scenario)"
             plt.title(title)
