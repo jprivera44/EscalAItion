@@ -107,6 +107,13 @@ def get_results_full_path(relative_path: str) -> str:
     return os.path.join(os.path.dirname(__file__), relative_path)
 
 
+def variance_estimator(data: list[float]) -> float:
+    """Helper function for reducing a list of data to a variance."""
+    confidence_intervals = sns.utils.ci(sns.algorithms.bootstrap(data))
+    # Return half the differnce between the upper and lower bounds
+    return (confidence_intervals[1] - confidence_intervals[0]) / 2
+
+
 COLOR_ALT_1 = "tab:purple"
 COLOR_ALT_2 = "tab:red"
 

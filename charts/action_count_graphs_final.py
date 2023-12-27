@@ -30,6 +30,7 @@ from chart_utils import (
     initialize_plot_bar,
     save_plot,
     get_results_full_path,
+    variance_estimator,
 )
 
 INPUT_DIR = "../results/actions_v3"
@@ -38,7 +39,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_DISTRIBUTIONS_ALL_ACTIONS = "./distributions_all_actions"
 
-PLOT_NUMBER_TO_CREATE = 6  # -1 to create all plots
+PLOT_NUMBER_TO_CREATE = 0  # -1 to create all plots
 
 LABEL_MAX_LENGTH = 26
 
@@ -121,6 +122,7 @@ def main() -> None:
         r"        \textbf{Scenario} & \textbf{Model} & \textbf{\% Non-violent Escalation (Count)} & \textbf{\% Violent Escalation (Count)} & \textbf{\% Nuclear (Count)} & \textbf{Mean Escalation Score} \\"
     )
     print("        \\hline")
+
     gpt_4_base_rows = ""
     for scenario in ALL_SCENARIOS:
         df_list_scenario = [
@@ -209,13 +211,16 @@ def main() -> None:
                         df.groupby("severity", observed=True).size()["Nuclear"]
                     )
             nonviolent_means.append(np.mean(nonviolent_percents))
-            nonviolent_stds.append(np.std(nonviolent_percents))
+            # nonviolent_stds.append(np.std(nonviolent_percents))
+            nonviolent_stds.append(variance_estimator(nonviolent_percents))
             nonviolent_counts_mean.append(np.mean(nonviolent_counts))
             violent_means.append(np.mean(violent_percents))
-            violent_stds.append(np.std(violent_percents))
+            # violent_stds.append(np.std(violent_percents))
+            violent_stds.append(variance_estimator(violent_percents))
             violent_counts_mean.append(np.mean(violent_counts))
             nuclear_means.append(np.mean(nuclear_percents))
-            nuclear_stds.append(np.std(nuclear_percents))
+            # nuclear_stds.append(np.std(nuclear_percents))
+            nuclear_stds.append(variance_estimator(nuclear_percents))
             nuclear_counts_mean.append(np.mean(nuclear_counts))
 
         for i, model_name in enumerate(ALL_MODEL_NAMES_WITH_GPT_4_BASE):

@@ -13,18 +13,15 @@ from seaborn.external import husl
 
 from chart_utils import (
     ALL_SCENARIOS,
-    # SCENARIOS_TO_COLORS,
     MODELS_TO_MARKERS,
     MODELS_TO_COLORS,
-    # CAPSIZE_DEFAULT,
     ALL_MODEL_NAMES,
     ALL_MODEL_NAMES_WITH_GPT_4_BASE,
     TIMELABEL_DEFAULT,
     initialize_plot_default,
-    # initialize_plot_bar,
     save_plot,
     get_results_full_path,
-    # get_color_from_palette,
+    variance_estimator,
 )
 
 file_eval_type = "exponential"
@@ -150,7 +147,7 @@ def main() -> None:
             # Mean escalation score within each run
             run_mean_scores = [(np.mean(df["total"])) for df in df_list_model]
             mean_per_run_list.append(np.mean(run_mean_scores))
-            stdper_run_list.append(np.std(run_mean_scores))
+            stdper_run_list.append(variance_estimator(run_mean_scores))
 
         for i, model_name in enumerate(ALL_MODEL_NAMES_WITH_GPT_4_BASE):
             score_mean = mean_per_run_list[i]
@@ -191,7 +188,7 @@ def main() -> None:
                 # Mean escalation score within each run
                 run_mean_scores = [(np.mean(df["total"])) for df in df_list_day]
                 mean = np.mean(run_mean_scores)
-                std = np.std(run_mean_scores)
+                std = variance_estimator(run_mean_scores)
                 mean_str = f"{mean:.2f}"
                 std_str = f"{std:.2f}"
                 mean_mean_str_std_str.append((mean, mean_str, std_str))
