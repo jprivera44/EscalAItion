@@ -3,9 +3,12 @@
 import os
 
 import matplotlib as mpl
+import pandas as pd
 
 from chart_utils import (
     ALL_DYNAMIC_VARIABLES,
+    CHANGETYPE_TO_LABEL,
+    DYNAMIC_VARIABLES_TO_CHANGETYPES,
     DYNAMIC_VARIABLES_TO_NAMES,
     ALL_MODEL_NAMES_WITH_GPT_4_BASE,
     ALL_SCENARIOS,
@@ -15,7 +18,7 @@ from chart_utils import (
     SCENARIOS_TO_COLORS,
 )
 
-INDEX_TO_CREATE = 4
+INDEX_TO_CREATE = 5
 
 
 def main() -> None:
@@ -100,6 +103,58 @@ def main() -> None:
             print(
                 f"\\definecolor{{color{scenario_name.lower().replace('-','')}}}{{HTML}}{{{mpl.colors.rgb2hex(SCENARIOS_TO_COLORS[scenario_name])[1:]}}}"
             )
+
+    elif INDEX_TO_CREATE == 5:
+        # Table of action impacts on dynamic variables
+        action_table = pd.read_csv("action_configs/actions_v8.csv")
+
+        # Print header
+
+        dv_header_line = " & ".join(
+            r"\textbf{"
+            + DYNAMIC_VARIABLES_TO_NAMES[var].replace("Cybersecurity", "Cyber-security")
+            + " ("
+            + CHANGETYPE_TO_LABEL[DYNAMIC_VARIABLES_TO_CHANGETYPES[var]]
+            + ")}"
+            for var in ALL_DYNAMIC_VARIABLES
+        )
+        print(
+            rf"""\begin{{table*}}[ht]
+    \centering
+    \footnotesize
+    \newcolumntype{{L}}{{>{{\raggedright\arraybackslash}}p{{4cm}}}}
+    \begin{{tabularx}}{{\textwidth}}{{|L|X|X|X|X|X|X|X|X|X|X|}}
+        \toprule
+        \textbf{{Action}} & {dv_header_line} \\
+        \midrule"""
+        )
+        for _, row_data in action_table.iterrows():
+            row_text = f"""        {row_data["name"]}"""
+            for var in ALL_DYNAMIC_VARIABLES:
+                changetype = DYNAMIC_VARIABLES_TO_CHANGETYPES[var]
+                changetype_col_name = "add" if changetype == "+" else "mult"
+                var = var.replace("_dynamic", "").replace("_", " ")
+                self_impact = row_data[f"{var}_{changetype_col_name}_self"]
+                if var == "nuclear":
+                    other_impact = 0
+                else:
+                    other_impact = row_data[f"{var}_{changetype_col_name}_other"]
+                should_include = self_impact != 0 or other_impact != 0
+                self_impact = f"+{self_impact}" if self_impact > 0 else self_impact
+                other_impact = f"+{other_impact}" if other_impact > 0 else other_impact
+                row_text += " & "
+                if should_include:
+                    row_text += f"{self_impact}"
+                    row_text += " / "
+                    row_text += f"{other_impact}"
+            row_text += r" \\ \hline"
+            print(row_text)
+        print(
+            r"""        \bottomrule
+    \end{tabularx}
+    \label{{tab:action_impacts}}
+\end{table*}"""
+        )
 
 
 if __name__ == "__main__":

@@ -221,22 +221,32 @@ SEVERITIES_ORDER_NEWLINES = [
     add_newlines_to_severities(severity) for severity in SEVERITIES_ORDER
 ]
 
-DYNAMIC_VARIABLES_AND_NAMES = [
-    ("territory_dynamic", "Territory"),
-    ("military_capacity_dynamic", "Military Capacity"),
-    ("gdp_dynamic", "GDP"),
-    ("trade_dynamic", "Trade"),
-    ("resources_dynamic", "Resources"),
-    ("political_stability_dynamic", "Political Stability"),
-    ("population_dynamic", "Population"),
-    ("soft_power_dynamic", "Soft Power"),
-    ("cybersecurity_dynamic", "Cybersecurity"),
-    ("nuclear_dynamic", "Nuclear Capabilities"),
+DYNAMIC_VARIABLES_NAMES_CHANGETYPES = [
+    ("territory_dynamic", "Territory", "+"),
+    ("military_capacity_dynamic", "Military Capacity", "+"),
+    ("gdp_dynamic", "GDP", "*"),
+    ("trade_dynamic", "Trade", "+"),
+    ("resources_dynamic", "Resources", "+"),
+    ("political_stability_dynamic", "Political Stability", "+"),
+    ("population_dynamic", "Population", "*"),
+    ("soft_power_dynamic", "Soft Power", "+"),
+    ("cybersecurity_dynamic", "Cybersecurity", "+"),
+    ("nuclear_dynamic", "Nuclear Capabilities", "+"),
 ]
+CHANGETYPE_TO_LABEL = {
+    "+": r"$+$",
+    "*": r"$\times$",
+}
 
-ALL_DYNAMIC_VARIABLES = [variable for variable, _ in DYNAMIC_VARIABLES_AND_NAMES]
+ALL_DYNAMIC_VARIABLES = [
+    variable for variable, _, _ in DYNAMIC_VARIABLES_NAMES_CHANGETYPES
+]
 DYNAMIC_VARIABLES_TO_NAMES = {
-    variable: name for variable, name in DYNAMIC_VARIABLES_AND_NAMES
+    variable: name for variable, name, _ in DYNAMIC_VARIABLES_NAMES_CHANGETYPES
+}
+DYNAMIC_VARIABLES_TO_CHANGETYPES = {
+    variable: changetype
+    for variable, _, changetype in DYNAMIC_VARIABLES_NAMES_CHANGETYPES
 }
 
 NATIONS_TO_COLORS = {
