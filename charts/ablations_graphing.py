@@ -15,6 +15,9 @@ def load_json_data(filepath: str) -> pd.DataFrame:
         data_rows.append({"day": day, "total": total})
     return pd.DataFrame(data_rows)
 
+
+
+
 def main():
     INPUT_DIR = "./evals/prompt_ablations_total_all_files"  # Directory containing your JSON files
     OUTPUT_DIR = "./output_ablations/"  # Directory where the plot will be saved
@@ -55,8 +58,17 @@ def main():
             df_filtered = full_data[(full_data['experiment'] == experiment) & (full_data['model'] == model)]
             sns.lineplot(ax=ax, x='day', y='total', data=df_filtered, color=model_colors.get(model, "black"))
             ax.set_title(f"{model} - {experiment}")
-            ax.set_xlabel("Day")
+            #ax.set_xlabel("Time t [Days]")
             ax.set_ylabel("Total Escalation")
+            ax.grid(True)
+
+            # Only set x-label for bottom row subplots
+            if i == len(unique_experiments) - 1:
+                ax.set_xlabel("Time t [Days]")
+            else:
+                ax.set_xlabel('')  # Hide x-label for non-bottom row subplots
+
+            ax.grid(True)
 
     plt.suptitle("Escalation Scores Over Time by Model and Experiment")
     plt.tight_layout()

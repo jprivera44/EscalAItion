@@ -70,6 +70,7 @@ def main():
             ax.set_title(f"{model} - {experiment}")
             ax.set_xlabel("Day")
             ax.set_ylabel("Adjusted Total")
+            ax.grid(True)
 
     plt.suptitle("Adjusted Escalation Scores Over Time by Model and Experiment")
     plt.tight_layout()
