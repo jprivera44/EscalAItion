@@ -252,7 +252,7 @@ NATIONS_TO_COLORS = {
 ALL_NATIONS = list(NATIONS_TO_COLORS.keys())
 
 ABLATION_PATTERNS_TO_PRETTY_NAMES = {
-    "Neutral": "Unablated",
+    "Neutral": "Original",
     "NoMessage": "No Messaging",
     "no_history": "No History",
     "NoPastActions": "No Past Actions",
@@ -262,3 +262,14 @@ ABLATION_PATTERNS_TO_PRETTY_NAMES = {
     "#simulation": "Low-Stakes Simulation",
 }
 ABLATION_NAME_ORDER = list(ABLATION_PATTERNS_TO_PRETTY_NAMES.values())
+ABLATION_PATTERNS_TO_PRETTY_NAMES_NEWLINES = {
+    "Neutral": "Original",
+    "NoMessage": "No Messaging",
+    "no_history": "No History",
+    "NoPastActions": "No Past\nActions",
+    "#shutdown": "Shutdown\nWhen Nuked",
+    "no_goals": "No Goals",
+    "#freedom": "Action\nAutonomy",
+    "#simulation": "Low-Stakes\nSimulation",
+}
+ABLATION_NAME_ORDER_NEWLINES = list(ABLATION_PATTERNS_TO_PRETTY_NAMES_NEWLINES.values())

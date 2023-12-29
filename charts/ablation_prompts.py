@@ -12,6 +12,8 @@ import seaborn as sns
 
 from chart_utils import (
     ALL_SEVERITIES,
+    ABLATION_NAME_ORDER_NEWLINES,
+    ABLATION_PATTERNS_TO_PRETTY_NAMES_NEWLINES,
     ACTION_ORDER,
     ACTIONS_TO_SEVERITIES,
     CAPSIZE_DEFAULT,
@@ -29,23 +31,11 @@ PLOT_NUMBER_TO_CREATE = 1
 
 LABEL_MAX_LENGTH = 26
 
-ABLATION_PATTERNS_TO_PRETTY_NAMES = {
-    "Neutral": "Unablated",
-    "NoMessage": "No\nMessaging",
-    "no_history": "No\nHistory",
-    "NoPastActions": "No Past\nActions",
-    "#shutdown": "Shutdown\nWhen Nuked",
-    "no_goals": "No\nGoals",
-    "#freedom": "Action\nAutonomy",
-    "#simulation": "Low-Stakes\nSimulation",
-}
-ABLATION_NAME_ORDER = list(ABLATION_PATTERNS_TO_PRETTY_NAMES.values())
-
 
 def filename_to_pretty_ablation_name(filename: str) -> str:
     """Format downloaded filenames into graphable names."""
 
-    for pattern, pretty_name in ABLATION_PATTERNS_TO_PRETTY_NAMES.items():
+    for pattern, pretty_name in ABLATION_PATTERNS_TO_PRETTY_NAMES_NEWLINES.items():
         if pattern in filename:
             return pretty_name
     raise ValueError(f"Could not find a pretty name for filename {filename}")
@@ -130,9 +120,9 @@ def main() -> None:
             initialize_plot_bar()
             # palette = sns.color_palette(palette="Spectral_r", n_colors=27)
             # sns.set_palette(palette)
-            plt.rcParams["figure.figsize"] = (10, 8)
+            plt.figure(figsize=(10, 8))
             x_variable = "ablation"
-            x_label = "Prompt Ablation"
+            x_label = "Prompt Variation"
             y_variable = "ratio"
             y_label = "Ratio of Violent or Nuclear Actions"
             # grouping = "severity"
@@ -141,7 +131,7 @@ def main() -> None:
                 data=df_plot,
                 x=x_variable,
                 y=y_variable,
-                order=ABLATION_NAME_ORDER,
+                order=ABLATION_NAME_ORDER_NEWLINES,
                 capsize=CAPSIZE_DEFAULT,
                 palette="colorblind",
                 errorbar="ci"
@@ -173,7 +163,7 @@ def main() -> None:
             # Tight
             plt.tight_layout()
 
-            save_plot(OUTPUT_DIR, title)
+            save_plot(OUTPUT_DIR, f"ablate_by_severity_{model_name}")
 
             # Clear the plot
             plt.clf()
@@ -182,6 +172,7 @@ def main() -> None:
         if PLOT_NUMBER_TO_CREATE == 2:
             # Same but of military capacity
             y_variable = "military capacity"
+
 
 if __name__ == "__main__":
     main()
