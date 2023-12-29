@@ -152,7 +152,7 @@ def plot_dynamic_variables(df_all, model_name, dynamic_variable):
         loc=loc,
         borderaxespad=0.0,
         # ncol=2,
-        title="Prompt Ablation",
+        title="Prompt Variation",
         handletextpad=0.1,
         labelspacing=0.25,
         # framealpha=0.5,
