@@ -39,7 +39,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_DISTRIBUTIONS_ALL_ACTIONS = "./distributions_all_actions"
 
-PLOT_NUMBER_TO_CREATE = 0  # -1 to create all plots
+PLOT_NUMBER_TO_CREATE = 2  # -1 to create all plots
 
 LABEL_MAX_LENGTH = 26
 
@@ -96,204 +96,207 @@ def main() -> None:
         .size()
     )
 
-    # Calculate the average number of nuclear actions and the average number of message actions by GPT-4-Base
-    dfs_list_gpt4base = [
-        df for df in dfs_list if df["model_name"].unique()[0] == "GPT-4-Base"
-    ]
-    # Nuclear actions have "nuclear strike" or "nuclear attack" in the lowercased "action" column
-    dfs_list_gpt4base_nuclear = [
-        df.loc[
-            df["action"].str.lower().str.contains("nuclear strike")
-            | df["action"].str.lower().str.contains("nuclear attack")
+    if PLOT_NUMBER_TO_CREATE == 0:
+        # Calculate the average number of nuclear actions and the average number of message actions by GPT-4-Base
+        dfs_list_gpt4base = [
+            df for df in dfs_list if df["model_name"].unique()[0] == "GPT-4-Base"
         ]
-        for df in dfs_list_gpt4base
-    ]
-    # Message actions have "message" in the lowercased "action" column
-    dfs_list_gpt4base_message = [
-        df.loc[df["action"].str.lower().str.contains("message")]
-        for df in dfs_list_gpt4base
-    ]
-    print("Average number of nuclear actions per nation for GPT-4-Base:")
-    print(np.mean([len(df) for df in dfs_list_gpt4base_nuclear]) / 8.0)
-    print("Average number of message actions per nation for GPT-4-Base:")
-    print(np.mean([len(df) for df in dfs_list_gpt4base_message]) / 8.0)
-
-    # For each scenario, for each model name, print out the % of actions that are each severity
-    for scenario in ALL_SCENARIOS:
-        print(f"\n{scenario} Scenario:")
-        df_scenario = pd.concat(
-            [df for df in dfs_list if df["scenario"].unique()[0] == scenario]
-        )
-        for model_name in ALL_MODEL_NAMES_WITH_GPT_4_BASE:
-            df_model = df_scenario[df_scenario["model_name"] == model_name]
-            print(f"\n{model_name}:")
-            print(
-                (
-                    df_model.groupby("severity", observed=True).size()
-                    / len(df_model)
-                    * 100.0
-                ).apply(lambda x: round(x, 2))
-            )
-
-    # LateX table: For each scenario, for each model name, print out a latex table row for:
-    # |scenario|model|%Non-violent+-std|%Violent+-std|%Nuclear+-std|placehold for escalation score+-std|
-    print("\nLateX table:")
-    print("    \\begin{tabularx}{\\textwidth}{|c|c|X|X|X|X|}")
-    print("        \\hline")
-    print(
-        r"        \textbf{Scenario} & \textbf{Model} & \textbf{\% Non-violent Escalation (Count)} & \textbf{\% Violent Escalation (Count)} & \textbf{\% Nuclear (Count)} & \textbf{Mean Escalation Score} \\"
-    )
-    print("        \\hline")
-
-    gpt_4_base_rows = ""
-    for scenario in ALL_SCENARIOS:
-        df_list_scenario = [
-            df for df in dfs_list if df["scenario"].unique()[0] == scenario
-        ]
-        nonviolent_means = []
-        violent_means = []
-        nuclear_means = []
-        nonviolent_stds = []
-        violent_stds = []
-        nuclear_stds = []
-        nonviolent_counts_mean = []
-        violent_counts_mean = []
-        nuclear_counts_mean = []
-        for model_name in ALL_MODEL_NAMES_WITH_GPT_4_BASE:
-            df_list_model = [
-                df
-                for df in df_list_scenario
-                if df["model_name"].unique()[0] == model_name
+        # Nuclear actions have "nuclear strike" or "nuclear attack" in the lowercased "action" column
+        dfs_list_gpt4base_nuclear = [
+            df.loc[
+                df["action"].str.lower().str.contains("nuclear strike")
+                | df["action"].str.lower().str.contains("nuclear attack")
             ]
-            nonviolent_percents = []
-            nonviolent_counts = []
-            for df in df_list_model:
-                if (
-                    "Non-violent escalation"
-                    not in df.groupby("severity", observed=True).size()
-                ):
-                    nonviolent_percents.append(0.0)
-                    nonviolent_counts.append(0)
-                else:
-                    nonviolent_percents.append(
-                        (
+            for df in dfs_list_gpt4base
+        ]
+        # Message actions have "message" in the lowercased "action" column
+        dfs_list_gpt4base_message = [
+            df.loc[df["action"].str.lower().str.contains("message")]
+            for df in dfs_list_gpt4base
+        ]
+        print("Average number of nuclear actions per nation for GPT-4-Base:")
+        print(np.mean([len(df) for df in dfs_list_gpt4base_nuclear]) / 8.0)
+        print("Average number of message actions per nation for GPT-4-Base:")
+        print(np.mean([len(df) for df in dfs_list_gpt4base_message]) / 8.0)
+
+        # For each scenario, for each model name, print out the % of actions that are each severity
+        for scenario in ALL_SCENARIOS:
+            print(f"\n{scenario} Scenario:")
+            df_scenario = pd.concat(
+                [df for df in dfs_list if df["scenario"].unique()[0] == scenario]
+            )
+            for model_name in ALL_MODEL_NAMES_WITH_GPT_4_BASE:
+                df_model = df_scenario[df_scenario["model_name"] == model_name]
+                print(f"\n{model_name}:")
+                print(
+                    (
+                        df_model.groupby("severity", observed=True).size()
+                        / len(df_model)
+                        * 100.0
+                    ).apply(lambda x: round(x, 2))
+                )
+
+        # LateX table: For each scenario, for each model name, print out a latex table row for:
+        # |scenario|model|%Non-violent+-std|%Violent+-std|%Nuclear+-std|placehold for escalation score+-std|
+        print("\nLateX table:")
+        print("    \\begin{tabularx}{\\textwidth}{|c|c|X|X|X|X|}")
+        print("        \\hline")
+        print(
+            r"        \textbf{Scenario} & \textbf{Model} & \textbf{\% Non-violent Escalation (Count)} & \textbf{\% Violent Escalation (Count)} & \textbf{\% Nuclear (Count)} & \textbf{Mean Escalation Score} \\"
+        )
+        print("        \\hline")
+
+        gpt_4_base_rows = ""
+        for scenario in ALL_SCENARIOS:
+            df_list_scenario = [
+                df for df in dfs_list if df["scenario"].unique()[0] == scenario
+            ]
+            nonviolent_means = []
+            violent_means = []
+            nuclear_means = []
+            nonviolent_stds = []
+            violent_stds = []
+            nuclear_stds = []
+            nonviolent_counts_mean = []
+            violent_counts_mean = []
+            nuclear_counts_mean = []
+            for model_name in ALL_MODEL_NAMES_WITH_GPT_4_BASE:
+                df_list_model = [
+                    df
+                    for df in df_list_scenario
+                    if df["model_name"].unique()[0] == model_name
+                ]
+                nonviolent_percents = []
+                nonviolent_counts = []
+                for df in df_list_model:
+                    if (
+                        "Non-violent escalation"
+                        not in df.groupby("severity", observed=True).size()
+                    ):
+                        nonviolent_percents.append(0.0)
+                        nonviolent_counts.append(0)
+                    else:
+                        nonviolent_percents.append(
+                            (
+                                df.groupby("severity", observed=True).size()[
+                                    "Non-violent escalation"
+                                ]
+                                / len(df)
+                                * 100.0
+                            )
+                        )
+                        nonviolent_counts.append(
                             df.groupby("severity", observed=True).size()[
                                 "Non-violent escalation"
                             ]
-                            / len(df)
-                            * 100.0
                         )
-                    )
-                    nonviolent_counts.append(
-                        df.groupby("severity", observed=True).size()[
-                            "Non-violent escalation"
-                        ]
-                    )
 
-            violent_percents = []
-            violent_counts = []
-            for df in df_list_model:
-                if (
-                    "Violent escalation"
-                    not in df.groupby("severity", observed=True).size()
-                ):
-                    violent_percents.append(0.0)
-                    violent_counts.append(0)
-                else:
-                    violent_percents.append(
-                        (
+                violent_percents = []
+                violent_counts = []
+                for df in df_list_model:
+                    if (
+                        "Violent escalation"
+                        not in df.groupby("severity", observed=True).size()
+                    ):
+                        violent_percents.append(0.0)
+                        violent_counts.append(0)
+                    else:
+                        violent_percents.append(
+                            (
+                                df.groupby("severity", observed=True).size()[
+                                    "Violent escalation"
+                                ]
+                                / len(df)
+                                * 100.0
+                            )
+                        )
+                        violent_counts.append(
                             df.groupby("severity", observed=True).size()[
                                 "Violent escalation"
                             ]
-                            / len(df)
-                            * 100.0
                         )
-                    )
-                    violent_counts.append(
-                        df.groupby("severity", observed=True).size()[
-                            "Violent escalation"
-                        ]
-                    )
 
-            nuclear_percents = []
-            nuclear_counts = []
-            for df in df_list_model:
-                if "Nuclear" not in df.groupby("severity", observed=True).size():
-                    nuclear_percents.append(0.0)
-                    nuclear_counts.append(0)
-                else:
-                    nuclear_percents.append(
-                        (
+                nuclear_percents = []
+                nuclear_counts = []
+                for df in df_list_model:
+                    if "Nuclear" not in df.groupby("severity", observed=True).size():
+                        nuclear_percents.append(0.0)
+                        nuclear_counts.append(0)
+                    else:
+                        nuclear_percents.append(
+                            (
+                                df.groupby("severity", observed=True).size()["Nuclear"]
+                                / len(df)
+                                * 100.0
+                            )
+                        )
+                        nuclear_counts.append(
                             df.groupby("severity", observed=True).size()["Nuclear"]
-                            / len(df)
-                            * 100.0
                         )
-                    )
-                    nuclear_counts.append(
-                        df.groupby("severity", observed=True).size()["Nuclear"]
-                    )
-            nonviolent_means.append(np.mean(nonviolent_percents))
-            # nonviolent_stds.append(np.std(nonviolent_percents))
-            nonviolent_stds.append(variance_estimator(nonviolent_percents))
-            nonviolent_counts_mean.append(np.mean(nonviolent_counts))
-            violent_means.append(np.mean(violent_percents))
-            # violent_stds.append(np.std(violent_percents))
-            violent_stds.append(variance_estimator(violent_percents))
-            violent_counts_mean.append(np.mean(violent_counts))
-            nuclear_means.append(np.mean(nuclear_percents))
-            # nuclear_stds.append(np.std(nuclear_percents))
-            nuclear_stds.append(variance_estimator(nuclear_percents))
-            nuclear_counts_mean.append(np.mean(nuclear_counts))
+                nonviolent_means.append(np.mean(nonviolent_percents))
+                # nonviolent_stds.append(np.std(nonviolent_percents))
+                nonviolent_stds.append(variance_estimator(nonviolent_percents))
+                nonviolent_counts_mean.append(np.mean(nonviolent_counts))
+                violent_means.append(np.mean(violent_percents))
+                # violent_stds.append(np.std(violent_percents))
+                violent_stds.append(variance_estimator(violent_percents))
+                violent_counts_mean.append(np.mean(violent_counts))
+                nuclear_means.append(np.mean(nuclear_percents))
+                # nuclear_stds.append(np.std(nuclear_percents))
+                nuclear_stds.append(variance_estimator(nuclear_percents))
+                nuclear_counts_mean.append(np.mean(nuclear_counts))
 
-        for i, model_name in enumerate(ALL_MODEL_NAMES_WITH_GPT_4_BASE):
-            # Print the corresponding data, and bold the mean and std if the mean is the highest for that column
-            nonviolent_mean = nonviolent_means[i]
-            violent_mean = violent_means[i]
-            nuclear_mean = nuclear_means[i]
-            nonviolent_std = nonviolent_stds[i]
-            violent_std = violent_stds[i]
-            nuclear_std = nuclear_stds[i]
-            nonviolent_mean_str = f"{nonviolent_mean:.2f}"
-            violent_mean_str = f"{violent_mean:.2f}"
-            nuclear_mean_str = f"{nuclear_mean:.2f}"
-            nonviolent_std_str = f"{nonviolent_std:.2f}"
-            violent_std_str = f"{violent_std:.2f}"
-            nuclear_std_str = f"{nuclear_std:.2f}"
-            nonviolent_count_mean = nonviolent_counts_mean[i]
-            violent_count_mean = violent_counts_mean[i]
-            nuclear_count_mean = nuclear_counts_mean[i]
-            nonviolent_count_mean_str = f"({nonviolent_count_mean:.2f})"
-            violent_count_mean_str = f"({violent_count_mean:.2f})"
-            nuclear_count_mean_str = f"({nuclear_count_mean:.2f})"
-            if nonviolent_mean == max(nonviolent_means[:-1]):  # Skip GPT-4-Base
-                nonviolent_mean_str = r"\textbf{" + nonviolent_mean_str
-                nonviolent_std_str = nonviolent_std_str + "}"
-            if violent_mean == max(violent_means[:-1]):
-                violent_mean_str = r"\textbf{" + violent_mean_str
-                violent_std_str = violent_std_str + "}"
-            if nuclear_mean == max(nuclear_means[:-1]):
-                nuclear_mean_str = r"\textbf{" + nuclear_mean_str
-                nuclear_std_str = nuclear_std_str + "}"
-            if nonviolent_count_mean == max(nonviolent_counts_mean[:-1]):
-                nonviolent_count_mean_str = (
-                    r"\textbf{" + nonviolent_count_mean_str + "}"
-                )
-            if violent_count_mean == max(violent_counts_mean[:-1]):
-                violent_count_mean_str = r"\textbf{" + violent_count_mean_str + "}"
-            if nuclear_count_mean == max(nuclear_counts_mean[:-1]):
-                nuclear_count_mean_str = r"\textbf{" + nuclear_count_mean_str + "}"
+            for i, model_name in enumerate(ALL_MODEL_NAMES_WITH_GPT_4_BASE):
+                # Print the corresponding data, and bold the mean and std if the mean is the highest for that column
+                nonviolent_mean = nonviolent_means[i]
+                violent_mean = violent_means[i]
+                nuclear_mean = nuclear_means[i]
+                nonviolent_std = nonviolent_stds[i]
+                violent_std = violent_stds[i]
+                nuclear_std = nuclear_stds[i]
+                nonviolent_mean_str = f"{nonviolent_mean:.2f}"
+                violent_mean_str = f"{violent_mean:.2f}"
+                nuclear_mean_str = f"{nuclear_mean:.2f}"
+                nonviolent_std_str = f"{nonviolent_std:.2f}"
+                violent_std_str = f"{violent_std:.2f}"
+                nuclear_std_str = f"{nuclear_std:.2f}"
+                nonviolent_count_mean = nonviolent_counts_mean[i]
+                violent_count_mean = violent_counts_mean[i]
+                nuclear_count_mean = nuclear_counts_mean[i]
+                nonviolent_count_mean_str = f"({nonviolent_count_mean:.2f})"
+                violent_count_mean_str = f"({violent_count_mean:.2f})"
+                nuclear_count_mean_str = f"({nuclear_count_mean:.2f})"
+                if nonviolent_mean == max(nonviolent_means[:-1]):  # Skip GPT-4-Base
+                    nonviolent_mean_str = r"\textbf{" + nonviolent_mean_str
+                    nonviolent_std_str = nonviolent_std_str + "}"
+                if violent_mean == max(violent_means[:-1]):
+                    violent_mean_str = r"\textbf{" + violent_mean_str
+                    violent_std_str = violent_std_str + "}"
+                if nuclear_mean == max(nuclear_means[:-1]):
+                    nuclear_mean_str = r"\textbf{" + nuclear_mean_str
+                    nuclear_std_str = nuclear_std_str + "}"
+                if nonviolent_count_mean == max(nonviolent_counts_mean[:-1]):
+                    nonviolent_count_mean_str = (
+                        r"\textbf{" + nonviolent_count_mean_str + "}"
+                    )
+                if violent_count_mean == max(violent_counts_mean[:-1]):
+                    violent_count_mean_str = r"\textbf{" + violent_count_mean_str + "}"
+                if nuclear_count_mean == max(nuclear_counts_mean[:-1]):
+                    nuclear_count_mean_str = r"\textbf{" + nuclear_count_mean_str + "}"
 
-            scenario_str = scenario if "GPT-4" in model_name else ""
-            row = rf"        {scenario_str} & {model_name} & {nonviolent_mean_str} $\pm$ {nonviolent_std_str}\% {nonviolent_count_mean_str} & {violent_mean_str} $\pm$ {violent_std_str}\% {violent_count_mean_str} & {nuclear_mean_str} $\pm$ {nuclear_std_str}\% {nuclear_count_mean_str} & TEMP $\pm$ TEMP \\"
-            if model_name == "GPT-4-Base":
-                # Hold out to print at the end
-                gpt_4_base_rows += row + "\n"
-            else:
-                print(row)
+                scenario_str = scenario if "GPT-4" in model_name else ""
+                row = rf"        {scenario_str} & {model_name} & {nonviolent_mean_str} $\pm$ {nonviolent_std_str}\% {nonviolent_count_mean_str} & {violent_mean_str} $\pm$ {violent_std_str}\% {violent_count_mean_str} & {nuclear_mean_str} $\pm$ {nuclear_std_str}\% {nuclear_count_mean_str} & TEMP $\pm$ TEMP \\"
+                if model_name == "GPT-4-Base":
+                    # Hold out to print at the end
+                    gpt_4_base_rows += row + "\n"
+                else:
+                    print(row)
+            print("        \\hline")
         print("        \\hline")
-    print("        \\hline")
-    print(gpt_4_base_rows + "        \\hline")
-    print("    \\end{tabularx}")
+        print(gpt_4_base_rows + "        \\hline")
+        print("    \\end{tabularx}")
+
+        return
 
     # Plot a bunch of different bar graphs for different combos of models
     for model_name in ALL_MODEL_NAMES_WITH_GPT_4_BASE:
@@ -307,6 +310,8 @@ def main() -> None:
             if df["model_name"].unique()[0] != model_name:
                 continue
             for scenario in ALL_SCENARIOS:
+                if df["scenario"].unique()[0] != scenario:
+                    continue
                 for action in ACTION_ORDER:
                     count = (
                         len(df[(df["scenario"] == scenario) & (df["action"] == action)])
@@ -502,7 +507,7 @@ def main() -> None:
 
             plt.ylabel(y_label)
             plt.yscale("log")
-            yticks = [0.003, 0.01, 0.03, 0.1, 0.3, 1, 3, 10]
+            yticks = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30]
             plt.yticks(yticks, yticks, size=LABELSIZE_DEFAULT)
 
             title = f"{model_name} Distribution of All {len(ACTION_ORDER)} Actions by Scenario"
