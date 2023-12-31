@@ -31,7 +31,7 @@ INPUT_DIR = "../evals/json_v6_" + file_eval_type
 # OUTPUT_DIR = "./escalation_scores_by_color" + file_eval_type + "_2x4"
 OUTPUT_DIR = "./escalation_scores_v7"
 
-PLOT_NUMBER_TO_CREATE = 0  # Set to -1 to generate all
+PLOT_NUMBER_TO_CREATE = 5  # Set to -1 to generate all
 
 
 def main() -> None:
@@ -131,98 +131,102 @@ def main() -> None:
     )
 
     # For each scenario, for each model, print avg and std escalation scores (for main comparison table)
-    print("\nMain Table Escalation Score Data")
-    for scenario in ALL_SCENARIOS:
-        df_list_scenario = [
-            df for df in dfs_list if df["scenario"].unique()[0] == scenario
-        ]
-        mean_per_run_list = []
-        stdper_run_list = []
-        for model_name in ALL_MODEL_NAMES_WITH_GPT_4_BASE:
-            df_list_model = [
-                df
-                for df in df_list_scenario
-                if df["model_name"].unique()[0] == model_name
-            ]
-            # Mean escalation score within each run
-            run_mean_scores = [(np.mean(df["total"])) for df in df_list_model]
-            mean_per_run_list.append(np.mean(run_mean_scores))
-            stdper_run_list.append(variance_estimator(run_mean_scores))
-
-        for i, model_name in enumerate(ALL_MODEL_NAMES_WITH_GPT_4_BASE):
-            score_mean = mean_per_run_list[i]
-            score_std = stdper_run_list[i]
-            score_mean_str = f"{score_mean:.2f}"
-            score_std_str = f"{score_std:.2f}"
-            if score_mean == max(mean_per_run_list):
-                score_mean_str = r"\textbf{" + score_mean_str + "}"
-                score_std_str = r"\textbf{" + score_std_str + "}"
-
-            print(
-                rf"{scenario:11s} | {model_name:12s} | {score_mean_str} $\pm$ {score_std_str}"
-            )
-
-    print("\nLatex Table of beginning, middle, and end escalation scores (t=1, 8, 14)")
-    # Print header
-    print(
-        r"    \begin{tabularx}{0.85\textwidth}{|c|c|X|X|X|} \hline"
-        "\n"
-        r"    \textbf{Scenario} & \textbf{Model} & \textbf{Escalation Score \newline Beginning ($t=1$)} & \textbf{Escalation Score \newline Middle ($t=8$)} & \textbf{Escalation Score \newline End ($t=14$)} \\ \hline"
-    )
-    gpt_4_base_rows = ""
-    for scenario in ALL_SCENARIOS:
-        df_list_scenario = [
-            df for df in dfs_list if df["scenario"].unique()[0] == scenario
-        ]
-        for model_name in ALL_MODEL_NAMES_WITH_GPT_4_BASE:
-            df_list_model = [
-                df
-                for df in df_list_scenario
-                if df["model_name"].unique()[0] == model_name
-            ]
-            # Filter by day=1, 8, 14 and print mean and std ES across the 10 runs
-            mean_mean_str_std_str: list[tuple[float, str, str]] = []
-            for day in [1, 8, 14]:
-                df_list_day = [df[df["day"] == day] for df in df_list_model]
-                assert len(df_list_day) == 10, f"len(df_list_day) = {len(df_list_day)}"
-                # Mean escalation score within each run
-                run_mean_scores = [(np.mean(df["total"])) for df in df_list_day]
-                mean = np.mean(run_mean_scores)
-                std = variance_estimator(run_mean_scores)
-                mean_str = f"{mean:.2f}"
-                std_str = f"{std:.2f}"
-                mean_mean_str_std_str.append((mean, mean_str, std_str))
-            # Print full row, bolding the cell with the highest mean
-            max_mean = max(mean_mean_str_std_str, key=lambda x: x[0])[0]
-            scenario_str = scenario
-            if "GPT-4" not in model_name:
-                # Only print scenario once per group
-                scenario_str = ""
-            row = f"    {scenario_str:15s} & {model_name:12s}"
-            for mean, mean_str, std_str in mean_mean_str_std_str:
-                if mean == max_mean:
-                    mean_str = r"\textbf{" + mean_str
-                    std_str = std_str + "}"
-                # Underline second highest
-                elif mean == sorted(mean_mean_str_std_str)[-2][0]:
-                    mean_str = r"\underline{" + mean_str
-                    std_str = std_str + "}"
-                row += rf" & {mean_str:13s} $\pm$ {std_str:6s}"
-            row += r" \\[2.5pt]"
-            # Save GPT-4-base to the end
-            if model_name == "GPT-4-Base":
-                gpt_4_base_rows += row + "\n"
-            else:
-                print(row)
-        print(r"    \hline")
-    print(
-        r"    \hline" + "\n" + gpt_4_base_rows + r"    \hline"
-        "\n"
-        r"    \end{tabularx}"
-    )
-    print("\n")
-
     if PLOT_NUMBER_TO_CREATE == 0:
+        print("\nMain Table Escalation Score Data")
+        for scenario in ALL_SCENARIOS:
+            df_list_scenario = [
+                df for df in dfs_list if df["scenario"].unique()[0] == scenario
+            ]
+            mean_per_run_list = []
+            stdper_run_list = []
+            for model_name in ALL_MODEL_NAMES_WITH_GPT_4_BASE:
+                df_list_model = [
+                    df
+                    for df in df_list_scenario
+                    if df["model_name"].unique()[0] == model_name
+                ]
+                # Mean escalation score within each run
+                run_mean_scores = [(np.mean(df["total"])) for df in df_list_model]
+                mean_per_run_list.append(np.mean(run_mean_scores))
+                stdper_run_list.append(variance_estimator(run_mean_scores))
+
+            for i, model_name in enumerate(ALL_MODEL_NAMES_WITH_GPT_4_BASE):
+                score_mean = mean_per_run_list[i]
+                score_std = stdper_run_list[i]
+                score_mean_str = f"{score_mean:.2f}"
+                score_std_str = f"{score_std:.2f}"
+                if score_mean == max(mean_per_run_list):
+                    score_mean_str = r"\textbf{" + score_mean_str + "}"
+                    score_std_str = r"\textbf{" + score_std_str + "}"
+
+                print(
+                    rf"{scenario:11s} | {model_name:12s} | {score_mean_str} $\pm$ {score_std_str}"
+                )
+
+        print(
+            "\nLatex Table of beginning, middle, and end escalation scores (t=1, 8, 14)"
+        )
+        # Print header
+        print(
+            r"    \begin{tabularx}{0.85\textwidth}{|c|c|X|X|X|} \hline"
+            "\n"
+            r"    \textbf{Scenario} & \textbf{Model} & \textbf{Escalation Score \newline Beginning ($t=1$)} & \textbf{Escalation Score \newline Middle ($t=8$)} & \textbf{Escalation Score \newline End ($t=14$)} \\ \hline"
+        )
+        gpt_4_base_rows = ""
+        for scenario in ALL_SCENARIOS:
+            df_list_scenario = [
+                df for df in dfs_list if df["scenario"].unique()[0] == scenario
+            ]
+            for model_name in ALL_MODEL_NAMES_WITH_GPT_4_BASE:
+                df_list_model = [
+                    df
+                    for df in df_list_scenario
+                    if df["model_name"].unique()[0] == model_name
+                ]
+                # Filter by day=1, 8, 14 and print mean and std ES across the 10 runs
+                mean_mean_str_std_str: list[tuple[float, str, str]] = []
+                for day in [1, 8, 14]:
+                    df_list_day = [df[df["day"] == day] for df in df_list_model]
+                    assert (
+                        len(df_list_day) == 10
+                    ), f"len(df_list_day) = {len(df_list_day)}"
+                    # Mean escalation score within each run
+                    run_mean_scores = [(np.mean(df["total"])) for df in df_list_day]
+                    mean = np.mean(run_mean_scores)
+                    std = variance_estimator(run_mean_scores)
+                    mean_str = f"{mean:.2f}"
+                    std_str = f"{std:.2f}"
+                    mean_mean_str_std_str.append((mean, mean_str, std_str))
+                # Print full row, bolding the cell with the highest mean
+                max_mean = max(mean_mean_str_std_str, key=lambda x: x[0])[0]
+                scenario_str = scenario
+                if "GPT-4" not in model_name:
+                    # Only print scenario once per group
+                    scenario_str = ""
+                row = f"    {scenario_str:15s} & {model_name:12s}"
+                for mean, mean_str, std_str in mean_mean_str_std_str:
+                    if mean == max_mean:
+                        mean_str = r"\textbf{" + mean_str
+                        std_str = std_str + "}"
+                    # Underline second highest
+                    elif mean == sorted(mean_mean_str_std_str)[-2][0]:
+                        mean_str = r"\underline{" + mean_str
+                        std_str = std_str + "}"
+                    row += rf" & {mean_str:13s} $\pm$ {std_str:6s}"
+                row += r" \\[2.5pt]"
+                # Save GPT-4-base to the end
+                if model_name == "GPT-4-Base":
+                    gpt_4_base_rows += row + "\n"
+                else:
+                    print(row)
+            print(r"    \hline")
+        print(
+            r"    \hline" + "\n" + gpt_4_base_rows + r"    \hline"
+            "\n"
+            r"    \end{tabularx}"
+        )
+        print("\n")
+
         return
 
     for scenario in ALL_SCENARIOS:
@@ -316,7 +320,7 @@ def main() -> None:
             del title
 
         # 3. grid of scores over time and differences over time
-        elif PLOT_NUMBER_TO_CREATE >= 3:
+        elif PLOT_NUMBER_TO_CREATE in [3, 4]:
             initialize_plot_default()
             # Calculate day-to-day differences
             df_scenario["daily_difference"] = (
@@ -529,8 +533,93 @@ def main() -> None:
                 plt.clf()
                 del title
 
+    # 5x3 rows of all models all scenarios showing individual runs
+    if PLOT_NUMBER_TO_CREATE == 5:
+        initialize_plot_default()
 
-def load_json_data(filepath: str, color: str = "") -> pd.DataFrame:
+        _, axes = plt.subplots(nrows=5, ncols=3, figsize=(12, 16.5))
+        plt.subplots_adjust(wspace=0.0, hspace=0.0)
+        plt.suptitle(
+            "Escalation Scores for All Runs Over Time",
+            # y=0.95,
+        )
+
+        for i, model in enumerate(ALL_MODEL_NAMES_WITH_GPT_4_BASE):
+            # Define the color for the current model
+            model_color = MODELS_TO_COLORS.get(
+                model, "black"
+            )  # Default to black if model not in dictionary
+
+            # Plot average escalation score in the first column
+            plt.rcParams["lines.marker"] = ""
+            # Create a palette where the hue and lightness vary across 10 discrete values
+            color_husl = husl.rgb_to_husl(*model_color)
+            hue = color_husl[0]
+            hue_constant = 8
+            lightness_constant = 6
+            husl_list = [
+                (
+                    hue + hue_constant * (i - 5),
+                    99,
+                    70 - lightness_constant * i,
+                )  # saturation,  # 1.0,
+                for i in range(10)
+            ]
+            rgb_list = [husl.husl_to_rgb(*x) for x in husl_list]
+            palette_runs = sns.color_palette(rgb_list)
+
+            df_model = pd.concat(dfs_list).query(f"model_name == '{model}'")
+
+            for j, scenario in enumerate(ALL_SCENARIOS):
+                # Filter data for the current model and scenario
+                df_model_scenario = df_model.query(f"scenario == '{scenario}'")
+
+                sns.lineplot(
+                    ax=axes[i, j],
+                    x="day",
+                    y="total",
+                    hue="run_index",
+                    data=df_model_scenario,
+                    palette=palette_runs,
+                    markers=None,
+                    errorbar=None,
+                    alpha=0.3,
+                    # alpha=1.0,
+                    legend=False,
+                    linewidth=2,
+                    # linewidth=5,
+                )
+                sns.lineplot(
+                    ax=axes[i, j],
+                    x="day",
+                    y="total",
+                    data=df_model_scenario,
+                    color=model_color,
+                    linewidth=6,
+                    errorbar=None,
+                    label=f"{model} ({scenario})",
+                )
+                # legend in upper left
+                axes[i, j].legend(
+                    loc="upper left",
+                )
+                axes[i, j].set_xlabel(TIMELABEL_DEFAULT)
+                ylabel = "Escalation Score ←" if j == 0 else ""
+                axes[i, j].set_ylabel(ylabel)
+                axes[i, j].set_ylim(-1.25, 44)
+                ticks = list(range(2, 15, 2))
+                axes[i, j].set_xticks(ticks)
+                axes[i, j].set_xticklabels(ticks)
+
+        title = "es_individual_runs_all_" + file_eval_type
+        plt.tight_layout()
+        save_plot(OUTPUT_DIR, title)
+        plt.close()
+        plt.clf()
+        del title
+
+
+def load_json_data(filepath: str) -> pd.DataFrame:
     """Load the JSON of an escalation eval into a dataframe with [day, total] columns."""
     with open(filepath, encoding="utf-8") as file:
         json_data = json.load(file)
