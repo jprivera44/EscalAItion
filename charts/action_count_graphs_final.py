@@ -39,7 +39,7 @@ OUTPUT_DIR_ACTIONS_OVER_TIME = "./actions_over_time"
 OUTPUT_DIR_SEVERITY_BY_MODEL = "./severity_by_model"
 OUTPUT_DIR_DISTRIBUTIONS_ALL_ACTIONS = "./distributions_all_actions"
 
-PLOT_NUMBER_TO_CREATE = 8  # -1 to create all plots
+PLOT_NUMBER_TO_CREATE = 0  # -1 to create all plots
 
 LABEL_MAX_LENGTH = 26
 
@@ -95,6 +95,28 @@ def main() -> None:
         .groupby(["model_name", "severity"], observed=True)
         .size()
     )
+
+    # Calculate the average number of nuclear actions and the average number of message actions by GPT-4-Base
+    dfs_list_gpt4base = [
+        df for df in dfs_list if df["model_name"].unique()[0] == "GPT-4-Base"
+    ]
+    # Nuclear actions have "nuclear strike" or "nuclear attack" in the lowercased "action" column
+    dfs_list_gpt4base_nuclear = [
+        df.loc[
+            df["action"].str.lower().str.contains("nuclear strike")
+            | df["action"].str.lower().str.contains("nuclear attack")
+        ]
+        for df in dfs_list_gpt4base
+    ]
+    # Message actions have "message" in the lowercased "action" column
+    dfs_list_gpt4base_message = [
+        df.loc[df["action"].str.lower().str.contains("message")]
+        for df in dfs_list_gpt4base
+    ]
+    print("Average number of nuclear actions per nation for GPT-4-Base:")
+    print(np.mean([len(df) for df in dfs_list_gpt4base_nuclear]) / 8.0)
+    print("Average number of message actions per nation for GPT-4-Base:")
+    print(np.mean([len(df) for df in dfs_list_gpt4base_message]) / 8.0)
 
     # For each scenario, for each model name, print out the % of actions that are each severity
     for scenario in ALL_SCENARIOS:
